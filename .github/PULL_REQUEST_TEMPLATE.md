@@ -1,3 +1,7 @@
+### 이슈 번호
+
+Nexters/covid-letter-web#
+
 ### 작업 분류
 
 -   [ ] 버그 수정
