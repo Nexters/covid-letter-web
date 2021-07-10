@@ -16,16 +16,19 @@ echo Issue number: $issue_number
 
 number_re='^[0-9]+$'
 issue_re='#[0-9]+'
-issue_prefix='Nexters'
+issue_repo='covid-letter-web'
+org_name='Nexters'
 
-if [[ $first_line =~ $issue_prefix ]]; then
+if [[ $first_line =~ $org_name ]]; then
 # 커밋 첫번째 라인이 [Nexters~] 와 같이 수동으로 입력 되었을때 수정하지 않음
     echo 커밋 메세지에 수동으로 이슈를 입력
 elif [[ $first_line =~ $issue_re ]]; then
 # 커밋 첫번째 라인이 "#number 메세지" 와 같은 형식을 가질 때 
     manual_issue_number=`echo ${first_line} | cut -f2 -d '#' | cut -f1 -d ' '`
-    sed -i.bak "1s/#${manual_issue_number}/[$issue_prefix#$manual_issue_number] /" $COMMIT_MSG_FILE
+    sed -i.bak "1s/#${manual_issue_number}/[$org_name\/$issue_repo#$manual_issue_number] /" $COMMIT_MSG_FILE
 elif [[ $issue_number =~ $number_re ]]; then
 # 이 외에 branch 에 issue number가 있을 때
-    sed -i.bak "1s/^/[$issue_prefix#$issue_number] /" $COMMIT_MSG_FILE
+    replace_first_line="${first_line////\/}"
+    echo commit_msg: replace_first_line
+    sed -i.bak "1s/$replace_first_line/[$org_name\/$issue_repo#$issue_number] $replace_first_line/" $COMMIT_MSG_FILE
 fi
