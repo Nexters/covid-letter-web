@@ -16,7 +16,7 @@ echo Issue number: $issue_number
 
 number_re='^[0-9]+$'
 issue_re='#[0-9]+'
-issue_prefix='Nexters'
+issue_prefix='Nexters/covid-letter-web'
 
 if [[ $first_line =~ $issue_prefix ]]; then
 # 커밋 첫번째 라인이 [Nexters~] 와 같이 수동으로 입력 되었을때 수정하지 않음
