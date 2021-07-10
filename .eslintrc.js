@@ -3,6 +3,7 @@ module.exports = {
         browser: true,
         commonjs: true,
         es2021: true,
+        jest: true,
     },
     extends: [
         'next',
@@ -38,5 +39,6 @@ module.exports = {
             },
         ],
         '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'no-undef': 'off',
     },
 }
