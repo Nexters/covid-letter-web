@@ -8,8 +8,8 @@
         "start": "next start",
         "lint": "next lint",
         "prettier:fix": "prettier '**/*.{json,yaml}' --write",
-        "test": "jest",
-        "test:watch": "jest --watch"
+        "test": "jest --config=jest.config.js",
+        "test:watch": "jest --config=jest.config.js --watch"
     },
     "dependencies": {
         "core-js": "^3.15.2",
@@ -26,6 +26,7 @@
         "@types/jest": "^26.0.24",
         "@types/node": "^16.3.1",
         "@types/react": "17.0.14",
+        "@types/react-dom": "^17.0.9",
         "@typescript-eslint/eslint-plugin": "^4.28.2",
         "@typescript-eslint/parser": "^4.28.2",
         "babel-jest": "^27.0.6",
