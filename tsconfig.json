@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
+        "target": "esnext",
+        "lib": ["dom", "es2017", "es2020.promise"],
         "allowJs": true,
         "skipLibCheck": true,
         "strict": true,
@@ -12,9 +12,19 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "jsx": "preserve"
+        "jsx": "preserve",
+        "baseUrl": "src",
+        "paths": {
+            "$components/*": ["components/*"],
+            "$utils/*": ["utils/*"]
+        },
+        "typeRoots": ["./node_modules/@types"],
+        "types": ["jest", "react"],
+        "allowSyntheticDefaultImports": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
     },
     "compileOnSave": true,
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "dist", ".next", "next.config.js", "__tests__"]
 }

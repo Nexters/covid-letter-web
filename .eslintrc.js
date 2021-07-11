@@ -3,11 +3,12 @@ module.exports = {
         browser: true,
         commonjs: true,
         es2021: true,
+        jest: true,
     },
     extends: [
+        'eslint:recommended',
         'next',
         'next/core-web-vitals',
-        'eslint:recommended',
         'plugin:react/recommended',
         'plugin:@typescript-eslint/recommended',
     ],
@@ -38,5 +39,6 @@ module.exports = {
             },
         ],
         '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'no-undef': 'off',
     },
 }
