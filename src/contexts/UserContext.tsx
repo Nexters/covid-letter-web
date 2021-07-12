@@ -1,5 +1,5 @@
 import {User} from '$types/response/user'
-import {createContext, ReactNode, useMemo} from 'react'
+import {createContext, ReactNode, useContext, useMemo} from 'react'
 import useRequest from 'hooks/useRequest'
 
 interface UserContextState {
@@ -36,4 +36,14 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
     )
 
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>
+}
+
+export const useUserContext = () => {
+    const context = useContext(UserContext)
+
+    if (!context) {
+        throw new Error(`You need to wrap UserProvider.`)
+    }
+
+    return context
 }

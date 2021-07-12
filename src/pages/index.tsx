@@ -1,13 +1,9 @@
-import {User} from '$types/response/user'
-import useRequest from 'hooks/useRequest'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import ErrorBoundary, {FallbackProps} from '$components/ErrorBoundary'
 import Example from '$components/Example'
-import useAsyncError from 'hooks/useAsyncError'
-import {useContext, useEffect} from 'react'
-import {UserContext} from 'contexts/userContext'
+import {useUserContext} from 'contexts/userContext'
 
 const Fallback = ({error}: FallbackProps) => {
     return (
@@ -18,28 +14,7 @@ const Fallback = ({error}: FallbackProps) => {
 }
 
 export default function Home() {
-    // const {data, error} = useRequest<User>({
-    //     url: '/user',
-    //     params: {
-    //         ok: 1,
-    //     },
-    // })
-
-    // const throwError = useAsyncError()
-
-    // if (error) {
-    //     throwError(error)
-    // }
-
-    // if (!data) {
-    //     return <div>Loading...</div>
-    // }
-
-    // const {
-    //     result: {name, age},
-    // } = data
-
-    const {user} = useContext(UserContext)
+    const {user} = useUserContext()
 
     if (!user) return <div>Loading...</div>
 
