@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import App, {AppContext, AppInitialProps} from 'next/app'
+import App, {AppInitialProps} from 'next/app'
 import React, {ErrorInfo} from 'react'
 import {SWRConfig} from 'swr'
 import {
@@ -8,10 +8,23 @@ import {
 } from '$utils/fetcher/ApiError'
 import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
+import ErrorPage from 'next/error'
 
 type AppProps = AppInitialProps
 
+interface State {
+    error: Error | null
+}
+
 class Page extends App<AppProps> {
+    state: State = {
+        error: null,
+    }
+
+    static getDerivedStateFromError(error: Error) {
+        return {error}
+    }
+
     componentDidCatch(error: Error, __: ErrorInfo) {
         /** add common error */
         if (
@@ -24,6 +37,11 @@ class Page extends App<AppProps> {
 
     render() {
         const {Component, pageProps} = this.props
+        const {error} = this.state
+
+        if (error) {
+            return <ErrorPage statusCode={500} />
+        }
 
         return (
             <>

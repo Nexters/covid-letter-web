@@ -5,6 +5,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import ErrorBoundary, {FallbackProps} from '$components/ErrorBoundary'
 import Example from '$components/Example'
+import useAsyncError from 'hooks/useAsyncError'
 
 const Fallback = ({error}: FallbackProps) => {
     return (
@@ -22,8 +23,10 @@ export default function Home() {
         },
     })
 
+    const throwError = useAsyncError()
+
     if (error) {
-        throw error
+        throwError(error)
     }
 
     if (!data) {
