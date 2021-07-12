@@ -5,7 +5,7 @@ import {
 import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import {Component, ErrorInfo, ReactNode} from 'react'
 
-interface FallbackProps {
+export interface FallbackProps {
     error: Error
 }
 
