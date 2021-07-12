@@ -21,7 +21,8 @@
             "$constants": ["constants/index"],
             "$config/*": ["config/*"],
             "$config": ["config/index"],
-            "$types/*": ["types/*"]
+            "$types/*": ["types/*"],
+            "$hooks/*": ["hooks/*"]
         },
         "typeRoots": ["./node_modules/@types"],
         "types": ["jest", "react"],

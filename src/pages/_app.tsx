@@ -9,6 +9,7 @@ import {
 import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
+import {UserProvider} from 'contexts/userContext'
 
 type AppProps = AppInitialProps
 
@@ -54,7 +55,9 @@ class Page extends App<AppProps> {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <SWRConfig value={{revalidateOnFocus: false}}>
-                    <Component {...pageProps} />
+                    <UserProvider>
+                        <Component {...pageProps} />
+                    </UserProvider>
                 </SWRConfig>
             </>
         )

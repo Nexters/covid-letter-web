@@ -23,7 +23,7 @@ const Example = () => {
         try {
             e.preventDefault()
 
-            const response = await withAxios<User>({
+            await withAxios<User>({
                 url: '/user',
                 params: {
                     ok: 0,

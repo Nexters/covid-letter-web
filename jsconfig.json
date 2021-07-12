@@ -8,7 +8,8 @@
             "$constants": ["constants/index"],
             "$config/*": ["config/*"],
             "$config": ["config/index"],
-            "$types/*": ["types/*"]
+            "$types/*": ["types/*"],
+            "$hooks/*": ["hooks/*"]
         }
     },
     "include": ["src"]

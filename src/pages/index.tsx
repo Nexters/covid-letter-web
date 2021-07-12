@@ -6,6 +6,8 @@ import styles from '../styles/Home.module.css'
 import ErrorBoundary, {FallbackProps} from '$components/ErrorBoundary'
 import Example from '$components/Example'
 import useAsyncError from 'hooks/useAsyncError'
+import {useContext, useEffect} from 'react'
+import {UserContext} from 'contexts/userContext'
 
 const Fallback = ({error}: FallbackProps) => {
     return (
@@ -16,26 +18,32 @@ const Fallback = ({error}: FallbackProps) => {
 }
 
 export default function Home() {
-    const {data, error} = useRequest<User>({
-        url: '/user',
-        params: {
-            ok: 1,
-        },
-    })
+    // const {data, error} = useRequest<User>({
+    //     url: '/user',
+    //     params: {
+    //         ok: 1,
+    //     },
+    // })
 
-    const throwError = useAsyncError()
+    // const throwError = useAsyncError()
 
-    if (error) {
-        throwError(error)
-    }
+    // if (error) {
+    //     throwError(error)
+    // }
 
-    if (!data) {
-        return <div>Loading...</div>
-    }
+    // if (!data) {
+    //     return <div>Loading...</div>
+    // }
 
-    const {
-        result: {name, age},
-    } = data
+    // const {
+    //     result: {name, age},
+    // } = data
+
+    const {user} = useContext(UserContext)
+
+    if (!user) return <div>Loading...</div>
+
+    const {name, age} = user
 
     return (
         <>
