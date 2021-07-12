@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import {RESPONSE} from '$constants/index'
+import {RESPONSE} from '$constants'
 import {Response} from '$types/response'
 import {User} from '$types/response/user'
 import type {NextApiRequest, NextApiResponse} from 'next'

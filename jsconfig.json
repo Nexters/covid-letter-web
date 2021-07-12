@@ -5,7 +5,9 @@
             "$components/*": ["components/*"],
             "$utils/*": ["utils/*"],
             "$constants/*": ["constants/*"],
+            "$constants": ["constants/index"],
             "$config/*": ["config/*"],
+            "$config": ["config/index"],
             "$types/*": ["types/*"]
         }
     },

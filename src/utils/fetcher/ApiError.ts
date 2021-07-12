@@ -1,4 +1,4 @@
-import {RESPONSE} from '$constants/index'
+import {RESPONSE} from '$constants'
 import {ResponseCode} from '$types/response'
 
 export class ApiError extends Error {

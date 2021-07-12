@@ -1,5 +1,5 @@
 import {AxiosResponse} from 'axios'
-import {RESPONSE} from '$constants/index'
+import {RESPONSE} from '$constants'
 import {Response} from '$types/response'
 import {CommonApiError, RedirectArror} from './ApiError'
 
