@@ -40,5 +40,6 @@ module.exports = {
         ],
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         'no-undef': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
     },
 }

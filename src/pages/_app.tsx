@@ -1,7 +1,22 @@
 import '../styles/globals.css'
-import type {AppProps} from 'next/app'
+import App, {AppInitialProps} from 'next/app'
+import React from 'react'
+import {SWRConfig} from 'swr'
+import ErrorBoundary from '$components/ErrorBoundary'
 
-function MyApp({Component, pageProps}: AppProps) {
-    return <Component {...pageProps} />
+type AppProps = AppInitialProps
+
+class Page extends App<AppProps> {
+    render() {
+        const {Component, pageProps} = this.props
+
+        return (
+            <ErrorBoundary>
+                <SWRConfig value={{revalidateOnFocus: false}}>
+                    <Component {...pageProps} />
+                </SWRConfig>
+            </ErrorBoundary>
+        )
+    }
 }
-export default MyApp
+export default Page

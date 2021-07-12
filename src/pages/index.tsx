@@ -1,8 +1,28 @@
+import {User} from '$types/response/user'
+import useRequest from 'hooks/useRequest'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import {Response} from '$types/response'
 
 export default function Home() {
+    const {data, error} = useRequest<Response<User>>({
+        url: '/user',
+    })
+
+    if (error) {
+        throw error
+    }
+
+    if (!data) {
+        return <div>Loading...</div>
+    }
+
+    const {
+        result: {name, age},
+    } = data
+
+    return <div>{name}</div>
     return (
         <div className={styles.container}>
             <Head>

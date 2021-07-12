@@ -3,7 +3,10 @@
         "baseUrl": "src",
         "paths": {
             "$components/*": ["components/*"],
-            "$utils/*": ["utils/*"]
+            "$utils/*": ["utils/*"],
+            "$constants/*": ["constants/*"],
+            "$config/*": ["config/*"],
+            "$types/*": ["types/*"]
         }
     },
     "include": ["src"]

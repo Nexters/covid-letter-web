@@ -16,7 +16,10 @@
         "baseUrl": "src",
         "paths": {
             "$components/*": ["components/*"],
-            "$utils/*": ["utils/*"]
+            "$utils/*": ["utils/*"],
+            "$constants/*": ["constants/*"],
+            "$config/*": ["config/*"],
+            "$types/*": ["types/*"]
         },
         "typeRoots": ["./node_modules/@types"],
         "types": ["jest", "react"],
