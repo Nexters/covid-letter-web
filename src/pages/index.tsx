@@ -8,7 +8,11 @@ import ErrorBoundary, {FallbackProps} from '$components/ErrorBoundary'
 import Example from '$components/Example'
 
 const Fallback = ({error}: FallbackProps) => {
-    return <h3>Fallback Error! {error.message}</h3>
+    return (
+        <h4 style={{backgroundColor: '#f7c5c5', padding: '10px 15px'}}>
+            Fallback Error! {error.message}
+        </h4>
+    )
 }
 
 export default function Home() {
@@ -32,12 +36,14 @@ export default function Home() {
     } = data
 
     return (
-        <ErrorBoundary fallback={Fallback}>
+        <>
             <div>
                 name: {name} | age: {age}
             </div>
-            <Example />
-        </ErrorBoundary>
+            <ErrorBoundary withChildren fallback={Fallback}>
+                <Example />
+            </ErrorBoundary>
+        </>
     )
     return (
         <div className={styles.container}>

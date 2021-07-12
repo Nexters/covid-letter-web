@@ -1,10 +1,13 @@
 import {RequestConfig} from '$types/request'
+import {Response} from '$types/response'
 import {isSSR} from '$utils/env'
-import axios from 'axios'
+import axios, {AxiosResponse} from 'axios'
 import {HOST_URL} from 'config'
 import {AuthInterceptor} from './AuthInterceptor'
 
-export const withAxios = async (request: RequestConfig) => {
+export const withAxios = async <T>(
+    request: RequestConfig,
+): Promise<AxiosResponse<Response<T>>> => {
     const instance = axios.create()
     instance.interceptors.response.use(AuthInterceptor)
 

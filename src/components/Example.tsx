@@ -1,25 +1,29 @@
 import {User} from '$types/response/user'
-import useRequest from 'hooks/useRequest'
-import {Response} from '$types/response'
+import {withAxios} from '$utils/fetcher/withAxios'
+import React from 'react'
+import useAsyncError from 'hooks/useAsyncError'
 
 const Example = () => {
-    const {data, error} = useRequest<Response<User>>({
-        url: '/user',
-        params: {
-            ok: 0,
-        },
-    })
+    const throwError = useAsyncError()
 
-    if (error) throw error
-    if (!data) return <div>Child Loading...</div>
+    const handleClick = async (e: React.SyntheticEvent) => {
+        try {
+            e.preventDefault()
 
-    const {
-        result: {name},
-    } = data
+            const response = await withAxios<User>({
+                url: '/user',
+                params: {
+                    ok: 0,
+                },
+            })
+        } catch (error) {
+            throwError(error)
+        }
+    }
     return (
         <div>
             <h3>Child</h3>
-            <p>name: {name}</p>
+            <button onClick={handleClick}>fetch data</button>
         </div>
     )
 }

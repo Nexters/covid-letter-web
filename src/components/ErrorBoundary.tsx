@@ -12,6 +12,7 @@ export interface FallbackProps {
 interface Props {
     fallback: (args: FallbackProps) => ReactNode
     children: ReactNode
+    withChildren?: boolean
 }
 
 interface State {
@@ -25,6 +26,7 @@ export default class ErrorBoundary extends Component<Props, State> {
     }
 
     static getDerivedStateFromError(error: Error) {
+        console.log(error)
         return {error}
     }
 
@@ -39,8 +41,15 @@ export default class ErrorBoundary extends Component<Props, State> {
 
     render() {
         const {error} = this.state
-        const {children, fallback} = this.props
+        const {children, fallback, withChildren = false} = this.props
 
-        return error ? fallback({error}) : children
+        return error ? (
+            <>
+                {fallback({error})}
+                {withChildren && children}
+            </>
+        ) : (
+            children
+        )
     }
 }
