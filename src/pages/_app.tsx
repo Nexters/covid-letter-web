@@ -7,6 +7,7 @@ import {
     isInstanceOfRedirectArror,
 } from '$utils/fetcher/ApiError'
 import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
+import Head from 'next/head'
 
 type AppProps = AppInitialProps
 
@@ -25,9 +26,19 @@ class Page extends App<AppProps> {
         const {Component, pageProps} = this.props
 
         return (
-            <SWRConfig value={{revalidateOnFocus: false}}>
-                <Component {...pageProps} />
-            </SWRConfig>
+            <>
+                <Head>
+                    <title>Covid Letter Web</title>
+                    <meta
+                        name="viewport"
+                        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"
+                    />
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
+                <SWRConfig value={{revalidateOnFocus: false}}>
+                    <Component {...pageProps} />
+                </SWRConfig>
+            </>
         )
     }
 }
