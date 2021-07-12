@@ -1,8 +1,16 @@
-import {isInstanceOfCommonApiError} from '$utils/fetcher/ApiError'
+import {
+    isInstanceOfCommonApiError,
+    isInstanceOfRedirectArror,
+} from '$utils/fetcher/ApiError'
 import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import {Component, ErrorInfo, ReactNode} from 'react'
 
+interface FallbackProps {
+    error: Error
+}
+
 interface Props {
+    fallback: (args: FallbackProps) => ReactNode
     children: ReactNode
 }
 
@@ -21,15 +29,18 @@ export default class ErrorBoundary extends Component<Props, State> {
     }
 
     componentDidCatch(error: Error, __: ErrorInfo) {
-        if (isInstanceOfCommonApiError(error)) {
+        if (
+            isInstanceOfCommonApiError(error) ||
+            isInstanceOfRedirectArror(error)
+        ) {
             return apiErrorHandler(error)
         }
     }
 
     render() {
         const {error} = this.state
-        const {children} = this.props
+        const {children, fallback} = this.props
 
-        return error ? <div>Error Occur!</div> : children
+        return error ? fallback({error}) : children
     }
 }

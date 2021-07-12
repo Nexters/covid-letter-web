@@ -1,7 +1,7 @@
 import {AxiosResponse} from 'axios'
 import {RESPONSE} from '$constants/index'
 import {Response} from '$types/response'
-import {CommonApiError} from './ApiError'
+import {CommonApiError, RedirectArror} from './ApiError'
 
 /**
  * @todo 회원 인증 에러 추가
@@ -13,6 +13,10 @@ export function AuthInterceptor<T>(
 
     if (code === RESPONSE.ERROR) {
         throw new CommonApiError()
+    }
+
+    if (code === RESPONSE.REDIRECT) {
+        throw new RedirectArror()
     }
 
     return res

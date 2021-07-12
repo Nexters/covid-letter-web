@@ -1,20 +1,26 @@
 import {isSSR} from '$utils/env'
-import {CommonApiError, isInstanceOfCommonApiError} from './ApiError'
+import {
+    CommonApiError,
+    isInstanceOfCommonApiError,
+    isInstanceOfRedirectArror,
+} from './ApiError'
 
 export function apiErrorHandler(e: CommonApiError) {
-    if (!isInstanceOfCommonApiError(e)) {
+    if (!isInstanceOfCommonApiError(e) && !isInstanceOfRedirectArror(e)) {
         throw e
     }
 
-    if (isSSR) {
-        throw new Error('apiErrorHandler는 클라이언트에서 사용 가능합니다.')
+    if (isInstanceOfRedirectArror(e)) {
+        if (isSSR) {
+            throw new Error('apiErrorHandler는 클라이언트에서 사용 가능합니다.')
+        }
+
+        const redirectUrl = e.redirect
+
+        if (!redirectUrl) {
+            throw new Error('Api Error에 redirect 메서드가 필요합니다.')
+        }
+
+        window.location.replace(redirectUrl())
     }
-
-    const redirectUrl = e.redirect
-
-    if (!redirectUrl) {
-        throw new Error('Api Error에 redirect 메서드가 필요합니다.')
-    }
-
-    window.location.replace(redirectUrl(window.location.href))
 }

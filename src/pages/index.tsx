@@ -4,10 +4,15 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {Response} from '$types/response'
+import ErrorBoundary from '$components/ErrorBoundary'
+import Example from '$components/Example'
 
 export default function Home() {
     const {data, error} = useRequest<Response<User>>({
         url: '/user',
+        params: {
+            ok: 1,
+        },
     })
 
     if (error) {
@@ -22,7 +27,17 @@ export default function Home() {
         result: {name, age},
     } = data
 
-    return <div>{name}</div>
+    return (
+        <ErrorBoundary
+            fallback={({error: fallbackError}) => (
+                <div>Fallback Error! {fallbackError.message}</div>
+            )}>
+            <div>
+                name: {name} | age: {age}
+            </div>
+            <Example />
+        </ErrorBoundary>
+    )
     return (
         <div className={styles.container}>
             <Head>
