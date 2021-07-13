@@ -42,6 +42,10 @@ const Main = () => {
         }
     }
 
+    const goPageOne = () => {
+        Router.push('/post/1')
+    }
+
     const {
         result: {
             response: {name, gender, age, email},
@@ -55,6 +59,7 @@ const Main = () => {
             <p>연령대 : {age}</p>
             <p>이메일: {email}</p>
             <Button onClick={logout}>로그아웃</Button>
+            <Button onClick={goPageOne}>goPageOne</Button>
         </div>
     )
 }
