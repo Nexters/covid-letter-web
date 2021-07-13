@@ -3,7 +3,11 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import ErrorBoundary, {FallbackProps} from '$components/ErrorBoundary'
 import Example from '$components/Example'
-import {useUserContext} from 'contexts/userContext'
+import {useUserContext} from '$contexts/UserContext'
+import Button from '$components/Button'
+import {withAxios} from '$utils/fetcher/withAxios'
+import {HOST_URL} from '$config'
+import {AuthorizeResponse} from '$types/login/naver'
 
 const Fallback = ({error}: FallbackProps) => {
     return (
@@ -13,12 +17,27 @@ const Fallback = ({error}: FallbackProps) => {
     )
 }
 
-export default function Home() {
+function Home() {
     const {user} = useUserContext()
 
     if (!user) return <div>Loading...</div>
 
     const {name, age} = user
+
+    const handleLogin = async () => {
+        const res = await withAxios<AuthorizeResponse>({
+            url: '/login/authorize',
+            method: 'get',
+            params: {
+                redirect_uri: encodeURIComponent(`${HOST_URL}/`),
+            },
+        })
+
+        const {result} = res.data
+
+        const {redirectUrl} = result
+        window.location.replace(redirectUrl)
+    }
 
     return (
         <>
@@ -27,6 +46,7 @@ export default function Home() {
             </div>
             <ErrorBoundary withChildren fallback={Fallback}>
                 <Example />
+                <Button onClick={handleLogin}>네이버로 로그인</Button>
             </ErrorBoundary>
         </>
     )
@@ -109,3 +129,5 @@ export default function Home() {
         </div>
     )
 }
+
+export default Home

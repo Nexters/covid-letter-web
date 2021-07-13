@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import App, {AppInitialProps} from 'next/app'
+import App, {AppContext, AppInitialProps} from 'next/app'
 import React, {ErrorInfo} from 'react'
 import {SWRConfig} from 'swr'
 import {
@@ -9,7 +9,7 @@ import {
 import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
-import {UserProvider} from 'contexts/userContext'
+import {UserProvider} from '$contexts/UserContext'
 
 type AppProps = AppInitialProps
 
@@ -18,6 +18,23 @@ interface State {
 }
 
 class Page extends App<AppProps> {
+    static async getInitialProps({
+        ctx,
+        Component: {getInitialProps: getComponentIntialProps},
+    }: AppContext): Promise<AppProps> {
+        try {
+            const pageProps = await (getComponentIntialProps
+                ? getComponentIntialProps(ctx)
+                : Promise.resolve({}))
+            return {
+                pageProps,
+            }
+        } catch (e) {
+            return {
+                pageProps: {},
+            }
+        }
+    }
     state: State = {
         error: null,
     }
