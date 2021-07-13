@@ -21,10 +21,10 @@ jobs:
             ${{ runner.OS }}-
 
       - name: Install Dependencies
-        run: yarn install
+        run: npm install
 
       - name: Building application
-        run: yarn build
+        run: npm run build
 
       - name: Generate deployment package
         run: zip -r deploy.zip * .[^.]* -x "**node_modules**"
