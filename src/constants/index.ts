@@ -5,3 +5,9 @@ export const RESPONSE: {[key in string]: ResponseCode} = {
     ERROR: '99',
     REDIRECT: '01',
 }
+
+export enum GrantType {
+    create = 'authorization_code',
+    refresh = 'refresh_token',
+    delete = 'delete',
+}

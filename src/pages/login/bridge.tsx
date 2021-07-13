@@ -1,6 +1,7 @@
 import {RESPONSE} from '$constants'
 import ROUTES from '$constants/routes'
-import {GrandType, TokenResponse} from '$types/login/naver'
+import {GrantType} from '$constants'
+import {TokenResponse} from '$types/login/naver'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {NextPageContext} from 'next'
 import Router from 'next/router'
@@ -27,7 +28,7 @@ LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
             data: {
                 code,
                 state,
-                grant_type: GrandType.create,
+                grant_type: GrantType.create,
             },
         })
         const {

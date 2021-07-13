@@ -1,3 +1,5 @@
+import {GrantType} from '$constants'
+
 export interface AuthorizeRequest {
     redirect_uri: string
     response_type: 'code'
@@ -9,14 +11,8 @@ export interface AuthorizeResponse {
     redirectUrl: string
 }
 
-export enum GrandType {
-    create = 'authorization_code',
-    refresh = 'refresh_token',
-    delete = 'delete',
-}
-
 export interface TokenRequest {
-    grant_type: GrandType
+    grant_type: GrantType
     client_id: string
     client_secret: string
     code: string
