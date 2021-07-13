@@ -1,7 +1,7 @@
 const ROUTES = Object.freeze({
     ROOT: '/',
     LOGIN: {
-        MAIN: '/login',
+        MAIN: '/',
         BRIDGE: '/login/bridge',
     },
     MAIN: '/main',
