@@ -3,6 +3,7 @@ import App, {AppContext, AppInitialProps} from 'next/app'
 import React, {ErrorInfo} from 'react'
 import {SWRConfig} from 'swr'
 import {
+    isInstanceOfAccessTokenError,
     isInstanceOfCommonApiError,
     isInstanceOfRedirectArror,
 } from '$utils/fetcher/ApiError'
@@ -81,7 +82,8 @@ class Page extends App<AppProps> {
         /** add common error */
         if (
             isInstanceOfCommonApiError(error) ||
-            isInstanceOfRedirectArror(error)
+            isInstanceOfRedirectArror(error) ||
+            isInstanceOfAccessTokenError(error)
         ) {
             return apiErrorHandler(error)
         }

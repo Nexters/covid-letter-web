@@ -30,3 +30,32 @@ export interface TokenResponse {
     error?: string
     error_description?: string
 }
+
+export interface Profile {
+    id: string
+    nickname: string
+    name: string
+    email: string
+    gender: string
+    age: string
+    birthday: string
+    profile_image: string
+    birthyear: string
+    mobile: string
+}
+
+export interface ProfileResponse {
+    resultcode: string
+    message: string
+    response: Partial<Profile>
+}
+
+export interface VerifyResponse {
+    resultcode: string
+    message: string
+    response: {
+        token: string
+        expire_date: string
+        allowed_profile: string
+    }
+}

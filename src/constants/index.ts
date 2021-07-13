@@ -4,6 +4,7 @@ export const RESPONSE: {[key in string]: ResponseCode} = {
     NORMAL: '00',
     ERROR: '99',
     REDIRECT: '01',
+    INVALID_ACCESS_TOKEN: '024',
 }
 
 export const GrantType = {
