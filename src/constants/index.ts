@@ -6,8 +6,10 @@ export const RESPONSE: {[key in string]: ResponseCode} = {
     REDIRECT: '01',
 }
 
-export enum GrantType {
-    create = 'authorization_code',
-    refresh = 'refresh_token',
-    delete = 'delete',
-}
+export const GrantType = {
+    create: 'authorization_code',
+    refresh: 'refresh_token',
+    delete: 'delete',
+} as const
+
+export type GrantType = typeof GrantType[keyof typeof GrantType]
