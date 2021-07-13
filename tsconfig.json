@@ -16,13 +16,20 @@
         "baseUrl": "src",
         "paths": {
             "$components/*": ["components/*"],
-            "$utils/*": ["utils/*"]
+            "$utils/*": ["utils/*"],
+            "$constants/*": ["constants/*"],
+            "$constants": ["constants/index"],
+            "$config/*": ["config/*"],
+            "$config": ["config/index"],
+            "$types/*": ["types/*"],
+            "$hooks/*": ["hooks/*"]
         },
         "typeRoots": ["./node_modules/@types"],
         "types": ["jest", "react"],
         "allowSyntheticDefaultImports": true,
         "noUnusedLocals": true,
-        "noUnusedParameters": true
+        "noUnusedParameters": true,
+        "sourceMap": true
     },
     "compileOnSave": true,
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

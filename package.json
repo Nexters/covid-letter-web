@@ -3,20 +3,24 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "dev": "cross-env REACT_APP_ENV=local next dev",
         "build": "next build",
-        "start": "next start",
+        "build:local": "cross-env REACT_APP_ENV=local next build",
+        "start:local": "cross-env REACT_APP_ENV=local next start",
         "lint": "next lint",
         "prettier:fix": "prettier '**/*.{json,yaml}' --write",
         "test": "jest --config=jest.config.js",
         "test:watch": "jest --config=jest.config.js --watch"
     },
     "dependencies": {
+        "axios": "^0.21.1",
         "core-js": "^3.15.2",
+        "cross-env": "^7.0.3",
         "next": "11.0.1",
         "prettier": "^2.3.2",
         "react": "17.0.2",
-        "react-dom": "17.0.2"
+        "react-dom": "17.0.2",
+        "swr": "^0.5.6"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^5.14.1",
