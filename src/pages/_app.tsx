@@ -9,7 +9,7 @@ import {
 import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
-import {UserProvider} from 'contexts/userContext'
+import {UserProvider} from 'contexts/UserContext'
 
 type AppProps = AppInitialProps
 
