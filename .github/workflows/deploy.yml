@@ -50,5 +50,6 @@ jobs:
                   application_name: covid-letter
                   environment_name: production
                   region: ap-northeast-2
-                  version_label: 'covid-letter-${{ steps.format-time.outputs.replaced }}'
+                  version_label: ${{ steps.format-time.outputs.replaced }}
+                  use_existing_version_if_available: true
                   deployment_package: deploy.zip
