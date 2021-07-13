@@ -21,7 +21,7 @@ const routes = async (
 
         const state = generateToken()
 
-        req.cookies.state = state
+        req.headers.cookie = JSON.stringify({state})
 
         const {CLIENT_ID} = NAVER
 
