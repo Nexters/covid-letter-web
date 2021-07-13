@@ -2,11 +2,14 @@
     "name": "covid-letter-web",
     "version": "0.1.0",
     "private": true,
+    "engines": {
+        "node": "14.16.0"
+    },
     "scripts": {
         "dev": "cross-env REACT_APP_ENV=local next dev",
         "build": "next build",
         "build:local": "npm run clean && cross-env REACT_APP_ENV=local next build",
-        "start:local": "cross-env REACT_APP_ENV=local next start -p 8081",
+        "start:local": "cross-env REACT_APP_ENV=local next start -p 8080",
         "clean": "rm -rf .next",
         "lint": "next lint",
         "prettier:fix": "prettier '**/*.{json,yaml}' --write",
