@@ -1,8 +1,35 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import ErrorBoundary, {FallbackProps} from '$components/ErrorBoundary'
+import Example from '$components/Example'
+import {useUserContext} from 'contexts/UserContext'
+
+const Fallback = ({error}: FallbackProps) => {
+    return (
+        <h4 style={{backgroundColor: '#f7c5c5', padding: '10px 15px'}}>
+            Fallback Error! {error.message}
+        </h4>
+    )
+}
 
 export default function Home() {
+    const {user} = useUserContext()
+
+    if (!user) return <div>Loading...</div>
+
+    const {name, age} = user
+
+    return (
+        <>
+            <div>
+                name: {name} | age: {age}
+            </div>
+            <ErrorBoundary withChildren fallback={Fallback}>
+                <Example />
+            </ErrorBoundary>
+        </>
+    )
     return (
         <div className={styles.container}>
             <Head>

@@ -1,54 +1,54 @@
 name: Deploy
 on:
-  push:
-    branches:
-      - master
+    push:
+        branches:
+            - master
 
 jobs:
-  build:
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Checkout source code.
-        uses: actions/checkout@master
+    build:
+        runs-on: ubuntu-18.04
+        steps:
+            - name: Checkout source code.
+              uses: actions/checkout@master
 
-      - name: Cache node modules
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
+            - name: Cache node modules
+              uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.OS }}-build-
+                      ${{ runner.OS }}-
 
-      - name: Install Dependencies
-        run: npm install
+            - name: Install Dependencies
+              run: npm install
 
-      - name: Building application
-        run: npm run build
+            - name: Building application
+              run: npm run build:local
 
-      - name: Generate deployment package
-        run: zip -r deploy.zip * .[^.]* -x "**node_modules**"
+            - name: Generate deployment package
+              run: zip -r deploy.zip * .[^.]* -x "**node_modules**"
 
-      - name: Get timestamp
-        uses: gerred/actions/current-time@master
-        id: current-time
+            - name: Get timestamp
+              uses: gerred/actions/current-time@master
+              id: current-time
 
-      - name: Run string replace
-        uses: frabert/replace-string-action@master
-        id: format-time
-        with:
-          pattern: '[:\.]+'
-          string: "${{ steps.current-time.outputs.time }}"
-          replace-with: '-'
-          flags: 'g'
+            - name: Run string replace
+              uses: frabert/replace-string-action@master
+              id: format-time
+              with:
+                  pattern: '[:\.]+'
+                  string: '${{ steps.current-time.outputs.time }}'
+                  replace-with: '-'
+                  flags: 'g'
 
-      - name: Beanstalk Deploy for app
-        uses: einaregilsson/beanstalk-deploy@v10
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: covid-letter
-          environment_name: production
-          region: ap-northeast-2
-          version_label: "covid-letter-${{ steps.format-time.outputs.replaced }}"
-          deployment_package: deploy.zip
+            - name: Beanstalk Deploy for app
+              uses: einaregilsson/beanstalk-deploy@v10
+              with:
+                  aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  application_name: covid-letter
+                  environment_name: production
+                  region: ap-northeast-2
+                  version_label: 'covid-letter-${{ steps.format-time.outputs.replaced }}'
+                  deployment_package: deploy.zip
