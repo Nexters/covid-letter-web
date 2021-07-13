@@ -40,13 +40,13 @@ const routes = async (
 
         /** access_token 검증 실패 */
         if (resultcode !== RESPONSE.NORMAL) {
-            res.status(200).json(
-                createResponse(
-                    {} as ProfileResponse,
-                    RESPONSE.INVALID_ACCESS_TOKEN,
-                ),
-            )
-            return
+            throw {
+                response: {
+                    data: {
+                        resultcode: RESPONSE.INVALID_ACCESS_TOKEN,
+                    },
+                },
+            }
         }
 
         const {data: profileResult}: AxiosResponse<ProfileResponse> =
@@ -60,7 +60,18 @@ const routes = async (
 
         res.status(200).json(createResponse(profileResult))
     } catch (error) {
-        console.log(error)
+        const {resultcode} = error.response.data
+
+        /** access_token 검증 실패 */
+        if (resultcode !== RESPONSE.NORMAL) {
+            res.status(200).json(
+                createResponse(
+                    {} as ProfileResponse,
+                    RESPONSE.INVALID_ACCESS_TOKEN,
+                ),
+            )
+            return
+        }
         res.status(200).json(createErrorResponse({} as ProfileResponse))
     }
 }

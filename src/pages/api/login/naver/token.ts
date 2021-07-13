@@ -5,6 +5,7 @@ import {Response} from '$types/response'
 import {createErrorResponse, createResponse} from '$utils/fetcher/withAxios'
 import axios from 'axios'
 import {NextApiRequest, NextApiResponse} from 'next'
+import cookies from 'next-cookies'
 
 const getRequestData = (
     grant_type: GrantType,
@@ -45,8 +46,12 @@ const routes = async (
     >,
 ) => {
     const {grant_type} = req.body
+    const {access_token: cookieAccessToken = undefined} = cookies({req})
 
-    const requestData = getRequestData(grant_type, req.body)
+    const requestData = getRequestData(grant_type, {
+        ...req.body,
+        access_token: cookieAccessToken,
+    })
 
     const response = await axios.get(`https://nid.naver.com/oauth2.0/token`, {
         params: {
@@ -62,7 +67,10 @@ const routes = async (
     }
 
     /**
-     * @todo refresh_token DB 저장
+     * @todo
+     * 발급: refresh_token DB 저장
+     * 갱신: refresh_token 꺼내와서 token 갱신
+     * 삭제: refresh_token 삭제
      */
     const {access_token, expires_in} = response.data
 
