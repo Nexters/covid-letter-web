@@ -11,6 +11,8 @@ import Head from 'next/head'
 import ErrorPage from 'next/error'
 import {UserProvider} from '$contexts/UserContext'
 import ROUTES from '$constants/routes'
+import cookies from 'next-cookies'
+import Router from 'next/router'
 
 type AppProps = AppInitialProps
 
@@ -18,8 +20,16 @@ interface State {
     error: Error | null
 }
 
+type ACCESS_TOKEN = string | undefined
+
 const needToCheckCookiePath = (pathname: string) => {
-    return [ROUTES.MAIN].includes(pathname)
+    const needLogin = [ROUTES.MAIN].includes(pathname)
+    const needMain = [ROUTES.ROOT].includes(pathname)
+    return {
+        needToCheckCookie: needLogin || needMain,
+        redirectUrl: needLogin ? ROUTES.ROOT : ROUTES.MAIN,
+        compare: (v: ACCESS_TOKEN) => (needLogin ? !v : v),
+    }
 }
 
 class Page extends App<AppProps> {
@@ -28,14 +38,28 @@ class Page extends App<AppProps> {
         Component: {getInitialProps: getComponentIntialProps},
     }: AppContext): Promise<AppProps> {
         try {
-            const needToCheckCookie = needToCheckCookiePath(ctx.pathname)
+            const {at} = cookies(ctx)
+            const {needToCheckCookie, redirectUrl, compare} =
+                needToCheckCookiePath(ctx.pathname)
 
             if (needToCheckCookie) {
-                /** todo 토큰 검사 */
+                if (compare(at)) {
+                    if (ctx.req && ctx.res) {
+                        ctx.res!.writeHead(302, {Location: redirectUrl})
+                        ctx.res!.end()
+                    } else {
+                        Router.push(redirectUrl)
+                    }
+                }
             }
-            const pageProps = await (getComponentIntialProps
+            const props = await (getComponentIntialProps
                 ? getComponentIntialProps(ctx)
                 : Promise.resolve({}))
+
+            const pageProps = {
+                ...props,
+                token: at,
+            }
             return {
                 pageProps,
             }

@@ -4,9 +4,6 @@ import {withAxios} from '$utils/fetcher/withAxios'
 import {HOST_URL} from '$config'
 import {AuthorizeResponse} from '$types/login/naver'
 import ROUTES from '$constants/routes'
-import {NextPageContext} from 'next'
-import cookies from 'next-cookies'
-import Router from 'next/router'
 
 const Fallback = ({error}: FallbackProps) => {
     return (
@@ -38,22 +35,6 @@ function Login() {
             <Button onClick={handleLogin}>네이버로 로그인</Button>
         </ErrorBoundary>
     )
-}
-
-Login.getInitialProps = async (ctx: NextPageContext) => {
-    const {at} = cookies(ctx)
-
-    console.log(at)
-
-    if (at) {
-        if (ctx.req && ctx.res) {
-            ctx.res!.writeHead(302, {Location: ROUTES.MAIN})
-            ctx.res!.end()
-        } else {
-            Router.push(ROUTES.MAIN)
-        }
-    }
-    return {}
 }
 
 export default Login
