@@ -30,7 +30,7 @@ export function apiErrorHandler(e: CommonApiError) {
     }
 
     if (isInstanceOfAccessTokenError(e)) {
-        document.cookie = `at=; path=/; expires=${new Date(0)}`
+        document.cookie = `access_token=; path=/; expires=${new Date(0)}`
         const redirectUrl = e.redirect
 
         if (!redirectUrl) {

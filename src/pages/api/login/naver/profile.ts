@@ -22,10 +22,10 @@ const routes = async (
      * 2. 프로필 조회 api 호출
      */
     try {
-        const {at} = cookies({req})
+        const {access_token} = cookies({req})
 
         const headers = {
-            Authorization: `Bearer ${at}`,
+            Authorization: `Bearer ${access_token}`,
             'User-Agent': req.headers['user-agent'],
         }
 

@@ -39,12 +39,12 @@ class Page extends App<AppProps> {
         Component: {getInitialProps: getComponentIntialProps},
     }: AppContext): Promise<AppProps> {
         try {
-            const {at} = cookies(ctx)
+            const {access_token} = cookies(ctx)
             const {needToCheckCookie, redirectUrl, compare} =
                 needToCheckCookiePath(ctx.pathname)
 
             if (needToCheckCookie) {
-                if (compare(at)) {
+                if (compare(access_token)) {
                     if (ctx.req && ctx.res) {
                         ctx.res!.writeHead(302, {Location: redirectUrl})
                         ctx.res!.end()
@@ -59,7 +59,7 @@ class Page extends App<AppProps> {
 
             const pageProps = {
                 ...props,
-                token: at,
+                token: access_token,
             }
             return {
                 pageProps,
