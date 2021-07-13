@@ -10,11 +10,16 @@ import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
 import {UserProvider} from '$contexts/UserContext'
+import ROUTES from '$constants/routes'
 
 type AppProps = AppInitialProps
 
 interface State {
     error: Error | null
+}
+
+const needToCheckCookiePath = (pathname: string) => {
+    return [ROUTES.MAIN].includes(pathname)
 }
 
 class Page extends App<AppProps> {
@@ -23,6 +28,11 @@ class Page extends App<AppProps> {
         Component: {getInitialProps: getComponentIntialProps},
     }: AppContext): Promise<AppProps> {
         try {
+            const needToCheckCookie = needToCheckCookiePath(ctx.pathname)
+
+            if (needToCheckCookie) {
+                /** todo 토큰 검사 */
+            }
             const pageProps = await (getComponentIntialProps
                 ? getComponentIntialProps(ctx)
                 : Promise.resolve({}))

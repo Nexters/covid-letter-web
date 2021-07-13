@@ -19,7 +19,7 @@ Main.getInitialProps = async (ctx: NextPageContext) => {
             ctx.res!.writeHead(302, {Location: ROUTES.ROOT})
             ctx.res!.end()
         } else {
-            Router.push(ROUTES.MAIN)
+            Router.push(ROUTES.ROOT)
         }
     }
 
