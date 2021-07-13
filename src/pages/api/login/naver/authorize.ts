@@ -42,7 +42,6 @@ const routes = async (
             },
         })
     } catch (e) {
-        console.log(e)
         res.status(500).json({
             code: RESPONSE.ERROR,
             message: '네이버 로그인 실패',

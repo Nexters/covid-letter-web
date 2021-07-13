@@ -12,6 +12,12 @@ export const createResponse = <T>(data: T): Response<T> => ({
     result: data,
 })
 
+export const createErrorResponse = <T>(data: T): Response<T> => ({
+    code: RESPONSE.ERROR,
+    message: '',
+    result: data,
+})
+
 export const withAxios = async <T>(
     request: RequestConfig,
 ): Promise<AxiosResponse<Response<T>>> => {
