@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import ErrorBoundary, {FallbackProps} from '$components/ErrorBoundary'
 import Example from '$components/Example'
-import {useUserContext} from 'contexts/userContext'
+import {useUserContext} from 'contexts/UserContext'
 
 const Fallback = ({error}: FallbackProps) => {
     return (
