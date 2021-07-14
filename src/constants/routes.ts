@@ -5,6 +5,7 @@ const ROUTES = Object.freeze({
         BRIDGE: '/login/bridge',
     },
     MAIN: '/main',
+    POST: '/post/[id]',
 })
 
 export default ROUTES

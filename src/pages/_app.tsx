@@ -10,10 +10,10 @@ import {
 import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
-import {UserProvider} from '$contexts/UserContext'
 import ROUTES from '$constants/routes'
 import cookies from 'next-cookies'
 import Router from 'next/router'
+import {ProfileProvider} from '$contexts/ProfileContext'
 
 type AppProps = AppInitialProps
 
@@ -24,7 +24,7 @@ interface State {
 type ACCESS_TOKEN = string | undefined
 
 const needToCheckCookiePath = (pathname: string) => {
-    const needLogin = [ROUTES.MAIN].includes(pathname)
+    const needLogin = [ROUTES.MAIN, ROUTES.POST].includes(pathname)
     const needMain = [ROUTES.ROOT].includes(pathname)
     return {
         needToCheckCookie: needLogin || needMain,
@@ -108,7 +108,9 @@ class Page extends App<AppProps> {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <SWRConfig value={{revalidateOnFocus: false}}>
-                    <Component {...pageProps} />
+                    <ProfileProvider token={pageProps.token}>
+                        <Component {...pageProps} />
+                    </ProfileProvider>
                 </SWRConfig>
             </>
         )

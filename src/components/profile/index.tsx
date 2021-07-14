@@ -1,11 +1,11 @@
 import Button from '$components/Button'
 import {RESPONSE, GrantType} from '$constants'
-import {useProfileContext} from '$contexts/ProfileContext'
 import {TokenResponse} from '$types/login/naver'
 import {clearCookie} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
 import ROUTES from '$constants/routes'
 import Router from 'next/router'
+import {useProfileContext} from '$contexts/ProfileContext'
 
 const Profile = () => {
     const {profile, error} = useProfileContext()

@@ -1,11 +1,6 @@
-import {ProfileProvider} from '$contexts/ProfileContext'
 import Profile from '$components/profile'
 
 const Main = () => {
-    return (
-        <ProfileProvider>
-            <Profile />
-        </ProfileProvider>
-    )
+    return <Profile />
 }
 export default Main
