@@ -24,17 +24,10 @@ jobs:
         run: npm install
 
       - name: Building application
-        run: npm run build:production
-
-      # TEST
-      - name: Check dir
-        run: cd .next && ls -al
+        run: npm run deploy:production
 
       - name: Generate deployment package
-        run: cd .next && zip -r deploy.zip .
-
-      # - name: Generate deployment package
-      #   run: zip -r deploy.zip .
+        run: zip -r deploy.zip .
 
       - name: Get timestamp
         uses: gerred/actions/current-time@master
@@ -59,4 +52,4 @@ jobs:
           region: ap-northeast-2
           version_label: ${{ steps.format-time.outputs.replaced }}
           use_existing_version_if_available: true
-          deployment_package: .next/deploy.zip
+          deployment_package: deploy.zip

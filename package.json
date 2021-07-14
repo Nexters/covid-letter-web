@@ -17,12 +17,14 @@
         "prettier:fix": "prettier '**/*.{json,yaml}' --write",
         "test": "jest --config=jest.config.js",
         "test:watch": "jest --config=jest.config.js --watch",
-        "deploy": "npm install && npm run build:local && eb deploy production"
+        "deploy": "npm install && npm run build:local && eb deploy production",
+        "deploy:production": "cross-env REACT_APP_ENV=production next build && node ./server.js"
     },
     "dependencies": {
         "axios": "^0.21.1",
         "core-js": "^3.15.2",
         "cross-env": "^7.0.3",
+        "express": "^4.17.1",
         "next": "11.0.1",
         "prettier": "^2.3.2",
         "react": "17.0.2",
