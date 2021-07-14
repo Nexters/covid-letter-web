@@ -15,7 +15,7 @@ app.prepare()
 
         server.listen(port, (error) => {
             if (error) throw error
-            console.log(`Server stated on http://localhost:${port}`)
+            console.log(`Server started on http://localhost:${port}`)
         })
     })
     .catch((err) => {
