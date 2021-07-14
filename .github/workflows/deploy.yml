@@ -26,6 +26,9 @@ jobs:
       - name: Building application
         run: npm run build:production
 
+      - name: Start server
+        run: npm run deploy:production
+
       - name: Generate deployment package
         run: zip -r deploy.zip .
 
