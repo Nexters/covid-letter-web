@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Building application
-        run: npm run build:local
+        run: npm run build:production
 
       - name: Generate deployment package
         run: zip -r deploy.zip .
