@@ -26,8 +26,15 @@ jobs:
       - name: Building application
         run: npm run build:production
 
+      # TEST
+      - name: check dir
+        run: cd .next && ls -al
+
       - name: Generate deployment package
-        run: zip -r deploy.zip .
+        run: cd .next && zip -r deploy.zip .
+
+      # - name: Generate deployment package
+      #   run: zip -r deploy.zip .
 
       - name: Get timestamp
         uses: gerred/actions/current-time@master
