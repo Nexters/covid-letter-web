@@ -68,7 +68,7 @@ const routes = async (
 
     /**
      * @todo
-     * 발급: refresh_token DB 저장
+     * 발급: refresh_token DB 저장, access_token BE 세션 생성
      * 갱신: refresh_token 꺼내와서 token 갱신
      * 삭제: refresh_token 삭제
      */
