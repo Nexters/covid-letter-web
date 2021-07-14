@@ -108,9 +108,7 @@ class Page extends App<AppProps> {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <SWRConfig value={{revalidateOnFocus: false}}>
-                    <UserProvider>
-                        <Component {...pageProps} />
-                    </UserProvider>
+                    <Component {...pageProps} />
                 </SWRConfig>
             </>
         )
