@@ -17,8 +17,7 @@
         "prettier:fix": "prettier '**/*.{json,yaml}' --write",
         "test": "jest --config=jest.config.js",
         "test:watch": "jest --config=jest.config.js --watch",
-        "deploy": "npm install && npm run build:local && eb deploy production",
-        "deploy:production": "cross-env REACT_APP_ENV=production node ./server.js"
+        "deploy": "npm install && npm run build:local && eb deploy production"
     },
     "dependencies": {
         "axios": "^0.21.1",
