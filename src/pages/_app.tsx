@@ -9,8 +9,7 @@ import {
 import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
-import {UserProvider} from 'contexts/UserContext'
-import {Todo, TodoListProvider} from 'contexts/TodoListContext'
+import {TodoListProvider} from 'contexts/TodoListContext'
 
 type AppProps = AppInitialProps
 
@@ -45,19 +44,6 @@ class Page extends App<AppProps> {
             return <ErrorPage statusCode={500} />
         }
 
-        const defaultTodoList: Todo[] = [
-            {
-                id: 0,
-                title: '넥스터즈 TodoList 만들기',
-                complete: false,
-            },
-            {
-                id: 1,
-                title: 'react native 스터디 (20:00)',
-                complete: false,
-            },
-        ]
-
         return (
             <>
                 <Head>
@@ -69,7 +55,7 @@ class Page extends App<AppProps> {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <SWRConfig value={{revalidateOnFocus: false}}>
-                    <TodoListProvider intialData={defaultTodoList}>
+                    <TodoListProvider>
                         <Component {...pageProps} />
                     </TodoListProvider>
                 </SWRConfig>

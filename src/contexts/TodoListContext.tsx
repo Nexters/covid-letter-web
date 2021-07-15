@@ -1,12 +1,11 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from 'react'
+import useAsyncError from '$hooks/useAsyncError'
+import {Todo} from '$types/response/todo'
 
-export interface Todo {
-    id: number
-    title: string
-    complete: boolean
-}
+import useSWR from 'swr'
 
 export interface TodoListContextState {
+    isLoading: boolean
     numOfTodos: number
     list: Todo[]
     toggle: (id: number) => void
@@ -16,6 +15,7 @@ export interface TodoListContextState {
     activeTag: FilterBase
     deleteCompleteTodos: () => void
     isEmptyTodoList: boolean
+    update: () => void
 }
 
 export const TodoListContext = createContext<TodoListContextState>(
@@ -37,10 +37,24 @@ export const TodoListProvider = ({
     intialData?: Todo[]
     children: ReactNode
 }) => {
-    const [list, setList] = useState<Todo[]>(() => intialData || [])
-    const [filteredList, setFilteredList] = useState<Todo[]>(
-        () => intialData || [],
+    const [list, setList] = useState<Todo[]>([])
+    const [filteredList, setFilteredList] = useState<Todo[]>([])
+
+    const {data, error, mutate} = useSWR('todos', () =>
+        JSON.parse(localStorage.getItem('TODO')!),
     )
+    const throwError = useAsyncError()
+
+    if (error) {
+        throwError(error)
+    }
+
+    useEffect(() => {
+        if (!data) return
+        setList(data as Todo[])
+        filter()
+    }, [data])
+
     const [activeTag, setActiveTag] = useState<FilterBase>(FilterBase.ALL)
 
     const findTodoItemIndex = (id: number) => {
@@ -71,9 +85,15 @@ export const TodoListProvider = ({
         filter()
     }, [activeTag])
 
+    const updateTodos = async (todos: Todo[]) => {
+        localStorage.setItem('TODO', JSON.stringify(todos))
+        mutate()
+    }
+
     const numOfTodos = list.filter((elem) => !elem.complete).length
 
     const value = {
+        isLoading: !data,
         numOfTodos,
         list: filteredList,
         toggle(id: number) {
@@ -105,6 +125,9 @@ export const TodoListProvider = ({
         deleteCompleteTodos() {
             const nextList = list.filter((elem) => !elem.complete)
             setList(nextList)
+        },
+        update() {
+            mutate(updateTodos(list))
         },
     }
     return (

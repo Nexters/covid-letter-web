@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind'
-import {FilterBase, Todo, useTodoListContext} from '../contexts/TodoListContext'
+import {FilterBase, useTodoListContext} from '../contexts/TodoListContext'
 import styles from '$components/TodoList.module.scss'
 import React, {useState} from 'react'
+import {Todo} from '$types/response/todo'
 
 const cx = classNames.bind(styles)
 
@@ -125,6 +126,8 @@ const TodoList = () => {
         activeTag,
         numOfTodos,
         deleteCompleteTodos,
+        isLoading,
+        update,
     } = useTodoListContext()
 
     const toggleComplete = (id: number) => {
@@ -133,6 +136,11 @@ const TodoList = () => {
 
     const onFilter = (tag: FilterBase) => {
         filter(tag)
+    }
+
+    const updateTodos = () => {
+        update()
+        window.alert(`${numOfTodos}개의 할 일이 저장되었습니다.`)
     }
 
     return (
@@ -147,7 +155,12 @@ const TodoList = () => {
                     onChange={() => toggleComplete(id)}
                 />
             ))}
-            {isEmptyTodoList && <div className={cx('empty')}>Empty!</div>}
+            {isEmptyTodoList && !isLoading && (
+                <div className={cx('empty')}>Empty!</div>
+            )}
+            {isLoading && (
+                <div className={cx('loading')}>불러오는 중입니다...</div>
+            )}
             <div className={cx('options')}>
                 <span>
                     {numOfTodos > 0
@@ -177,6 +190,9 @@ const TodoList = () => {
                 className={cx('button-filter')}
                 onClick={deleteCompleteTodos}>
                 완료된 할일 삭제
+            </button>{' '}
+            <button className={cx('button-filter')} onClick={updateTodos}>
+                저장
             </button>
         </div>
     )

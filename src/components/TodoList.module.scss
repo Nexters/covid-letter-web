@@ -12,7 +12,9 @@
     max-width: 568px;
     width: 100%;
     padding: 30px 15px 0;
-    .empty {
+
+    .empty,
+    .loading {
         display: flex;
         flex: 1;
         justify-content: center;
