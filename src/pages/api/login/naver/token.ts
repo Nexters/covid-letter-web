@@ -42,7 +42,7 @@ const getRequestData = (
 const routes = async (
     req: NextApiRequest,
     res: NextApiResponse<
-        Response<Pick<TokenResponse, 'access_token' | 'expires_in'>>
+        Response<Pick<TokenResponse, 'access_token' | 'expires_in'> | string>
     >,
 ) => {
     const {grant_type} = req.body
@@ -52,6 +52,14 @@ const routes = async (
         ...req.body,
         access_token: cookieAccessToken,
     })
+
+    if (grant_type === GrantType.delete && cookieAccessToken) {
+        /** 쿠키와 BE 세션만 삭제? 아니면 연동해제? */
+        /** 네이버는 연동해제해야 다른 아이디로 로그인 가능 */
+        res.setHeader('Set-Cookie', `access_token=; path=/; expires=-1`)
+        res.status(200).json(createResponse('ok'))
+        return
+    }
 
     const response = await axios.get(`https://nid.naver.com/oauth2.0/token`, {
         params: {
