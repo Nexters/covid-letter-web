@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const express = require('express')
 const next = require('next')
-const port = 3000
+const PORT = process.env.PORT || 8081
 const dev = process.env.REACT_APP_ENV !== 'production'
 const app = next({dev})
 const handle = app.getRequestHandler()
@@ -13,9 +13,9 @@ app.prepare()
             return handle(req, res)
         })
 
-        server.listen(port, (error) => {
+        server.listen(PORT, (error) => {
             if (error) throw error
-            console.log(`Server started on http://localhost:${port}`)
+            console.log(`Server started on http://localhost:${PORT}`)
         })
     })
     .catch((err) => {
