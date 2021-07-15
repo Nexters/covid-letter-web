@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useContext, useState} from 'react'
+import {createContext, ReactNode, useContext, useEffect, useState} from 'react'
 
 export interface Todo {
     id: number
@@ -11,12 +11,22 @@ export interface TodoListContextState {
     toggle: (id: number) => void
     delete: (id: number) => void
     insert: (title: string) => void
+    filter: (tag: FilterBase) => void
+    activeTag: FilterBase
     isEmptyTodoList: boolean
 }
 
 export const TodoListContext = createContext<TodoListContextState>(
     {} as TodoListContextState,
 )
+
+export const FilterBase = {
+    ALL: 'all',
+    COMPLETE: 'complete',
+    INCOMPLETE: 'incomplete',
+} as const
+
+export type FilterBase = typeof FilterBase[keyof typeof FilterBase]
 
 export const TodoListProvider = ({
     intialData,
@@ -26,6 +36,10 @@ export const TodoListProvider = ({
     children: ReactNode
 }) => {
     const [list, setList] = useState<Todo[]>(() => intialData || [])
+    const [filteredList, setFilteredList] = useState<Todo[]>(
+        () => intialData || [],
+    )
+    const [activeTag, setActiveTag] = useState<FilterBase>(FilterBase.ALL)
 
     const findTodoItemIndex = (id: number) => {
         const index = list.findIndex(
@@ -37,8 +51,26 @@ export const TodoListProvider = ({
         return index
     }
 
+    const filter = () => {
+        if (activeTag === FilterBase.ALL) {
+            setFilteredList(list)
+            return
+        }
+        const base = activeTag === FilterBase.COMPLETE ? true : false
+        const nextList = list.filter(({complete}) => complete === base)
+        setFilteredList(nextList)
+    }
+
+    useEffect(() => {
+        filter()
+    }, [list])
+
+    useEffect(() => {
+        filter()
+    }, [activeTag])
+
     const value = {
-        list,
+        list: filteredList,
         toggle(id: number) {
             const index = findTodoItemIndex(id)
             const nextList: Todo[] = JSON.parse(JSON.stringify(list))
@@ -61,6 +93,10 @@ export const TodoListProvider = ({
             setList([...list, newTodo])
         },
         isEmptyTodoList: list.length < 1,
+        filter(tag: FilterBase) {
+            setActiveTag(tag)
+        },
+        activeTag,
     }
     return (
         <TodoListContext.Provider value={value}>

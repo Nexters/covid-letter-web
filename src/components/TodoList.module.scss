@@ -28,7 +28,7 @@
             align-items: center;
             padding: 15px 10px;
             border: 1px solid #d3d2d2;
-            border-bottom: 0;
+            margin-bottom: 1px;
             width: 100%;
             font-size: 16px;
             font-weight: lighter;
@@ -76,5 +76,45 @@
 
     .info + .info {
         margin-top: -1px;
+    }
+}
+
+.button-list {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 0;
+
+    .button {
+        outline: none;
+        border: 1px solid #d3d2d2;
+        background-color: #fff;
+        width: 60px;
+        height: 40px;
+        font-weight: lighter;
+
+        &:first-child {
+            border-top-left-radius: 0.25rem;
+            border-bottom-left-radius: 0.25rem;
+        }
+
+        &:last-child {
+            border-top-right-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: #e7eafc;
+        }
+
+        &.active {
+            background-color: #e7eafc;
+        }
+    }
+
+    .button + .button {
+        border-left: 0;
     }
 }

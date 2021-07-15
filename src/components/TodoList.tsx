@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind'
-import {Todo, useTodoListContext} from '../contexts/TodoListContext'
+import {FilterBase, Todo, useTodoListContext} from '../contexts/TodoListContext'
 import styles from '$components/TodoList.module.scss'
 import React, {useState} from 'react'
 
@@ -88,10 +88,44 @@ const Input = () => {
     )
 }
 
+interface FilterButton {
+    text: string
+    tag: FilterBase
+}
+
+const Filter = ({
+    list,
+    active,
+    onFilter,
+}: {
+    list: FilterButton[]
+    active: string
+    onFilter: (tag: FilterBase) => void
+}) => {
+    return (
+        <div className={cx('button-list')}>
+            {list.map(({text, tag}) => (
+                <button
+                    key={tag}
+                    className={cx('button', {active: active === tag})}
+                    onClick={() => onFilter(tag)}>
+                    {text}
+                </button>
+            ))}
+        </div>
+    )
+}
+
 const TodoList = () => {
-    const {list, toggle, isEmptyTodoList} = useTodoListContext()
+    const {list, toggle, isEmptyTodoList, filter, activeTag} =
+        useTodoListContext()
+
     const toggleComplete = (id: number) => {
         toggle(id)
+    }
+
+    const onFilter = (tag: FilterBase) => {
+        filter(tag)
     }
 
     return (
@@ -107,6 +141,24 @@ const TodoList = () => {
                     onChange={() => toggleComplete(id)}
                 />
             ))}
+            <Filter
+                list={[
+                    {
+                        text: '모두',
+                        tag: FilterBase.ALL,
+                    },
+                    {
+                        text: '완료',
+                        tag: FilterBase.COMPLETE,
+                    },
+                    {
+                        text: '미완료',
+                        tag: FilterBase.INCOMPLETE,
+                    },
+                ]}
+                active={activeTag}
+                onFilter={onFilter}
+            />
         </div>
     )
 }
