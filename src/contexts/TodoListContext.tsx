@@ -7,6 +7,7 @@ export interface Todo {
 }
 
 export interface TodoListContextState {
+    numOfTodos: number
     list: Todo[]
     toggle: (id: number) => void
     delete: (id: number) => void
@@ -69,7 +70,10 @@ export const TodoListProvider = ({
         filter()
     }, [activeTag])
 
+    const numOfTodos = list.filter((elem) => !elem.complete).length
+
     const value = {
+        numOfTodos,
         list: filteredList,
         toggle(id: number) {
             const index = findTodoItemIndex(id)

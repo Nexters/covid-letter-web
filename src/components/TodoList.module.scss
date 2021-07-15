@@ -79,13 +79,17 @@
     }
 }
 
-.button-list {
+.options {
     display: flex;
     flex: 1;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 0;
+    font-weight: lighter;
+    font-size: 16px;
+}
 
+.button-list {
     .button {
         outline: none;
         border: 1px solid #d3d2d2;

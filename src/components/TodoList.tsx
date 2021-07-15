@@ -117,7 +117,7 @@ const Filter = ({
 }
 
 const TodoList = () => {
-    const {list, toggle, isEmptyTodoList, filter, activeTag} =
+    const {list, toggle, isEmptyTodoList, filter, activeTag, numOfTodos} =
         useTodoListContext()
 
     const toggleComplete = (id: number) => {
@@ -141,24 +141,32 @@ const TodoList = () => {
                     onChange={() => toggleComplete(id)}
                 />
             ))}
-            <Filter
-                list={[
-                    {
-                        text: '모두',
-                        tag: FilterBase.ALL,
-                    },
-                    {
-                        text: '완료',
-                        tag: FilterBase.COMPLETE,
-                    },
-                    {
-                        text: '미완료',
-                        tag: FilterBase.INCOMPLETE,
-                    },
-                ]}
-                active={activeTag}
-                onFilter={onFilter}
-            />
+
+            <div className={cx('options')}>
+                <span>
+                    {numOfTodos > 0
+                        ? `남은 할일: ${numOfTodos}개`
+                        : `모두 완료했습니다! 👍`}
+                </span>
+                <Filter
+                    list={[
+                        {
+                            text: '모두',
+                            tag: FilterBase.ALL,
+                        },
+                        {
+                            text: '완료',
+                            tag: FilterBase.COMPLETE,
+                        },
+                        {
+                            text: '미완료',
+                            tag: FilterBase.INCOMPLETE,
+                        },
+                    ]}
+                    active={activeTag}
+                    onFilter={onFilter}
+                />
+            </div>
         </div>
     )
 }
