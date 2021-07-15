@@ -27,7 +27,6 @@ const getRequestData = (
         case GrantType.refresh:
             return {
                 grant_type,
-                service_provider,
                 refresh_token,
             }
         case GrantType.delete:
@@ -42,7 +41,13 @@ const getRequestData = (
 const routes = async (
     req: NextApiRequest,
     res: NextApiResponse<
-        Response<Pick<TokenResponse, 'access_token' | 'expires_in'> | string>
+        Response<
+            | Pick<
+                  TokenResponse,
+                  'access_token' | 'expires_in' | 'refresh_token'
+              >
+            | string
+        >
     >,
 ) => {
     const {grant_type} = req.body
@@ -52,14 +57,6 @@ const routes = async (
         ...req.body,
         access_token: cookieAccessToken,
     })
-
-    if (grant_type === GrantType.delete && cookieAccessToken) {
-        /** 쿠키와 BE 세션만 삭제? 아니면 연동해제? */
-        /** 네이버는 연동해제해야 다른 아이디로 로그인 가능 */
-        res.setHeader('Set-Cookie', `access_token=; path=/; expires=-1`)
-        res.status(200).json(createResponse('ok'))
-        return
-    }
 
     const response = await axios.get(`https://nid.naver.com/oauth2.0/token`, {
         params: {
@@ -78,11 +75,13 @@ const routes = async (
      * @todo
      * 발급: refresh_token DB 저장, access_token BE 세션 생성
      * 갱신: refresh_token 꺼내와서 token 갱신
-     * 삭제: refresh_token 삭제
+     * 삭제: refresh_token 삭제 (연동 해제)
      */
-    const {access_token, expires_in} = response.data
+    const {access_token, expires_in, refresh_token} = response.data
 
-    res.status(200).json(createResponse({access_token, expires_in}))
+    res.status(200).json(
+        createResponse({access_token, expires_in, refresh_token}),
+    )
 }
 
 module.exports = routes

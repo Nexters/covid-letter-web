@@ -1,5 +1,5 @@
 import Button from '$components/Button'
-import {RESPONSE, GrantType} from '$constants'
+import {RESPONSE} from '$constants'
 import {TokenResponse} from '$types/login/naver'
 import {clearCookie} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
@@ -26,12 +26,7 @@ const Profile = () => {
 
     const logout = async () => {
         const {data: logoutResult} = await withAxios<Partial<TokenResponse>>({
-            url: `/login/naver/token`,
-            method: 'post',
-            data: {
-                grant_type: GrantType.delete,
-                service_provider: 'NAVER',
-            },
+            url: `/login/naver/logout`,
         })
 
         if (logoutResult.code === RESPONSE.NORMAL) {
