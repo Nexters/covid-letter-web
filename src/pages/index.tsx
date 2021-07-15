@@ -1,9 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import classNames from 'classnames/bind'
+import styles from '../styles/Home.module.scss'
 import ErrorBoundary, {FallbackProps} from '$components/ErrorBoundary'
-import Example from '$components/Example'
-import {useUserContext} from 'contexts/UserContext'
+import TodoList from '$components/TodoList'
+import {TodoListContext} from 'contexts/TodoListContext'
+
+const cx = classNames.bind(styles)
 
 const Fallback = ({error}: FallbackProps) => {
     return (
@@ -14,19 +17,15 @@ const Fallback = ({error}: FallbackProps) => {
 }
 
 export default function Home() {
-    const {user} = useUserContext()
-
-    if (!user) return <div>Loading...</div>
-
-    const {name, age} = user
-
     return (
         <>
-            <div>
-                name: {name} | age: {age}
-            </div>
             <ErrorBoundary withChildren fallback={Fallback}>
-                <Example />
+                <div className={cx('container')}>
+                    <div className={cx('main')}>
+                        <div className={cx('title')}>TodoList</div>
+                        <TodoList />
+                    </div>
+                </div>
             </ErrorBoundary>
         </>
     )

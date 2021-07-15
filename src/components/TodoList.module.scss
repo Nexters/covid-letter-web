@@ -1,0 +1,80 @@
+.blind {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
+
+.box {
+    margin: 0 auto;
+    max-width: 568px;
+    width: 100%;
+    padding: 30px 15px 0;
+    .empty {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-weight: lighter;
+        color: #b2b2b2;
+    }
+    .insert-area {
+        .input {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 15px 10px;
+            border: 1px solid #d3d2d2;
+            border-bottom: 0;
+            width: 100%;
+            font-size: 16px;
+            font-weight: lighter;
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+    .info {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        align-items: center;
+        padding: 15px 10px;
+        border: 1px solid #d3d2d2;
+        .label {
+            padding-right: 5px;
+            color: #f57d7d;
+
+            &.done {
+                color: #03ca98;
+            }
+        }
+        .title {
+            outline: none;
+            border: 0;
+            background-color: transparent;
+            font-weight: lighter;
+            font-size: 16px;
+        }
+
+        .button {
+            outline: none;
+            border: 0;
+            background-color: transparent;
+            color: #d3d2d2;
+            padding: 1px;
+            font-size: 16px;
+
+            &.delete {
+                color: #f57d7d;
+            }
+        }
+    }
+
+    .info + .info {
+        margin-top: -1px;
+    }
+}
