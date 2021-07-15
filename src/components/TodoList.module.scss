@@ -122,3 +122,14 @@
         border-left: 0;
     }
 }
+
+.button-filter {
+    outline: none;
+    border: 1px solid #d3d2d2;
+    background-color: #fff;
+    font-weight: lighter;
+    padding: 7px 8px;
+    &:hover {
+        cursor: pointer;
+    }
+}

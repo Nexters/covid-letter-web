@@ -117,8 +117,15 @@ const Filter = ({
 }
 
 const TodoList = () => {
-    const {list, toggle, isEmptyTodoList, filter, activeTag, numOfTodos} =
-        useTodoListContext()
+    const {
+        list,
+        toggle,
+        isEmptyTodoList,
+        filter,
+        activeTag,
+        numOfTodos,
+        deleteCompleteTodos,
+    } = useTodoListContext()
 
     const toggleComplete = (id: number) => {
         toggle(id)
@@ -130,7 +137,6 @@ const TodoList = () => {
 
     return (
         <div className={cx('box')}>
-            {isEmptyTodoList && <div className={cx('empty')}>Empty!</div>}
             <Input />
             {list.map(({id, title, complete}) => (
                 <TodoItem
@@ -141,7 +147,7 @@ const TodoList = () => {
                     onChange={() => toggleComplete(id)}
                 />
             ))}
-
+            {isEmptyTodoList && <div className={cx('empty')}>Empty!</div>}
             <div className={cx('options')}>
                 <span>
                     {numOfTodos > 0
@@ -167,6 +173,11 @@ const TodoList = () => {
                     onFilter={onFilter}
                 />
             </div>
+            <button
+                className={cx('button-filter')}
+                onClick={deleteCompleteTodos}>
+                완료된 할일 삭제
+            </button>
         </div>
     )
 }

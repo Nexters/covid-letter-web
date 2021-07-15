@@ -14,6 +14,7 @@ export interface TodoListContextState {
     insert: (title: string) => void
     filter: (tag: FilterBase) => void
     activeTag: FilterBase
+    deleteCompleteTodos: () => void
     isEmptyTodoList: boolean
 }
 
@@ -101,6 +102,10 @@ export const TodoListProvider = ({
             setActiveTag(tag)
         },
         activeTag,
+        deleteCompleteTodos() {
+            const nextList = list.filter((elem) => !elem.complete)
+            setList(nextList)
+        },
     }
     return (
         <TodoListContext.Provider value={value}>
