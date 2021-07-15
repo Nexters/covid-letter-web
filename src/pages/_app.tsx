@@ -14,6 +14,7 @@ import ROUTES from '$constants/routes'
 import cookies from 'next-cookies'
 import Router from 'next/router'
 import {ProfileProvider} from '$contexts/ProfileContext'
+import {withAxios} from '$utils/fetcher/withAxios'
 
 type AppProps = AppInitialProps
 
@@ -30,6 +31,9 @@ const needToCheckCookiePath = (pathname: string) => {
         needToCheckCookie: needLogin || needMain,
         redirectUrl: needLogin ? ROUTES.ROOT : ROUTES.MAIN,
         compare: (v: ACCESS_TOKEN) => (needLogin ? !v : v),
+        needLogout(v: ACCESS_TOKEN) {
+            return needLogin && !v
+        },
     }
 }
 
@@ -40,10 +44,15 @@ class Page extends App<AppProps> {
     }: AppContext): Promise<AppProps> {
         try {
             const {access_token} = cookies(ctx)
-            const {needToCheckCookie, redirectUrl, compare} =
+            const {needToCheckCookie, redirectUrl, compare, needLogout} =
                 needToCheckCookiePath(ctx.pathname)
 
             if (needToCheckCookie) {
+                if (needLogout(access_token)) {
+                    await withAxios({
+                        url: '/login/naver/logout',
+                    })
+                }
                 if (compare(access_token)) {
                     if (ctx.req && ctx.res) {
                         ctx.res!.writeHead(302, {Location: redirectUrl})
@@ -64,9 +73,9 @@ class Page extends App<AppProps> {
             return {
                 pageProps,
             }
-        } catch (e) {
+        } catch (error) {
             return {
-                pageProps: {},
+                pageProps: {error},
             }
         }
     }
