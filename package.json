@@ -11,13 +11,12 @@
         "build:local": "cross-env REACT_APP_ENV=local next build",
         "start:local": "cross-env REACT_APP_ENV=local next start",
         "build:production": "cross-env REACT_APP_ENV=production next build",
-        "start": "REACT_APP_ENV=production next start -p 8081",
+        "start": "cross-env REACT_APP_ENV=production next start",
         "clean": "rm -rf .next",
         "lint": "next lint",
         "prettier:fix": "prettier '**/*.{json,yaml}' --write",
         "test": "jest --config=jest.config.js",
-        "test:watch": "jest --config=jest.config.js --watch",
-        "deploy": "npm run build:production && next export"
+        "test:watch": "jest --config=jest.config.js --watch"
     },
     "dependencies": {
         "axios": "^0.21.1",

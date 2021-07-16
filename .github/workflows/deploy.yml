@@ -26,30 +26,11 @@ jobs:
       - name: Building application
         run: npm run build:production
 
-      - name: Generate deployment package
-        run: zip -r deploy.zip .
-
-      - name: Get timestamp
-        uses: gerred/actions/current-time@master
-        id: current-time
-
-      - name: Run string replace
-        uses: frabert/replace-string-action@master
-        id: format-time
+      - name: Deploy Netlify
+        uses: jsmrcaga/action-netlify-deploy@master
         with:
-          pattern: '[:\.]+'
-          string: '${{ steps.current-time.outputs.time }}'
-          replace-with: '-'
-          flags: 'g'
-
-      - name: Beanstalk Deploy for app
-        uses: einaregilsson/beanstalk-deploy@v10
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: covid-letter
-          environment_name: production
-          region: ap-northeast-2
-          version_label: ${{ steps.format-time.outputs.replaced }}
-          use_existing_version_if_available: true
-          deployment_package: deploy.zip
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_DEPLOY_MESSAGE: Prod deploy v${{ github.ref }}
+          build_command: next build && next export
+          NETLIFY_DEPLOY_TO_PROD: true
