@@ -45,6 +45,7 @@ class Page extends App<AppProps> {
         try {
             /**
              * @todo jwt 존재여부 검사
+             * jwt가 있으면 메인으로 리다이렉트, 없으면 로그인화면으로 리다이렉트
              */
             // const {access_token} = cookies(ctx)
             // const {needToCheckCookie, redirectUrl, compare, needLogout} =

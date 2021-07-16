@@ -14,13 +14,13 @@ const Fallback = ({error}: FallbackProps) => {
 }
 
 function Login() {
-    const handleLogin = async () => {
+    const handleLogin = async (source: string) => {
         const res = await withAxios<AuthorizeResponse>({
             url: '/login/naver/authorize',
             method: 'get',
             params: {
                 redirect_uri: encodeURIComponent(
-                    `${HOST_URL}${ROUTES.LOGIN.BRIDGE}`,
+                    `${HOST_URL}${ROUTES.LOGIN.BRIDGE}/${source}`,
                 ),
             },
         })
@@ -32,7 +32,9 @@ function Login() {
     }
     return (
         <ErrorBoundary withChildren fallback={Fallback}>
-            <Button onClick={handleLogin}>네이버로 로그인</Button>
+            <Button onClick={() => handleLogin('naver')}>
+                네이버로 로그인
+            </Button>
         </ErrorBoundary>
     )
 }

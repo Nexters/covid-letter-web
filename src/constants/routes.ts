@@ -2,7 +2,7 @@ const ROUTES = Object.freeze({
     ROOT: '/',
     LOGIN: {
         MAIN: '/',
-        BRIDGE: '/login/bridge',
+        BRIDGE: '/bridge',
     },
     MAIN: '/main',
     POST: '/post/[id]',
