@@ -4,6 +4,7 @@ import {withAxios} from '$utils/fetcher/withAxios'
 import {HOST_URL} from '$config'
 import {AuthorizeResponse} from '$types/login/naver'
 import ROUTES from '$constants/routes'
+import useAsyncError from '$hooks/useAsyncError'
 
 const Fallback = ({error}: FallbackProps) => {
     return (
@@ -13,28 +14,35 @@ const Fallback = ({error}: FallbackProps) => {
     )
 }
 
-function Login() {
-    const handleLogin = async (source: string) => {
-        const res = await withAxios<AuthorizeResponse>({
-            url: `/login/${source}/authorize`,
-            method: 'get',
-            params: {
-                redirect_uri: encodeURIComponent(
-                    `${HOST_URL}${ROUTES.LOGIN.BRIDGE}/${source}`,
-                ),
-            },
-        })
+const LoginButton = ({source, text}: {source: string; text: string}) => {
+    const throwError = useAsyncError()
+    const handleLogin = async () => {
+        try {
+            const res = await withAxios<AuthorizeResponse>({
+                url: `/login/${source}/authorize`,
+                method: 'get',
+                params: {
+                    redirect_uri: encodeURIComponent(
+                        `${HOST_URL}${ROUTES.LOGIN.BRIDGE}/${source}`,
+                    ),
+                },
+            })
 
-        const {result} = res.data
+            const {result} = res.data
 
-        const {redirectUrl} = result
-        window.location.replace(redirectUrl)
+            const {redirectUrl} = result
+            window.location.replace(redirectUrl)
+        } catch (e) {
+            throwError(e)
+        }
     }
+    return <Button onClick={() => handleLogin()}>{text}로 로그인</Button>
+}
+
+function Login() {
     return (
         <ErrorBoundary withChildren fallback={Fallback}>
-            <Button onClick={() => handleLogin('naver')}>
-                네이버로 로그인
-            </Button>
+            <LoginButton text={'네이버'} source={'naver'} />
         </ErrorBoundary>
     )
 }
