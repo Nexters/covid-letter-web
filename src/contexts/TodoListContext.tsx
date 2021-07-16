@@ -40,8 +40,9 @@ export const TodoListProvider = ({
     const [list, setList] = useState<Todo[]>([])
     const [filteredList, setFilteredList] = useState<Todo[]>([])
 
-    const {data, error, mutate} = useSWR('todos', () =>
-        JSON.parse(localStorage.getItem('TODO')!),
+    const {data, error, mutate} = useSWR(
+        'todos',
+        () => JSON.parse(localStorage.getItem('TODO')!) || [],
     )
     const throwError = useAsyncError()
 
