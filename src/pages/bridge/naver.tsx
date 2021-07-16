@@ -73,32 +73,19 @@ LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
                         'Set-Cookie',
                         `letterLogin=${token}; path=/; max-age=${expires_in} HttpOnly`,
                     )
-                }
-
-                if (res && req) {
-                    res!.writeHead(302, {Location: ROUTES.MAIN})
-                    res!.end()
-                } else {
-                    Router.push(ROUTES.MAIN)
+                    if (res && req) {
+                        res!.writeHead(302, {Location: ROUTES.MAIN})
+                        res!.end()
+                    } else {
+                        Router.push(ROUTES.MAIN)
+                    }
                 }
             }
 
-            // res?.setHeader(
-            //     'Set-Cookie',
-            //     `access_token=${access_token}; path=/; max-age=${expires_in}`,
-            // )
-
-            // if (res && req) {
-            //     res!.writeHead(302, {Location: ROUTES.MAIN})
-            //     res!.end()
-            // } else {
-            //     Router.push(ROUTES.MAIN)
-            // }
-
-            // return {
-            //     error: 'INVALID_ACCESS',
-            //     error_description: '진입 불가능',
-            // }
+            return {
+                error: 'INVALID_ACCESS',
+                error_description: '진입 불가능',
+            }
         }
         return {
             error,

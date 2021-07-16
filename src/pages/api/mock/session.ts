@@ -9,11 +9,9 @@ export interface SessionToken {
 }
 
 export default function handler(
-    req: NextApiRequest,
+    _req: NextApiRequest,
     res: NextApiResponse<Response<SessionToken>>,
 ) {
-    const {profile} = req.body
-    console.log(profile)
     res.status(200).json({
         code: RESPONSE.NORMAL,
         message: '',
