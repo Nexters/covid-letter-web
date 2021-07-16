@@ -1,4 +1,4 @@
-import {Profile, ProfileResponse} from '$types/login/naver'
+import {Profile} from '$types/login/naver'
 import {createContext, ReactNode, useContext, useMemo} from 'react'
 import useRequest from 'hooks/useRequest'
 
@@ -12,29 +12,23 @@ const ProfileContext = createContext<ProfileContextState>(
     {} as ProfileContextState,
 )
 
-export const ProfileProvider = ({
-    children,
-    token,
-}: {
-    children: ReactNode
-    token: string
-}) => {
+export const ProfileProvider = ({children}: {children: ReactNode}) => {
     const {
         data: profile,
         error,
         mutate: refreshProfile,
-    } = useRequest<ProfileResponse>(
+    } = useRequest<Profile>(
         {
-            url: '/login/naver/profile',
+            url: '/profile',
         },
         {
-            revalidateOnMount: !!token,
+            revalidateOnMount: true,
         },
     )
 
     const value = useMemo(
         () => ({
-            profile: profile?.result.response,
+            profile: profile?.result,
             reset() {
                 refreshProfile()
             },

@@ -1,7 +1,7 @@
 import {RESPONSE} from '$constants'
 import ROUTES from '$constants/routes'
 import {GrantType} from '$constants'
-import {TokenResponse} from '$types/login/naver'
+import {ProfileResponse, TokenResponse} from '$types/login/naver'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {NextPageContext} from 'next'
 import Router from 'next/router'
@@ -40,22 +40,49 @@ LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
         if (resCode === RESPONSE.NORMAL) {
             const {access_token, expires_in} = result
 
-            res?.setHeader(
-                'Set-Cookie',
-                `access_token=${access_token}; path=/; max-age=${expires_in}`,
-            )
+            const {data: profileData} = await withAxios<ProfileResponse>({
+                url: '/login/naver/profile',
+                method: 'POST',
+                data: {
+                    access_token,
+                },
+            })
 
-            if (res && req) {
-                res!.writeHead(302, {Location: ROUTES.MAIN})
-                res!.end()
-            } else {
-                Router.push(ROUTES.MAIN)
+            if (profileData.code === RESPONSE.NORMAL) {
+                const {
+                    result: {response},
+                } = profileData
+                const {id, email, name} = response
+
+                console.log(id, email, name)
+
+                /**
+                 * @todo BE로 프로필 정보 전송 + jwt 받아서 cookie에 저장
+                 */
+                if (res && req) {
+                    res!.writeHead(302, {Location: ROUTES.MAIN})
+                    res!.end()
+                } else {
+                    Router.push(ROUTES.MAIN)
+                }
             }
 
-            return {
-                error: 'INVALID_ACCESS',
-                error_description: '진입 불가능',
-            }
+            // res?.setHeader(
+            //     'Set-Cookie',
+            //     `access_token=${access_token}; path=/; max-age=${expires_in}`,
+            // )
+
+            // if (res && req) {
+            //     res!.writeHead(302, {Location: ROUTES.MAIN})
+            //     res!.end()
+            // } else {
+            //     Router.push(ROUTES.MAIN)
+            // }
+
+            // return {
+            //     error: 'INVALID_ACCESS',
+            //     error_description: '진입 불가능',
+            // }
         }
         return {
             error,

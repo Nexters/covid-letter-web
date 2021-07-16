@@ -26,7 +26,7 @@ const Profile = () => {
 
     const logout = async () => {
         const {data: logoutResult} = await withAxios<Partial<TokenResponse>>({
-            url: `/login/naver/logout`,
+            url: `/logout`,
         })
 
         if (logoutResult.code === RESPONSE.NORMAL) {

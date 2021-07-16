@@ -4,7 +4,6 @@ import {Response} from '$types/response'
 import {createErrorResponse, createResponse} from '$utils/fetcher/withAxios'
 import axios, {AxiosResponse} from 'axios'
 import type {NextApiRequest, NextApiResponse} from 'next'
-import cookies from 'next-cookies'
 
 interface ApiRequest extends NextApiRequest {
     query: {
@@ -22,7 +21,7 @@ const routes = async (
      * 2. 프로필 조회 api 호출
      */
     try {
-        const {access_token} = cookies({req})
+        const {access_token} = req.body
 
         const headers = {
             Authorization: `Bearer ${access_token}`,
