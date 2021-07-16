@@ -16,7 +16,7 @@ const Fallback = ({error}: FallbackProps) => {
 function Login() {
     const handleLogin = async (source: string) => {
         const res = await withAxios<AuthorizeResponse>({
-            url: '/login/naver/authorize',
+            url: `/login/${source}/authorize`,
             method: 'get',
             params: {
                 redirect_uri: encodeURIComponent(
