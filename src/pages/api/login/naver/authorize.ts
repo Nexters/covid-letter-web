@@ -21,8 +21,6 @@ const routes = async (
 
         const state = generateToken()
 
-        req.headers.cookie = JSON.stringify({state})
-
         const {CLIENT_ID} = NAVER
 
         const body: AuthorizeRequest = {
