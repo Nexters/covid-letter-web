@@ -12,13 +12,11 @@ export const createResponse = <T>(data: T): Response<T> => ({
     result: data,
 })
 
-export const withAxios = async <T>(
-    request: RequestConfig,
-): Promise<AxiosResponse<Response<T>>> => {
+export const withAxios = async <T>(request: RequestConfig): Promise<T> => {
     const instance = axios.create()
     instance.interceptors.response.use(AuthInterceptor)
 
-    const response = await instance.request({
+    const response = await instance.request<T, T>({
         ...request!,
         baseURL: `${isSSR ? HOST_URL : ''}/api`, // be에서 url 논의 필요
     })

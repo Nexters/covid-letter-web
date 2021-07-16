@@ -1,30 +1,27 @@
 import {RequestConfig} from '$types/request'
 import {Response} from '$types/response'
-import {withAxios} from '$utils/fetcher/withAxios'
+import {createResponse, withAxios} from '$utils/fetcher/withAxios'
 import {AxiosError, AxiosResponse} from 'axios'
 import useSWR, {SWRConfiguration, SWRResponse} from 'swr'
 
 interface SwrReturn<Data, Error>
     extends Pick<
-        SWRResponse<AxiosResponse<Data>, AxiosError<Error>>,
+        SWRResponse<Data, AxiosError<Error>>,
         'isValidating' | 'revalidate' | 'error' | 'mutate'
     > {
     data: Data | undefined
-    response: AxiosResponse<Data> | undefined
+    response: Data | undefined
 }
 
 export interface SwrConfig<Data = unknown, Error = unknown>
-    extends Omit<
-        SWRConfiguration<AxiosResponse<Data>, AxiosError<Error>>,
-        'initialData'
-    > {
+    extends Omit<SWRConfiguration<Data, AxiosError<Error>>, 'initialData'> {
     initialData?: Data
 }
 
 export default function useRequest<Data = unknown, Error = unknown>(
     request: RequestConfig,
-    {initialData, ...config}: SwrConfig<Response<Data>, Error> = {},
-): SwrReturn<Response<Data>, Error> {
+    {initialData, ...config}: SwrConfig<Data, Error> = {},
+): SwrReturn<Data, Error> {
     const {
         data: response,
         error,
@@ -36,18 +33,19 @@ export default function useRequest<Data = unknown, Error = unknown>(
         () => withAxios<Data>(request),
         {
             ...config,
-            initialData: initialData && {
-                status: 200,
-                statusText: 'init',
-                config: request!,
-                headers: {},
-                data: initialData,
-            },
+            // initialData: initialData && {
+            //     status: 200,
+            //     statusText: 'init',
+            //     config: request!,
+            //     headers: {},
+            //     data: initialData,
+            // },
+            initialData,
         },
     )
 
     return {
-        data: response && response.data,
+        data: response,
         response,
         error,
         isValidating,
