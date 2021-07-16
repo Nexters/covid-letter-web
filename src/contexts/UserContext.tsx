@@ -1,6 +1,7 @@
 import {User} from '$types/response/user'
 import {createContext, ReactNode, useContext, useMemo} from 'react'
 import useRequest from 'hooks/useRequest'
+import useAsyncError from '$hooks/useAsyncError'
 
 interface UserContextState {
     user: User | undefined
@@ -29,6 +30,11 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
             revalidateOnMount: true,
         },
     )
+
+    const throwError = useAsyncError()
+    if (error) {
+        throwError(error)
+    }
 
     const value = useMemo(
         () => ({
