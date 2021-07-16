@@ -12,7 +12,13 @@ const ProfileContext = createContext<ProfileContextState>(
     {} as ProfileContextState,
 )
 
-export const ProfileProvider = ({children}: {children: ReactNode}) => {
+export const ProfileProvider = ({
+    children,
+    token,
+}: {
+    children: ReactNode
+    token?: string
+}) => {
     const {
         data: profile,
         error,
@@ -22,7 +28,7 @@ export const ProfileProvider = ({children}: {children: ReactNode}) => {
             url: '/profile',
         },
         {
-            revalidateOnMount: true,
+            revalidateOnMount: !!token,
         },
     )
 

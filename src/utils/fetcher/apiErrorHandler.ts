@@ -1,5 +1,4 @@
 import {isSSR} from '$utils/env'
-import {clearCookie} from '$utils/index'
 import {
     CommonApiError,
     isInstanceOfAccessTokenError,
@@ -31,7 +30,6 @@ export function apiErrorHandler(e: CommonApiError) {
     }
 
     if (isInstanceOfAccessTokenError(e)) {
-        clearCookie()
         const redirectUrl = e.redirect
 
         if (!redirectUrl) {

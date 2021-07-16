@@ -5,6 +5,7 @@ import {ProfileResponse, TokenResponse} from '$types/login/naver'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {NextPageContext} from 'next'
 import Router from 'next/router'
+import {SessionToken} from 'pages/api/mock/session'
 
 interface LoginBridgeProps {
     error: string | null
@@ -38,7 +39,7 @@ LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
         const {error, error_description} = result
 
         if (resCode === RESPONSE.NORMAL) {
-            const {access_token, expires_in} = result
+            const {access_token} = result
 
             const {data: profileData} = await withAxios<ProfileResponse>({
                 url: '/login/naver/profile',
@@ -52,13 +53,28 @@ LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
                 const {
                     result: {response},
                 } = profileData
-                const {id, email, name} = response
-
-                console.log(id, email, name)
-
                 /**
                  * @todo BE로 프로필 정보 전송 + jwt 받아서 cookie에 저장
                  */
+                const {data: sessionResult} = await withAxios<SessionToken>({
+                    url: '/mock/session',
+                    method: 'POST',
+                    data: {
+                        profile: response,
+                    },
+                })
+
+                if (sessionResult.code === RESPONSE.NORMAL) {
+                    const {
+                        result: {token, expires_in},
+                    } = sessionResult
+
+                    res?.setHeader(
+                        'Set-Cookie',
+                        `letterLogin=${token}; path=/; max-age=${expires_in} HttpOnly`,
+                    )
+                }
+
                 if (res && req) {
                     res!.writeHead(302, {Location: ROUTES.MAIN})
                     res!.end()

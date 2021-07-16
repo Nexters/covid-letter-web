@@ -24,18 +24,18 @@ interface State {
 
 type ACCESS_TOKEN = string | undefined
 
-// const needToCheckCookiePath = (pathname: string) => {
-//     const needLogin = [ROUTES.MAIN, ROUTES.POST].includes(pathname)
-//     const needMain = [ROUTES.ROOT].includes(pathname)
-//     return {
-//         needToCheckCookie: needLogin || needMain,
-//         redirectUrl: needLogin ? ROUTES.ROOT : ROUTES.MAIN,
-//         compare: (v: ACCESS_TOKEN) => (needLogin ? !v : v),
-//         needLogout(v: ACCESS_TOKEN) {
-//             return needLogin && !v
-//         },
-//     }
-// }
+const needToCheckCookiePath = (pathname: string) => {
+    const needLogin = [ROUTES.MAIN, ROUTES.POST].includes(pathname)
+    const needMain = [ROUTES.ROOT].includes(pathname)
+    return {
+        needToCheckCookie: needLogin || needMain,
+        redirectUrl: needLogin ? ROUTES.ROOT : ROUTES.MAIN,
+        compare: (v: ACCESS_TOKEN) => (needLogin ? !v : v),
+        needLogout(v: ACCESS_TOKEN) {
+            return needLogin && !v
+        },
+    }
+}
 
 class Page extends App<AppProps> {
     static async getInitialProps({
@@ -47,32 +47,32 @@ class Page extends App<AppProps> {
              * @todo jwt 존재여부 검사
              * jwt가 있으면 메인으로 리다이렉트, 없으면 로그인화면으로 리다이렉트
              */
-            // const {access_token} = cookies(ctx)
-            // const {needToCheckCookie, redirectUrl, compare, needLogout} =
-            //     needToCheckCookiePath(ctx.pathname)
+            const {letterLogin} = cookies(ctx)
+            const {needToCheckCookie, redirectUrl, compare, needLogout} =
+                needToCheckCookiePath(ctx.pathname)
 
-            // if (needToCheckCookie) {
-            //     if (needLogout(access_token)) {
-            //         await withAxios({
-            //             url: '/logout',
-            //         })
-            //     }
-            //     if (compare(access_token)) {
-            //         if (ctx.req && ctx.res) {
-            //             ctx.res!.writeHead(302, {Location: redirectUrl}) // 로그인으로 리다이렉트, 화면 유지
-            //             ctx.res!.end()
-            //         } else {
-            //             Router.push(redirectUrl)
-            //         }
-            //     }
-            // }
+            if (needToCheckCookie) {
+                if (needLogout(letterLogin)) {
+                    await withAxios({
+                        url: '/logout',
+                    })
+                }
+                if (compare(letterLogin)) {
+                    if (ctx.req && ctx.res) {
+                        ctx.res!.writeHead(302, {Location: redirectUrl}) // 로그인으로 리다이렉트, 화면 유지
+                        ctx.res!.end()
+                    } else {
+                        Router.push(redirectUrl)
+                    }
+                }
+            }
             const props = await (getComponentIntialProps
                 ? getComponentIntialProps(ctx)
                 : Promise.resolve({}))
 
             const pageProps = {
                 ...props,
-                //token: access_token,
+                token: letterLogin,
             }
             return {
                 pageProps,
@@ -121,7 +121,7 @@ class Page extends App<AppProps> {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <SWRConfig value={{revalidateOnFocus: false}}>
-                    <ProfileProvider>
+                    <ProfileProvider token={pageProps.token}>
                         <Component {...pageProps} />
                     </ProfileProvider>
                 </SWRConfig>

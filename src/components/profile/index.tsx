@@ -1,7 +1,6 @@
 import Button from '$components/Button'
 import {RESPONSE} from '$constants'
 import {TokenResponse} from '$types/login/naver'
-import {clearCookie} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
 import ROUTES from '$constants/routes'
 import Router from 'next/router'
@@ -30,7 +29,6 @@ const Profile = () => {
         })
 
         if (logoutResult.code === RESPONSE.NORMAL) {
-            clearCookie()
             Router.push(ROUTES.ROOT)
         }
     }
