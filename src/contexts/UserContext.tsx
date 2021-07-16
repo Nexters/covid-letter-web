@@ -6,6 +6,7 @@ interface UserContextState {
     user: User | undefined
     reset: (args?: User) => void
     isLoading?: boolean
+    error?: Error
 }
 
 export const UserContext = createContext<UserContextState>(
@@ -13,7 +14,11 @@ export const UserContext = createContext<UserContextState>(
 )
 
 export const UserProvider = ({children}: {children: ReactNode}) => {
-    const {data: user, mutate: refreshUser} = useRequest<User>(
+    const {
+        data: user,
+        error,
+        mutate: refreshUser,
+    } = useRequest<User>(
         {
             url: '/user',
             params: {
@@ -27,12 +32,14 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
 
     const value = useMemo(
         () => ({
-            user: user?.result,
+            user: user,
             reset() {
                 refreshUser()
             },
+            isLoading: !user,
+            error,
         }),
-        [user, refreshUser],
+        [user, refreshUser, error],
     )
 
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>
