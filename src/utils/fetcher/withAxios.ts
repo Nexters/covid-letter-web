@@ -2,7 +2,7 @@ import {RESPONSE} from '$constants'
 import {RequestConfig} from '$types/request'
 import {Response} from '$types/response'
 import {isSSR} from '$utils/env'
-import axios, {AxiosResponse} from 'axios'
+import axios from 'axios'
 import {HOST_URL} from 'config'
 import {AuthInterceptor} from './AuthInterceptor'
 

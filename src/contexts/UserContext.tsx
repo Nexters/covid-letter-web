@@ -32,7 +32,7 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
 
     const value = useMemo(
         () => ({
-            user: user,
+            user,
             reset() {
                 refreshUser()
             },

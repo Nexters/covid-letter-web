@@ -1,7 +1,6 @@
 import {RequestConfig} from '$types/request'
-import {Response} from '$types/response'
-import {createResponse, withAxios} from '$utils/fetcher/withAxios'
-import {AxiosError, AxiosResponse} from 'axios'
+import {withAxios} from '$utils/fetcher/withAxios'
+import {AxiosError} from 'axios'
 import useSWR, {SWRConfiguration, SWRResponse} from 'swr'
 
 interface SwrReturn<Data, Error>
@@ -33,13 +32,6 @@ export default function useRequest<Data = unknown, Error = unknown>(
         () => withAxios<Data>(request),
         {
             ...config,
-            // initialData: initialData && {
-            //     status: 200,
-            //     statusText: 'init',
-            //     config: request!,
-            //     headers: {},
-            //     data: initialData,
-            // },
             initialData,
         },
     )
