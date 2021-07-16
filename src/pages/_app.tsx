@@ -4,10 +4,14 @@ import React, {ErrorInfo} from 'react'
 import {SWRConfig} from 'swr'
 import {
     isInstanceOfAccessTokenError,
+    isInstanceOfApiError,
     isInstanceOfCommonApiError,
     isInstanceOfRedirectArror,
 } from '$utils/fetcher/ApiError'
-import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
+import {
+    apiErrorHandler,
+    apiServerErrorHandler,
+} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
 import ROUTES from '$constants/routes'
@@ -78,6 +82,9 @@ class Page extends App<AppProps> {
                 pageProps,
             }
         } catch (error) {
+            if (isInstanceOfApiError(error) && ctx.req && ctx.res) {
+                apiServerErrorHandler(error, {req: ctx.req, res: ctx.res})
+            }
             return {
                 pageProps: {error},
             }

@@ -16,6 +16,7 @@
         "axios": "^0.21.1",
         "core-js": "^3.15.2",
         "cross-env": "^7.0.3",
+        "http": "0.0.1-security",
         "next": "11.0.1",
         "next-cookies": "^2.0.3",
         "prettier": "^2.3.2",

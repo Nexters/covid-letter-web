@@ -1,12 +1,14 @@
+import ROUTES from '$constants/routes'
 import {isSSR} from '$utils/env'
+import {IncomingMessage, ServerResponse} from 'http'
 import {
-    CommonApiError,
+    ApiError,
     isInstanceOfAccessTokenError,
     isInstanceOfCommonApiError,
     isInstanceOfRedirectArror,
 } from './ApiError'
 
-export function apiErrorHandler(e: CommonApiError) {
+export function apiErrorHandler(e: ApiError) {
     if (
         !isInstanceOfCommonApiError(e) &&
         !isInstanceOfRedirectArror(e) &&
@@ -19,7 +21,7 @@ export function apiErrorHandler(e: CommonApiError) {
         throw new Error('apiErrorHandler는 클라이언트에서 사용 가능합니다.')
     }
 
-    if (isInstanceOfRedirectArror(e)) {
+    if (isInstanceOfRedirectArror(e) || isInstanceOfAccessTokenError(e)) {
         const redirectUrl = e.redirect
 
         if (!redirectUrl) {
@@ -28,14 +30,30 @@ export function apiErrorHandler(e: CommonApiError) {
 
         window.location.replace(redirectUrl())
     }
+}
 
-    if (isInstanceOfAccessTokenError(e)) {
+export function apiServerErrorHandler(
+    e: ApiError,
+    {req, res}: {req: IncomingMessage; res: ServerResponse},
+) {
+    if (
+        !isInstanceOfCommonApiError(e) &&
+        !isInstanceOfRedirectArror(e) &&
+        !isInstanceOfAccessTokenError(e)
+    ) {
+        throw e
+    }
+
+    if (isInstanceOfRedirectArror(e) || isInstanceOfAccessTokenError(e)) {
         const redirectUrl = e.redirect
 
         if (!redirectUrl) {
-            throw new Error('Access Error에 redirect 메서드가 필요합니다.')
+            throw new Error('Api Error에 redirect 메서드가 필요합니다.')
         }
 
-        window.location.replace(redirectUrl())
+        const url = redirectUrl(ROUTES.ROOT)
+
+        res.writeHead(307, {Location: url})
+        res.end()
     }
 }
