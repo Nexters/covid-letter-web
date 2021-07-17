@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import {ReactElement} from 'react'
 
 const Button = ({children}: {children: ReactElement | string}) => {
     return <button>{children}</button>

@@ -1,5 +1,5 @@
 import App, {AppInitialProps} from 'next/app'
-import React, {ErrorInfo} from 'react'
+import {ErrorInfo} from 'react'
 import {SWRConfig} from 'swr'
 import {
     isInstanceOfCommonApiError,
