@@ -1,11 +1,13 @@
 import {User} from '$types/response/user'
 import {createContext, ReactNode, useContext, useMemo} from 'react'
 import useRequest from 'hooks/useRequest'
+import useAsyncError from '$hooks/useAsyncError'
 
 interface UserContextState {
     user: User | undefined
     reset: (args?: User) => void
     isLoading?: boolean
+    error?: Error
 }
 
 export const UserContext = createContext<UserContextState>(
@@ -13,7 +15,11 @@ export const UserContext = createContext<UserContextState>(
 )
 
 export const UserProvider = ({children}: {children: ReactNode}) => {
-    const {data: user, mutate: refreshUser} = useRequest<User>(
+    const {
+        data: user,
+        error,
+        mutate: refreshUser,
+    } = useRequest<User>(
         {
             url: '/user',
             params: {
@@ -25,14 +31,21 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
         },
     )
 
+    const throwError = useAsyncError()
+    if (error) {
+        throwError(error)
+    }
+
     const value = useMemo(
         () => ({
-            user: user?.result,
+            user,
             reset() {
                 refreshUser()
             },
+            isLoading: !user,
+            error,
         }),
-        [user, refreshUser],
+        [user, refreshUser, error],
     )
 
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>
