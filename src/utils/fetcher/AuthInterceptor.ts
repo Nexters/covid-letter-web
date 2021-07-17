@@ -6,9 +6,7 @@ import {CommonApiError, RedirectArror} from './ApiError'
 /**
  * @todo 회원 인증 에러 추가
  */
-export function AuthInterceptor<T>(
-    res: AxiosResponse<Response<T>>,
-): AxiosResponse {
+export function AuthInterceptor<T>(res: AxiosResponse<Response<T>>): T {
     const code = res.data.code
 
     if (code === RESPONSE.ERROR) {
@@ -19,5 +17,5 @@ export function AuthInterceptor<T>(
         throw new RedirectArror()
     }
 
-    return res
+    return res.data.result
 }

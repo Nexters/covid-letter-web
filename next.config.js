@@ -2,6 +2,9 @@
 const {REACT_APP_ENV} = process.env
 const CONFIG = require(`./src/config/${REACT_APP_ENV}`)
 
+const isLocal = REACT_APP_ENV === 'local'
+const LOCAL_ORIGIN = 'http://localhost:3000'
+
 /** both server and client */
 const publicRuntimeConfig = {
     REACT_APP_ENV,
@@ -34,5 +37,21 @@ module.exports = {
             return entries
         },
         plugins: [...plugins, new webpack.IgnorePlugin(/\/__tests__\//)],
+    }),
+    ...(isLocal && {
+        async rewrites() {
+            return [
+                {
+                    basePath: false,
+                    source: '/image/:path*',
+                    destination: `${LOCAL_ORIGIN}/:publicfiles`,
+                },
+                {
+                    basePath: false,
+                    source: '/assets/:path*',
+                    destination: `${LOCAL_ORIGIN}/:publicfiles`,
+                },
+            ]
+        },
     }),
 }

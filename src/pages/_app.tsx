@@ -1,4 +1,3 @@
-import '../styles/globals.css'
 import App, {AppInitialProps} from 'next/app'
 import React, {ErrorInfo} from 'react'
 import {SWRConfig} from 'swr'
@@ -10,6 +9,8 @@ import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
 import {UserProvider} from 'contexts/UserContext'
+import {GlobalStyles} from 'twin.macro'
+import '../styles/globals.css'
 
 type AppProps = AppInitialProps
 
@@ -26,6 +27,7 @@ class Page extends App<AppProps> {
         return {error}
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     componentDidCatch(error: Error, __: ErrorInfo) {
         /** add common error */
         if (
@@ -56,6 +58,7 @@ class Page extends App<AppProps> {
                 </Head>
                 <SWRConfig value={{revalidateOnFocus: false}}>
                     <UserProvider>
+                        <GlobalStyles />
                         <Component {...pageProps} />
                     </UserProvider>
                 </SWRConfig>
