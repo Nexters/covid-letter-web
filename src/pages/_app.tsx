@@ -9,7 +9,7 @@ import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
 import {UserProvider} from 'contexts/UserContext'
-import { GlobalStyles } from 'twin.macro'
+import {GlobalStyles} from 'twin.macro'
 import '../styles/globals.css'
 
 type AppProps = AppInitialProps

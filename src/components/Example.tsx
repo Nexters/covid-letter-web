@@ -2,16 +2,12 @@ import {User} from '$types/response/user'
 import {withAxios} from '$utils/fetcher/withAxios'
 import React, {useState} from 'react'
 import useAsyncError from 'hooks/useAsyncError'
-import { Button } from 'antd';
+import {Button} from 'antd'
 import {css} from '@emotion/react'
 import tw from 'twin.macro'
 
-const buttonStyle = css`
-  background-color: coral;
-`
-
 const twButtonStyle = tw`
-    bg-blue-100 w-full
+    tw-bg-blue-100 tw-w-full
 `
 
 const Counter = () => {
@@ -21,9 +17,18 @@ const Counter = () => {
         <>
             <div>{count}</div>
             <div>
-                <Button onClick={increase} className="bg-blue-700">+</Button>
-                <Button onClick={increase} type="primary" css={buttonStyle}>+</Button>
-                <Button onClick={increase} type="primary" css={twButtonStyle}>+</Button>
+                <Button onClick={increase} type="dashed">
+                    +
+                </Button>
+                <Button
+                    onClick={increase}
+                    type="primary"
+                    className="tw-bg-gray-50">
+                    +
+                </Button>
+                <Button onClick={increase} type="primary" css={twButtonStyle}>
+                    +
+                </Button>
             </div>
         </>
     )
