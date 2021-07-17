@@ -1,6 +1,5 @@
-import '../styles/globals.css'
-import App, {AppContext, AppInitialProps} from 'next/app'
-import React, {ErrorInfo} from 'react'
+import App, {AppInitialProps, AppContext} from 'next/app'
+import {ErrorInfo} from 'react'
 import {SWRConfig} from 'swr'
 import {
     isInstanceOfAccessTokenError,
@@ -19,6 +18,8 @@ import cookies from 'next-cookies'
 import Router from 'next/router'
 import {ProfileProvider} from '$contexts/ProfileContext'
 import {withAxios} from '$utils/fetcher/withAxios'
+import {GlobalStyles} from 'twin.macro'
+import '../styles/globals.css'
 
 type AppProps = AppInitialProps
 
@@ -98,6 +99,7 @@ class Page extends App<AppProps> {
         return {error}
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     componentDidCatch(error: Error, __: ErrorInfo) {
         /** add common error */
         if (
@@ -129,6 +131,7 @@ class Page extends App<AppProps> {
                 </Head>
                 <SWRConfig value={{revalidateOnFocus: false}}>
                     <ProfileProvider token={pageProps.token}>
+                        <GlobalStyles />
                         <Component {...pageProps} />
                     </ProfileProvider>
                 </SWRConfig>

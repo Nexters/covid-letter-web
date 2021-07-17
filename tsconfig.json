@@ -30,9 +30,11 @@
         "allowSyntheticDefaultImports": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "jsxImportSource": "@emotion/react"
     },
     "compileOnSave": true,
+    "files": ["twin.d.ts"],
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules", "dist", ".next", "next.config.js", "__tests__"]
 }
