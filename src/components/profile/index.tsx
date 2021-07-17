@@ -1,6 +1,4 @@
 import Button from '$components/Button'
-import {RESPONSE} from '$constants'
-import {TokenResponse} from '$types/login/naver'
 import {withAxios} from '$utils/fetcher/withAxios'
 import ROUTES from '$constants/routes'
 import Router from 'next/router'
@@ -24,13 +22,11 @@ const Profile = () => {
     }
 
     const logout = async () => {
-        const {data: logoutResult} = await withAxios<Partial<TokenResponse>>({
+        await withAxios<string>({
             url: `/logout`,
         })
 
-        if (logoutResult.code === RESPONSE.NORMAL) {
-            Router.push(ROUTES.ROOT)
-        }
+        Router.push(ROUTES.ROOT)
     }
 
     const goPageOne = () => {

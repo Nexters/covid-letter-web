@@ -28,9 +28,7 @@ const LoginButton = ({source, text}: {source: string; text: string}) => {
                 },
             })
 
-            const {result} = res.data
-
-            const {redirectUrl} = result
+            const {redirectUrl} = res
             window.location.replace(redirectUrl)
         } catch (e) {
             throwError(e)

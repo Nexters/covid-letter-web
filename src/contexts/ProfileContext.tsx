@@ -34,7 +34,7 @@ export const ProfileProvider = ({
 
     const value = useMemo(
         () => ({
-            profile: profile?.result,
+            profile,
             reset() {
                 refreshProfile()
             },

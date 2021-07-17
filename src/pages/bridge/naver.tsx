@@ -1,4 +1,3 @@
-import {RESPONSE} from '$constants'
 import ROUTES from '$constants/routes'
 import {GrantType} from '$constants'
 import {ProfileResponse, TokenResponse} from '$types/login/naver'
@@ -32,16 +31,11 @@ LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
                 grant_type: GrantType.create,
             },
         })
-        const {
-            data: {code: resCode, result},
-        } = tokenResult
 
-        const {error, error_description} = result
+        const {error, error_description, access_token} = tokenResult
 
-        if (resCode === RESPONSE.NORMAL) {
-            const {access_token} = result
-
-            const {data: profileData} = await withAxios<ProfileResponse>({
+        if (!error) {
+            const profileData = await withAxios<ProfileResponse>({
                 url: '/login/naver/profile',
                 method: 'POST',
                 data: {
@@ -49,25 +43,20 @@ LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
                 },
             })
 
-            if (profileData.code === RESPONSE.NORMAL) {
-                const {
-                    result: {response},
-                } = profileData
+            if (profileData) {
                 /**
                  * @todo BE로 프로필 정보 전송 + jwt 받아서 cookie에 저장
                  */
-                const {data: sessionResult} = await withAxios<SessionToken>({
+                const sessionResult = await withAxios<SessionToken>({
                     url: '/mock/session',
                     method: 'POST',
                     data: {
-                        profile: response,
+                        profile: profileData,
                     },
                 })
 
-                if (sessionResult.code === RESPONSE.NORMAL) {
-                    const {
-                        result: {token, expires_in},
-                    } = sessionResult
+                if (sessionResult) {
+                    const {token, expires_in} = sessionResult
 
                     res?.setHeader(
                         'Set-Cookie',
