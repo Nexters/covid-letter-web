@@ -1,4 +1,4 @@
-import Button from '$components/Button'
+import {Button} from 'antd'
 import {withAxios} from '$utils/fetcher/withAxios'
 import ROUTES from '$constants/routes'
 import Router from 'next/router'
@@ -41,7 +41,7 @@ const Profile = () => {
             <p>성별: {setGender(gender)}</p>
             <p>연령대 : {age}</p>
             <p>이메일: {email}</p>
-            <Button onClick={logout}>로그아웃</Button>
+            <Button onClick={logout}>로그아웃</Button>{' '}
             <Button onClick={goPageOne}>goPageOne</Button>
         </div>
     )
