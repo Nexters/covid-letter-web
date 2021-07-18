@@ -9,6 +9,10 @@ interface Config {
             CLIENT_ID: string
             CLIENT_SECRET: string
         }
+        GOOGLE: {
+            CLIENT_ID: string
+            API_KEY: string
+        }
     }
 }
 
@@ -19,5 +23,5 @@ export const HOST_URL = env === 'local' ? 'http://localhost:3000' : '' // real d
 
 export const {
     REACT_APP_ENV,
-    OAUTH: {NAVER},
+    OAUTH: {NAVER, GOOGLE},
 } = publicRuntimeConfig
