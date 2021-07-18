@@ -3,8 +3,30 @@ import {withAxios} from '$utils/fetcher/withAxios'
 import ROUTES from '$constants/routes'
 import Router from 'next/router'
 import {useProfileContext} from '$contexts/ProfileContext'
+import {NextPageContext} from 'next'
+import cookies from 'next-cookies'
+import {useGoogleLogout} from 'react-google-login'
+import {GOOGLE} from '$config'
 
-const Profile = () => {
+interface ProfileProps {
+    isGoogleLogin: boolean
+}
+
+const Profile = ({isGoogleLogin}: ProfileProps) => {
+    const requestLogout = async () => {
+        await withAxios<string>({
+            url: `/logout`,
+        })
+
+        Router.push(ROUTES.ROOT)
+    }
+    const {signOut} = useGoogleLogout({
+        clientId: GOOGLE.CLIENT_ID,
+        onLogoutSuccess: requestLogout,
+        onFailure: () => {
+            console.error('구글 계정 로그아웃에 실패했습니다.')
+        },
+    })
     const {profile, error} = useProfileContext()
 
     if (error) throw error
@@ -21,12 +43,12 @@ const Profile = () => {
         }
     }
 
-    const logout = async () => {
-        await withAxios<string>({
-            url: `/logout`,
-        })
-
-        Router.push(ROUTES.ROOT)
+    const logout = () => {
+        if (isGoogleLogin) {
+            signOut()
+            return
+        }
+        requestLogout()
     }
 
     const goPageOne = () => {
@@ -45,6 +67,19 @@ const Profile = () => {
             <Button onClick={goPageOne}>goPageOne</Button>
         </div>
     )
+}
+
+Profile.getInitialProps = ({req, res}: NextPageContext) => {
+    const {googleLogin} = cookies({req})
+
+    if (googleLogin) {
+        return {
+            isGoogleLogin: true,
+        }
+    }
+    return {
+        isGoogleLogin: false,
+    }
 }
 
 export default Profile

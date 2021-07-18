@@ -16,10 +16,10 @@ const routes = async (
 ) => {
     const {token, expires_in} = req.body
 
-    res.setHeader(
-        'Set-Cookie',
+    res.setHeader('Set-Cookie', [
         `letterLogin=${token}; path=/; max-age=${expires_in} HttpOnly`,
-    )
+        `googleLogin=1; path=/; max-age=${expires_in} HttpOnly`,
+    ])
     res.status(200).json(createResponse(`${HOST_URL}${ROUTES.MAIN}`))
 }
 
