@@ -7,9 +7,10 @@ import useSWR from 'swr'
 export interface TodoListContextState {
     isLoading: boolean
     numOfTodos: number
+    numOfIncompleteTodos: number
     list: Todo[]
-    toggle: (id: number) => void
-    delete: (id: number) => void
+    toggle: (id: number | string) => void
+    delete: (id: number | string) => void
     insert: (title: string) => void
     filter: (tag: FilterBase) => void
     activeTag: FilterBase
@@ -60,7 +61,7 @@ export const TodoListProvider = ({
 
     const [activeTag, setActiveTag] = useState<FilterBase>(FilterBase.ALL)
 
-    const findTodoItemIndex = (id: number) => {
+    const findTodoItemIndex = (id: number | string) => {
         const index = list!.findIndex(
             ({id: todoId}: Pick<Todo, 'id'>) => todoId === id,
         )
@@ -90,20 +91,22 @@ export const TodoListProvider = ({
         return todos
     }
 
-    const numOfTodos = list ? list.filter((elem) => !elem.complete).length : 0
+    const numOfTodos = list?.length || 0
 
     const value = {
         isLoading: !list,
         numOfTodos,
+        numOfIncompleteTodos:
+            list?.filter((elem) => !elem.complete).length || 0,
         list: filteredList,
-        toggle(id: number) {
+        toggle(id: number | string) {
             const index = findTodoItemIndex(id)
             const nextList: Todo[] = JSON.parse(JSON.stringify(list))
             const prev = nextList[index].complete
             nextList[index].complete = !prev
             mutate(nextList, false)
         },
-        delete(id: number) {
+        delete(id: number | string) {
             const index = findTodoItemIndex(id)
             const nextList: Todo[] = JSON.parse(JSON.stringify(list))
             nextList.splice(index, 1)
@@ -112,7 +115,7 @@ export const TodoListProvider = ({
         insert(title: string) {
             const newTodo: Todo = {
                 title,
-                id: list!.length,
+                id: Math.random().toString(36).substr(2, 11),
                 complete: false,
             }
             const nextList = [...list!, newTodo]

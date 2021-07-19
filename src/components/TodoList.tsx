@@ -125,12 +125,13 @@ const TodoList = () => {
         filter,
         activeTag,
         numOfTodos,
+        numOfIncompleteTodos,
         deleteCompleteTodos,
         isLoading,
         update,
     } = useTodoListContext()
 
-    const toggleComplete = (id: number) => {
+    const toggleComplete = (id: number | string) => {
         toggle(id)
     }
 
@@ -163,8 +164,8 @@ const TodoList = () => {
             )}
             <div className={cx('options')}>
                 <span>
-                    {numOfTodos > 0
-                        ? `남은 할일: ${numOfTodos}개`
+                    {numOfIncompleteTodos > 0
+                        ? `남은 할일: ${numOfIncompleteTodos}개`
                         : `모두 완료했습니다! 👍`}
                 </span>
                 <Filter
