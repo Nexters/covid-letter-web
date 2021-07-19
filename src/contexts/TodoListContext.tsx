@@ -37,10 +37,13 @@ export const TodoListProvider = ({
     intialData?: Todo[]
     children: ReactNode
 }) => {
-    const [list, setList] = useState<Todo[]>([])
     const [filteredList, setFilteredList] = useState<Todo[]>([])
 
-    const {data, error, mutate} = useSWR(
+    const {
+        data: list,
+        error,
+        mutate,
+    } = useSWR<Todo[]>(
         'todos',
         () => JSON.parse(localStorage.getItem('TODO')!) || [],
     )
@@ -51,15 +54,14 @@ export const TodoListProvider = ({
     }
 
     useEffect(() => {
-        if (!data) return
-        setList(data as Todo[])
+        if (!list) return
         filter()
-    }, [data])
+    }, [list])
 
     const [activeTag, setActiveTag] = useState<FilterBase>(FilterBase.ALL)
 
     const findTodoItemIndex = (id: number) => {
-        const index = list.findIndex(
+        const index = list!.findIndex(
             ({id: todoId}: Pick<Todo, 'id'>) => todoId === id,
         )
         if (index < 0) {
@@ -70,31 +72,28 @@ export const TodoListProvider = ({
 
     const filter = () => {
         if (activeTag === FilterBase.ALL) {
-            setFilteredList(list)
+            setFilteredList(list!)
             return
         }
         const base = activeTag === FilterBase.COMPLETE ? true : false
-        const nextList = list.filter(({complete}) => complete === base)
+        const nextList = list!.filter(({complete}) => complete === base)
         setFilteredList(nextList)
     }
 
     useEffect(() => {
-        filter()
-    }, [list])
-
-    useEffect(() => {
+        if (!list) return
         filter()
     }, [activeTag])
 
-    const updateTodos = async (todos: Todo[]) => {
+    const updateTodos = (todos: Todo[]) => {
         localStorage.setItem('TODO', JSON.stringify(todos))
-        mutate()
+        return todos
     }
 
-    const numOfTodos = list.filter((elem) => !elem.complete).length
+    const numOfTodos = list ? list.filter((elem) => !elem.complete).length : 0
 
     const value = {
-        isLoading: !data,
+        isLoading: !list,
         numOfTodos,
         list: filteredList,
         toggle(id: number) {
@@ -102,33 +101,34 @@ export const TodoListProvider = ({
             const nextList: Todo[] = JSON.parse(JSON.stringify(list))
             const prev = nextList[index].complete
             nextList[index].complete = !prev
-            setList(nextList)
+            mutate(nextList, false)
         },
         delete(id: number) {
             const index = findTodoItemIndex(id)
             const nextList: Todo[] = JSON.parse(JSON.stringify(list))
             nextList.splice(index, 1)
-            setList(nextList)
+            mutate(nextList, false)
         },
         insert(title: string) {
             const newTodo: Todo = {
                 title,
-                id: list.length,
+                id: list!.length,
                 complete: false,
             }
-            setList([...list, newTodo])
+            const nextList = [...list!, newTodo]
+            mutate(nextList, false)
         },
-        isEmptyTodoList: list.length < 1,
+        isEmptyTodoList: list ? list.length < 1 : true,
         filter(tag: FilterBase) {
             setActiveTag(tag)
         },
         activeTag,
         deleteCompleteTodos() {
-            const nextList = list.filter((elem) => !elem.complete)
-            setList(nextList)
+            const nextList = list!.filter((elem) => !elem.complete)
+            mutate(nextList, false)
         },
         update() {
-            mutate(updateTodos(list))
+            mutate(updateTodos(list!))
         },
     }
     return (
