@@ -14,7 +14,7 @@ export default function handler(
             {
                 id: '69e1addf-32d4-41ed-9cbc-f743ab4fc905',
                 contents: 'nextjs 공부하기',
-                is_completed: false,
+                is_completed: true,
             },
             {
                 id: '1e38d9e6-b17b-44c4-b351-2ad341427463',
@@ -24,7 +24,7 @@ export default function handler(
             {
                 id: 'af59ec08-8276-40fb-9550-538017f8b5d0',
                 contents: 'react 공부하기',
-                is_completed: false,
+                is_completed: true,
             },
             {
                 id: 'f5944d57-59be-402a-b323-ce11c8f613bb',
