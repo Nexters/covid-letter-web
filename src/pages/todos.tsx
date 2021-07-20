@@ -1,7 +1,24 @@
-import {withAxios} from '$utils/fetcher/withAxios'
 import {Todo} from '$types/todos'
+import useRequest from '$hooks/useRequest'
 
-const Todos = ({todos}: {todos: Todo[]}) => {
+const Todos = () => {
+
+    const {data: todos} = useRequest<Todo[]>(
+        {
+            url: `/todos`,
+        },
+        {
+            revalidateOnMount: true,
+            revalidateOnFocus: true, //신기해서 해봤습니다!
+        },
+    )
+
+    if (!todos) {
+        return (
+            <h3>loading...</h3>
+        )
+    }
+
     /**
      * todo: 변수네이밍 고민됩니다!
      */
@@ -19,15 +36,17 @@ const Todos = ({todos}: {todos: Todo[]}) => {
     )
 }
 
-Todos.getInitialProps = async () => {
-    const todos = await withAxios<Partial<Todo[]>>({
-        url: `/todos`,
-        method: 'get',
-    })
+/** useRequest hook 방식으로 변경하며 주석처리
+ Todos.getInitialProps = async () => {
+        const todos = await withAxios<Partial<Todo[]>>({
+            url: `/todos`,
+            method: 'get',
+        })
 
-    return {
-        todos,
+        return {
+            todos,
+        }
     }
-}
+ */
 
 export default Todos
