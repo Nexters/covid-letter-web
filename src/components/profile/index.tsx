@@ -18,7 +18,7 @@ const Profile = ({isGoogleLogin}: ProfileProps) => {
             url: `/logout`,
         })
 
-        Router.push(ROUTES.COVID.LOGIN)
+        Router.push(ROUTES.LOGIN)
     }
     const {signOut} = useGoogleLogout({
         clientId: GOOGLE.CLIENT_ID,

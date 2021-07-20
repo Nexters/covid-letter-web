@@ -42,12 +42,6 @@ module.exports = {
                 destination: '/covid',
                 permanent: true,
             },
-            {
-                basePath: false,
-                source: '/login',
-                destination: '/covid/login',
-                permanent: true,
-            },
         ]
     },
     ...(isLocal && {

@@ -31,12 +31,11 @@ type ACCESS_TOKEN = string | undefined
 
 const needToCheckCookiePath = (pathname: string) => {
     const needLogin = [ROUTES.POST, ROUTES.COVID.MAIN].includes(pathname)
-    const needMain = [ROUTES.ROOT, ROUTES.COVID.LOGIN].includes(pathname)
-    const theme = pathname.split('/')[1]
+    const needMain = [ROUTES.ROOT, ROUTES.LOGIN].includes(pathname)
 
     return {
         needToCheckCookie: needLogin || needMain,
-        redirectUrl: needLogin ? `/${theme}/login` : `/${theme}`,
+        redirectUrl: needLogin ? ROUTES.LOGIN : ROUTES.ROOT,
         compare: (v: ACCESS_TOKEN) => (needLogin ? !v : v),
         needLogout(v: ACCESS_TOKEN) {
             return needLogin && !v
