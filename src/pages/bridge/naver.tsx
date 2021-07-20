@@ -1,4 +1,3 @@
-import ROUTES from '$constants/routes'
 import {GrantType} from '$constants'
 import {ProfileResponse, TokenResponse} from '$types/login/naver'
 import {withAxios} from '$utils/fetcher/withAxios'
