@@ -30,14 +30,14 @@ const GoogleLoginButton = ({returnUrl}: GoogleLoginButtonProps) => {
         })
 
         if (sessionResult) {
-            const {token, expires_in} = sessionResult
+            const {accessToken, tokenExpirationTime} = sessionResult
 
             const redirectUrl = await withAxios<string>({
                 url: '/login/google/cookie',
                 method: 'POST',
                 data: {
-                    token,
-                    expires_in,
+                    accessToken,
+                    tokenExpirationTime,
                     returnUrl,
                 },
             })

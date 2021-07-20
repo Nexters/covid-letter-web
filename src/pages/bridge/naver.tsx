@@ -55,11 +55,11 @@ LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
                 })
 
                 if (sessionResult) {
-                    const {token, expires_in} = sessionResult
+                    const {accessToken, tokenExpirationTime} = sessionResult
 
                     res?.setHeader(
                         'Set-Cookie',
-                        `letterLogin=${token}; path=/; max-age=${expires_in} HttpOnly`,
+                        `letterLogin=${accessToken}; path=/; max-age=${tokenExpirationTime} HttpOnly`,
                     )
                     if (res && req) {
                         res!.writeHead(302, {Location: returnUrl})
