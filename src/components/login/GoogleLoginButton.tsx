@@ -4,7 +4,11 @@ import {Button} from 'antd'
 import {GoogleLoginResponse, useGoogleLogin} from 'react-google-login'
 import {SessionToken} from 'pages/api/mock/session'
 
-const GoogleLoginButton = () => {
+interface GoogleLoginButtonProps {
+    returnUrl: string
+}
+
+const GoogleLoginButton = ({returnUrl}: GoogleLoginButtonProps) => {
     const onSuccess = async ({
         googleId,
         profileObj,
@@ -34,6 +38,7 @@ const GoogleLoginButton = () => {
                 data: {
                     token,
                     expires_in,
+                    returnUrl,
                 },
             })
 

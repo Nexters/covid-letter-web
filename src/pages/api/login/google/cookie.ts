@@ -7,20 +7,20 @@ import type {NextApiRequest, NextApiResponse} from 'next'
 import {SessionToken} from 'pages/api/mock/session'
 
 interface CookieApiRequest extends NextApiRequest {
-    body: SessionToken
+    body: SessionToken & {returnUrl: string}
 }
 
 const routes = async (
     req: CookieApiRequest,
     res: NextApiResponse<Response<string>>,
 ) => {
-    const {token, expires_in} = req.body
+    const {token, expires_in, returnUrl} = req.body
 
     res.setHeader('Set-Cookie', [
         `letterLogin=${token}; path=/; max-age=${expires_in} HttpOnly`,
         `googleLogin=1; path=/; max-age=${expires_in} HttpOnly`,
     ])
-    res.status(200).json(createResponse(`${HOST_URL}${ROUTES.MAIN}`))
+    res.status(200).json(createResponse(`${HOST_URL}${returnUrl}`))
 }
 
 module.exports = routes

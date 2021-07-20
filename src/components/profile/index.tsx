@@ -9,7 +9,7 @@ import {useGoogleLogout} from 'react-google-login'
 import {GOOGLE} from '$config'
 
 interface ProfileProps {
-    isGoogleLogin: boolean
+    isGoogleLogin?: boolean
 }
 
 const Profile = ({isGoogleLogin}: ProfileProps) => {
@@ -18,7 +18,7 @@ const Profile = ({isGoogleLogin}: ProfileProps) => {
             url: `/logout`,
         })
 
-        Router.push(ROUTES.ROOT)
+        Router.push(ROUTES.COVID.LOGIN)
     }
     const {signOut} = useGoogleLogout({
         clientId: GOOGLE.CLIENT_ID,

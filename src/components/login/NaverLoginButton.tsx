@@ -5,7 +5,11 @@ import ROUTES from '$constants/routes'
 import useAsyncError from '$hooks/useAsyncError'
 import {Button} from 'antd'
 
-const NaverLoginButton = () => {
+interface NaverLoginButtonProps {
+    returnUrl: string
+}
+
+const NaverLoginButton = ({returnUrl}: NaverLoginButtonProps) => {
     const throwError = useAsyncError()
     const handleLogin = async () => {
         try {
@@ -14,13 +18,15 @@ const NaverLoginButton = () => {
                 method: 'get',
                 params: {
                     redirect_uri: encodeURIComponent(
-                        `${HOST_URL}${ROUTES.LOGIN.BRIDGE}/naver`,
+                        `${HOST_URL}${
+                            ROUTES.BRIDGE
+                        }/naver?returnUrl=${encodeURIComponent(returnUrl)}`,
                     ),
                 },
             })
 
             const {redirectUrl} = res
-            window.location.replace(redirectUrl)
+            window.location.replace(`${redirectUrl}`)
         } catch (e) {
             throwError(e)
         }
