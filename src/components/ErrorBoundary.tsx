@@ -1,4 +1,5 @@
 import {
+    isInstanceOfAccessTokenError,
     isInstanceOfCommonApiError,
     isInstanceOfRedirectArror,
 } from '$utils/fetcher/ApiError'
@@ -32,7 +33,8 @@ export default class ErrorBoundary extends Component<Props, State> {
     componentDidCatch(error: Error, __: ErrorInfo) {
         if (
             isInstanceOfCommonApiError(error) ||
-            isInstanceOfRedirectArror(error)
+            isInstanceOfRedirectArror(error) ||
+            isInstanceOfAccessTokenError(error)
         ) {
             return apiErrorHandler(error)
         }

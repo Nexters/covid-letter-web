@@ -9,7 +9,8 @@
             "$config/*": ["config/*"],
             "$config": ["config/index"],
             "$types/*": ["types/*"],
-            "$hooks/*": ["hooks/*"]
+            "$hooks/*": ["hooks/*"],
+            "$contexts/*": ["contexts/*"]
         }
     },
     "include": ["src"]

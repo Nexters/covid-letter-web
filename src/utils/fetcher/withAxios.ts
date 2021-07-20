@@ -6,8 +6,17 @@ import axios from 'axios'
 import {HOST_URL} from 'config'
 import {AuthInterceptor} from './AuthInterceptor'
 
-export const createResponse = <T>(data: T): Response<T> => ({
-    code: RESPONSE.NORMAL,
+export const createResponse = <T>(
+    data: T,
+    code = RESPONSE.NORMAL,
+): Response<T> => ({
+    code,
+    message: '',
+    result: data,
+})
+
+export const createErrorResponse = <T>(data: T): Response<T> => ({
+    code: RESPONSE.ERROR,
     message: '',
     result: data,
 })
