@@ -3,6 +3,7 @@ import useRequest from '$hooks/useRequest'
 import useAsyncError from '$hooks/useAsyncError'
 import TodoInput from '$components/todos/TodoInput'
 import {withAxios} from '$utils/fetcher/withAxios'
+import TodoFooter from '$components/todos/TodoFooter'
 
 const Todos = () => {
 
@@ -72,6 +73,7 @@ const Todos = () => {
             <ul>
                 {todoItems}
             </ul>
+            <TodoFooter />
         </>
     )
 }
