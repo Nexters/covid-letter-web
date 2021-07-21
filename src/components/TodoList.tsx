@@ -3,6 +3,7 @@ import {FilterBase, useTodoListContext} from '../contexts/TodoListContext'
 import styles from '$components/TodoList.module.scss'
 import React, {useState} from 'react'
 import {Todo} from '$types/response/todo'
+import {_useTodoContext} from 'contexts/TodoListContext.new'
 
 const cx = classNames.bind(styles)
 
@@ -12,7 +13,8 @@ const TodoItem = ({
     complete,
     onChange,
 }: Partial<Todo> & {onChange: () => void}) => {
-    const {delete: deleteTodo} = useTodoListContext()
+    // const {delete: deleteTodo} = useTodoListContext()
+    const {delete: deleteTodo} = _useTodoContext()
     const [isFocus, setIsFocus] = useState(false)
     const onFocus = () => {
         setIsFocus(true)
@@ -57,7 +59,8 @@ const TodoItem = ({
 }
 
 const Input = () => {
-    const {insert} = useTodoListContext()
+    // const {insert} = useTodoListContext()
+    const {insert} = _useTodoContext()
     const [title, setTitle] = useState<string>('')
 
     const handleChange = ({target}: {target: HTMLInputElement}) => {
@@ -118,6 +121,19 @@ const Filter = ({
 }
 
 const TodoList = () => {
+    // const {
+    //     list,
+    //     toggle,
+    //     isEmptyTodoList,
+    //     filter,
+    //     activeTag,
+    //     numOfTodos,
+    //     numOfIncompleteTodos,
+    //     deleteCompleteTodos,
+    //     isLoading,
+    //     update,
+    // } = useTodoListContext()
+
     const {
         list,
         toggle,
@@ -129,7 +145,7 @@ const TodoList = () => {
         deleteCompleteTodos,
         isLoading,
         update,
-    } = useTodoListContext()
+    } = _useTodoContext()
 
     const toggleComplete = (id: number | string) => {
         toggle(id)
