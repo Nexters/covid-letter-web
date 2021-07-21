@@ -1,6 +1,7 @@
 import {Todo} from '$types/todos'
 import useRequest from '$hooks/useRequest'
 import useAsyncError from '$hooks/useAsyncError'
+import TodoInput from '$components/todos/TodoInput'
 
 const Todos = () => {
 
@@ -25,10 +26,11 @@ const Todos = () => {
         )
     }
 
-    /**
-     * todo: 변수네이밍 고민됩니다!
-     */
-    const todoList = todos.map(({id, contents, is_completed}: Todo) => (
+    const addTodo = ({contents}: {contents: string}) => {
+        console.log(contents)
+    }
+
+    const todoItems = todos.map(({id, contents, is_completed}: Todo) => (
         <li key={`todo-${id}`}>
             <input type='checkbox' defaultChecked={is_completed} />
             <span>{contents}</span>
@@ -36,9 +38,12 @@ const Todos = () => {
     ))
 
     return (
-        <ul>
-            {todoList}
-        </ul>
+        <>
+            <TodoInput addTodo={addTodo} />
+            <ul>
+                {todoItems}
+            </ul>
+        </>
     )
 }
 
