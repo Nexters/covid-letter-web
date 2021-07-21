@@ -8,7 +8,7 @@ import {
 import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
-import {UserProvider} from 'contexts/UserContext'
+import {TodoListProvider} from '../contexts/TodoListContext'
 import {GlobalStyles} from 'twin.macro'
 import '../styles/globals.css'
 
@@ -57,10 +57,10 @@ class Page extends App<AppProps> {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <SWRConfig value={{revalidateOnFocus: false}}>
-                    <UserProvider>
+                    <TodoListProvider>
                         <GlobalStyles />
                         <Component {...pageProps} />
-                    </UserProvider>
+                    </TodoListProvider>
                 </SWRConfig>
             </>
         )
