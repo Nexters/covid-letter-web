@@ -44,10 +44,25 @@ const Todos = () => {
         await refreshTodos()
     }
 
+    const deleteTodo = async (todoId: string) => {
+        const deletedTodoId = await withAxios({
+            url: `/todos/${todoId}`,
+            method: 'DELETE',
+        })
+
+        console.info('deletedTodo:', deletedTodoId)
+        await refreshTodos()
+    }
+
     const todoItems = todos.map(({id, contents, is_completed}: Todo) => (
         <li key={`todo-${id}`}>
             <input type='checkbox' defaultChecked={is_completed} />
             <span>{contents}</span>
+            <button style={{
+                border: '1px solid',
+                backgroundColor: '#fe1',
+            }} onClick={() => deleteTodo(id)}>삭제
+            </button>
         </li>
     ))
 

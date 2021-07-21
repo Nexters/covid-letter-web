@@ -26,7 +26,7 @@ const addTodo = async (
 
     res.status(200).json({
         code: RESPONSE.NORMAL,
-        message: 'your todos!!',
+        message: 'newTodo was added!!',
         result: addedTodo,
     })
 
