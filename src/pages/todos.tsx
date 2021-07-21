@@ -1,9 +1,10 @@
 import {Todo} from '$types/todos'
 import useRequest from '$hooks/useRequest'
+import useAsyncError from '$hooks/useAsyncError'
 
 const Todos = () => {
 
-    const {data: todos} = useRequest<Todo[]>(
+    const {data: todos, error} = useRequest<Todo[]>(
         {
             url: `/todos`,
         },
@@ -12,6 +13,11 @@ const Todos = () => {
             revalidateOnFocus: true, //신기해서 해봤습니다!
         },
     )
+
+    const throwError = useAsyncError()
+    if (error) {
+        throwError(error)
+    }
 
     if (!todos) {
         return (
