@@ -11,6 +11,7 @@ const TodoInput = ({addTodo}: TodoInputProp) => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         addTodo({contents})
+        setContents('') //사실 addTodo 호출이 성공해야만 삭제하는게 맞다
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

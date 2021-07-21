@@ -2,10 +2,15 @@ import {Todo} from '$types/todos'
 import useRequest from '$hooks/useRequest'
 import useAsyncError from '$hooks/useAsyncError'
 import TodoInput from '$components/todos/TodoInput'
+import {withAxios} from '$utils/fetcher/withAxios'
 
 const Todos = () => {
 
-    const {data: todos, error} = useRequest<Todo[]>(
+    const {
+        data: todos,
+        error,
+        mutate: refreshTodos,
+    } = useRequest<Todo[]>(
         {
             url: `/todos`,
         },
@@ -26,8 +31,17 @@ const Todos = () => {
         )
     }
 
-    const addTodo = ({contents}: {contents: string}) => {
-        console.log(contents)
+    const addTodo = async ({contents}: {contents: string}) => {
+        const addedTodo = await withAxios({
+            url: '/todos',
+            method: 'POST',
+            data: {
+                contents,
+            },
+        })
+        console.info('addedTodo:', addedTodo)
+
+        await refreshTodos()
     }
 
     const todoItems = todos.map(({id, contents, is_completed}: Todo) => (
