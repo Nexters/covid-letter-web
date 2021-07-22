@@ -4,9 +4,12 @@ import useAsyncError from '$hooks/useAsyncError'
 import TodoInput from '$components/todos/TodoInput'
 import {withAxios} from '$utils/fetcher/withAxios'
 import TodoFooter from '$components/todos/TodoFooter'
+import {useState} from 'react'
+import {TODO_FILTER} from '$constants/todoFilter'
 
 const Todos = () => {
 
+    const [todoFilter, setTodoFilter] = useState(TODO_FILTER.ALL)
     const {
         data: todos,
         error,
@@ -32,6 +35,10 @@ const Todos = () => {
         )
     }
 
+    const changeTodoFilter = (willChangeTodoFilter: TODO_FILTER) => {
+        setTodoFilter(willChangeTodoFilter)
+    }
+
     const addTodo = async ({contents}: {contents: string}) => {
         const addedTodo = await withAxios({
             url: '/todos',
@@ -55,17 +62,27 @@ const Todos = () => {
         await refreshTodos()
     }
 
-    const todoItems = todos.map(({id, contents, is_completed}: Todo) => (
-        <li key={`todo-${id}`}>
-            <input type='checkbox' defaultChecked={is_completed} />
-            <span>{contents}</span>
-            <button style={{
-                border: '1px solid',
-                backgroundColor: '#fe1',
-            }} onClick={() => deleteTodo(id)}>삭제
-            </button>
-        </li>
-    ))
+    const todoItems = todos
+        .filter(({is_completed}: Todo) => {
+            if (todoFilter === TODO_FILTER.ACTIVE) {
+                return !is_completed
+            }
+            if (todoFilter === TODO_FILTER.COMPLETED) {
+                return is_completed
+            }
+            return true
+        })
+        .map(({id, contents, is_completed}: Todo) => (
+            <li key={`todo-${id}`}>
+                <input type='checkbox' defaultChecked={is_completed} />
+                <span>{contents}</span>
+                <button style={{
+                    border: '1px solid',
+                    backgroundColor: '#fe1',
+                }} onClick={() => deleteTodo(id)}>삭제
+                </button>
+            </li>
+        ))
 
     return (
         <>
@@ -73,7 +90,7 @@ const Todos = () => {
             <ul>
                 {todoItems}
             </ul>
-            <TodoFooter />
+            <TodoFooter todoFilter={todoFilter} changeTodoFilter={changeTodoFilter} />
         </>
     )
 }
