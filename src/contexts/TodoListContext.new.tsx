@@ -1,33 +1,15 @@
 import {Todo} from '$types/response/todo'
-import {observer, useLocalObservable} from 'mobx-react-lite'
+import {useTodoListStore} from 'contexts'
+import {observer} from 'mobx-react-lite'
 import {createContext, ReactNode, useContext, useEffect} from 'react'
 import useSWR from 'swr'
 import {FilterBase, TodoListContextState} from './TodoListContext'
 
 const _TodoListContext = createContext({} as TodoListContextState)
 
-interface TodoListStore {
-    list: Todo[]
-    setList: (v: Todo[]) => void
-    activeTag: FilterBase
-    setActiveTag: (v: FilterBase) => void
-}
-
-const createTodoListStore = (): TodoListStore => ({
-    list: [] as Todo[],
-    setList(v: Todo[]) {
-        this.list = v
-    },
-    activeTag: FilterBase.ALL as FilterBase,
-    setActiveTag(v: FilterBase) {
-        this.activeTag = v
-    },
-})
-
 export const _TodoListProvider = observer(
     ({intialData, children}: {intialData?: Todo[]; children: ReactNode}) => {
-        const {list, setList, activeTag, setActiveTag} =
-            useLocalObservable(createTodoListStore)
+        const {list, setList, activeTag, setActiveTag} = useTodoListStore()
 
         const {data, mutate} = useSWR<Todo[]>(
             'todos',

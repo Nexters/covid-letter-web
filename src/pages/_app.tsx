@@ -11,6 +11,7 @@ import Head from 'next/head'
 import ErrorPage from 'next/error'
 import {TodoListProvider} from 'contexts/TodoListContext'
 import {_TodoListProvider} from 'contexts/TodoListContext.new'
+import {StoreProvider} from 'contexts'
 
 type AppProps = AppInitialProps
 
@@ -56,11 +57,13 @@ class Page extends App<AppProps> {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <SWRConfig value={{revalidateOnFocus: false}}>
-                    <_TodoListProvider>
-                        {/* <TodoListProvider> */}
-                        <Component {...pageProps} />
-                        {/* </TodoListProvider> */}
-                    </_TodoListProvider>
+                    <StoreProvider>
+                        <_TodoListProvider>
+                            {/* <TodoListProvider> */}
+                            <Component {...pageProps} />
+                            {/* </TodoListProvider> */}
+                        </_TodoListProvider>
+                    </StoreProvider>
                 </SWRConfig>
             </>
         )
