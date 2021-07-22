@@ -62,6 +62,24 @@ const Todos = () => {
         await refreshTodos()
     }
 
+    const toggleCheckTodo = async (todoId: string) => {
+        const targetTodos: Todo[] = todos.filter(({id}) => id === todoId)
+        if (targetTodos.length === 0) {
+            throwError(new Error('잘못된 id 입니다.')) //todo: error 처리 확인 필요
+        }
+
+        const updatedTodo = await withAxios({
+            url: `/todos/${todoId}`,
+            method: 'PATCH',
+            data: {
+                is_completed: !targetTodos[0].is_completed,
+            },
+        })
+
+        console.info('toggle checked:', updatedTodo)
+        await refreshTodos()
+    }
+
     const todoItems = todos
         .filter(({is_completed}: Todo) => {
             if (todoFilter === TODO_FILTER.ACTIVE) {
@@ -74,8 +92,8 @@ const Todos = () => {
         })
         .map(({id, contents, is_completed}: Todo) => (
             <li key={`todo-${id}`}>
-                <input type='checkbox' defaultChecked={is_completed} />
-                <span>{contents}</span>
+                <input type='checkbox' defaultChecked={is_completed} onChange={() => toggleCheckTodo(id)} />
+                <span style={{textDecoration: is_completed ? 'line-through' : 'none'}}>{contents}</span>
                 <button style={{
                     border: '1px solid',
                     backgroundColor: '#fe1',

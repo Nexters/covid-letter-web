@@ -9,6 +9,22 @@ interface ApiRequest extends NextApiRequest {
     }
 }
 
+const updateTodo = async (
+    req: ApiRequest,
+    res: NextApiResponse<Response<Partial<string>>>,
+) => {
+    const todoId: string = req.query.id
+    const {data: updatedTodo} = await Axios.patch(`http://localhost:3001/todos/${todoId}`, {
+        ...req.body,
+    })
+
+    res.status(200).json({
+        code: RESPONSE.NORMAL,
+        message: 'todo was updated!!',
+        result: updatedTodo,
+    })
+}
+
 const deleteTodo = async (
     req: ApiRequest,
     res: NextApiResponse<Response<Partial<string>>>,
@@ -27,8 +43,8 @@ export default async function handler(
     req: ApiRequest,
     res: NextApiResponse<Response<Partial<string>>>,
 ) {
-    if (req.method === 'PUT') {
-        //todo 수정
+    if (req.method === 'PATCH') {
+        await updateTodo(req, res)
         return
     }
 
