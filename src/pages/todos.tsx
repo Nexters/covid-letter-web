@@ -102,13 +102,15 @@ const Todos = () => {
             </li>
         ))
 
+    const activeTodosCount = todos.filter(({is_completed}: Todo) => !is_completed).length
+
     return (
         <>
             <TodoInput addTodo={addTodo} />
             <ul>
                 {todoItems}
             </ul>
-            <TodoFooter todoFilter={todoFilter} changeTodoFilter={changeTodoFilter} />
+            <TodoFooter activeTodosCount={activeTodosCount} todoFilter={todoFilter} changeTodoFilter={changeTodoFilter} />
         </>
     )
 }

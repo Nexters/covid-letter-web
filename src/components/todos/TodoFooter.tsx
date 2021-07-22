@@ -1,11 +1,12 @@
 import {TODO_FILTER} from '$constants/todoFilter'
 
 type TodoFooterProps = {
+    activeTodosCount: number,
     todoFilter: TODO_FILTER,
     changeTodoFilter: (todoFilter: TODO_FILTER) => void
 }
 
-const TodoFooter = ({todoFilter: currentTodoFilter, changeTodoFilter}: TodoFooterProps) => {
+const TodoFooter = ({activeTodosCount, todoFilter: currentTodoFilter, changeTodoFilter}: TodoFooterProps) => {
 
     const baseButtonStyle = {
         margin: '5px 5px 0 0',
@@ -25,6 +26,7 @@ const TodoFooter = ({todoFilter: currentTodoFilter, changeTodoFilter}: TodoFoote
     return (
         <>
             {buttons}
+            <h3>item left: {activeTodosCount}</h3>
         </>
     )
 }

@@ -20,7 +20,8 @@ const TodoInput = ({addTodo}: TodoInputProp) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type='text' value={contents} onChange={handleChange} style={{border: '1px solid'}} />
+            <input type='text' value={contents} onChange={handleChange} style={{border: '1px solid', width: '300px'}}
+                   placeholder='What needs to be done?' />
         </form>
     )
 }
