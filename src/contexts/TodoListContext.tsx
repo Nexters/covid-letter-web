@@ -1,10 +1,10 @@
-import {createContext, ReactNode, useEffect, useState} from 'react'
+import {createContext, ReactNode, useEffect} from 'react'
 import useRequest from '$hooks/useRequest'
 
 export interface Todo {
     id: number
     item: string
-    complete: boolean
+    // complete: boolean
 }
 
 export interface TodoListContextState {
@@ -38,11 +38,10 @@ export const TodoListProvider = ({children}: {children: ReactNode}) => {
         }
     }
     function add(item: string) {
-        const newItem: Todo = {
-            item,
-            id: todoList?.length || 0,
-            complete: false,
-        }
+        // const newItem: Todo = {
+        //     item,
+        //     id: todoList?.length || 0,
+        // }
     }
     return (
         <TodoListContext.Provider

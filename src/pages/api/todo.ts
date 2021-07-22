@@ -15,17 +15,14 @@ export default function handler(
             {
                 id: 1,
                 item: 'test 1',
-                complete: false,
             },
             {
                 id: 2,
                 item: 'test 2',
-                complete: false,
             },
             {
                 id: 3,
                 item: 'test 3',
-                complete: false,
             },
         ],
     })
