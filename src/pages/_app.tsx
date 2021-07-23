@@ -30,11 +30,12 @@ interface State {
 type ACCESS_TOKEN = string | undefined
 
 const needToCheckCookiePath = (pathname: string) => {
-    const needLogin = [ROUTES.MAIN, ROUTES.POST].includes(pathname)
-    const needMain = [ROUTES.ROOT].includes(pathname)
+    const needLogin = [ROUTES.POST, ROUTES.COVID.MAIN].includes(pathname)
+    const needMain = [ROUTES.ROOT, ROUTES.LOGIN].includes(pathname)
+
     return {
         needToCheckCookie: needLogin || needMain,
-        redirectUrl: needLogin ? ROUTES.ROOT : ROUTES.MAIN,
+        redirectUrl: needLogin ? ROUTES.LOGIN : ROUTES.ROOT,
         compare: (v: ACCESS_TOKEN) => (needLogin ? !v : v),
         needLogout(v: ACCESS_TOKEN) {
             return needLogin && !v

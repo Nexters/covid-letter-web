@@ -4,8 +4,8 @@ import {Response} from '$types/response'
 import type {NextApiRequest, NextApiResponse} from 'next'
 
 export interface SessionToken {
-    token: string
-    expires_in: number
+    accessToken: string
+    tokenExpirationTime: number
 }
 
 export default function handler(
@@ -15,6 +15,6 @@ export default function handler(
     res.status(200).json({
         code: RESPONSE.NORMAL,
         message: '',
-        result: {token: 'EXAMPLETOKEN', expires_in: 3600},
+        result: {accessToken: 'EXAMPLETOKEN', tokenExpirationTime: 3600},
     })
 }

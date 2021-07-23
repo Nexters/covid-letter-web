@@ -1,4 +1,3 @@
-import ROUTES from '$constants/routes'
 import {GrantType} from '$constants'
 import {ProfileResponse, TokenResponse} from '$types/login/naver'
 import {withAxios} from '$utils/fetcher/withAxios'
@@ -19,7 +18,7 @@ const LoginBridge = ({error, error_description}: LoginBridgeProps) => {
 }
 
 LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
-    const {code, state} = query
+    const {code, state, returnUrl} = query
 
     if (code && state) {
         const tokenResult = await withAxios<Partial<TokenResponse>>({
@@ -56,17 +55,17 @@ LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
                 })
 
                 if (sessionResult) {
-                    const {token, expires_in} = sessionResult
+                    const {accessToken, tokenExpirationTime} = sessionResult
 
                     res?.setHeader(
                         'Set-Cookie',
-                        `letterLogin=${token}; path=/; max-age=${expires_in} HttpOnly`,
+                        `letterLogin=${accessToken}; path=/; max-age=${tokenExpirationTime} HttpOnly`,
                     )
                     if (res && req) {
-                        res!.writeHead(302, {Location: ROUTES.MAIN})
+                        res!.writeHead(302, {Location: returnUrl})
                         res!.end()
                     } else {
-                        Router.push(ROUTES.MAIN)
+                        Router.push(returnUrl as string)
                     }
                 }
             }

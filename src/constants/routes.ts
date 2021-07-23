@@ -1,11 +1,11 @@
 const ROUTES = Object.freeze({
     ROOT: '/',
-    LOGIN: {
-        MAIN: '/',
-        BRIDGE: '/bridge',
+    LOGIN: '/login',
+    BRIDGE: '/bridge',
+    POST: '/post/[id]', // example
+    COVID: {
+        MAIN: '/covid',
     },
-    MAIN: '/main',
-    POST: '/post/[id]',
 })
 
 export default ROUTES

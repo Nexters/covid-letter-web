@@ -34,6 +34,16 @@ module.exports = {
         },
         plugins: [...plugins, new webpack.IgnorePlugin(/\/__tests__\//)],
     }),
+    async redirects() {
+        return [
+            {
+                basePath: false,
+                source: '/',
+                destination: '/covid',
+                permanent: true,
+            },
+        ]
+    },
     ...(isLocal && {
         async rewrites() {
             return [
