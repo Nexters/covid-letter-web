@@ -25,9 +25,12 @@ export const withAxios = async <T>(request: RequestConfig): Promise<T> => {
     const instance = axios.create()
     instance.interceptors.response.use(AuthInterceptor)
 
+    /**
+     * @requires response 반드시 proxy 통해서 외부 서버와 통신합니다.
+     */
     const response = await instance.request<T, T>({
         ...request!,
-        baseURL: `${isSSR ? HOST_URL : ''}/api`, // be에서 url 논의 필요
+        baseURL: `${isSSR ? HOST_URL : ''}/api`,
     })
 
     return response
