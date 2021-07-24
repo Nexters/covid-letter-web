@@ -22,6 +22,7 @@ export default class CustomDocument extends Document {
                     <Main />
                     <NextScript />
                 </body>
+                <div id="__portal"></div>
             </Html>
         )
     }
