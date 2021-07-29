@@ -72,12 +72,11 @@ const AlertContainer = () => {
                 <Layer>
                     <TextContainer>
                         <h3>
-                            Alert 예시
+                            {title}
                             <Button type={'link'} onClick={close}>
                                 닫기
                             </Button>
                         </h3>
-                        <div>{title}</div>
                         <div>{message}</div>
                     </TextContainer>
                     <Button onClick={handleSuccess}>{successText}</Button>
