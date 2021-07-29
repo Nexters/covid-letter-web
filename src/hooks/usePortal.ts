@@ -25,7 +25,10 @@ const usePortal = () => {
     const Portal = useMemo(
         () =>
             ({children}: {children: ReactNode}) => {
-                return ReactDOM.createPortal(children, portal.current!)
+                if (portal.current) {
+                    return ReactDOM.createPortal(children, portal.current)
+                }
+                return null
             },
         [],
     )
