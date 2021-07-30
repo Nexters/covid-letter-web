@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom'
 import '@testing-library/jest-dom/extend-expect'
+import {cleanup} from '@testing-library/react'
 
 jest.mock('next/config', () => () => {
     const config = jest.requireActual('next/config')
@@ -20,4 +21,35 @@ jest.mock('next/config', () => () => {
             },
         },
     }
+})
+
+jest.mock('next/router', () => {
+    const actualRouter = jest.requireActual('next/router')
+    return {
+        ...actualRouter,
+        basePath: '/',
+        pathname: '/',
+        route: '/',
+        asPath: '/',
+        query: {},
+        push: jest.fn(),
+        replace: jest.fn(),
+        reload: jest.fn(),
+        back: jest.fn(),
+        prefetch: jest.fn().mockResolvedValue(undefined),
+        beforePopState: jest.fn(),
+        events: {
+            on: jest.fn(),
+            off: jest.fn(),
+            emit: jest.fn(),
+        },
+        isFallback: false,
+        isLocaleDomain: false,
+        isReady: true,
+        isPreview: false,
+    }
+})
+
+afterEach(() => {
+    cleanup()
 })
