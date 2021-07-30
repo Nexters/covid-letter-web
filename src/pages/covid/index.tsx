@@ -1,4 +1,5 @@
 import HalfLayer from '$components/layer/HalfLayer'
+import Profile from '$components/profile'
 import {useAlertStore} from '$contexts/StoreContext'
 import styled from '@emotion/styled'
 import {Button} from 'antd'
@@ -27,6 +28,7 @@ const Main = () => {
     const close = () => setIsShow(false)
     return (
         <Container>
+            <Profile />
             <Button onClick={openAlert}>Alert 열기</Button>
             <Button onClick={openHalfLayer}>HalfLayer 열기</Button>
             <HalfLayer isShow={isShow} closeFn={close}>
