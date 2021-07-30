@@ -19,7 +19,7 @@ const Layer = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     background-color: #fff;
     overflow: hidden;
     text-align: center;
