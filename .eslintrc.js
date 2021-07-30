@@ -42,5 +42,6 @@ module.exports = {
         'no-undef': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
         'react/display-name': 'off',
+        'react/prop-types': 'off',
     },
 }

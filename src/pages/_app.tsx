@@ -20,6 +20,8 @@ import {ProfileProvider} from '$contexts/ProfileContext'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {GlobalStyles} from 'twin.macro'
 import '../styles/globals.css'
+import {StoreProvider} from '$contexts/StoreContext'
+import AlertContainer from '$components/alert'
 
 type AppProps = AppInitialProps
 
@@ -131,10 +133,13 @@ class Page extends App<AppProps> {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <SWRConfig value={{revalidateOnFocus: false}}>
-                    <ProfileProvider token={pageProps.token}>
-                        <GlobalStyles />
-                        <Component {...pageProps} />
-                    </ProfileProvider>
+                    <StoreProvider>
+                        <ProfileProvider token={pageProps.token}>
+                            <GlobalStyles />
+                            <Component {...pageProps} />
+                            <AlertContainer />
+                        </ProfileProvider>
+                    </StoreProvider>
                 </SWRConfig>
             </>
         )
