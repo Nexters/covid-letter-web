@@ -9,7 +9,7 @@ import withAxios from '$utils/__mocks__/fetcher/withAxios'
 import {AuthorizeResponse} from '$types/login/naver'
 import {MatcherFunction} from '@testing-library/dom/types/matches'
 
-jest.mock('$utils/fetcher/withAxios')
+jest.mock('utils/fetcher/withAxios', () => jest.requireActual('utils/__mocks__/fetcher/withAxios'))
 
 const NAVER_LOGIN_API = '/login/naver/authorize'
 
@@ -41,10 +41,10 @@ describe('로그인 화면', () => {
     })
 
     describe('로그인 버튼을 클릭', () => {
-        test.only('"네이버로 로그인" 버튼을 클릭하면 네이버 인증 api를 호출한다.', async () => {
+        test('"네이버로 로그인" 버튼을 클릭하면 네이버 인증 api를 호출한다.', async () => {
             window.location.replace = jest.fn()
             mockNaverLogin({
-                redirectUrl: 'https://naver.com',
+                redirectUrl: 'https://www.naver.com',
             })
 
             const {findByText} = renderComponent()
@@ -69,7 +69,7 @@ describe('로그인 화면', () => {
             }
 
             await waitFor(() => {
-                expect(window.location.replace).toHaveBeenCalledWith('https://naver.com')
+                expect(window.location.replace).toHaveBeenCalledWith('https://www.naver.com')
             })
         })
 

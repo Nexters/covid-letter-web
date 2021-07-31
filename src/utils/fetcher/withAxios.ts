@@ -66,16 +66,14 @@ const createAxiosInstance = () => {
     return extendWithMock(instance)
 }
 
-const globalAxiosInstance = createAxiosInstance()
-
-export default globalAxiosInstance
+export const globalAxiosInstance = createAxiosInstance()
 
 export const withAxios = async <T>(request: RequestConfig): Promise<T> => {
     /**
      * @requires response 반드시 proxy 통해서 외부 서버와 통신합니다.
      */
     const response = await globalAxiosInstance.request<T, T>({
-        ...request!,
+        ...request,
         baseURL: `${isSSR ? HOST_URL : ''}/api`,
     })
 

@@ -1,9 +1,9 @@
 import {AxiosInstanceWithMock} from '$utils/fetcher/withAxios'
 import {RequestConfig} from '$types/request'
 
-const actualModule: {default: AxiosInstanceWithMock} = jest.requireActual('../../fetcher/withAxios')
+const actualModule: {globalAxiosInstance: AxiosInstanceWithMock} = jest.requireActual('utils/fetcher/withAxios')
 
-const {default: defaultAxiosInstance} = actualModule
+const {globalAxiosInstance: defaultAxiosInstance} = actualModule
 
 const mockAxiosInstance = defaultAxiosInstance.mock()
 
