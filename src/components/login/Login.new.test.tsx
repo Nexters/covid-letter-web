@@ -8,8 +8,26 @@ import ROUTES from '$constants/routes'
 import withAxios from '$utils/__mocks__/fetcher/withAxios'
 import {AuthorizeResponse} from '$types/login/naver'
 import {MatcherFunction} from '@testing-library/dom/types/matches'
+import {UseGoogleLoginResponse} from 'react-google-login'
 
 jest.mock('utils/fetcher/withAxios', () => jest.requireActual('utils/__mocks__/fetcher/withAxios'))
+
+let mockGoogleLogin: UseGoogleLoginResponse
+
+beforeEach(() => {
+    mockGoogleLogin = {
+        signIn: jest.fn(),
+        loaded: false,
+    }
+})
+
+jest.mock('react-google-login', () => {
+    return {
+        useGoogleLogin: () => {
+            return mockGoogleLogin
+        },
+    }
+})
 
 const NAVER_LOGIN_API = '/login/naver/authorize'
 
@@ -73,7 +91,32 @@ describe('로그인 화면', () => {
             })
         })
 
-        test.todo('"구로로 로그인" 버튼을 클릭하면 useGoogleLogin.signIn을 실행한다.')
+        test('"구글로 로그인" 버튼을 클릭하면 useGoogleLogin.signIn을 실행한다.', async () => {
+            const {findByText} = renderComponent()
+
+            let googleLoginButton: Element | null = null
+
+            const cb: MatcherFunction = (_content, element) => {
+                if (!element) {
+                    return false
+                }
+                if (element.tagName === 'BUTTON' && element.textContent === '구글로 로그인') {
+                    googleLoginButton = element
+                    return true
+                }
+                return false
+            }
+
+            await findByText(cb)
+
+            if (googleLoginButton) {
+                fireEvent.click(googleLoginButton)
+            }
+
+            await waitFor(() => {
+                expect(mockGoogleLogin.signIn).toHaveBeenCalledTimes(1)
+            })
+        })
     })
 
     describe('로그인 성공', () => {
