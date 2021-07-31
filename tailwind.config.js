@@ -6,6 +6,12 @@ module.exports = {
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {},
+        /**
+         * @todo 추가해야 할 거
+         * - fontSize
+         * - iconSize (width?)
+         * - spacing // If you’d like to customize these values for padding, margin, width, and height all at once
+         */
         // fontSize: {
         //     xs: ['.75rem'],
         //     sm: ['.875rem'],
