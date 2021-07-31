@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body > div[id^='__next'],
+body {
+    height: 100%;
+}
+
+:root {
+    --beige-300: #eae6d7;
+    --beige-200: #f6f4e8;
+}

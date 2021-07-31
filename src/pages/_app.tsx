@@ -18,10 +18,23 @@ import cookies from 'next-cookies'
 import Router from 'next/router'
 import {ProfileProvider} from '$contexts/ProfileContext'
 import {withAxios} from '$utils/fetcher/withAxios'
-import {GlobalStyles} from 'twin.macro'
+import {GlobalStyles, styled} from 'twin.macro'
 import '../styles/globals.css'
 import {StoreProvider} from '$contexts/StoreContext'
 import AlertContainer from '$components/alert'
+import {css} from '@emotion/react'
+
+const article = css`
+    position: relative;
+    min-height: 100%;
+`
+
+const Container = styled.div`
+    max-width: 420px;
+    background-color: var(--beige-300);
+    margin: 0 auto;
+    min-height: 100vh;
+`
 
 type AppProps = AppInitialProps
 
@@ -44,7 +57,6 @@ const needToCheckCookiePath = (pathname: string) => {
         },
     }
 }
-
 class Page extends App<AppProps> {
     static async getInitialProps({
         ctx,
@@ -136,7 +148,11 @@ class Page extends App<AppProps> {
                     <StoreProvider>
                         <ProfileProvider token={pageProps.token}>
                             <GlobalStyles />
-                            <Component {...pageProps} />
+                            <div className="tw-bg-beige-200" css={article}>
+                                <Container>
+                                    <Component {...pageProps} />
+                                </Container>
+                            </div>
                             <AlertContainer />
                         </ProfileProvider>
                     </StoreProvider>
