@@ -50,6 +50,18 @@ jest.mock('next/router', () => {
     }
 })
 
+beforeAll(() => {
+    Object.defineProperty(window, 'location', {
+        writable: true,
+        value: {assign: jest.fn()},
+    })
+
+    Element.prototype.scrollTo = jest.fn()
+
+    window.alert = jest.fn()
+    window.confirm = jest.fn()
+})
+
 afterEach(() => {
     cleanup()
 })

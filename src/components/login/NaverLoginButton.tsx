@@ -18,9 +18,7 @@ const NaverLoginButton = ({returnUrl}: NaverLoginButtonProps) => {
                 method: 'get',
                 params: {
                     redirect_uri: encodeURIComponent(
-                        `${HOST_URL}${
-                            ROUTES.BRIDGE
-                        }/naver?returnUrl=${encodeURIComponent(returnUrl)}`,
+                        `${HOST_URL}${ROUTES.BRIDGE}/naver?returnUrl=${encodeURIComponent(returnUrl)}`,
                     ),
                 },
             })
