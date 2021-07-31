@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom/extend-expect'
-import {fireEvent, render, waitFor} from '@testing-library/react'
-import {StoreProvider} from '$contexts/StoreContext'
+import {cleanup, fireEvent, render, waitFor} from '$utils/custom-testing-library'
 import Login from '../../pages/login'
 import NaverLoginButton from '$components/login/NaverLoginButton'
 import GoogleLoginButton from '$components/login/GoogleLoginButton'
@@ -9,6 +8,9 @@ import withAxios from '$utils/__mocks__/fetcher/withAxios'
 import {AuthorizeResponse} from '$types/login/naver'
 import {MatcherFunction} from '@testing-library/dom/types/matches'
 import {UseGoogleLoginResponse} from 'react-google-login'
+import {ApiError} from '$utils/fetcher/ApiError'
+import {observable} from 'mobx'
+import {AlertState} from 'stores/Alert'
 
 jest.mock('utils/fetcher/withAxios', () => jest.requireActual('utils/__mocks__/fetcher/withAxios'))
 
@@ -31,16 +33,32 @@ jest.mock('react-google-login', () => {
 
 const NAVER_LOGIN_API = '/login/naver/authorize'
 
-const mockNaverLogin = (data: AuthorizeResponse) => {
-    withAxios.mockRespondOnce<AuthorizeResponse>(NAVER_LOGIN_API, data)
+const mockNaverLogin = (data: AuthorizeResponse | Error) => {
+    withAxios.mockRespondOnce<AuthorizeResponse | Error>(NAVER_LOGIN_API, data)
 }
 
+const actualAlertStore = jest.requireActual('stores/Alert')
+let mockAlertStore: AlertState = {} as AlertState
+
+beforeEach(() => {
+    const store = {
+        ...actualAlertStore.createAlert(),
+    }
+    mockAlertStore = observable(store)
+})
+
+jest.mock('stores/Alert', () => ({
+    createAlert: () => {
+        return mockAlertStore
+    },
+}))
+
+afterEach(() => {
+    cleanup()
+})
+
 const renderComponent = () => {
-    return render(
-        <StoreProvider>
-            <Login />
-        </StoreProvider>,
-    )
+    return render(<Login />)
 }
 
 describe('로그인 화면', () => {
@@ -119,12 +137,40 @@ describe('로그인 화면', () => {
         })
     })
 
-    describe('로그인 성공', () => {
-        test.todo('메인 화면으로 이동한다.')
-    })
-
-    describe('로그인 실패', () => {
+    describe('인증서버 오류', () => {
         /** [TODO] 논의 */
-        test.todo('에러 Alert을 띄운다.')
+        test('에러 Alert을 띄운다.', async () => {
+            const spyOnAlert = jest.spyOn(mockAlertStore, 'alert').mockImplementationOnce(() => null)
+
+            mockNaverLogin(new ApiError('TEST ERROR'))
+            const {findByText} = renderComponent()
+
+            let naverLoginButton: Element | null = null
+
+            const cb: MatcherFunction = (_content, element) => {
+                if (!element) {
+                    return false
+                }
+                if (element.tagName === 'BUTTON' && element.textContent === '네이버로 로그인') {
+                    naverLoginButton = element
+                    return true
+                }
+                return false
+            }
+
+            await findByText(cb)
+
+            if (naverLoginButton) {
+                fireEvent.click(naverLoginButton)
+            }
+
+            await waitFor(() => {
+                expect(spyOnAlert).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                        title: '로그인에 실패했습니다.',
+                    }),
+                )
+            })
+        })
     })
 })
