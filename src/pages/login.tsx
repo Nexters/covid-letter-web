@@ -1,22 +1,29 @@
-import ErrorBoundary, {FallbackProps} from '$components/ErrorBoundary'
 import NaverLoginButton from '$components/login/NaverLoginButton'
 import GoogleLoginButton from '$components/login/GoogleLoginButton'
 import ROUTES from '$constants/routes'
+import styled from '@emotion/styled'
+import tw from 'twin.macro'
 
-const Fallback = ({error}: FallbackProps) => {
-    return (
-        <h4 style={{backgroundColor: '#f7c5c5', padding: '10px 15px'}}>
-            시스템 오류가 발생했습니다. 잠시 후 시도해주세요.
-        </h4>
-    )
-}
+const Container = styled.div``
+
+const Titile = styled.div`
+    padding-top: 80px;
+`
+const titleTwStyles = tw`
+    tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center
+`
 
 const Login = () => {
     return (
-        <ErrorBoundary withChildren fallback={Fallback}>
+        <Container>
+            <Titile css={titleTwStyles}>
+                나에게 보내는 편지
+                <br />
+                ‘코로나’편
+            </Titile>
             <NaverLoginButton returnUrl={ROUTES.COVID.MAIN} />
             <GoogleLoginButton returnUrl={ROUTES.COVID.MAIN} />
-        </ErrorBoundary>
+        </Container>
     )
 }
 

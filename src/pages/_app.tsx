@@ -22,16 +22,14 @@ import {GlobalStyles, styled} from 'twin.macro'
 import '../styles/globals.css'
 import {StoreProvider} from '$contexts/StoreContext'
 import AlertContainer from '$components/alert'
-import {css} from '@emotion/react'
 
-const article = css`
+const Article = styled.div`
     position: relative;
     min-height: 100%;
 `
 
 const Container = styled.div`
     max-width: 420px;
-    background-color: var(--beige-300);
     margin: 0 auto;
     min-height: 100vh;
 `
@@ -148,11 +146,11 @@ class Page extends App<AppProps> {
                     <StoreProvider>
                         <ProfileProvider token={pageProps.token}>
                             <GlobalStyles />
-                            <div className="tw-bg-beige-200" css={article}>
-                                <Container>
+                            <Article className="tw-bg-beige-200">
+                                <Container className="tw-bg-beige-300">
                                     <Component {...pageProps} />
                                 </Container>
-                            </div>
+                            </Article>
                             <AlertContainer />
                         </ProfileProvider>
                     </StoreProvider>
