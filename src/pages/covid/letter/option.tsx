@@ -1,7 +1,32 @@
-const Index = () => {
+import {LetterOption} from '$types/response/letter'
+import {withAxios} from '$utils/fetcher/withAxios'
+
+interface Props {
+    options: string[]
+}
+const onClickOption = () => {
+    console.log('click option')
+}
+const LetterOptionPage = ({options}: Props) => {
     return (
-        <h2>Option 편지 내용 작성 시 발송기준 선택 화면</h2>
+        <>
+            {options.map((option) => (
+                <li key={option} onClick={onClickOption}>
+                    {option}
+                </li>
+            ))}
+        </>
     )
 }
 
-export default Index
+export async function getStaticProps() {
+    const res = await withAxios<LetterOption[]>({
+        url: '/letter/option',
+        method: 'GET',
+    })
+
+    const options = res.map((d) => d.text)
+
+    return {props: {options}}
+}
+export default LetterOptionPage
