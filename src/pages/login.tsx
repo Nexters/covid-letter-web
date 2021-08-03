@@ -39,13 +39,9 @@ const Img = styled.div`
 `
 
 const Intro = styled.div`
-    opacity: 0.8;
+    background-color: rgba(246, 244, 232, 0.8);
     border-radius: 24px 24px 0px 0px;
     padding: 36px 24px;
-`
-
-const introTw = tw`
-tw-bg-beige-200
 `
 
 const introTitleTw = tw`
@@ -58,6 +54,12 @@ const IntroContent = styled.div`
 
 const introContentTw = tw`
     tw-text-base tw-font-nanumBarunGothic tw-font-normal tw-text-grey-600
+`
+
+const ButtonContainer = styled.div`
+    button + button {
+        margin-top: 1.1rem;
+    }
 `
 
 const Login = ({isMobile}: {isMobile: boolean}) => {
@@ -75,7 +77,7 @@ const Login = ({isMobile}: {isMobile: boolean}) => {
                 <Img css={commonTw}>
                     <SvgLogin />
                 </Img>
-                <Intro css={introTw}>
+                <Intro>
                     <div css={introTitleTw}>온전히 나에게 집중하는 시간...</div>
                     <IntroContent css={introContentTw}>
                         이 서비스는 시끄러운 외부 환경에서 벗어나 스스로를
@@ -88,8 +90,10 @@ const Login = ({isMobile}: {isMobile: boolean}) => {
                         가장 소중한 자신을 이해하고 알아가는 과정을
                         제시해줍니다.
                     </IntroContent>
-                    <NaverLoginButton returnUrl={ROUTES.COVID.MAIN} />
-                    <GoogleLoginButton returnUrl={ROUTES.COVID.MAIN} />
+                    <ButtonContainer>
+                        <NaverLoginButton returnUrl={ROUTES.COVID.MAIN} />
+                        <GoogleLoginButton returnUrl={ROUTES.COVID.MAIN} />
+                    </ButtonContainer>
                 </Intro>
             </BottomFixed>
         </Container>
