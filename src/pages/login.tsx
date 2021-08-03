@@ -11,7 +11,7 @@ const commonTw = tw`
 
 const Container = styled.div``
 
-const Titile = styled.div`
+const Title = styled.div`
     padding-top: 8rem;
 `
 const titleTw = tw`
@@ -78,11 +78,11 @@ const ButtonContainer = styled.div`
 const Login = ({isMobile}: {isMobile: boolean}) => {
     return (
         <Container>
-            <Titile css={{...titleTw, ...commonTw}}>
+            <Title css={{...titleTw, ...commonTw}}>
                 나에게 보내는 편지
                 <br />
                 ‘코로나’편
-            </Titile>
+            </Title>
             <SubTitle css={{...subtitleTw, ...commonTw}}>
                 어려운 시기, 미래의 나에게 마음을 담아 전해요.
             </SubTitle>
