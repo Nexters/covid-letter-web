@@ -16564,6 +16564,10 @@ video {
   font-family: Cafe24 Ohsquare, Arial, sans-serif;
 }
 
+.tw-font-nanumBarunGothic {
+  font-family: NanumBarunGothic, Arial, sans-serif;
+}
+
 .tw-text-xs {
   font-size: 1.2rem;
   line-height: 1.9rem;
@@ -36980,6 +36984,10 @@ h6 {
     font-family: Cafe24 Ohsquare, Arial, sans-serif;
   }
 
+  .sm\:tw-font-nanumBarunGothic {
+    font-family: NanumBarunGothic, Arial, sans-serif;
+  }
+
   .sm\:tw-text-xs {
     font-size: 1.2rem;
     line-height: 1.9rem;
@@ -57170,6 +57178,10 @@ h6 {
 
   .md\:tw-font-ohsquare {
     font-family: Cafe24 Ohsquare, Arial, sans-serif;
+  }
+
+  .md\:tw-font-nanumBarunGothic {
+    font-family: NanumBarunGothic, Arial, sans-serif;
   }
 
   .md\:tw-text-xs {
@@ -77364,6 +77376,10 @@ h6 {
     font-family: Cafe24 Ohsquare, Arial, sans-serif;
   }
 
+  .lg\:tw-font-nanumBarunGothic {
+    font-family: NanumBarunGothic, Arial, sans-serif;
+  }
+
   .lg\:tw-text-xs {
     font-size: 1.2rem;
     line-height: 1.9rem;
@@ -97556,6 +97572,10 @@ h6 {
     font-family: Cafe24 Ohsquare, Arial, sans-serif;
   }
 
+  .xl\:tw-font-nanumBarunGothic {
+    font-family: NanumBarunGothic, Arial, sans-serif;
+  }
+
   .xl\:tw-text-xs {
     font-size: 1.2rem;
     line-height: 1.9rem;
@@ -117746,6 +117766,10 @@ h6 {
 
   .\32xl\:tw-font-ohsquare {
     font-family: Cafe24 Ohsquare, Arial, sans-serif;
+  }
+
+  .\32xl\:tw-font-nanumBarunGothic {
+    font-family: NanumBarunGothic, Arial, sans-serif;
   }
 
   .\32xl\:tw-text-xs {

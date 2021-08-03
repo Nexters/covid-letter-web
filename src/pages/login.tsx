@@ -15,7 +15,7 @@ const Titile = styled.div`
     padding-top: 8rem;
 `
 const titleTw = tw`
-    tw-text-xl tw-font-ohsquare-air
+    tw-text-xl tw-font-ohsquare-air tw-text-primary-green-500 tw-font-light
 `
 
 const SubTitle = styled.div`
@@ -23,7 +23,7 @@ const SubTitle = styled.div`
 `
 
 const subtitleTw = tw`
-    tw-text-sm
+    tw-text-sm tw-font-nanumBarunGothic tw-font-light tw-text-grey-700
 `
 
 const Img = styled.div`

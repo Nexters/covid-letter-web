@@ -9,6 +9,7 @@ module.exports = {
             fontFamily: {
                 'ohsquare-air': ['Cafe24 Ohsquare air', 'Arial', 'sans-serif'],
                 ohsquare: ['Cafe24 Ohsquare', 'Arial', 'sans-serif'],
+                nanumBarunGothic: ['NanumBarunGothic', 'Arial', 'sans-serif'],
             },
         },
         /**
