@@ -9,6 +9,19 @@ body {
     font-size: 10px;
 }
 
+html body,
+div,
+ul,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    letter-spacing: -0.015em;
+}
+
 :root {
     --primary-green-800: #11373e;
     --primary-green-700: #5e7c75;
