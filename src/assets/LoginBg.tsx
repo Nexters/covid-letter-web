@@ -1,8 +1,7 @@
-function SvgLogin({width = ' 298px', height = '156px'}) {
+function SvgLogin({width = '80%'}) {
     return (
         <svg
             width={width}
-            height={height}
             viewBox="0 0 298 156"
             fill="none"
             xmlns="http://www.w3.org/2000/svg">

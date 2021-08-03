@@ -15,8 +15,7 @@ const Button = styled.button`
     padding: 1.85rem 0;
     color: #fff;
     background-color: #dc4e41;
-    border: 1px solid transparent;
-    border-radius: 0.4rem;
+    border: 1px solid #dc4e41;
 `
 
 const buttonTw = tw`

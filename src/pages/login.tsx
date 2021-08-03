@@ -41,7 +41,7 @@ const Img = styled.div`
 const Intro = styled.div`
     background-color: rgba(246, 244, 232, 0.8);
     border-radius: 24px 24px 0px 0px;
-    padding: 36px 24px;
+    padding: 36px 24px 24px;
 `
 
 const introTitleTw = tw`
@@ -49,7 +49,8 @@ const introTitleTw = tw`
 `
 
 const IntroContent = styled.div`
-    padding: 24px 0;
+    padding: ${({isMobile}: {isMobile: boolean}) =>
+        isMobile ? '24px 0 13.6rem' : '24px 0 32px'};
 `
 
 const introContentTw = tw`
@@ -57,8 +58,20 @@ const introContentTw = tw`
 `
 
 const ButtonContainer = styled.div`
+    ${({isMobile}) =>
+        isMobile &&
+        `
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+    `}
+    button {
+        border-radius: ${({isMobile}) => (isMobile ? '0' : '0.4rem')};
+    }
     button + button {
-        margin-top: 1.1rem;
+        margin-top: ${({isMobile}: {isMobile: boolean}) =>
+            isMobile ? '0' : '1.1rem'};
     }
 `
 
@@ -79,7 +92,7 @@ const Login = ({isMobile}: {isMobile: boolean}) => {
                 </Img>
                 <Intro>
                     <div css={introTitleTw}>온전히 나에게 집중하는 시간...</div>
-                    <IntroContent css={introContentTw}>
+                    <IntroContent css={introContentTw} isMobile={isMobile}>
                         이 서비스는 시끄러운 외부 환경에서 벗어나 스스로를
                         돌아보고 돌볼 수 있는 시간을 제공하는 플랫폼이에요. 삶에
                         대한 깊이있는 질문에 답하기를 통해 자신의 생각을
@@ -90,7 +103,7 @@ const Login = ({isMobile}: {isMobile: boolean}) => {
                         가장 소중한 자신을 이해하고 알아가는 과정을
                         제시해줍니다.
                     </IntroContent>
-                    <ButtonContainer>
+                    <ButtonContainer isMobile={isMobile}>
                         <NaverLoginButton returnUrl={ROUTES.COVID.MAIN} />
                         <GoogleLoginButton returnUrl={ROUTES.COVID.MAIN} />
                     </ButtonContainer>
