@@ -5,7 +5,12 @@ module.exports = {
     ],
     darkMode: false, // or 'media' or 'class'
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                'ohsquare-air': ['Cafe24 Ohsquare air', 'Arial', 'sans-serif'],
+                ohsquare: ['Cafe24 Ohsquare', 'Arial', 'sans-serif'],
+            },
+        },
         /**
          * @todo 추가해야 할 거
          * - iconSize (width?)

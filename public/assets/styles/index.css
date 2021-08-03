@@ -16556,6 +16556,14 @@ video {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+.tw-font-ohsquare-air {
+  font-family: Cafe24 Ohsquare air, Arial, sans-serif;
+}
+
+.tw-font-ohsquare {
+  font-family: Cafe24 Ohsquare, Arial, sans-serif;
+}
+
 .tw-text-xs {
   font-size: 1.2rem;
   line-height: 1.9rem;
@@ -36964,6 +36972,14 @@ h6 {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
+  .sm\:tw-font-ohsquare-air {
+    font-family: Cafe24 Ohsquare air, Arial, sans-serif;
+  }
+
+  .sm\:tw-font-ohsquare {
+    font-family: Cafe24 Ohsquare, Arial, sans-serif;
+  }
+
   .sm\:tw-text-xs {
     font-size: 1.2rem;
     line-height: 1.9rem;
@@ -57146,6 +57162,14 @@ h6 {
 
   .md\:tw-font-mono {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  .md\:tw-font-ohsquare-air {
+    font-family: Cafe24 Ohsquare air, Arial, sans-serif;
+  }
+
+  .md\:tw-font-ohsquare {
+    font-family: Cafe24 Ohsquare, Arial, sans-serif;
   }
 
   .md\:tw-text-xs {
@@ -77332,6 +77356,14 @@ h6 {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
+  .lg\:tw-font-ohsquare-air {
+    font-family: Cafe24 Ohsquare air, Arial, sans-serif;
+  }
+
+  .lg\:tw-font-ohsquare {
+    font-family: Cafe24 Ohsquare, Arial, sans-serif;
+  }
+
   .lg\:tw-text-xs {
     font-size: 1.2rem;
     line-height: 1.9rem;
@@ -97516,6 +97548,14 @@ h6 {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
+  .xl\:tw-font-ohsquare-air {
+    font-family: Cafe24 Ohsquare air, Arial, sans-serif;
+  }
+
+  .xl\:tw-font-ohsquare {
+    font-family: Cafe24 Ohsquare, Arial, sans-serif;
+  }
+
   .xl\:tw-text-xs {
     font-size: 1.2rem;
     line-height: 1.9rem;
@@ -117698,6 +117738,14 @@ h6 {
 
   .\32xl\:tw-font-mono {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  .\32xl\:tw-font-ohsquare-air {
+    font-family: Cafe24 Ohsquare air, Arial, sans-serif;
+  }
+
+  .\32xl\:tw-font-ohsquare {
+    font-family: Cafe24 Ohsquare, Arial, sans-serif;
   }
 
   .\32xl\:tw-text-xs {
