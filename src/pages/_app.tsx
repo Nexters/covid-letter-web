@@ -22,6 +22,7 @@ import {GlobalStyles, styled} from 'twin.macro'
 import '../styles/globals.css'
 import {StoreProvider} from '$contexts/StoreContext'
 import AlertContainer from '$components/alert'
+import Device from '$components/device'
 
 const Article = styled.div`
     position: relative;
@@ -32,6 +33,7 @@ const Container = styled.div`
     max-width: 420px;
     margin: 0 auto;
     min-height: 100vh;
+    position: relative;
 `
 
 type AppProps = AppInitialProps
@@ -146,11 +148,20 @@ class Page extends App<AppProps> {
                     <StoreProvider>
                         <ProfileProvider token={pageProps.token}>
                             <GlobalStyles />
-                            <Article className="tw-bg-beige-200">
-                                <Container className="tw-bg-beige-300">
-                                    <Component {...pageProps} />
-                                </Container>
-                            </Article>
+                            <Device>
+                                {({isMobile}) => {
+                                    return (
+                                        <Article className="tw-bg-beige-200">
+                                            <Container className="tw-bg-beige-300">
+                                                <Component
+                                                    isMobile={isMobile}
+                                                    {...pageProps}
+                                                />
+                                            </Container>
+                                        </Article>
+                                    )
+                                }}
+                            </Device>
                             <AlertContainer />
                         </ProfileProvider>
                     </StoreProvider>
