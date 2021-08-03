@@ -8,18 +8,20 @@ module.exports = {
         extend: {},
         /**
          * @todo 추가해야 할 거
-         * - fontSize
          * - iconSize (width?)
          * - spacing // If you’d like to customize these values for padding, margin, width, and height all at once
          */
-        // fontSize: {
-        //     xs: ['.75rem'],
-        //     sm: ['.875rem'],
-        //     base: ['1rem'],
-        //     lg: ['1.8rem'],
-        //     xl: ['2rem'],
-        //     '2xl': ['2.2rem', '3.5rem'],
-        // },
+        fontSize: {
+            xs: ['1.2rem', '1.9rem'],
+            sm: ['1.4rem', '2.2rem'],
+            base: ['1.6rem', '2.5rem'],
+            lg: ['1.8rem', '2.5rem'],
+            xl: ['2rem', '3.2rem'],
+            '2xl': ['2.2rem', '3.5rem'], // first: font-size, second: line-height
+            '3xl': ['2.4rem', '3.9rem'],
+            '4xl': ['2.6rem', '4.2rem'],
+            '5xl': ['2.8rem', '4.5rem'],
+        },
         colors: {
             'primary-green': {
                 800: 'var(--primary-green-800)',

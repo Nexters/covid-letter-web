@@ -15893,68 +15893,48 @@ video {
 }
 
 .tw-text-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
+  font-size: 1.2rem;
+  line-height: 1.9rem;
 }
 
 .tw-text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
 }
 
 .tw-text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
-.tw-text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.tw-text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
-.tw-text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
-.tw-text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
-.tw-text-4xl {
-  font-size: 2.25rem;
+  font-size: 1.6rem;
   line-height: 2.5rem;
 }
 
+.tw-text-lg {
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+}
+
+.tw-text-xl {
+  font-size: 2rem;
+  line-height: 3.2rem;
+}
+
+.tw-text-2xl {
+  font-size: 2.2rem;
+  line-height: 3.5rem;
+}
+
+.tw-text-3xl {
+  font-size: 2.4rem;
+  line-height: 3.9rem;
+}
+
+.tw-text-4xl {
+  font-size: 2.6rem;
+  line-height: 4.2rem;
+}
+
 .tw-text-5xl {
-  font-size: 3rem;
-  line-height: 1;
-}
-
-.tw-text-6xl {
-  font-size: 3.75rem;
-  line-height: 1;
-}
-
-.tw-text-7xl {
-  font-size: 4.5rem;
-  line-height: 1;
-}
-
-.tw-text-8xl {
-  font-size: 6rem;
-  line-height: 1;
-}
-
-.tw-text-9xl {
-  font-size: 8rem;
-  line-height: 1;
+  font-size: 2.8rem;
+  line-height: 4.5rem;
 }
 
 .tw-font-thin {
@@ -19788,7 +19768,7 @@ html,
 body > div[id^='__next'],
 body {
   height: 100%;
-  font-size: 10pt;
+  font-size: 10px;
 }
 
 :root {
@@ -35060,68 +35040,48 @@ body {
   }
 
   .sm\:tw-text-xs {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 1.2rem;
+    line-height: 1.9rem;
   }
 
   .sm\:tw-text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
   }
 
   .sm\:tw-text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .sm\:tw-text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
-  .sm\:tw-text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .sm\:tw-text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .sm\:tw-text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-
-  .sm\:tw-text-4xl {
-    font-size: 2.25rem;
+    font-size: 1.6rem;
     line-height: 2.5rem;
   }
 
+  .sm\:tw-text-lg {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+  }
+
+  .sm\:tw-text-xl {
+    font-size: 2rem;
+    line-height: 3.2rem;
+  }
+
+  .sm\:tw-text-2xl {
+    font-size: 2.2rem;
+    line-height: 3.5rem;
+  }
+
+  .sm\:tw-text-3xl {
+    font-size: 2.4rem;
+    line-height: 3.9rem;
+  }
+
+  .sm\:tw-text-4xl {
+    font-size: 2.6rem;
+    line-height: 4.2rem;
+  }
+
   .sm\:tw-text-5xl {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .sm\:tw-text-6xl {
-    font-size: 3.75rem;
-    line-height: 1;
-  }
-
-  .sm\:tw-text-7xl {
-    font-size: 4.5rem;
-    line-height: 1;
-  }
-
-  .sm\:tw-text-8xl {
-    font-size: 6rem;
-    line-height: 1;
-  }
-
-  .sm\:tw-text-9xl {
-    font-size: 8rem;
-    line-height: 1;
+    font-size: 2.8rem;
+    line-height: 4.5rem;
   }
 
   .sm\:tw-font-thin {
@@ -54056,68 +54016,48 @@ body {
   }
 
   .md\:tw-text-xs {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 1.2rem;
+    line-height: 1.9rem;
   }
 
   .md\:tw-text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
   }
 
   .md\:tw-text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .md\:tw-text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
-  .md\:tw-text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .md\:tw-text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .md\:tw-text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-
-  .md\:tw-text-4xl {
-    font-size: 2.25rem;
+    font-size: 1.6rem;
     line-height: 2.5rem;
   }
 
+  .md\:tw-text-lg {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+  }
+
+  .md\:tw-text-xl {
+    font-size: 2rem;
+    line-height: 3.2rem;
+  }
+
+  .md\:tw-text-2xl {
+    font-size: 2.2rem;
+    line-height: 3.5rem;
+  }
+
+  .md\:tw-text-3xl {
+    font-size: 2.4rem;
+    line-height: 3.9rem;
+  }
+
+  .md\:tw-text-4xl {
+    font-size: 2.6rem;
+    line-height: 4.2rem;
+  }
+
   .md\:tw-text-5xl {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .md\:tw-text-6xl {
-    font-size: 3.75rem;
-    line-height: 1;
-  }
-
-  .md\:tw-text-7xl {
-    font-size: 4.5rem;
-    line-height: 1;
-  }
-
-  .md\:tw-text-8xl {
-    font-size: 6rem;
-    line-height: 1;
-  }
-
-  .md\:tw-text-9xl {
-    font-size: 8rem;
-    line-height: 1;
+    font-size: 2.8rem;
+    line-height: 4.5rem;
   }
 
   .md\:tw-font-thin {
@@ -73052,68 +72992,48 @@ body {
   }
 
   .lg\:tw-text-xs {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 1.2rem;
+    line-height: 1.9rem;
   }
 
   .lg\:tw-text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
   }
 
   .lg\:tw-text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .lg\:tw-text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
-  .lg\:tw-text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .lg\:tw-text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .lg\:tw-text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-
-  .lg\:tw-text-4xl {
-    font-size: 2.25rem;
+    font-size: 1.6rem;
     line-height: 2.5rem;
   }
 
+  .lg\:tw-text-lg {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+  }
+
+  .lg\:tw-text-xl {
+    font-size: 2rem;
+    line-height: 3.2rem;
+  }
+
+  .lg\:tw-text-2xl {
+    font-size: 2.2rem;
+    line-height: 3.5rem;
+  }
+
+  .lg\:tw-text-3xl {
+    font-size: 2.4rem;
+    line-height: 3.9rem;
+  }
+
+  .lg\:tw-text-4xl {
+    font-size: 2.6rem;
+    line-height: 4.2rem;
+  }
+
   .lg\:tw-text-5xl {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .lg\:tw-text-6xl {
-    font-size: 3.75rem;
-    line-height: 1;
-  }
-
-  .lg\:tw-text-7xl {
-    font-size: 4.5rem;
-    line-height: 1;
-  }
-
-  .lg\:tw-text-8xl {
-    font-size: 6rem;
-    line-height: 1;
-  }
-
-  .lg\:tw-text-9xl {
-    font-size: 8rem;
-    line-height: 1;
+    font-size: 2.8rem;
+    line-height: 4.5rem;
   }
 
   .lg\:tw-font-thin {
@@ -92048,68 +91968,48 @@ body {
   }
 
   .xl\:tw-text-xs {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 1.2rem;
+    line-height: 1.9rem;
   }
 
   .xl\:tw-text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
   }
 
   .xl\:tw-text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .xl\:tw-text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
-  .xl\:tw-text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .xl\:tw-text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .xl\:tw-text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-
-  .xl\:tw-text-4xl {
-    font-size: 2.25rem;
+    font-size: 1.6rem;
     line-height: 2.5rem;
   }
 
+  .xl\:tw-text-lg {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+  }
+
+  .xl\:tw-text-xl {
+    font-size: 2rem;
+    line-height: 3.2rem;
+  }
+
+  .xl\:tw-text-2xl {
+    font-size: 2.2rem;
+    line-height: 3.5rem;
+  }
+
+  .xl\:tw-text-3xl {
+    font-size: 2.4rem;
+    line-height: 3.9rem;
+  }
+
+  .xl\:tw-text-4xl {
+    font-size: 2.6rem;
+    line-height: 4.2rem;
+  }
+
   .xl\:tw-text-5xl {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .xl\:tw-text-6xl {
-    font-size: 3.75rem;
-    line-height: 1;
-  }
-
-  .xl\:tw-text-7xl {
-    font-size: 4.5rem;
-    line-height: 1;
-  }
-
-  .xl\:tw-text-8xl {
-    font-size: 6rem;
-    line-height: 1;
-  }
-
-  .xl\:tw-text-9xl {
-    font-size: 8rem;
-    line-height: 1;
+    font-size: 2.8rem;
+    line-height: 4.5rem;
   }
 
   .xl\:tw-font-thin {
@@ -111044,68 +110944,48 @@ body {
   }
 
   .\32xl\:tw-text-xs {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 1.2rem;
+    line-height: 1.9rem;
   }
 
   .\32xl\:tw-text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
   }
 
   .\32xl\:tw-text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .\32xl\:tw-text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
-  .\32xl\:tw-text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .\32xl\:tw-text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .\32xl\:tw-text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-
-  .\32xl\:tw-text-4xl {
-    font-size: 2.25rem;
+    font-size: 1.6rem;
     line-height: 2.5rem;
   }
 
+  .\32xl\:tw-text-lg {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+  }
+
+  .\32xl\:tw-text-xl {
+    font-size: 2rem;
+    line-height: 3.2rem;
+  }
+
+  .\32xl\:tw-text-2xl {
+    font-size: 2.2rem;
+    line-height: 3.5rem;
+  }
+
+  .\32xl\:tw-text-3xl {
+    font-size: 2.4rem;
+    line-height: 3.9rem;
+  }
+
+  .\32xl\:tw-text-4xl {
+    font-size: 2.6rem;
+    line-height: 4.2rem;
+  }
+
   .\32xl\:tw-text-5xl {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .\32xl\:tw-text-6xl {
-    font-size: 3.75rem;
-    line-height: 1;
-  }
-
-  .\32xl\:tw-text-7xl {
-    font-size: 4.5rem;
-    line-height: 1;
-  }
-
-  .\32xl\:tw-text-8xl {
-    font-size: 6rem;
-    line-height: 1;
-  }
-
-  .\32xl\:tw-text-9xl {
-    font-size: 8rem;
-    line-height: 1;
+    font-size: 2.8rem;
+    line-height: 4.5rem;
   }
 
   .\32xl\:tw-font-thin {
