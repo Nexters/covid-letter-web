@@ -24,14 +24,19 @@ module.exports = {
         },
         colors: {
             'primary-green': {
-                800: 'var(--primary-green-800)',
-                700: 'var(--primary-green-700)',
                 600: 'var(--primary-green-600)',
+                500: 'var(--primary-green-500)',
+                400: 'var(--primary-green-400)',
+                300: 'var(--primary-green-300)',
             },
             'primary-yellow': {
-                800: 'var(--primary-yellow-800)',
+                600: 'var(--primary-yellow-600)',
+                500: 'var(--primary-yellow-500)',
+                400: 'var(--primary-yellow-400)',
+                300: 'var(--primary-yellow-300)',
             },
             beige: {
+                600: 'var(--beige-600)',
                 500: 'var(--beige-500)',
                 400: 'var(--beige-400)',
                 300: 'var(--beige-300)',
@@ -47,6 +52,15 @@ module.exports = {
                 200: 'var(--grey-200)',
                 100: 'var(--grey-100)',
                 '000': 'var(--grey-000)',
+            },
+            blue: {
+                500: 'var(--blue-500)',
+            },
+            red: {
+                500: 'var(--red-500)',
+            },
+            green: {
+                500: 'var(--green-500)',
             },
         },
     },

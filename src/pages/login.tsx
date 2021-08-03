@@ -3,6 +3,7 @@ import GoogleLoginButton from '$components/login/GoogleLoginButton'
 import ROUTES from '$constants/routes'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
+import SvgLogin from 'assets/LoginBg'
 
 const Container = styled.div``
 
@@ -18,7 +19,15 @@ const SubTitle = styled.div`
 `
 
 const subtitleTw = tw`
-tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center tw-text-sm
+    tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center tw-text-sm
+`
+
+const Img = styled.div`
+    margin-top: 7.8rem;
+`
+
+const imgTw = tw`
+    tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center
 `
 
 const Login = () => {
@@ -32,6 +41,9 @@ const Login = () => {
             <SubTitle css={subtitleTw}>
                 어려운 시기, 미래의 나에게 마음을 담아 전해요.
             </SubTitle>
+            <Img css={imgTw}>
+                <SvgLogin />
+            </Img>
             <NaverLoginButton returnUrl={ROUTES.COVID.MAIN} />
             <GoogleLoginButton returnUrl={ROUTES.COVID.MAIN} />
         </Container>
