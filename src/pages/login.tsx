@@ -39,8 +39,8 @@ const Img = styled.div`
 
 const Intro = styled.div`
     background-color: rgba(246, 244, 232, 0.8);
-    border-radius: 24px 24px 0px 0px;
-    padding: 36px 24px 24px;
+    border-radius: 2.4rem 2.4rem 0px 0px;
+    padding: 3.6rem 2.4rem 2.4rem;
 `
 
 const introTitleTw = tw`
@@ -48,7 +48,7 @@ const introTitleTw = tw`
 `
 
 const IntroContent = styled.div`
-    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '24px 0 13.6rem' : '24px 0 32px')};
+    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '2.4rem 0 13.6rem' : '2.4rem 0 3.2rem')};
 `
 
 const introContentTw = tw`
