@@ -10,6 +10,7 @@
         "lint": "next lint",
         "prettier:fix": "prettier '**/*.{json,yaml}' --write",
         "test": "jest --config=jest.config.js",
+        "test:local": "cross-env REACT_APP_ENV=local jest --watch",
         "test:watch": "jest --config=jest.config.js --watch",
         "style": "tailwindcss -i src/styles/index.css -o public/assets/styles/index.css"
     },
@@ -61,7 +62,7 @@
         "eslint-plugin-react": "^7.24.0",
         "husky": "^4.2.5",
         "identity-obj-proxy": "^3.0.0",
-        "jest": "^27.0.6",
+        "jest": "^26.6.3",
         "lint-staged": "^11.0.0",
         "postcss": "^8.3.5",
         "tailwindcss": "^2.2.4",

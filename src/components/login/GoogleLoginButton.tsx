@@ -27,10 +27,7 @@ interface GoogleLoginButtonProps {
 }
 
 const GoogleLoginButton = ({returnUrl}: GoogleLoginButtonProps) => {
-    const onSuccess = async ({
-        googleId,
-        profileObj,
-    }: Partial<GoogleLoginResponse>) => {
+    const onSuccess = async ({googleId, profileObj}: Partial<GoogleLoginResponse>) => {
         const profile = {
             id: googleId,
             email: profileObj?.email,
@@ -73,7 +70,8 @@ const GoogleLoginButton = ({returnUrl}: GoogleLoginButtonProps) => {
     })
     return (
         <Button css={{...buttonTw, ...commonTw}} onClick={signIn}>
-            <SvgGoogle style={{marginRight: '24px'}} /> Google로 계속하기
+            <SvgGoogle style={{marginRight: '24px'}} />
+            Google로 계속하기
         </Button>
     )
 }

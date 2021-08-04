@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const {REACT_APP_ENV} = process.env
-const CONFIG = require(`./src/config/${REACT_APP_ENV}`)
-
 const isLocal = REACT_APP_ENV === 'local'
+const CONFIG = require(`./src/config/${REACT_APP_ENV}`)
 const LOCAL_ORIGIN = 'http://localhost:3000'
 
 /** both server and client */

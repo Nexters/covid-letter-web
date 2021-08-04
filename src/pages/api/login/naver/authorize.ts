@@ -12,10 +12,7 @@ interface ApiRequest extends NextApiRequest {
     }
 }
 
-const routes = async (
-    req: ApiRequest,
-    res: NextApiResponse<Response<AuthorizeResponse>>,
-) => {
+const routes = async (req: ApiRequest, res: NextApiResponse<Response<AuthorizeResponse>>) => {
     try {
         const {redirect_uri} = req.query
 
