@@ -95,8 +95,8 @@ const Login = ({isMobile}: {isMobile: boolean}) => {
                         가장 소중한 자신을 이해하고 알아가는 과정을 제시해줍니다.
                     </IntroContent>
                     <ButtonContainer isMobile={isMobile}>
-                        <NaverLoginButton returnUrl={ROUTES.COVID.MAIN} />
-                        <GoogleLoginButton returnUrl={ROUTES.COVID.MAIN} />
+                        <NaverLoginButton returnUrl={ROUTES.COVID.MAIN} isMobile={isMobile} />
+                        <GoogleLoginButton returnUrl={ROUTES.COVID.MAIN} isMobile={isMobile} />
                     </ButtonContainer>
                 </Intro>
             </BottomFixed>

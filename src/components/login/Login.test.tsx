@@ -66,9 +66,13 @@ describe('로그인 화면', () => {
     test('로그인 화면으로 진입하면 네이버와 구글 로그인 버튼이 렌더링된다.', async () => {
         const {container} = renderComponent()
 
-        const {container: naverLoginButtonContainer} = render(<NaverLoginButton returnUrl={ROUTES.ROOT} />)
+        const {container: naverLoginButtonContainer} = render(
+            <NaverLoginButton returnUrl={ROUTES.ROOT} isMobile={false} />,
+        )
 
-        const {container: googleLoginButtonContainer} = render(<GoogleLoginButton returnUrl={ROUTES.ROOT} />)
+        const {container: googleLoginButtonContainer} = render(
+            <GoogleLoginButton returnUrl={ROUTES.ROOT} isMobile={false} />,
+        )
 
         await waitFor(() => {
             expect(container.innerHTML).toContain(naverLoginButtonContainer.innerHTML)

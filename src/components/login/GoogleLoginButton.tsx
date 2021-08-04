@@ -12,7 +12,7 @@ const commonTw = tw`
 
 const Button = styled.button`
     width: 100%;
-    padding: 1.85rem 0;
+    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.65rem 0' : '1.85rem 0')};
     color: #fff;
     background-color: #dc4e41;
     border: 1px solid #dc4e41;
@@ -24,9 +24,10 @@ tw-font-ohsquare tw-font-bold tw-text-base
 
 interface GoogleLoginButtonProps {
     returnUrl: string
+    isMobile: boolean
 }
 
-const GoogleLoginButton = ({returnUrl}: GoogleLoginButtonProps) => {
+const GoogleLoginButton = ({returnUrl, isMobile}: GoogleLoginButtonProps) => {
     const onSuccess = async ({googleId, profileObj}: Partial<GoogleLoginResponse>) => {
         const profile = {
             id: googleId,
@@ -69,7 +70,7 @@ const GoogleLoginButton = ({returnUrl}: GoogleLoginButtonProps) => {
         onFailure,
     })
     return (
-        <Button css={{...buttonTw, ...commonTw}} onClick={signIn}>
+        <Button css={{...buttonTw, ...commonTw}} onClick={signIn} isMobile={isMobile}>
             <SvgGoogle style={{marginRight: '24px'}} />
             Google로 계속하기
         </Button>

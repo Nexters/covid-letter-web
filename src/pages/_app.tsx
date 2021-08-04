@@ -7,10 +7,7 @@ import {
     isInstanceOfCommonApiError,
     isInstanceOfRedirectArror,
 } from '$utils/fetcher/ApiError'
-import {
-    apiErrorHandler,
-    apiServerErrorHandler,
-} from '$utils/fetcher/apiErrorHandler'
+import {apiErrorHandler, apiServerErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
 import ROUTES from '$constants/routes'
@@ -68,8 +65,7 @@ class Page extends App<AppProps> {
              * jwt가 있으면 메인으로 리다이렉트, 없으면 로그인화면으로 리다이렉트
              */
             const {letterLogin} = cookies(ctx)
-            const {needToCheckCookie, redirectUrl, compare, needLogout} =
-                needToCheckCookiePath(ctx.pathname)
+            const {needToCheckCookie, redirectUrl, compare, needLogout} = needToCheckCookiePath(ctx.pathname)
 
             if (needToCheckCookie) {
                 if (needLogout(letterLogin)) {
@@ -86,9 +82,7 @@ class Page extends App<AppProps> {
                     }
                 }
             }
-            const props = await (getComponentIntialProps
-                ? getComponentIntialProps(ctx)
-                : Promise.resolve({}))
+            const props = await (getComponentIntialProps ? getComponentIntialProps(ctx) : Promise.resolve({}))
 
             const pageProps = {
                 ...props,
@@ -149,14 +143,11 @@ class Page extends App<AppProps> {
                         <ProfileProvider token={pageProps.token}>
                             <GlobalStyles />
                             <Device>
-                                {({isMobile}) => {
+                                {({isMobileOnly: isMobile}) => {
                                     return (
                                         <Article className="tw-bg-beige-200">
                                             <Container className="tw-bg-beige-300">
-                                                <Component
-                                                    isMobile={isMobile}
-                                                    {...pageProps}
-                                                />
+                                                <Component isMobile={isMobile} {...pageProps} />
                                             </Container>
                                         </Article>
                                     )

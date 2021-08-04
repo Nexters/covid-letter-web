@@ -14,7 +14,7 @@ const commonTw = tw`
 
 const Button = styled.button`
     width: 100%;
-    padding: 1.85rem 0;
+    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.65rem 0' : '1.85rem 0')};
     color: #767678;
     border: 1px solid #e6e6ea;
 `
@@ -25,9 +25,10 @@ tw-font-ohsquare tw-font-bold tw-text-base tw-bg-grey-000
 
 interface NaverLoginButtonProps {
     returnUrl: string
+    isMobile: boolean
 }
 
-const NaverLoginButton = ({returnUrl}: NaverLoginButtonProps) => {
+const NaverLoginButton = ({returnUrl, isMobile}: NaverLoginButtonProps) => {
     const {alert} = useAlertStore()
 
     const handleLogin = async () => {
@@ -51,7 +52,7 @@ const NaverLoginButton = ({returnUrl}: NaverLoginButtonProps) => {
         }
     }
     return (
-        <Button css={{...buttonTw, ...commonTw}} onClick={() => handleLogin()}>
+        <Button css={{...buttonTw, ...commonTw}} onClick={() => handleLogin()} isMobile={isMobile}>
             <SvgNaver style={{marginRight: '24px'}} />
             네이버로 계속하기
         </Button>
