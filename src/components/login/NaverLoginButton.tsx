@@ -2,15 +2,17 @@ import {withAxios} from '$utils/fetcher/withAxios'
 import {HOST_URL} from '$config'
 import {AuthorizeResponse} from '$types/login/naver'
 import ROUTES from '$constants/routes'
-import useAsyncError from '$hooks/useAsyncError'
 import {Button} from 'antd'
+import {useAlertStore} from '$contexts/StoreContext'
+import {observer} from 'mobx-react-lite'
 
 interface NaverLoginButtonProps {
     returnUrl: string
 }
 
 const NaverLoginButton = ({returnUrl}: NaverLoginButtonProps) => {
-    const throwError = useAsyncError()
+    const {alert} = useAlertStore()
+
     const handleLogin = async () => {
         try {
             const res = await withAxios<AuthorizeResponse>({
@@ -18,9 +20,7 @@ const NaverLoginButton = ({returnUrl}: NaverLoginButtonProps) => {
                 method: 'get',
                 params: {
                     redirect_uri: encodeURIComponent(
-                        `${HOST_URL}${
-                            ROUTES.BRIDGE
-                        }/naver?returnUrl=${encodeURIComponent(returnUrl)}`,
+                        `${HOST_URL}${ROUTES.BRIDGE}/naver?returnUrl=${encodeURIComponent(returnUrl)}`,
                     ),
                 },
             })
@@ -28,7 +28,9 @@ const NaverLoginButton = ({returnUrl}: NaverLoginButtonProps) => {
             const {redirectUrl} = res
             window.location.replace(`${redirectUrl}`)
         } catch (e) {
-            throwError(e)
+            alert({
+                title: '로그인에 실패했습니다.',
+            })
         }
     }
     return (
@@ -38,4 +40,4 @@ const NaverLoginButton = ({returnUrl}: NaverLoginButtonProps) => {
     )
 }
 
-export default NaverLoginButton
+export default observer(NaverLoginButton)

@@ -1,7 +1,7 @@
 import {Button} from 'antd'
 import {withAxios} from '$utils/fetcher/withAxios'
 import ROUTES from '$constants/routes'
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 import {useProfileContext} from '$contexts/ProfileContext'
 import {NextPageContext} from 'next'
 import cookies from 'next-cookies'
@@ -13,12 +13,14 @@ interface ProfileProps {
 }
 
 const Profile = ({isGoogleLogin}: ProfileProps) => {
+    const routes = useRouter()
+
     const requestLogout = async () => {
         await withAxios<string>({
             url: `/logout`,
         })
 
-        Router.push(ROUTES.LOGIN)
+        routes.push(ROUTES.LOGIN)
     }
     const {signOut} = useGoogleLogout({
         clientId: GOOGLE.CLIENT_ID,
@@ -28,9 +30,6 @@ const Profile = ({isGoogleLogin}: ProfileProps) => {
         },
     })
     const {profile, error} = useProfileContext()
-
-    if (error) throw error
-    if (!profile) return <div>Loading Profile...</div>
 
     const setGender = (g: string | undefined) => {
         switch (g) {
@@ -52,8 +51,22 @@ const Profile = ({isGoogleLogin}: ProfileProps) => {
     }
 
     const goPageOne = () => {
-        Router.push('/post/1')
+        routes.push('/post/1')
     }
+
+    const goLogin = () => {
+        routes.push(ROUTES.LOGIN)
+    }
+    if (error) throw error
+    if (!profile)
+        return (
+            <div>
+                로그인이 필요합니다.
+                <Button type={'ghost'} block onClick={goLogin}>
+                    로그인
+                </Button>
+            </div>
+        )
 
     const {name, gender, age, email} = profile
 
