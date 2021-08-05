@@ -1,18 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import {HOST_URL} from '$config'
 import {Response} from '$types/response'
+import {LoginToken} from '$types/response/login'
 import {createResponse} from '$utils/fetcher/withAxios'
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {SessionToken} from 'pages/api/mock/session'
 
 interface CookieApiRequest extends NextApiRequest {
-    body: SessionToken & {returnUrl: string}
+    body: LoginToken & {returnUrl: string}
 }
 
-const routes = async (
-    req: CookieApiRequest,
-    res: NextApiResponse<Response<string>>,
-) => {
+const routes = async (req: CookieApiRequest, res: NextApiResponse<Response<string>>) => {
     const {accessToken, tokenExpirationTime, returnUrl} = req.body
 
     res.setHeader('Set-Cookie', [

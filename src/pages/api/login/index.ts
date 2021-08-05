@@ -27,7 +27,7 @@ const routes = async (req: ApiRequest, res: NextApiResponse<Response<LoginToken>
 
         res.status(200).json({
             code: RESPONSE.NORMAL,
-            message: '네이버 로그인 필요',
+            message: '로그인 성공',
             result: {
                 ...data,
             },

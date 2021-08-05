@@ -1,10 +1,10 @@
 import {withAxios} from '$utils/fetcher/withAxios'
 import {GOOGLE} from '$config'
 import {GoogleLoginResponse, useGoogleLogin} from 'react-google-login'
-import {SessionToken} from 'pages/api/mock/session'
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
 import SvgGoogle from 'assets/GoogleLogo'
+import {LoginToken} from '$types/response/login'
 
 const commonTw = tw`
     tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center
@@ -29,19 +29,13 @@ interface GoogleLoginButtonProps {
 
 const GoogleLoginButton = ({returnUrl, isMobile}: GoogleLoginButtonProps) => {
     const onSuccess = async ({googleId, profileObj}: Partial<GoogleLoginResponse>) => {
-        const profile = {
-            id: googleId,
-            email: profileObj?.email,
-            name: profileObj?.name,
-        }
-        /**
-         * @todo BE로 프로필 정보 전송 + jwt 받아서 cookie에 저장
-         */
-        const sessionResult = await withAxios<SessionToken>({
-            url: '/mock/session',
+        const sessionResult = await withAxios<LoginToken>({
+            url: '/login',
             method: 'POST',
             data: {
-                profile,
+                identifier: googleId,
+                email: profileObj?.email,
+                name: profileObj?.name,
             },
         })
 
