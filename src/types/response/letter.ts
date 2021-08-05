@@ -47,6 +47,7 @@ export interface Question {
 }
 
 export interface LetterOption {
+    id: number
     covidStat: number
     questions: Question[]
     text: string
