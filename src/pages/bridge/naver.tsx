@@ -1,9 +1,9 @@
 import {GrantType} from '$constants'
 import {ProfileResponse, TokenResponse} from '$types/login/naver'
+import {LoginToken} from '$types/response/login'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {NextPageContext} from 'next'
 import Router from 'next/router'
-import {SessionToken} from 'pages/api/mock/session'
 
 interface LoginBridgeProps {
     error: string | null
@@ -46,11 +46,14 @@ LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
                 /**
                  * @todo BE로 프로필 정보 전송 + jwt 받아서 cookie에 저장
                  */
-                const sessionResult = await withAxios<SessionToken>({
-                    url: '/mock/session',
+                const {name, email, id} = profileData.response
+                const sessionResult = await withAxios<LoginToken>({
+                    url: '/login',
                     method: 'POST',
                     data: {
-                        profile: profileData,
+                        name,
+                        email,
+                        identifier: id,
                     },
                 })
 

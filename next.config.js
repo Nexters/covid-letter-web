@@ -10,9 +10,6 @@ const publicRuntimeConfig = {
     ...CONFIG,
 }
 
-/**
- * @todo api proxy(local) 추가 필요
- */
 module.exports = {
     env: publicRuntimeConfig,
     publicRuntimeConfig,
@@ -22,10 +19,7 @@ module.exports = {
         entry: async () => {
             const entries = await originalEntries()
 
-            if (
-                entries['main.js'] &&
-                !entries['main.js'].includes('./src/utils/polyfills.js')
-            ) {
+            if (entries['main.js'] && !entries['main.js'].includes('./src/utils/polyfills.js')) {
                 entries['main.js'].unshift('./src/utils/polyfills.js')
             }
 

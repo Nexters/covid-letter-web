@@ -11,12 +11,9 @@ interface ApiRequest extends NextApiRequest {
     }
 }
 
-const routes = async (
-    req: ApiRequest,
-    res: NextApiResponse<Response<ProfileResponse>>,
-) => {
+const routes = async (req: ApiRequest, res: NextApiResponse<Response<ProfileResponse>>) => {
     /**
-     * @todo 사용자 프로필 조회 API 순서
+     * 사용자 프로필 조회 API 순서
      * 1. access_token 유효성 검사
      * 2. 프로필 조회 api 호출
      */
@@ -30,12 +27,9 @@ const routes = async (
 
         const {
             data: {resultcode},
-        }: AxiosResponse<VerifyResponse> = await axios.get(
-            'https://openapi.naver.com/v1/nid/verify',
-            {
-                headers,
-            },
-        )
+        }: AxiosResponse<VerifyResponse> = await axios.get('https://openapi.naver.com/v1/nid/verify', {
+            headers,
+        })
 
         /** access_token 검증 실패 */
         if (resultcode !== RESPONSE.NORMAL) {
@@ -48,10 +42,12 @@ const routes = async (
             }
         }
 
-        const {data: profileResult}: AxiosResponse<ProfileResponse> =
-            await axios.get('https://openapi.naver.com/v1/nid/me', {
+        const {data: profileResult}: AxiosResponse<ProfileResponse> = await axios.get(
+            'https://openapi.naver.com/v1/nid/me',
+            {
                 headers,
-            })
+            },
+        )
 
         if (profileResult.resultcode !== RESPONSE.NORMAL) {
             throw profileResult
@@ -63,12 +59,7 @@ const routes = async (
 
         /** access_token 검증 실패 */
         if (resultcode !== RESPONSE.NORMAL) {
-            res.status(200).json(
-                createResponse(
-                    {} as ProfileResponse,
-                    RESPONSE.INVALID_ACCESS_TOKEN,
-                ),
-            )
+            res.status(200).json(createResponse({} as ProfileResponse, RESPONSE.INVALID_ACCESS_TOKEN))
             return
         }
         res.status(200).json(createErrorResponse({} as ProfileResponse))

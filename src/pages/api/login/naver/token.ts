@@ -9,13 +9,7 @@ import cookies from 'next-cookies'
 
 const getRequestData = (
     grant_type: GrantType,
-    {
-        code,
-        state,
-        refresh_token,
-        access_token,
-        service_provider,
-    }: Partial<TokenRequest>,
+    {code, state, refresh_token, access_token, service_provider}: Partial<TokenRequest>,
 ) => {
     switch (grant_type) {
         case GrantType.create:
@@ -40,15 +34,7 @@ const getRequestData = (
 
 const routes = async (
     req: NextApiRequest,
-    res: NextApiResponse<
-        Response<
-            | Pick<
-                  TokenResponse,
-                  'access_token' | 'expires_in' | 'refresh_token'
-              >
-            | string
-        >
-    >,
+    res: NextApiResponse<Response<Pick<TokenResponse, 'access_token' | 'expires_in' | 'refresh_token'> | string>>,
 ) => {
     const {grant_type} = req.body
     const {access_token: cookieAccessToken = undefined} = cookies({req})
@@ -72,16 +58,13 @@ const routes = async (
     }
 
     /**
-     * @todo
      * 발급: refresh_token DB 저장, access_token BE 세션 생성
      * 갱신: refresh_token 꺼내와서 token 갱신
      * 삭제: refresh_token 삭제 (연동 해제)
      */
     const {access_token, expires_in, refresh_token} = response.data
 
-    res.status(200).json(
-        createResponse({access_token, expires_in, refresh_token}),
-    )
+    res.status(200).json(createResponse({access_token, expires_in, refresh_token}))
 }
 
 module.exports = routes
