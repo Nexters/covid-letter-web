@@ -1,40 +1,21 @@
-import HalfLayer from '$components/layer/HalfLayer'
-import Profile from '$components/profile'
-import {useAlertStore} from '$contexts/StoreContext'
+import Header from '$components/header'
 import styled from '@emotion/styled'
-import {Button} from 'antd'
-import {observer} from 'mobx-react-lite'
-import {useState} from 'react'
+import tw from 'twin.macro'
 
 const Container = styled.div`
-    background-color: #f2f2f2;
     min-height: 100vh;
     height: 100%;
 `
 
+const containerTw = tw`
+    tw-bg-beige-300
+`
+
 const Main = () => {
-    const {alert} = useAlertStore()
-
-    const [isShow, setIsShow] = useState(false)
-    const openAlert = () => {
-        alert({
-            title: '얼러트 실험입니다!',
-        })
-    }
-
-    const openHalfLayer = () => {
-        setIsShow(true)
-    }
-    const close = () => setIsShow(false)
     return (
-        <Container>
-            <Profile />
-            <Button onClick={openAlert}>Alert 열기</Button>
-            <Button onClick={openHalfLayer}>HalfLayer 열기</Button>
-            <HalfLayer isShow={isShow} closeFn={close}>
-                무슨 내용을 적지
-            </HalfLayer>
+        <Container css={containerTw}>
+            <Header />
         </Container>
     )
 }
-export default observer(Main)
+export default Main
