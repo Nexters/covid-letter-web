@@ -6,6 +6,7 @@ import type {NextApiRequest, NextApiResponse} from 'next'
 import axios, {AxiosResponse} from 'axios'
 import {ServerResponse} from '$types/response'
 import {LoginToken} from '$types/response/login'
+import {API_URL_BASE} from '$config/index'
 
 interface ApiRequest extends NextApiRequest {
     query: {
@@ -19,7 +20,7 @@ const routes = async (req: ApiRequest, res: NextApiResponse<Response<LoginToken>
 
         const {
             data: {data},
-        }: AxiosResponse<ServerResponse<LoginToken>> = await axios.post('http://49.50.164.234:8080/login', {
+        }: AxiosResponse<ServerResponse<LoginToken>> = await axios.post(`${API_URL_BASE}/login`, {
             email,
             name,
             identifier,

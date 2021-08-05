@@ -4,6 +4,7 @@ const env = process.env.REACT_APP_ENV
 
 interface Config {
     REACT_APP_ENV: string
+    API_URL_BASE: string
     OAUTH: {
         NAVER: {
             CLIENT_ID: string
@@ -23,5 +24,6 @@ export const HOST_URL = env === 'local' ? 'http://localhost:3000' : '' // real d
 
 export const {
     REACT_APP_ENV,
+    API_URL_BASE,
     OAUTH: {NAVER, GOOGLE},
 } = publicRuntimeConfig
