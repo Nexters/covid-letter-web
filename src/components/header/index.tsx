@@ -6,7 +6,7 @@ import {useRouter} from 'next/router'
 import tw from 'twin.macro'
 
 const headerCss = css`
-    padding: 15px 24px 16px;
+    padding: 15px 0 16px;
 `
 
 const titleButtonCss = css`
