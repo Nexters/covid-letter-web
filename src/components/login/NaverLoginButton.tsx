@@ -13,16 +13,13 @@ const commonTw = tw`
 `
 
 const Button = styled.button`
+    ${commonTw}
+    ${tw`tw-font-ohsquare tw-font-bold tw-text-base tw-bg-grey-000`}
     width: 100%;
     padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.65rem 0' : '1.85rem 0')};
     color: #767678;
     border: 1px solid #e6e6ea;
 `
-
-const buttonTw = tw`
-tw-font-ohsquare tw-font-bold tw-text-base tw-bg-grey-000
-`
-
 interface NaverLoginButtonProps {
     returnUrl: string
     isMobile: boolean
@@ -52,7 +49,7 @@ const NaverLoginButton = ({returnUrl, isMobile}: NaverLoginButtonProps) => {
         }
     }
     return (
-        <Button css={{...buttonTw, ...commonTw}} onClick={() => handleLogin()} isMobile={isMobile}>
+        <Button onClick={() => handleLogin()} isMobile={isMobile}>
             <SvgNaver style={{marginRight: '24px'}} />
             네이버로 계속하기
         </Button>
