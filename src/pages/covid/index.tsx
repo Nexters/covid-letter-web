@@ -1,13 +1,19 @@
 import Header from '$components/header'
+import {CovidStats, LetterStats} from '$types/response/analyze'
+import {numberFormat} from '$utils/index'
+import {withAxios} from '$utils/fetcher/withAxios'
 import styled from '@emotion/styled'
 import SvgHome from 'assets/HomeImage'
+import {InferGetStaticPropsType} from 'next'
 import tw from 'twin.macro'
+import {Button} from 'antd'
+import AnalyzeSection from '$components/main/AnalyzeSection'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
     min-height: 100vh;
     height: 100%;
-    padding: 0 2.4rem;
+    padding: 0 2.4rem 3.2rem;
 `
 
 const TitleContainer = styled.div`
@@ -32,13 +38,57 @@ const MainImage = styled.div`
     margin-top: 1.2rem;
 `
 
-const Main = () => {
+const LetterButton = styled(Button)`
+    ${tw`tw-bg-primary-green-500 hover:tw-bg-primary-green-500 focus:tw-bg-primary-green-500 tw-text-grey-000 hover:tw-text-grey-000 focus:tw-text-grey-000 tw-border-0 tw-font-ohsquare tw-font-bold tw-h-auto tw-text-base`}
+    margin-top: 2.4rem;
+    padding: 1.35rem 0;
+    border-radius: 0.4rem;
+`
+
+const Value = styled.div`
+    ${tw`tw-text-primary-green-500 tw-font-ohsquare tw-font-bold tw-text-base`}
+    padding-top: .4rem;
+`
+
+type RateColorType = 'red' | 'blue' | 'green'
+
+const StatRate = styled.div`
+    ${tw`tw-flex tw-flex-1 tw-justify-center tw-items-center tw-text-xs tw-text-center tw-font-nanumBarunGothic`}
+    border-radius: 100rem;
+    margin-top: 1rem;
+    padding: 0.2rem 0.8rem;
+    background-color: ${({type}: {type: RateColorType}) => {
+        switch (type) {
+            case 'blue':
+                return `rgba(105, 147, 255, 0.2)`
+            case 'red':
+                return `rgba(255, 100, 99, 0.2)`
+            case 'green':
+                return `rgba(75, 204, 174, 0.2)`
+            default:
+                return 'var(--grey-000)'
+        }
+    }};
+    color: ${({type}: {type: RateColorType}) => `var(--${type}-500)`};
+`
+
+const Main = ({
+    confirmedCase,
+    confirmedIncrease,
+    completeCure,
+    cureIncrease,
+    completeShot,
+    shotRate,
+    unsented,
+    sented,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+    console.log(confirmedCase, confirmedIncrease, completeCure, cureIncrease, completeShot, shotRate, unsented, sented)
     return (
         <Container>
             <Header />
             <TitleContainer>
                 <Title>
-                    <Highlight>총 9,999통</Highlight>의 편지가
+                    <Highlight>총 {numberFormat(unsented + sented)}통</Highlight>의 편지가
                     <br />
                     작성되었어요.
                 </Title>
@@ -51,7 +101,84 @@ const Main = () => {
             <MainImage>
                 <SvgHome />
             </MainImage>
+            <LetterButton block>편지 작성</LetterButton>
+            <AnalyzeSection
+                style={{
+                    marginTop: '3.2rem',
+                }}
+                title="현재 우리나라는..."
+                info={[
+                    {
+                        title: '접종 완료율',
+                        value: (
+                            <Value>
+                                {numberFormat(completeShot)}%<StatRate type={'blue'}>{shotRate}%</StatRate>
+                            </Value>
+                        ),
+                    },
+                    {
+                        title: '총 확진자 수',
+                        value: (
+                            <Value>
+                                {numberFormat(confirmedCase)}
+                                <StatRate type={'red'}>{confirmedIncrease}</StatRate>
+                            </Value>
+                        ),
+                    },
+                    {
+                        title: '총 완치자 수',
+                        value: (
+                            <Value>
+                                {numberFormat(completeCure)}
+                                <StatRate type={'green'}>{cureIncrease}</StatRate>
+                            </Value>
+                        ),
+                    },
+                ]}
+            />
+            <AnalyzeSection
+                style={{
+                    marginTop: '1.6rem',
+                }}
+                title="이만큼 작성됐어요"
+                info={[
+                    {
+                        title: '미발송 편지',
+                        value: <Value>{numberFormat(unsented)}</Value>,
+                    },
+                    {
+                        title: '발송된 편지',
+                        value: <Value>{numberFormat(sented)}</Value>,
+                    },
+                ]}
+            />
         </Container>
     )
+}
+
+/**
+ *
+ * @todo 코로나 통계, 편지 통계 가져올 때 활용
+ */
+export async function getStaticProps() {
+    const covidStats = await withAxios<CovidStats>({
+        url: '/covid/stats',
+    })
+
+    const letterStats = await withAxios<LetterStats>({
+        url: '/letter/stats',
+    })
+
+    if (!covidStats || !letterStats) {
+        return {
+            props: {} as CovidStats & LetterStats,
+            notFound: true,
+        }
+    }
+
+    return {
+        props: {...covidStats, ...letterStats},
+        notFound: false,
+    }
 }
 export default Main
