@@ -93,7 +93,7 @@ class Page extends App<AppProps> {
             }
         } catch (error) {
             if (isInstanceOfApiError(error) && ctx.req && ctx.res) {
-                apiServerErrorHandler(error, {req: ctx.req, res: ctx.res})
+                apiServerErrorHandler(error, {res: ctx.res})
             }
             return {
                 pageProps: {error},

@@ -76,13 +76,12 @@ const Profile = ({isGoogleLogin}: ProfileProps) => {
             <p>성별: {setGender(gender)}</p>
             <p>연령대 : {age}</p>
             <p>이메일: {email}</p>
-            <Button onClick={logout}>로그아웃</Button>{' '}
-            <Button onClick={goPageOne}>goPageOne</Button>
+            <Button onClick={logout}>로그아웃</Button> <Button onClick={goPageOne}>goPageOne</Button>
         </div>
     )
 }
 
-Profile.getInitialProps = ({req, res}: NextPageContext) => {
+Profile.getInitialProps = ({req}: NextPageContext) => {
     const {googleLogin} = cookies({req})
 
     if (googleLogin) {
