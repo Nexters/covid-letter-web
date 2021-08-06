@@ -1,8 +1,5 @@
 module.exports = {
-    purge: [
-        './pages/**/*.{js,ts,jsx,tsx}',
-        './components/**/*.{js,ts,jsx,tsx}',
-    ],
+    purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
@@ -18,6 +15,8 @@ module.exports = {
          * - spacing // If you’d like to customize these values for padding, margin, width, and height all at once
          */
         fontSize: {
+            '3xs': ['0.9rem', '1.4rem'],
+            '2xs': ['1rem', '1.6rem'],
             xs: ['1.2rem', '1.9rem'],
             sm: ['1.4rem', '2.2rem'],
             base: ['1.6rem', '2.5rem'],
