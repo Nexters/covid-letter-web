@@ -58,7 +58,7 @@ afterEach(() => {
 })
 
 const renderComponent = () => {
-    return render(<Login />)
+    return render(<Login isMobile={false} />)
 }
 
 describe('로그인 화면', () => {
@@ -66,9 +66,13 @@ describe('로그인 화면', () => {
     test('로그인 화면으로 진입하면 네이버와 구글 로그인 버튼이 렌더링된다.', async () => {
         const {container} = renderComponent()
 
-        const {container: naverLoginButtonContainer} = render(<NaverLoginButton returnUrl={ROUTES.ROOT} />)
+        const {container: naverLoginButtonContainer} = render(
+            <NaverLoginButton returnUrl={ROUTES.ROOT} isMobile={false} />,
+        )
 
-        const {container: googleLoginButtonContainer} = render(<GoogleLoginButton returnUrl={ROUTES.ROOT} />)
+        const {container: googleLoginButtonContainer} = render(
+            <GoogleLoginButton returnUrl={ROUTES.ROOT} isMobile={false} />,
+        )
 
         await waitFor(() => {
             expect(container.innerHTML).toContain(naverLoginButtonContainer.innerHTML)
@@ -91,7 +95,7 @@ describe('로그인 화면', () => {
                 if (!element) {
                     return false
                 }
-                if (element.tagName === 'BUTTON' && element.textContent === '네이버로 로그인') {
+                if (element.tagName === 'BUTTON' && element.textContent === '네이버로 계속하기') {
                     naverLoginButton = element
                     return true
                 }
@@ -118,7 +122,7 @@ describe('로그인 화면', () => {
                 if (!element) {
                     return false
                 }
-                if (element.tagName === 'BUTTON' && element.textContent === '구글로 로그인') {
+                if (element.tagName === 'BUTTON' && element.textContent === 'Google로 계속하기') {
                     googleLoginButton = element
                     return true
                 }
@@ -151,7 +155,7 @@ describe('로그인 화면', () => {
                 if (!element) {
                     return false
                 }
-                if (element.tagName === 'BUTTON' && element.textContent === '네이버로 로그인') {
+                if (element.tagName === 'BUTTON' && element.textContent === '네이버로 계속하기') {
                     naverLoginButton = element
                     return true
                 }

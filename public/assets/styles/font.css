@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'Cafe24 Ohsquare air';
+    src: url('../fonts/Cafe24Ohsquareair.woff2');
+    src: url('../fonts/Cafe24Ohsquareair.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24 Ohsquare';
+    src: url('../fonts/Cafe24Ohsquare.woff2');
+    src: url('../fonts/Cafe24Ohsquare.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NanumBarunGothic';
+    src: url('../fonts/NanumBarunGothic.woff2');
+    src: url('../fonts/NanumBarunGothic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NanumBarunGothic';
+    src: url('../fonts/NanumBarunGothicLight.woff2');
+    src: url('../fonts/NanumBarunGothicLight.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NanumBarunGothic';
+    src: url('../fonts/NanumBarunGothicBold.woff2');
+    src: url('../fonts/NanumBarunGothicBold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}

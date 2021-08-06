@@ -17,6 +17,16 @@ export default class CustomDocument extends Document {
                         type="text/css"
                         href="/assets/styles/index.css"
                     />
+                    <link
+                        rel="preload"
+                        href="/assets/styles/font.css"
+                        as="style"
+                    />
+                    <link
+                        rel="stylesheet"
+                        type="text/css"
+                        href="/assets/styles/font.css"
+                    />
                 </Head>
                 <body>
                     <Main />

@@ -1,31 +1,41 @@
 import {withAxios} from '$utils/fetcher/withAxios'
 import {GOOGLE} from '$config'
-import {Button} from 'antd'
 import {GoogleLoginResponse, useGoogleLogin} from 'react-google-login'
-import {SessionToken} from 'pages/api/mock/session'
+import tw from 'twin.macro'
+import styled from '@emotion/styled'
+import SvgGoogle from 'assets/GoogleLogo'
+import {LoginToken} from '$types/response/login'
+
+const commonTw = tw`
+    tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center
+`
+
+const Button = styled.button`
+    width: 100%;
+    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.65rem 0' : '1.85rem 0')};
+    color: #fff;
+    background-color: #dc4e41;
+    border: 1px solid #dc4e41;
+`
+
+const buttonTw = tw`
+tw-font-ohsquare tw-font-bold tw-text-base
+`
 
 interface GoogleLoginButtonProps {
     returnUrl: string
+    isMobile: boolean
 }
 
-const GoogleLoginButton = ({returnUrl}: GoogleLoginButtonProps) => {
-    const onSuccess = async ({
-        googleId,
-        profileObj,
-    }: Partial<GoogleLoginResponse>) => {
-        const profile = {
-            id: googleId,
-            email: profileObj?.email,
-            name: profileObj?.name,
-        }
-        /**
-         * @todo BE로 프로필 정보 전송 + jwt 받아서 cookie에 저장
-         */
-        const sessionResult = await withAxios<SessionToken>({
-            url: '/mock/session',
+const GoogleLoginButton = ({returnUrl, isMobile}: GoogleLoginButtonProps) => {
+    const onSuccess = async ({googleId, profileObj}: Partial<GoogleLoginResponse>) => {
+        const sessionResult = await withAxios<LoginToken>({
+            url: '/login',
             method: 'POST',
             data: {
-                profile,
+                identifier: googleId,
+                email: profileObj?.email,
+                name: profileObj?.name,
             },
         })
 
@@ -54,8 +64,9 @@ const GoogleLoginButton = ({returnUrl}: GoogleLoginButtonProps) => {
         onFailure,
     })
     return (
-        <Button block type={'primary'} onClick={signIn}>
-            구글로 로그인
+        <Button css={{...buttonTw, ...commonTw}} onClick={signIn} isMobile={isMobile}>
+            <SvgGoogle style={{marginRight: '24px'}} />
+            Google로 계속하기
         </Button>
     )
 }

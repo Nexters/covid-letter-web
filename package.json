@@ -7,12 +7,12 @@
         "build": "next build",
         "build:local": "cross-env REACT_APP_ENV=local next build",
         "start:local": "cross-env REACT_APP_ENV=local next start",
-        "lint": "next lint",
+        "lint": "cross-env REACT_APP_ENV=local next lint",
         "prettier:fix": "prettier '**/*.{json,yaml}' --write",
         "test": "jest --config=jest.config.js",
-        "test:watch": "jest --config=jest.config.js --watch",
         "test:local": "cross-env REACT_APP_ENV=local jest --watch",
-        "style": "tailwindcss build src/styles/index.css -o public/assets/styles/index.css"
+        "test:watch": "jest --config=jest.config.js --watch",
+        "style": "tailwindcss -i src/styles/index.css -o public/assets/styles/index.css"
     },
     "dependencies": {
         "@ant-design/icons": "^4.6.2",
@@ -33,6 +33,7 @@
         "prettier": "^2.3.2",
         "randomstring": "^1.2.1",
         "react": "17.0.2",
+        "react-device-detect": "^1.17.0",
         "react-dom": "17.0.2",
         "react-google-login": "^5.2.2",
         "react-spring": "^9.2.4",

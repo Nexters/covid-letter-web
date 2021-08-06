@@ -9,3 +9,10 @@ export interface Response<T> {
     message: string
     result: T
 }
+
+export interface ServerResponse<T> {
+    data: T
+    errorCode: number
+    message: string
+    status: number
+}

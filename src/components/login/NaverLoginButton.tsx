@@ -2,15 +2,33 @@ import {withAxios} from '$utils/fetcher/withAxios'
 import {HOST_URL} from '$config'
 import {AuthorizeResponse} from '$types/login/naver'
 import ROUTES from '$constants/routes'
-import {Button} from 'antd'
+import tw from 'twin.macro'
+import styled from '@emotion/styled'
+import SvgNaver from 'assets/NaverLogo'
 import {useAlertStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 
+const commonTw = tw`
+    tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center
+`
+
+const Button = styled.button`
+    width: 100%;
+    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.65rem 0' : '1.85rem 0')};
+    color: #767678;
+    border: 1px solid #e6e6ea;
+`
+
+const buttonTw = tw`
+tw-font-ohsquare tw-font-bold tw-text-base tw-bg-grey-000
+`
+
 interface NaverLoginButtonProps {
     returnUrl: string
+    isMobile: boolean
 }
 
-const NaverLoginButton = ({returnUrl}: NaverLoginButtonProps) => {
+const NaverLoginButton = ({returnUrl, isMobile}: NaverLoginButtonProps) => {
     const {alert} = useAlertStore()
 
     const handleLogin = async () => {
@@ -34,8 +52,9 @@ const NaverLoginButton = ({returnUrl}: NaverLoginButtonProps) => {
         }
     }
     return (
-        <Button type={'primary'} block onClick={() => handleLogin()}>
-            네이버로 로그인
+        <Button css={{...buttonTw, ...commonTw}} onClick={() => handleLogin()} isMobile={isMobile}>
+            <SvgNaver style={{marginRight: '24px'}} />
+            네이버로 계속하기
         </Button>
     )
 }

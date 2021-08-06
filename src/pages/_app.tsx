@@ -7,10 +7,7 @@ import {
     isInstanceOfCommonApiError,
     isInstanceOfRedirectArror,
 } from '$utils/fetcher/ApiError'
-import {
-    apiErrorHandler,
-    apiServerErrorHandler,
-} from '$utils/fetcher/apiErrorHandler'
+import {apiErrorHandler, apiServerErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
 import ROUTES from '$constants/routes'
@@ -18,10 +15,23 @@ import cookies from 'next-cookies'
 import Router from 'next/router'
 import {ProfileProvider} from '$contexts/ProfileContext'
 import {withAxios} from '$utils/fetcher/withAxios'
-import {GlobalStyles} from 'twin.macro'
+import {GlobalStyles, styled} from 'twin.macro'
 import '../styles/globals.css'
 import {StoreProvider} from '$contexts/StoreContext'
 import AlertContainer from '$components/alert'
+import Device from '$components/device'
+
+const Article = styled.div`
+    position: relative;
+    min-height: 100%;
+`
+
+const Container = styled.div`
+    max-width: 420px;
+    margin: 0 auto;
+    min-height: 100vh;
+    position: relative;
+`
 
 type AppProps = AppInitialProps
 
@@ -44,7 +54,6 @@ const needToCheckCookiePath = (pathname: string) => {
         },
     }
 }
-
 class Page extends App<AppProps> {
     static async getInitialProps({
         ctx,
@@ -56,8 +65,7 @@ class Page extends App<AppProps> {
              * jwt가 있으면 메인으로 리다이렉트, 없으면 로그인화면으로 리다이렉트
              */
             const {letterLogin} = cookies(ctx)
-            const {needToCheckCookie, redirectUrl, compare, needLogout} =
-                needToCheckCookiePath(ctx.pathname)
+            const {needToCheckCookie, redirectUrl, compare, needLogout} = needToCheckCookiePath(ctx.pathname)
 
             if (needToCheckCookie) {
                 if (needLogout(letterLogin)) {
@@ -74,9 +82,7 @@ class Page extends App<AppProps> {
                     }
                 }
             }
-            const props = await (getComponentIntialProps
-                ? getComponentIntialProps(ctx)
-                : Promise.resolve({}))
+            const props = await (getComponentIntialProps ? getComponentIntialProps(ctx) : Promise.resolve({}))
 
             const pageProps = {
                 ...props,
@@ -136,7 +142,17 @@ class Page extends App<AppProps> {
                     <StoreProvider>
                         <ProfileProvider token={pageProps.token}>
                             <GlobalStyles />
-                            <Component {...pageProps} />
+                            <Device>
+                                {({isMobileOnly: isMobile}) => {
+                                    return (
+                                        <Article className="tw-bg-beige-200">
+                                            <Container className="tw-bg-beige-300">
+                                                <Component isMobile={isMobile} {...pageProps} />
+                                            </Container>
+                                        </Article>
+                                    )
+                                }}
+                            </Device>
                             <AlertContainer />
                         </ProfileProvider>
                     </StoreProvider>

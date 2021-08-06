@@ -3,6 +3,7 @@ import {animated, useTransition} from 'react-spring'
 import bezierEasing from 'bezier-easing'
 import styled from '@emotion/styled'
 import React, {PropsWithChildren} from 'react'
+import {noop} from '$utils/index'
 
 const Content = styled(animated.div)`
     position: absolute;
@@ -46,12 +47,14 @@ const Overlay = styled(animated.div)`
 interface HalfLayerProps {
     isShow: boolean
     closeFn: (e: React.SyntheticEvent) => void
+    visibleCloseButton?: boolean
 }
 
 const HalfLayer = ({
     children,
     isShow,
     closeFn,
+    visibleCloseButton = true,
 }: PropsWithChildren<HalfLayerProps>) => {
     const {Portal} = usePortal()
 
@@ -83,16 +86,22 @@ const HalfLayer = ({
                         <Container>
                             <Content style={props}>
                                 {children}
-                                <HeaderCloseButton onClick={closeFn}>
-                                    닫기
-                                </HeaderCloseButton>
+                                {visibleCloseButton && (
+                                    <HeaderCloseButton onClick={closeFn}>
+                                        닫기
+                                    </HeaderCloseButton>
+                                )}
                             </Content>
                             {overlayTransition((overlayProps, overlayItem) => {
                                 return (
                                     overlayItem && (
                                         <Overlay
                                             style={overlayProps}
-                                            onClick={closeFn}
+                                            onClick={
+                                                visibleCloseButton
+                                                    ? noop
+                                                    : closeFn
+                                            }
                                         />
                                     )
                                 )
