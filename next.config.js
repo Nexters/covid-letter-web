@@ -3,12 +3,10 @@ const {REACT_APP_ENV} = process.env
 const isLocal = REACT_APP_ENV === 'local'
 const CONFIG = require(`./src/config/${REACT_APP_ENV}`)
 const LOCAL_ORIGIN = 'http://localhost:3000'
-const API_URL_BASE = 'http://49.50.164.234:8080'
 
 /** both server and client */
 const publicRuntimeConfig = {
     REACT_APP_ENV,
-    API_URL_BASE,
     ...CONFIG,
 }
 

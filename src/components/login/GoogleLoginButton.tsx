@@ -11,15 +11,13 @@ const commonTw = tw`
 `
 
 const Button = styled.button`
+    ${commonTw}
+    ${tw`tw-font-ohsquare tw-font-bold tw-text-base`}
     width: 100%;
     padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.65rem 0' : '1.85rem 0')};
     color: #fff;
     background-color: #dc4e41;
     border: 1px solid #dc4e41;
-`
-
-const buttonTw = tw`
-tw-font-ohsquare tw-font-bold tw-text-base
 `
 
 interface GoogleLoginButtonProps {
@@ -64,7 +62,7 @@ const GoogleLoginButton = ({returnUrl, isMobile}: GoogleLoginButtonProps) => {
         onFailure,
     })
     return (
-        <Button css={{...buttonTw, ...commonTw}} onClick={signIn} isMobile={isMobile}>
+        <Button onClick={signIn} isMobile={isMobile}>
             <SvgGoogle style={{marginRight: '24px'}} />
             Google로 계속하기
         </Button>

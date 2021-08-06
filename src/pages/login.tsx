@@ -12,18 +12,15 @@ const commonTw = tw`
 const Container = styled.div``
 
 const Title = styled.div`
+    ${commonTw}
+    ${tw`tw-text-xl tw-font-ohsquare-air tw-text-primary-green-500 tw-font-light`}
     padding-top: 8rem;
-`
-const titleTw = tw`
-    tw-text-xl tw-font-ohsquare-air tw-text-primary-green-500 tw-font-light
 `
 
 const SubTitle = styled.div`
+    ${commonTw}
+    ${tw`tw-text-sm tw-font-nanumBarunGothic tw-font-light tw-text-grey-700`}
     margin-top: 1.2rem;
-`
-
-const subtitleTw = tw`
-    tw-text-sm tw-font-nanumBarunGothic tw-font-light tw-text-grey-700
 `
 
 const BottomFixed = styled.div`
@@ -48,11 +45,8 @@ const introTitleTw = tw`
 `
 
 const IntroContent = styled.div`
+    ${tw`tw-text-base tw-font-nanumBarunGothic tw-font-normal tw-text-grey-600`}
     padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '2.4rem 0 13.6rem' : '2.4rem 0 3.2rem')};
-`
-
-const introContentTw = tw`
-    tw-text-base tw-font-nanumBarunGothic tw-font-normal tw-text-grey-600
 `
 
 const ButtonContainer = styled.div`
@@ -75,19 +69,19 @@ const ButtonContainer = styled.div`
 const Login = ({isMobile}: {isMobile: boolean}) => {
     return (
         <Container>
-            <Title css={{...titleTw, ...commonTw}}>
+            <Title>
                 나에게 보내는 편지
                 <br />
                 ‘코로나’편
             </Title>
-            <SubTitle css={{...subtitleTw, ...commonTw}}>어려운 시기, 미래의 나에게 마음을 담아 전해요.</SubTitle>
+            <SubTitle>어려운 시기, 미래의 나에게 마음을 담아 전해요.</SubTitle>
             <BottomFixed isMobile={isMobile}>
                 <Img css={commonTw}>
                     <SvgLogin />
                 </Img>
                 <Intro>
                     <div css={introTitleTw}>온전히 나에게 집중하는 시간...</div>
-                    <IntroContent css={introContentTw} isMobile={isMobile}>
+                    <IntroContent isMobile={isMobile}>
                         이 서비스는 시끄러운 외부 환경에서 벗어나 스스로를 돌아보고 돌볼 수 있는 시간을 제공하는
                         플랫폼이에요. 삶에 대한 깊이있는 질문에 답하기를 통해 자신의 생각을 정리하고 오직 자신에게
                         집중하는 순간을 느껴보세요. 세상에 너무 많은 정보와 네트워킹이 범람하는 요즘, 많은 사람들이
