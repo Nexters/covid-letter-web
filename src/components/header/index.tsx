@@ -8,7 +8,15 @@ import {useState} from 'react'
 import tw from 'twin.macro'
 
 const headerCss = css`
-    padding: 1.5rem 1.6rem 1.6rem;
+    padding: 1.5rem 2.4rem;
+
+    .ant-page-header-heading {
+        ${tw`tw-items-center`}
+    }
+    .ant-page-header-heading-left,
+    .ant-page-header-heading-extra {
+        margin: 0;
+    }
 `
 
 const titleButtonCss = css`
@@ -54,9 +62,9 @@ const Header = () => {
                 title={<LeftButtonList />}
                 css={headerCss}
                 extra={
-                    <Button type="link" css={headerButtonCss} onClick={openSidebar}>
+                    <a onClick={openSidebar}>
                         <SvgSidemenu />
-                    </Button>
+                    </a>
                 }
             />
             <Sidebar isShow={sidebarShow} closeFn={closeSidebar}></Sidebar>

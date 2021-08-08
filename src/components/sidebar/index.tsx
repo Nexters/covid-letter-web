@@ -59,9 +59,9 @@ const Sidebar = ({isShow, closeFn, children}: PropsWithChildren<SidebarProps>) =
                         <Container>
                             <Content style={props}>
                                 <Header>
-                                    <Button type={'link'} css={tw`tw-p-0`}>
+                                    <a>
                                         <IconClose />
-                                    </Button>
+                                    </a>
                                 </Header>
                                 {children}
                             </Content>
