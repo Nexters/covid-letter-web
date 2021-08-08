@@ -64,7 +64,7 @@ const Sidebar = ({isShow, closeFn, children}: PropsWithChildren<SidebarProps>) =
                                 </Header>
                                 {children}
                             </Content>
-                            <Overlay isShow={isShow} position={'fixed'} closeFn={closeFn} />
+                            <Overlay shouldScrollLock isShow={isShow} position={'fixed'} closeFn={closeFn} />
                         </Container>
                     ),
             )}

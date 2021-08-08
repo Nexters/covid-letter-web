@@ -1,6 +1,7 @@
 import {useTransition, animated} from 'react-spring'
 import bezierEasing from 'bezier-easing'
 import styled from '@emotion/styled'
+import useBodyScrollLock from '$hooks/useBodyScrollLock'
 
 type Position = 'fixed' | 'absolute'
 
@@ -18,9 +19,11 @@ interface OverlayProps {
     position: Position
     isShow: boolean
     closeFn: (e: React.SyntheticEvent) => void
+    shouldScrollLock?: boolean
 }
 
-const Overlay = ({position = 'fixed', isShow, closeFn}: OverlayProps) => {
+const Overlay = ({position = 'fixed', isShow, closeFn, shouldScrollLock = false}: OverlayProps) => {
+    useBodyScrollLock(shouldScrollLock)
     const transitions = useTransition(isShow, {
         from: {opacity: 0},
         enter: {opacity: 0.5},
