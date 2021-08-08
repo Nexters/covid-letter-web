@@ -71,6 +71,10 @@ const StatRate = styled.div`
         }
     }};
     color: ${({type}: {type: RateColorType}) => `var(--${type}-500)`};
+
+    span {
+        margin-top: 0.3rem;
+    }
 `
 
 const Main = ({
@@ -114,7 +118,7 @@ const Main = ({
                             <Value>
                                 {numberFormat(completeShot)}%
                                 <StatRate type={'blue'}>
-                                    {shotRate}%
+                                    <span>{shotRate}%</span>
                                     <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--blue-500)`} />
                                 </StatRate>
                             </Value>
@@ -126,7 +130,7 @@ const Main = ({
                             <Value>
                                 {numberFormat(confirmedCase)}
                                 <StatRate type={'red'}>
-                                    {numberFormat(confirmedIncrease)}
+                                    <span>{numberFormat(confirmedIncrease)}</span>
                                     <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--red-500)`} />
                                 </StatRate>
                             </Value>
@@ -138,7 +142,7 @@ const Main = ({
                             <Value>
                                 {numberFormat(completeCure)}
                                 <StatRate type={'green'}>
-                                    {numberFormat(cureIncrease)}
+                                    <span>{numberFormat(cureIncrease)}</span>
                                     <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--green-500)`} />
                                 </StatRate>
                             </Value>
