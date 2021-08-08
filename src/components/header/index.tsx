@@ -1,11 +1,15 @@
+import SidebarButtonList from '$components/main/SidebarButtonList'
 import Sidebar from '$components/sidebar'
 import ROUTES from '$constants/routes'
 import {css} from '@emotion/react'
+import styled from '@emotion/styled'
 import {Button, PageHeader} from 'antd'
+import IconMore from 'assets/IconMore'
 import SvgSidemenu from 'assets/IconSideMenu'
 import {useRouter} from 'next/router'
 import {useState} from 'react'
 import tw from 'twin.macro'
+import Link from 'next/link'
 
 const headerCss = css`
     padding: 1.5rem 2.4rem;
@@ -32,6 +36,19 @@ const titleButtonCss = css`
 const headerButtonCss = css`
     ${tw`tw-font-ohsquare tw-text-base tw-text-primary-green-300 hover:tw-text-primary-green-500 focus:tw-text-primary-green-500`}
     padding: 0 .8rem
+`
+
+const SidebarContainer = styled.div`
+    padding: 3.2rem 0;
+`
+
+const WelcomeArea = styled.div`
+    ${tw`tw-flex tw-text-left tw-flex-1 tw-justify-between tw-items-center`}
+    padding: 3.5rem 0;
+`
+
+const WelcomeText = styled.div`
+    ${tw`tw-font-ohsquare tw-font-bold tw-text-xl tw-text-primary-green-500`}
 `
 
 const LeftButtonList = () => {
@@ -67,7 +84,50 @@ const Header = () => {
                     </a>
                 }
             />
-            <Sidebar isShow={sidebarShow} closeFn={closeSidebar}></Sidebar>
+            <Sidebar isShow={sidebarShow} closeFn={closeSidebar}>
+                <SidebarContainer>
+                    <WelcomeArea>
+                        <WelcomeText>
+                            3초 만에 로그인하고
+                            <br />
+                            편하게 이용하기
+                        </WelcomeText>
+                        <Link href={ROUTES.LOGIN}>
+                            <a>
+                                <IconMore />
+                            </a>
+                        </Link>
+                    </WelcomeArea>
+                    <SidebarButtonList
+                        list={[
+                            {
+                                title: (
+                                    <>
+                                        <span style={{marginRight: '1.7rem'}}>👋</span> 안녕, 나야 소개
+                                    </>
+                                ),
+                                link: ROUTES.COVID.SIDE.ABOUT,
+                            },
+                            {
+                                title: (
+                                    <>
+                                        <span style={{marginRight: '1.7rem'}}>💬</span> 자주 묻는 질문
+                                    </>
+                                ),
+                                link: ROUTES.COVID.SIDE.FAQ,
+                            },
+                            {
+                                title: (
+                                    <>
+                                        <span style={{marginRight: '1.7rem'}}>💡</span> 서비스 피드백
+                                    </>
+                                ),
+                                link: ROUTES.COVID.SIDE.REVIEW,
+                            },
+                        ]}
+                    />
+                </SidebarContainer>
+            </Sidebar>
         </>
     )
 }

@@ -6,10 +6,8 @@ import tw from 'twin.macro'
 import Overlay from '$components/overlay'
 import {PropsWithChildren} from 'react'
 import IconClose from 'assets/IconClose'
-import {Button} from 'antd'
 
 const Container = styled.div`
-    ${tw`tw-bg-beige-200`}
     position: fixed;
     right: 0;
     top: 0;
@@ -18,15 +16,16 @@ const Container = styled.div`
 `
 
 const Content = styled(animated.div)`
+    ${tw`tw-bg-beige-200`}
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
     z-index: 10;
-    background-color: #fff;
     box-sizing: border-box;
     text-align: center;
     padding: 2.4rem;
+    width: 280px;
 `
 
 const Header = styled.div`
@@ -59,7 +58,7 @@ const Sidebar = ({isShow, closeFn, children}: PropsWithChildren<SidebarProps>) =
                         <Container>
                             <Content style={props}>
                                 <Header>
-                                    <a>
+                                    <a onClick={closeFn}>
                                         <IconClose />
                                     </a>
                                 </Header>
