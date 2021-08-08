@@ -14,12 +14,11 @@ const Container = styled.div`
     ${tw`tw-bg-beige-300`}
     min-height: 100vh;
     height: 100%;
-    padding: 0 2.4rem 3.2rem;
+    padding: 3.2rem 2.4rem;
 `
 
 const TitleContainer = styled.div`
     ${tw`tw-flex tw-text-left tw-flex-1 tw-justify-start tw-items-center tw-font-ohsquare tw-font-bold tw-text-xl tw-text-primary-green-500`}
-    margin-top: 3.2rem;
 `
 
 const Title = styled.span``
@@ -88,85 +87,87 @@ const Main = ({
     sented,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
-        <Container>
+        <>
             <Header />
-            <TitleContainer>
-                <Title>
-                    <Highlight>총 {numberFormat(unsented + sented)}통</Highlight>의 편지가
+            <Container>
+                <TitleContainer>
+                    <Title>
+                        <Highlight>총 {numberFormat(unsented + sented)}통</Highlight>의 편지가
+                        <br />
+                        작성되었어요.
+                    </Title>
+                </TitleContainer>
+                <SubTitle>
+                    코로나가 끝나는 그 날,
                     <br />
-                    작성되었어요.
-                </Title>
-            </TitleContainer>
-            <SubTitle>
-                코로나가 끝나는 그 날,
-                <br />
-                마음을 담은 편지를 전달해줄게요.
-            </SubTitle>
-            <MainImage>
-                <SvgHome />
-            </MainImage>
-            <LetterButton block>편지 작성</LetterButton>
-            <AnalyzeSection
-                style={{
-                    marginTop: '3.2rem',
-                }}
-                title="현재 우리나라는..."
-                info={[
-                    {
-                        title: '접종 완료율',
-                        value: (
-                            <Value>
-                                {numberFormat(completeShot)}%
-                                <StatRate type={'blue'}>
-                                    <span>{shotRate}%</span>
-                                    <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--blue-500)`} />
-                                </StatRate>
-                            </Value>
-                        ),
-                    },
-                    {
-                        title: '총 확진자 수',
-                        value: (
-                            <Value>
-                                {numberFormat(confirmedCase)}
-                                <StatRate type={'red'}>
-                                    <span>{numberFormat(confirmedIncrease)}</span>
-                                    <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--red-500)`} />
-                                </StatRate>
-                            </Value>
-                        ),
-                    },
-                    {
-                        title: '총 완치자 수',
-                        value: (
-                            <Value>
-                                {numberFormat(completeCure)}
-                                <StatRate type={'green'}>
-                                    <span>{numberFormat(cureIncrease)}</span>
-                                    <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--green-500)`} />
-                                </StatRate>
-                            </Value>
-                        ),
-                    },
-                ]}
-            />
-            <AnalyzeSection
-                style={{
-                    marginTop: '1.6rem',
-                }}
-                title="이만큼 작성됐어요"
-                info={[
-                    {
-                        title: '미발송 편지',
-                        value: <Value>{numberFormat(unsented)}</Value>,
-                    },
-                    {
-                        title: '발송된 편지',
-                        value: <Value>{numberFormat(sented)}</Value>,
-                    },
-                ]}
-            />
-        </Container>
+                    마음을 담은 편지를 전달해줄게요.
+                </SubTitle>
+                <MainImage>
+                    <SvgHome />
+                </MainImage>
+                <LetterButton block>편지 작성</LetterButton>
+                <AnalyzeSection
+                    style={{
+                        marginTop: '3.2rem',
+                    }}
+                    title="현재 우리나라는..."
+                    info={[
+                        {
+                            title: '접종 완료율',
+                            value: (
+                                <Value>
+                                    {numberFormat(completeShot)}%
+                                    <StatRate type={'blue'}>
+                                        <span>{shotRate}%</span>
+                                        <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--blue-500)`} />
+                                    </StatRate>
+                                </Value>
+                            ),
+                        },
+                        {
+                            title: '총 확진자 수',
+                            value: (
+                                <Value>
+                                    {numberFormat(confirmedCase)}
+                                    <StatRate type={'red'}>
+                                        <span>{numberFormat(confirmedIncrease)}</span>
+                                        <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--red-500)`} />
+                                    </StatRate>
+                                </Value>
+                            ),
+                        },
+                        {
+                            title: '총 완치자 수',
+                            value: (
+                                <Value>
+                                    {numberFormat(completeCure)}
+                                    <StatRate type={'green'}>
+                                        <span>{numberFormat(cureIncrease)}</span>
+                                        <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--green-500)`} />
+                                    </StatRate>
+                                </Value>
+                            ),
+                        },
+                    ]}
+                />
+                <AnalyzeSection
+                    style={{
+                        marginTop: '1.6rem',
+                    }}
+                    title="이만큼 작성됐어요"
+                    info={[
+                        {
+                            title: '미발송 편지',
+                            value: <Value>{numberFormat(unsented)}</Value>,
+                        },
+                        {
+                            title: '발송된 편지',
+                            value: <Value>{numberFormat(sented)}</Value>,
+                        },
+                    ]}
+                />
+            </Container>
+        </>
     )
 }
 

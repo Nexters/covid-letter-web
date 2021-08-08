@@ -1,17 +1,19 @@
+import Sidebar from '$components/sidebar'
 import ROUTES from '$constants/routes'
 import {css} from '@emotion/react'
 import {Button, PageHeader} from 'antd'
 import SvgSidemenu from 'assets/IconSideMenu'
 import {useRouter} from 'next/router'
+import {useState} from 'react'
 import tw from 'twin.macro'
 
 const headerCss = css`
-    padding: 15px 0 16px;
+    padding: 1.5rem 1.6rem 1.6rem;
 `
 
 const titleButtonCss = css`
     button + button {
-        margin-left: 2.4rem;
+        margin-left: 1.6rem;
     }
 
     button.active {
@@ -19,20 +21,21 @@ const titleButtonCss = css`
     }
 `
 
-const headerButtonTw = tw`
-    tw-p-1 tw-font-ohsquare tw-text-base tw-text-primary-green-300 hover:tw-text-primary-green-500 focus:tw-text-primary-green-500
+const headerButtonCss = css`
+    ${tw`tw-font-ohsquare tw-text-base tw-text-primary-green-300 hover:tw-text-primary-green-500 focus:tw-text-primary-green-500`}
+    padding: 0 .8rem
 `
 
 const LeftButtonList = () => {
     const router = useRouter()
     return (
         <div css={titleButtonCss}>
-            <Button type="link" css={headerButtonTw} className={router.pathname === ROUTES.COVID.MAIN ? 'active' : ''}>
+            <Button type="link" css={headerButtonCss} className={router.pathname === ROUTES.COVID.MAIN ? 'active' : ''}>
                 홈
             </Button>
             <Button
                 type="link"
-                css={headerButtonTw}
+                css={headerButtonCss}
                 className={router.pathname === ROUTES.COVID.WAITING ? 'active' : ''}>
                 부치지 못한 편지
             </Button>
@@ -41,16 +44,23 @@ const LeftButtonList = () => {
 }
 
 const Header = () => {
+    const [sidebarShow, setSidebarShow] = useState(false)
+
+    const openSidebar = () => setSidebarShow(true)
+    const closeSidebar = () => setSidebarShow(false)
     return (
-        <PageHeader
-            title={<LeftButtonList />}
-            css={headerCss}
-            extra={
-                <Button type="link" css={headerButtonTw}>
-                    <SvgSidemenu />
-                </Button>
-            }
-        />
+        <>
+            <PageHeader
+                title={<LeftButtonList />}
+                css={headerCss}
+                extra={
+                    <Button type="link" css={headerButtonCss} onClick={openSidebar}>
+                        <SvgSidemenu />
+                    </Button>
+                }
+            />
+            <Sidebar isShow={sidebarShow} closeFn={closeSidebar}></Sidebar>
+        </>
     )
 }
 

@@ -47,15 +47,10 @@ const Overlay = styled(animated.div)`
 interface HalfLayerProps {
     isShow: boolean
     closeFn: (e: React.SyntheticEvent) => void
-    visibleCloseButton?: boolean
+    hasCloseButton?: boolean
 }
 
-const HalfLayer = ({
-    children,
-    isShow,
-    closeFn,
-    visibleCloseButton = true,
-}: PropsWithChildren<HalfLayerProps>) => {
+const HalfLayer = ({children, isShow, closeFn, hasCloseButton = true}: PropsWithChildren<HalfLayerProps>) => {
     const {Portal} = usePortal()
 
     const transitions = useTransition(isShow, {
@@ -86,23 +81,12 @@ const HalfLayer = ({
                         <Container>
                             <Content style={props}>
                                 {children}
-                                {visibleCloseButton && (
-                                    <HeaderCloseButton onClick={closeFn}>
-                                        닫기
-                                    </HeaderCloseButton>
-                                )}
+                                {hasCloseButton && <HeaderCloseButton onClick={closeFn}>닫기</HeaderCloseButton>}
                             </Content>
                             {overlayTransition((overlayProps, overlayItem) => {
                                 return (
                                     overlayItem && (
-                                        <Overlay
-                                            style={overlayProps}
-                                            onClick={
-                                                visibleCloseButton
-                                                    ? noop
-                                                    : closeFn
-                                            }
-                                        />
+                                        <Overlay style={overlayProps} onClick={hasCloseButton ? noop : closeFn} />
                                     )
                                 )
                             })}
