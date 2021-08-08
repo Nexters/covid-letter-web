@@ -7,9 +7,9 @@ const routes = async (_req: NextApiRequest, res: NextApiResponse<Response<CovidS
     res.setHeader('Set-Cookie', [`letterLogin=; path=/; expires=-1`, `googleLogin=; path=/; expires=-1`])
     res.status(200).json(
         createResponse({
-            completeCure: 1000,
+            completeCure: 153201,
             completeShot: 11.19,
-            confirmedCase: 1702,
+            confirmedCase: 171203,
             confirmedIncrease: 99,
             cureIncrease: 1002,
             shotRate: 1.1,

@@ -8,6 +8,7 @@ import {InferGetStaticPropsType} from 'next'
 import tw from 'twin.macro'
 import {Button} from 'antd'
 import AnalyzeSection from '$components/main/AnalyzeSection'
+import IconArrowUp from 'assets/IconArrowUp'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -82,7 +83,6 @@ const Main = ({
     unsented,
     sented,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-    console.log(confirmedCase, confirmedIncrease, completeCure, cureIncrease, completeShot, shotRate, unsented, sented)
     return (
         <Container>
             <Header />
@@ -112,7 +112,11 @@ const Main = ({
                         title: '접종 완료율',
                         value: (
                             <Value>
-                                {numberFormat(completeShot)}%<StatRate type={'blue'}>{shotRate}%</StatRate>
+                                {numberFormat(completeShot)}%
+                                <StatRate type={'blue'}>
+                                    {shotRate}%
+                                    <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--blue-500)`} />
+                                </StatRate>
                             </Value>
                         ),
                     },
@@ -121,7 +125,10 @@ const Main = ({
                         value: (
                             <Value>
                                 {numberFormat(confirmedCase)}
-                                <StatRate type={'red'}>{confirmedIncrease}</StatRate>
+                                <StatRate type={'red'}>
+                                    {numberFormat(confirmedIncrease)}
+                                    <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--red-500)`} />
+                                </StatRate>
                             </Value>
                         ),
                     },
@@ -130,7 +137,10 @@ const Main = ({
                         value: (
                             <Value>
                                 {numberFormat(completeCure)}
-                                <StatRate type={'green'}>{cureIncrease}</StatRate>
+                                <StatRate type={'green'}>
+                                    {numberFormat(cureIncrease)}
+                                    <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--green-500)`} />
+                                </StatRate>
                             </Value>
                         ),
                     },
