@@ -24,10 +24,10 @@ interface SidebarButtonListProps {
 const SidebarButtonList = ({list}: SidebarButtonListProps) => {
     return (
         <ButtonList>
-            {list.map(({title, link}, index) => (
+            {list.map(({title, link, onClick}, index) => (
                 <ButtonItem key={index}>
                     <Link href={link as string}>
-                        <a>{title}</a>
+                        <a onClick={onClick}>{title}</a>
                     </Link>
                 </ButtonItem>
             ))}

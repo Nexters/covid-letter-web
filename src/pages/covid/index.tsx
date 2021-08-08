@@ -1,4 +1,4 @@
-import Header from '$components/header'
+import MainHeader from '$components/header'
 import {CovidStats, LetterStats} from '$types/response/analyze'
 import {numberFormat} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
@@ -9,6 +9,7 @@ import tw from 'twin.macro'
 import {Button} from 'antd'
 import AnalyzeSection from '$components/main/AnalyzeSection'
 import IconArrowUp from 'assets/IconArrowUp'
+import {PropsWithAccessToken} from '$types/index'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -85,10 +86,12 @@ const Main = ({
     shotRate,
     unsented,
     sented,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+    token,
+    isGoogleLogin,
+}: PropsWithAccessToken<InferGetStaticPropsType<typeof getStaticProps>>) => {
     return (
         <>
-            <Header />
+            <MainHeader logined={!!token} isGoogleLogin={isGoogleLogin} />
             <Container>
                 <TitleContainer>
                     <Title>
@@ -196,4 +199,5 @@ export async function getStaticProps() {
         notFound: false,
     }
 }
+
 export default Main

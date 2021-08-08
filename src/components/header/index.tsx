@@ -4,12 +4,13 @@ import ROUTES from '$constants/routes'
 import {css} from '@emotion/react'
 import styled from '@emotion/styled'
 import {Button, PageHeader} from 'antd'
-import IconMore from 'assets/IconMore'
 import SvgSidemenu from 'assets/IconSideMenu'
 import {useRouter} from 'next/router'
 import {useState} from 'react'
 import tw from 'twin.macro'
-import Link from 'next/link'
+import WelcomeArea from '$components/main/WelcomeArea'
+import {SidebarButton} from '$components/main/types'
+import useLogout from '$hooks/useLogout'
 
 const headerCss = css`
     padding: 1.5rem 2.4rem;
@@ -42,15 +43,6 @@ const SidebarContainer = styled.div`
     padding: 3.2rem 0;
 `
 
-const WelcomeArea = styled.div`
-    ${tw`tw-flex tw-text-left tw-flex-1 tw-justify-between tw-items-center`}
-    padding: 3.5rem 0;
-`
-
-const WelcomeText = styled.div`
-    ${tw`tw-font-ohsquare tw-font-bold tw-text-xl tw-text-primary-green-500`}
-`
-
 const LeftButtonList = () => {
     const router = useRouter()
     return (
@@ -68,11 +60,27 @@ const LeftButtonList = () => {
     )
 }
 
-const Header = () => {
+const MainHeader = ({logined, isGoogleLogin}: {logined: boolean; isGoogleLogin: boolean}) => {
+    const logout = useLogout(isGoogleLogin)
     const [sidebarShow, setSidebarShow] = useState(false)
 
     const openSidebar = () => setSidebarShow(true)
     const closeSidebar = () => setSidebarShow(false)
+    const logoutValue: SidebarButton[] = logined
+        ? [
+              {
+                  title: (
+                      <>
+                          <span style={{marginRight: '1.7rem'}}>🏃</span>로그아웃
+                      </>
+                  ),
+                  link: ROUTES.LOGIN,
+                  onClick: () => {
+                      logout()
+                  },
+              },
+          ]
+        : []
     return (
         <>
             <PageHeader
@@ -86,24 +94,13 @@ const Header = () => {
             />
             <Sidebar isShow={sidebarShow} closeFn={closeSidebar}>
                 <SidebarContainer>
-                    <WelcomeArea>
-                        <WelcomeText>
-                            3초 만에 로그인하고
-                            <br />
-                            편하게 이용하기
-                        </WelcomeText>
-                        <Link href={ROUTES.LOGIN}>
-                            <a>
-                                <IconMore />
-                            </a>
-                        </Link>
-                    </WelcomeArea>
+                    {logined ? <>로그인된 유저</> : <WelcomeArea />}
                     <SidebarButtonList
                         list={[
                             {
                                 title: (
                                     <>
-                                        <span style={{marginRight: '1.7rem'}}>👋</span> 안녕, 나야 소개
+                                        <span style={{marginRight: '1.7rem'}}>👋</span>안녕, 나야 소개
                                     </>
                                 ),
                                 link: ROUTES.COVID.SIDE.ABOUT,
@@ -111,7 +108,7 @@ const Header = () => {
                             {
                                 title: (
                                     <>
-                                        <span style={{marginRight: '1.7rem'}}>💬</span> 자주 묻는 질문
+                                        <span style={{marginRight: '1.7rem'}}>💬</span>자주 묻는 질문
                                     </>
                                 ),
                                 link: ROUTES.COVID.SIDE.FAQ,
@@ -119,11 +116,12 @@ const Header = () => {
                             {
                                 title: (
                                     <>
-                                        <span style={{marginRight: '1.7rem'}}>💡</span> 서비스 피드백
+                                        <span style={{marginRight: '1.7rem'}}>💡</span>서비스 피드백
                                     </>
                                 ),
                                 link: ROUTES.COVID.SIDE.REVIEW,
                             },
+                            ...logoutValue,
                         ]}
                     />
                 </SidebarContainer>
@@ -132,4 +130,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default MainHeader
