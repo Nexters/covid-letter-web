@@ -44,6 +44,7 @@ export interface LetterResponse {
 export interface Question {
     id: number
     text: string
+    commonOptionId: boolean
 }
 
 export interface LetterOption {

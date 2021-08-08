@@ -4,6 +4,8 @@ import styled from '@emotion/styled'
 import {css, jsx} from '@emotion/react'
 import tw from 'twin.macro'
 import {useState} from 'react'
+import {useRouter} from 'next/router'
+import ROUTES from '$constants/routes'
 
 const Container = styled.section`
     // tw\`tw-bg-beige-300\`,
@@ -75,26 +77,35 @@ interface Props {
 }
 
 const LetterOptionPage = ({options}: Props, {isMobile}: {isMobile: boolean}) => {
+    const router = useRouter()
+
     const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
-    const handleClick = (option: LetterOption) => {
+    const onClickOption = (option: LetterOption) => {
         if (option.id === selectedOptionId) {
             setSelectedOptionId(-1)
         } else setSelectedOptionId(option.id)
+    }
+    const onClickConfirm = () => {
+        if (selectedOptionId === -1) return
+        router.push({
+            pathname: ROUTES.COVID.LETTER.NEW,
+            query: {option: selectedOptionId},
+        })
     }
     return (
         <Container>
             <Title>
                 발송 기준 선택 📮
-                <h4 className="sub-title">언제 발송을 원하시나요?</h4>
+                <p className="sub-title">언제 발송을 원하시나요?</p>
             </Title>
             <ButtonList>
                 {options.map((option, index) => (
-                    <li key={option.id} onClick={() => handleClick(option)}>
+                    <li key={option.id} onClick={() => onClickOption(option)}>
                         <Button isClicked={index === selectedOptionId}>{option.text}</Button>
                     </li>
                 ))}
             </ButtonList>
-            <ConfirmButton>확인</ConfirmButton>
+            <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
         </Container>
     )
 }
