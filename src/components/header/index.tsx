@@ -11,6 +11,8 @@ import tw from 'twin.macro'
 import WelcomeArea from '$components/main/WelcomeArea'
 import {SidebarButton} from '$components/main/types'
 import useLogout from '$hooks/useLogout'
+import {useProfileContext} from '$contexts/ProfileContext'
+import LoginedWelcomeArea from '$components/main/LoginedWelcomeArea'
 
 const headerCss = css`
     padding: 1.5rem 2.4rem;
@@ -61,6 +63,7 @@ const LeftButtonList = () => {
 }
 
 const MainHeader = ({logined, isGoogleLogin}: {logined: boolean; isGoogleLogin: boolean}) => {
+    const {profile} = useProfileContext()
     const logout = useLogout(isGoogleLogin)
     const [sidebarShow, setSidebarShow] = useState(false)
 
@@ -94,7 +97,11 @@ const MainHeader = ({logined, isGoogleLogin}: {logined: boolean; isGoogleLogin: 
             />
             <Sidebar isShow={sidebarShow} closeFn={closeSidebar}>
                 <SidebarContainer>
-                    {logined ? <>로그인된 유저</> : <WelcomeArea />}
+                    {logined && profile ? (
+                        <LoginedWelcomeArea email={profile.email as string} name={profile.name as string} />
+                    ) : (
+                        <WelcomeArea />
+                    )}
                     <SidebarButtonList
                         list={[
                             {
