@@ -1,7 +1,6 @@
 import {useGoogleLogout} from 'react-google-login'
 import {GOOGLE} from '$config'
 import {withAxios} from '$utils/fetcher/withAxios'
-import ROUTES from '$constants/routes'
 import {useRouter} from 'next/router'
 
 const useLogout = (isGoogleLogin: boolean) => {
@@ -11,7 +10,7 @@ const useLogout = (isGoogleLogin: boolean) => {
             url: `/logout`,
         })
 
-        routes.push(ROUTES.LOGIN)
+        routes.reload()
     }
 
     const {signOut} = useGoogleLogout({

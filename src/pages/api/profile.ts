@@ -14,15 +14,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         'User-Agent': req.headers['user-agent'],
     }
 
-    const {
-        data: {data},
-    }: AxiosResponse<ServerResponse<User>> = await axios.get(`${API_URL_BASE}/user`, {
-        headers,
-    })
+    // const {
+    //     data: {data},
+    // }: AxiosResponse<ServerResponse<User>> = await axios.get(`${API_URL_BASE}/user`, {
+    //     headers,
+    // })
 
     res.status(200).json({
         code: RESPONSE.NORMAL,
         message: '',
-        result: data,
+        result: {
+            email: 'workingnewjeong@gmail.com',
+            name: 'Yujeong Jeon',
+            id: 'rejrlwrjelreji',
+        },
     })
 }

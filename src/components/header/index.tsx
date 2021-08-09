@@ -77,7 +77,7 @@ const MainHeader = ({logined, isGoogleLogin}: {logined: boolean; isGoogleLogin: 
                           <span style={{marginRight: '1.7rem'}}>🏃</span>로그아웃
                       </>
                   ),
-                  link: ROUTES.LOGIN,
+                  link: ROUTES.ROOT,
                   onClick: () => {
                       logout()
                   },
