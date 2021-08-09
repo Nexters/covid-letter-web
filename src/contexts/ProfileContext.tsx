@@ -1,31 +1,26 @@
-import {Profile} from '$types/login/naver'
 import {createContext, ReactNode, useContext, useMemo} from 'react'
 import useRequest from 'hooks/useRequest'
+import {User} from '$types/response/user'
 
 interface ProfileContextState {
-    profile: Partial<Profile> | undefined
+    profile: User | undefined
     reset: () => void
     error: Error | undefined
 }
 
-const ProfileContext = createContext<ProfileContextState>(
-    {} as ProfileContextState,
-)
+const ProfileContext = createContext<ProfileContextState>({} as ProfileContextState)
 
-export const ProfileProvider = ({
-    children,
-    token,
-}: {
-    children: ReactNode
-    token?: string
-}) => {
+export const ProfileProvider = ({children, token}: {children: ReactNode; token?: string}) => {
     const {
         data: profile,
         error,
         mutate: refreshProfile,
-    } = useRequest<Profile>(
+    } = useRequest<User>(
         {
             url: '/profile',
+            params: {
+                accessToken: token,
+            },
         },
         {
             revalidateOnMount: !!token,
@@ -43,18 +38,14 @@ export const ProfileProvider = ({
         [profile, refreshProfile, error],
     )
 
-    return (
-        <ProfileContext.Provider value={value}>
-            {children}
-        </ProfileContext.Provider>
-    )
+    return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
 }
 
 export const useProfileContext = () => {
     const context = useContext(ProfileContext)
 
     if (!context) {
-        throw new Error(`You need to wrap UserProvider.`)
+        throw new Error(`You need to wrap ProfileProvider.`)
     }
 
     return context
