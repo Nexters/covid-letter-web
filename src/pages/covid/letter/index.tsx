@@ -1,7 +1,18 @@
-const Index = () => {
+import styled from '@emotion/styled'
+
+const Container = styled.div`
+    background-color: #f2f2f2;
+    min-height: 100vh;
+    height: 100%;
+`
+
+const Letters = () => {
+
     return (
-        <h2>/covid/letter 편지목록(메인에서 편지목록 더보기 시 이동페이지)</h2>
+        <Container>
+            
+        </Container>
     )
 }
 
-export default Index
+export default Letters
