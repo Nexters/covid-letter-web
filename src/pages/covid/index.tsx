@@ -4,7 +4,7 @@ import {numberFormat} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
 import styled from '@emotion/styled'
 import SvgHome from 'assets/HomeImage'
-import {InferGetStaticPropsType} from 'next'
+import {InferGetServerSidePropsType} from 'next'
 import tw from 'twin.macro'
 import {Button} from 'antd'
 import AnalyzeSection from '$components/main/AnalyzeSection'
@@ -88,7 +88,7 @@ const Main = ({
     sented,
     token,
     isGoogleLogin,
-}: PropsWithAccessToken<InferGetStaticPropsType<typeof getStaticProps>>) => {
+}: PropsWithAccessToken<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
     return (
         <>
             <MainHeader logined={!!token} isGoogleLogin={isGoogleLogin} />
@@ -178,7 +178,7 @@ const Main = ({
  *
  * @todo 코로나 통계, 편지 통계 가져올 때 활용
  */
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const covidStats = await withAxios<CovidStats>({
         url: '/covid/stats',
     })

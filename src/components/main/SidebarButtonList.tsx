@@ -15,6 +15,10 @@ const ButtonItem = styled.li`
     ${tw`tw-text-left tw-font-nanumBarunGothic tw-font-semibold tw-text-base tw-text-grey-800`}
     width: 100%;
     padding: 1.4rem 0;
+
+    a {
+        ${tw`hover:tw-text-grey-800`}
+    }
 `
 
 interface SidebarButtonListProps {
