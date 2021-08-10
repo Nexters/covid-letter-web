@@ -21031,6 +21031,7 @@ body > div[id^='__next'],
 body {
   height: 100%;
   font-size: 10px;
+  background-color: var(--beige-300);
 }
 
 html body,

@@ -10,6 +10,7 @@ import {Button} from 'antd'
 import AnalyzeSection from '$components/main/AnalyzeSection'
 import IconArrowUp from 'assets/IconArrowUp'
 import {PropsWithAccessToken} from '$types/index'
+import MyLetterSection from '$components/main/MyLetterSection'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -169,6 +170,7 @@ const Main = ({
                         },
                     ]}
                 />
+                <MyLetterSection logined={!!token} />
             </Container>
         </>
     )
