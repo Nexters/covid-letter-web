@@ -9,7 +9,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Response<Letter[] | null>>,
 ) {
-    const {letterLogin} = req.cookies
+    const {letterLogin} = req.body
     try {
         const {data: {errorCode, message, data: letters}}: AxiosResponse<ServerResponse<Letter[]>> = await axios.get(`${API_URL_BASE}/letters`, {headers: {Authorization: letterLogin}})
         if (errorCode) {
