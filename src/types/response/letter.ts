@@ -6,5 +6,5 @@ export interface Letter {
     sticker: string,
     questionId: number,
     encryptedId: string,
-    createdDate: Date,
+    createdDate: string,
 }

@@ -24,6 +24,7 @@ export default async function handler(
                 return {
                     ...letter,
                     //todo FE 에서 사용하기 편리하게 mapping 처리
+                    createdDate: new Date().toDateString(), //현재 BE 테스트데이터에 createdDate 가 null 로 되어있어 임시용도
                 }
             })
         })
