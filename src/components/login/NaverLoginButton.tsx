@@ -19,6 +19,10 @@ const Button = styled.button`
     padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.65rem 0' : '1.85rem 0')};
     color: #767678;
     border: 1px solid #e6e6ea;
+
+    &:active {
+        outline: 0;
+    }
 `
 interface NaverLoginButtonProps {
     returnUrl: string

@@ -18,6 +18,10 @@ const Button = styled.button`
     color: #fff;
     background-color: #dc4e41;
     border: 1px solid #dc4e41;
+
+    &:active {
+        outline: 0;
+    }
 `
 
 interface GoogleLoginButtonProps {
