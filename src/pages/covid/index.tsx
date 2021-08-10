@@ -41,10 +41,15 @@ const MainImage = styled.div`
 `
 
 const LetterButton = styled(Button)`
-    ${tw`tw-bg-primary-green-500 hover:tw-bg-primary-green-500 focus:tw-bg-primary-green-500 tw-text-grey-000 hover:tw-text-grey-000 focus:tw-text-grey-000 tw-border-0 tw-font-ohsquare tw-font-bold tw-h-auto tw-text-base`}
+    ${tw`tw-border-primary-green-500 hover:tw-border-primary-green-500 tw-bg-primary-green-500 hover:tw-bg-primary-green-500 focus:tw-bg-primary-green-500 tw-text-grey-000 hover:tw-text-grey-000 focus:tw-text-grey-000 tw-border-0 tw-font-ohsquare tw-font-bold tw-h-auto tw-text-base`}
     margin-top: 2.4rem;
     padding: 1.35rem 0;
     border-radius: 0.4rem;
+
+    &:focus,
+    &:active {
+        outline: 0;
+    }
 `
 
 const Value = styled.div`
