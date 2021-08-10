@@ -20,7 +20,8 @@ const Button = styled.button`
     color: #767678;
     border: 1px solid #e6e6ea;
 
-    &:active {
+    &:active,
+    &:focus {
         outline: 0;
     }
 `
