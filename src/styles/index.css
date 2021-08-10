@@ -23,6 +23,14 @@ h6 {
     letter-spacing: -0.015em;
 }
 
+button,
+a,
+button:hover,
+button:focus,
+button:active {
+    outline: none !important;
+}
+
 :root {
     --primary-green-600: #07282e;
     --primary-green-500: #11373e;

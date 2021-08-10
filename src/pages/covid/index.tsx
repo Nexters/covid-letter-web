@@ -45,11 +45,6 @@ const LetterButton = styled(Button)`
     margin-top: 2.4rem;
     padding: 1.35rem 0;
     border-radius: 0.4rem;
-
-    &:focus,
-    &:active {
-        outline: 0;
-    }
 `
 
 const Value = styled.div`
