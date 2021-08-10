@@ -5,6 +5,6 @@ export type Routes = typeof ROUTES[keyof typeof ROUTES]
 
 export interface SidebarButton {
     title: ReactNode
-    link: Routes
+    link?: Routes
     onClick?: (e?: React.SyntheticEvent) => void
 }

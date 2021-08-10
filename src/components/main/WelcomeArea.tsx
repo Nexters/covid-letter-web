@@ -6,7 +6,7 @@ import tw from 'twin.macro'
 
 const Container = styled.div`
     ${tw`tw-flex tw-text-left tw-flex-1 tw-justify-between tw-items-center`}
-    padding: 3.5rem 0;
+    margin: 3.5rem 0;
 `
 
 const WelcomeText = styled.div`
@@ -15,18 +15,19 @@ const WelcomeText = styled.div`
 
 const WelcomeArea = () => {
     return (
-        <Container>
-            <WelcomeText>
-                3초 만에 로그인하고
-                <br />
-                편하게 이용하기
-            </WelcomeText>
-            <Link href={ROUTES.LOGIN}>
-                <a>
+        <Link href={ROUTES.LOGIN}>
+            <a>
+                <Container>
+                    <WelcomeText>
+                        3초 만에 로그인하고
+                        <br />
+                        편하게 이용하기
+                    </WelcomeText>
+
                     <IconMore />
-                </a>
-            </Link>
-        </Container>
+                </Container>
+            </a>
+        </Link>
     )
 }
 

@@ -16,8 +16,9 @@ const ButtonItem = styled.li`
     width: 100%;
     padding: 1.4rem 0;
 
-    a {
-        ${tw`hover:tw-text-grey-800`}
+    a,
+    button {
+        ${tw`tw-font-nanumBarunGothic tw-font-semibold tw-text-base tw-text-grey-800 hover:tw-text-grey-800`}
     }
 `
 
@@ -30,9 +31,13 @@ const SidebarButtonList = ({list}: SidebarButtonListProps) => {
         <ButtonList>
             {list.map(({title, link, onClick}, index) => (
                 <ButtonItem key={index}>
-                    <Link href={link as string}>
-                        <a onClick={onClick}>{title}</a>
-                    </Link>
+                    {link ? (
+                        <Link href={link as string}>
+                            <a onClick={onClick}>{title}</a>
+                        </Link>
+                    ) : (
+                        <button onClick={onClick}>{title}</button>
+                    )}
                 </ButtonItem>
             ))}
         </ButtonList>
