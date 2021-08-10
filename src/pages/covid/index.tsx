@@ -8,9 +8,9 @@ import {InferGetServerSidePropsType} from 'next'
 import tw from 'twin.macro'
 import {Button} from 'antd'
 import AnalyzeSection from '$components/main/AnalyzeSection'
-import IconArrowUp from 'assets/IconArrowUp'
 import {PropsWithAccessToken} from '$types/index'
 import MyLetterSection from '$components/main/MyLetterSection'
+import StatBadge from '$components/main/StatBadge'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -50,32 +50,6 @@ const LetterButton = styled(Button)`
 const Value = styled.div`
     ${tw`tw-text-primary-green-500 tw-font-ohsquare tw-font-bold tw-text-base`}
     padding-top: .4rem;
-`
-
-type RateColorType = 'red' | 'blue' | 'green'
-
-const StatRate = styled.div`
-    ${tw`tw-flex tw-flex-1 tw-justify-center tw-items-center tw-text-xs tw-text-center tw-font-nanumBarunGothic`}
-    border-radius: 100rem;
-    margin-top: 1rem;
-    padding: 0.2rem 0.8rem;
-    background-color: ${({type}: {type: RateColorType}) => {
-        switch (type) {
-            case 'blue':
-                return `rgba(105, 147, 255, 0.2)`
-            case 'red':
-                return `rgba(255, 100, 99, 0.2)`
-            case 'green':
-                return `rgba(75, 204, 174, 0.2)`
-            default:
-                return 'var(--grey-000)'
-        }
-    }};
-    color: ${({type}: {type: RateColorType}) => `var(--${type}-500)`};
-
-    span {
-        margin-top: 0.3rem;
-    }
 `
 
 const Main = ({
@@ -119,37 +93,34 @@ const Main = ({
                         {
                             title: '접종 완료율',
                             value: (
-                                <Value>
-                                    {numberFormat(completeShot)}%
-                                    <StatRate type={'blue'}>
-                                        <span>{shotRate}%</span>
-                                        <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--blue-500)`} />
-                                    </StatRate>
-                                </Value>
+                                <StatBadge
+                                    type={'blue'}
+                                    value={`${completeShot}%`}
+                                    change={`${shotRate}%`}
+                                    isIncrease={true}
+                                />
                             ),
                         },
                         {
                             title: '총 확진자 수',
                             value: (
-                                <Value>
-                                    {numberFormat(confirmedCase)}
-                                    <StatRate type={'red'}>
-                                        <span>{numberFormat(confirmedIncrease)}</span>
-                                        <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--red-500)`} />
-                                    </StatRate>
-                                </Value>
+                                <StatBadge
+                                    type={'red'}
+                                    value={numberFormat(confirmedCase)}
+                                    change={numberFormat(confirmedIncrease)}
+                                    isIncrease={true}
+                                />
                             ),
                         },
                         {
                             title: '총 완치자 수',
                             value: (
-                                <Value>
-                                    {numberFormat(completeCure)}
-                                    <StatRate type={'green'}>
-                                        <span>{numberFormat(cureIncrease)}</span>
-                                        <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--green-500)`} />
-                                    </StatRate>
-                                </Value>
+                                <StatBadge
+                                    type={'green'}
+                                    value={numberFormat(completeCure)}
+                                    change={numberFormat(cureIncrease)}
+                                    isIncrease={true}
+                                />
                             ),
                         },
                     ]}
