@@ -1,5 +1,5 @@
 import MainHeader from '$components/header'
-import {CovidStats, LetterStats} from '$types/response/analyze'
+import {CovidStats, LetterStats} from '$types/response/stat'
 import {numberFormat} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
 import styled from '@emotion/styled'
