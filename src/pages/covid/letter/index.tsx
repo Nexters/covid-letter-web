@@ -3,6 +3,7 @@ import {GetServerSideProps} from 'next'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {Letter} from '$types/response/letter'
 import cookies from 'next-cookies'
+import Back from '$components/appbar/Back'
 
 const Container = styled.div`
     background-color: #f2f2f2;
@@ -10,13 +11,20 @@ const Container = styled.div`
     height: 100%;
 `
 
+const LettersContainer = styled.div`
+    padding-top: 5.6rem;
+`
+
 const Letters = ({letters}: {letters: Letter[]}) => {
 
     return (
         <Container>
-            {letters.map(({title}) => (
-                <div key={title}>{title}</div>
-            ))}
+            <Back />
+            <LettersContainer>
+                {letters.map(({title}) => (
+                    <div key={title}>{title}</div>
+                ))}
+            </LettersContainer>
         </Container>
     )
 }
