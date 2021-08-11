@@ -4,6 +4,8 @@ import {withAxios} from '$utils/fetcher/withAxios'
 import {Letter} from '$types/response/letter'
 import cookies from 'next-cookies'
 import Back from '$components/appbar/Back'
+import HalfLayer from '$components/layer/HalfLayer'
+import {useState} from 'react'
 
 const Container = styled.div`
     background-color: #f2f2f2;
@@ -39,8 +41,16 @@ const formatDate = (dateString: string) => {
 
 const Letters = ({letters}: {letters: Letter[]}) => {
 
-    const openLetter = (encryptedId: string) => {
-        console.log(`open letter: ${encryptedId}`)
+    const [isShowEnvelope, setIsShowEnvelop] = useState(false)
+    const [openedLetterId, setOpenedLetterId] = useState('')
+
+    const openEnvelope = (encryptedId: string) => {
+        setOpenedLetterId(encryptedId)
+        setIsShowEnvelop(true)
+    }
+    const closeEnvelope = () => {
+        setOpenedLetterId('')
+        setIsShowEnvelop(false)
     }
 
     return (
@@ -51,7 +61,7 @@ const Letters = ({letters}: {letters: Letter[]}) => {
                 <SubTitle>과거의 내가 작성한 편지들이에요.</SubTitle>
                 <ListContainer>
                     {letters.map(({title, state, sticker, createdDate, encryptedId}) => (
-                        <ItemContainer key={encryptedId} onClick={() => openLetter(encryptedId)}>
+                        <ItemContainer key={encryptedId} onClick={() => openEnvelope(encryptedId)}>
                             <div>제목: {title}</div>
                             <div>작성일: {formatDate(createdDate)}</div>
                             <div>발송기준: -</div>
@@ -61,6 +71,9 @@ const Letters = ({letters}: {letters: Letter[]}) => {
                     ))}
                 </ListContainer>
             </LettersContainer>
+            <HalfLayer isShow={isShowEnvelope} closeFn={closeEnvelope} >
+                {openedLetterId}
+            </HalfLayer>
         </Container>
     )
 }
