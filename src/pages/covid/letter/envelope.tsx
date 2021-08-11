@@ -1,8 +1,10 @@
 import HalfLayer from '$components/layer/HalfLayer'
 import {GetServerSideProps} from 'next'
-import {Letter} from '$types/response/letter'
+import {Letter, LetterState} from '$types/response/letter'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {formatDate} from '$utils/date'
+import {useAlertStore} from '$contexts/StoreContext'
+import {useRouter} from 'next/router'
 
 /**
  * 이메일에서 첨부된 링크로 바로 접근하면 보이는 첫 화면 /covid/letter/envelope?id=a1b2c3d4e5f6~
@@ -10,13 +12,29 @@ import {formatDate} from '$utils/date'
  */
 const Envelope = ({letter}: Letter) => {
     const {title, state, sticker, createdDate, encryptedId} = letter;
+    const isAvailableOpenLetter = state !== LetterState.PENDING;
+
+    const router = useRouter()
+    const {alert} = useAlertStore()
+    const openLetter = () => {
+        if (!isAvailableOpenLetter) {
+            alert({
+                title: '[TEXT 수정필요] 아직 편지를 열어 볼 수 없어요'
+            })
+            return;
+        }
+
+        router.push(`/covid/letter/${encryptedId}`)
+    }
+
     return (
         <HalfLayer isShow={true} closeFn={() => {}} visibleCloseButton={false} >
-           <div>제목: {title}</div>
-           <div>작성일: {formatDate(createdDate)}</div>
-           <div>발송기준: -</div>
-           <div>전송상태: {state} - UI 적용</div>
-           <div>스티커: {sticker} - UI 적용</div>
+            <div>제목: {title}</div>
+            <div>작성일: {formatDate(createdDate)}</div>
+            <div>발송기준: -</div>
+            <div>전송상태: {state} - UI 적용</div>
+            <div>스티커: {sticker} - UI 적용</div>
+            <button /**disabled={!isAvailableOpenLetter}**/ onClick={openLetter}>{isAvailableOpenLetter ? '뜯어볼래요' : '아직 열어볼 수 없어요'}</button>
         </HalfLayer>
     )
 }
