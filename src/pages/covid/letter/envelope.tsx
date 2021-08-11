@@ -1,10 +1,11 @@
 import HalfLayer from '$components/layer/HalfLayer'
 import {GetServerSideProps} from 'next'
 import {Letter, LetterState} from '$types/response/letter'
-import {withAxios} from '$utils/fetcher/withAxios'
-import {formatDate} from '$utils/date'
 import {useAlertStore} from '$contexts/StoreContext'
 import {useRouter} from 'next/router'
+import {withAxios} from '$utils/fetcher/withAxios'
+import {formatDate} from '$utils/date'
+import ROUTES from '$constants/routes'
 
 /**
  * 이메일에서 첨부된 링크로 바로 접근하면 보이는 첫 화면 /covid/letter/envelope?id=a1b2c3d4e5f6~
@@ -24,7 +25,7 @@ const Envelope = ({letter}: Letter) => {
             return;
         }
 
-        router.push(`/covid/letter/${encryptedId}`)
+        router.push({pathname: ROUTES.COVID.LETTER.DETAIL, query: {encryptedId}})
     }
 
     return (
