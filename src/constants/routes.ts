@@ -4,10 +4,8 @@ const ROUTES = Object.freeze({
     ROOT: '/',
     LOGIN: '/login',
     BRIDGE: '/bridge',
-    POST: '/post/[id]', // example
     COVID: {
         MAIN: `${THEME_COVID_PATH}`,
-        WAITING: `${THEME_COVID_PATH}/wait`,
         SIDE: {
             ABOUT: `${THEME_COVID_PATH}/about`,
             FAQ: `${THEME_COVID_PATH}/faq`,

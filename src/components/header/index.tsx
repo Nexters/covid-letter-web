@@ -55,7 +55,7 @@ const LeftButtonList = () => {
             <Button
                 type="link"
                 css={headerButtonCss}
-                className={router.pathname === ROUTES.COVID.WAITING ? 'active' : ''}>
+                className={router.pathname === ROUTES.COVID.LETTER.LIST ? 'active' : ''}>
                 부치지 못한 편지
             </Button>
         </div>
