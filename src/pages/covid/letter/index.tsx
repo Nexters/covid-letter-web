@@ -6,6 +6,7 @@ import cookies from 'next-cookies'
 import Back from '$components/appbar/Back'
 import HalfLayer from '$components/layer/HalfLayer'
 import {useState} from 'react'
+import {formatDate} from '$utils/date'
 
 const Container = styled.div`
     background-color: #f2f2f2;
@@ -25,19 +26,6 @@ const ItemContainer = styled.li`
     padding 1rem;
     border: solid;
 `
-
-/**
- * @param dateString
- * @return string YYYY.MM.DD
- */
-const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    const month = date.getMonth() + 1
-    const day = date.getDate();
-
-    return `${date.getFullYear()}.${month > 10 ? month : `0${month}`}.${day > 10 ? day : `0${day}`}`
-}
-
 
 const Letters = ({letters}: {letters: Letter[]}) => {
 
