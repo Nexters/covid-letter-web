@@ -17,6 +17,7 @@ import {useAlertStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
+import toast, {ToastContainer} from '$components/toast'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -72,6 +73,7 @@ const Main = ({
     isMobile,
 }: PropsFromApp<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
     const [isLogined, setIsLogined] = useState(!!token)
+
     const logout = useLogout(isGoogleLogin)
     const {confirm, alert} = useAlertStore()
     const router = useRouter()
@@ -83,6 +85,10 @@ const Main = ({
             alert({
                 title: '로그아웃되었습니다.',
             })
+        } else {
+            toast('로그아웃되었습니다.', 3000)
+            toast('로그아웃되었습니다.2', 2000)
+            toast('로그아웃되었습니다.3', 1000)
         }
     }
 
@@ -181,6 +187,7 @@ const Main = ({
                 />
                 <MyLetterSection logined={isLogined} />
             </Container>
+            <ToastContainer />
         </>
     )
 }
