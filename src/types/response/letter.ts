@@ -1,8 +1,8 @@
-const LETTER_STATE = {
-    SEND: 'SEND',
-    PENDING: 'PENDING',
-} as const
-type LETTER_STATE = typeof LETTER_STATE[keyof typeof LETTER_STATE]
+export enum LetterState {
+    PENDING = 'PENDING', //전송 대기
+    SEND = 'SEND', //전송 완료(읽기 전)
+    DISPLAYED = 'DISPLAYED', //전송완료(읽음)
+}
 
 const STICKER = {
     HAPPY: 'HAPPY',
@@ -21,24 +21,14 @@ const STICKER = {
 type STICKER = typeof STICKER[keyof typeof STICKER]
 
 export interface Letter {
-    answer: string
     contents: string
     createdDate: string
     email: string
     encryptedId: string
-    id: number
-    letterTo: string
     questionId: string
-    state: LETTER_STATE
+    state: LetterState
     sticker: STICKER
     title: string
-    updateDate: string
-}
-
-export interface LetterResponse {
-    email: string
-    letters: Letter[]
-    name: string
 }
 
 export interface Question {
@@ -50,7 +40,6 @@ export interface Question {
 export interface LetterOption {
     id: number
     covidStat: number
-    questions: Question[]
     text: string
 }
 
