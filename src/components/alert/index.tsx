@@ -2,7 +2,7 @@ import {useAlertStore} from '$contexts/StoreContext'
 import usePortal from '$hooks/usePortal'
 import styled from '@emotion/styled'
 import {observer} from 'mobx-react-lite'
-import React from 'react'
+import {Fragment} from 'react'
 import {ALERT_TYPE} from 'stores/Alert'
 import tw from 'twin.macro'
 
@@ -97,10 +97,10 @@ const AlertContainer = () => {
                         {message && (
                             <Message>
                                 {message.split('\n').map((text) => (
-                                    <>
+                                    <Fragment key={text}>
                                         {text}
                                         <br />
-                                    </>
+                                    </Fragment>
                                 ))}
                             </Message>
                         )}
