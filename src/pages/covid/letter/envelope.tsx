@@ -11,7 +11,7 @@ import ROUTES from '$constants/routes'
  * 이메일에서 첨부된 링크로 바로 접근하면 보이는 첫 화면 /covid/letter/envelope?id=a1b2c3d4e5f6~
  * background 비어있는 상태로 편지 봉투 모달만 보임
  */
-const Envelope = ({letter}: Letter) => {
+const Envelope = ({letter}: {letter: Letter}) => {
     const {title, state, sticker, createdDate, encryptedId} = letter;
     const isAvailableOpenLetter = state !== LetterState.PENDING;
 
@@ -29,7 +29,7 @@ const Envelope = ({letter}: Letter) => {
     }
 
     return (
-        <HalfLayer isShow={true} closeFn={() => {}} visibleCloseButton={false} >
+        <HalfLayer isShow={true} closeFn={() => {}} hasCloseButton={false} >
             <div>제목: {title}</div>
             <div>작성일: {formatDate(createdDate)}</div>
             <div>발송기준: -</div>

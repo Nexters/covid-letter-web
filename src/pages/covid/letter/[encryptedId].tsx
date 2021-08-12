@@ -6,7 +6,7 @@ import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
 import {useProfileContext} from '$contexts/ProfileContext'
 
-const LetterDetail = ({letter}: Letter) => {
+const LetterDetail = ({letter}: {letter: Letter}) => {
     const {title, contents, createdDate} = letter
     const question = '코로나 전,\n가장 마지막에 여행을 다녀온 나라는\n어디인가요?' //todo be api 조회 시 questionText 조회되면 수정할 것
 
