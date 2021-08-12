@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {RESPONSE} from '$constants'
-import {Letter} from '$types/response/letter'
+import {Letter, LetterState} from '$types/response/letter'
 import {Response, ServerResponse} from '$types/response'
 import axios, {AxiosResponse} from 'axios'
 import {API_URL_BASE} from '$config'
@@ -23,8 +23,9 @@ export default async function handler(
             result: letters.map(letter => {
                 return {
                     ...letter,
-                    //todo FE 에서 사용하기 편리하게 mapping 처리
+                    contents: '', //목록조회 시 contents 공백 처리(상세 조회 외에 contents 가 노출되면 안된다)
                     createdDate: new Date().toDateString(), //현재 BE 테스트데이터에 createdDate 가 null 로 되어있어 임시용도
+                    state: LetterState.SEND, //todo remove Test 용도
                 }
             })
         })
