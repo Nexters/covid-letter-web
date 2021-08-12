@@ -1,11 +1,9 @@
-import {router} from 'next/client'
-import {LetterOption, Question} from '$types/response/letter'
+import {Question} from '$types/response/letter'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {useState} from 'react'
-import {Button} from 'antd'
 
 interface Props {
-    question: Question
+    question: Question[]
 }
 
 const LetterNew = ({question}: Props) => {
@@ -17,19 +15,19 @@ const LetterNew = ({question}: Props) => {
     return (
         <>
             <h2>New - 편지 내용 작성화면</h2>
-            <div>{question[currentQuestionId]}</div>
-            <Button onClick={onClickNext}>다음 질문</Button>
+            <div>{question[currentQuestionId].text}</div>
+            <button onClick={onClickNext}>다음 질문</button>
         </>
     )
 }
 
-export async function getServerSideProps() {
-    const res = await withAxios<LetterOption[]>({
-        url: `/letter/option`,
+export async function getServerSideProps(context: {query: {optionId: number}}) {
+    const {optionId} = context.query
+    const res = await withAxios<Question[]>({
+        url: `/letters/options/${optionId}/questions`,
         method: 'GET',
     })
-    const result = res.map((d) => d.questions)
-    const question = result[0].map((data) => data.text)
+    const question = res
 
     return {props: {question}}
 }
