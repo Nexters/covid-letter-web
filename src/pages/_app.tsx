@@ -20,6 +20,7 @@ import '../styles/globals.css'
 import {StoreProvider} from '$contexts/StoreContext'
 import AlertContainer from '$components/alert'
 import Device from '$components/device'
+import {ToastContainer} from '$components/toast'
 
 const Article = styled.div`
     position: relative;
@@ -155,6 +156,7 @@ class Page extends App<AppProps> {
                                 }}
                             </Device>
                             <AlertContainer />
+                            <ToastContainer />
                         </ProfileProvider>
                     </StoreProvider>
                 </SWRConfig>

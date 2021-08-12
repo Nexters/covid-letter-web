@@ -3,7 +3,15 @@ import {animated, useTransition} from 'react-spring'
 import bezierEasing from 'bezier-easing'
 import styled from '@emotion/styled'
 import React, {PropsWithChildren} from 'react'
-import {noop} from '$utils/index'
+
+const Container = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2010;
+`
 
 const Content = styled(animated.div)`
     position: absolute;
@@ -16,22 +24,7 @@ const Content = styled(animated.div)`
     text-align: center;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
-    padding: 1rem;
-`
-
-const Container = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2000;
-`
-
-const HeaderCloseButton = styled.button`
-    position: absolute;
-    right: 0;
-    top: 0;
+    padding: 2.4rem;
 `
 
 const Overlay = styled(animated.div)`
@@ -47,10 +40,9 @@ const Overlay = styled(animated.div)`
 interface HalfLayerProps {
     isShow: boolean
     closeFn: (e: React.SyntheticEvent) => void
-    hasCloseButton?: boolean
 }
 
-const HalfLayer = ({children, isShow, closeFn, hasCloseButton = true}: PropsWithChildren<HalfLayerProps>) => {
+const HalfLayer = ({children, isShow, closeFn}: PropsWithChildren<HalfLayerProps>) => {
     const {Portal} = usePortal()
 
     const transitions = useTransition(isShow, {
@@ -79,16 +71,9 @@ const HalfLayer = ({children, isShow, closeFn, hasCloseButton = true}: PropsWith
                 return (
                     item && (
                         <Container>
-                            <Content style={props}>
-                                {children}
-                                {hasCloseButton && <HeaderCloseButton onClick={closeFn}>닫기</HeaderCloseButton>}
-                            </Content>
+                            <Content style={props}>{children}</Content>
                             {overlayTransition((overlayProps, overlayItem) => {
-                                return (
-                                    overlayItem && (
-                                        <Overlay style={overlayProps} onClick={hasCloseButton ? noop : closeFn} />
-                                    )
-                                )
+                                return overlayItem && <Overlay style={overlayProps} onClick={closeFn} />
                             })}
                         </Container>
                     )

@@ -17,7 +17,7 @@ import {useAlertStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
-import toast, {ToastContainer} from '$components/toast'
+import toast from '$components/toast'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -185,7 +185,6 @@ const Main = ({
                 />
                 <MyLetterSection logined={isLogined} />
             </Container>
-            <ToastContainer />
         </>
     )
 }
