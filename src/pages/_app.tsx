@@ -42,7 +42,7 @@ interface State {
 type ACCESS_TOKEN = string | undefined
 
 const needToCheckCookiePath = (pathname: string) => {
-    const needLogin = [ROUTES.POST].includes(pathname)
+    const needLogin = [...Object.values(ROUTES.COVID.LETTER)].includes(pathname)
     const needMain = [ROUTES.ROOT, ROUTES.LOGIN].includes(pathname)
 
     return {
@@ -64,7 +64,7 @@ class Page extends App<AppProps> {
              * @todo jwt 존재여부 검사
              * jwt가 있으면 메인으로 리다이렉트, 없으면 로그인화면으로 리다이렉트
              */
-            const {letterLogin} = cookies(ctx)
+            const {letterLogin, googleLogin} = cookies(ctx)
             const {needToCheckCookie, redirectUrl, compare, needLogout} = needToCheckCookiePath(ctx.pathname)
 
             if (needToCheckCookie) {
@@ -87,13 +87,14 @@ class Page extends App<AppProps> {
             const pageProps = {
                 ...props,
                 token: letterLogin,
+                isGoogleLogin: !!googleLogin,
             }
             return {
                 pageProps,
             }
         } catch (error) {
             if (isInstanceOfApiError(error) && ctx.req && ctx.res) {
-                apiServerErrorHandler(error, {req: ctx.req, res: ctx.res})
+                apiServerErrorHandler(error, {res: ctx.res})
             }
             return {
                 pageProps: {error},

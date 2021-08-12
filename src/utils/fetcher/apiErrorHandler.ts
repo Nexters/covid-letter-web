@@ -1,19 +1,10 @@
 import ROUTES from '$constants/routes'
 import {isSSR} from '$utils/env'
-import {IncomingMessage, ServerResponse} from 'http'
-import {
-    ApiError,
-    isInstanceOfAccessTokenError,
-    isInstanceOfCommonApiError,
-    isInstanceOfRedirectArror,
-} from './ApiError'
+import {ServerResponse} from 'http'
+import {ApiError, isInstanceOfAccessTokenError, isInstanceOfCommonApiError, isInstanceOfRedirectArror} from './ApiError'
 
 export function apiErrorHandler(e: ApiError) {
-    if (
-        !isInstanceOfCommonApiError(e) &&
-        !isInstanceOfRedirectArror(e) &&
-        !isInstanceOfAccessTokenError(e)
-    ) {
+    if (!isInstanceOfCommonApiError(e) && !isInstanceOfRedirectArror(e) && !isInstanceOfAccessTokenError(e)) {
         throw e
     }
 
@@ -32,15 +23,8 @@ export function apiErrorHandler(e: ApiError) {
     }
 }
 
-export function apiServerErrorHandler(
-    e: ApiError,
-    {req, res}: {req: IncomingMessage; res: ServerResponse},
-) {
-    if (
-        !isInstanceOfCommonApiError(e) &&
-        !isInstanceOfRedirectArror(e) &&
-        !isInstanceOfAccessTokenError(e)
-    ) {
+export function apiServerErrorHandler(e: ApiError, {res}: {res: ServerResponse}) {
+    if (!isInstanceOfCommonApiError(e) && !isInstanceOfRedirectArror(e) && !isInstanceOfAccessTokenError(e)) {
         throw e
     }
 

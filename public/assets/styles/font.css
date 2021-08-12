@@ -4,6 +4,7 @@
     src: url('../fonts/Cafe24Ohsquareair.woff2') format('woff2');
     font-weight: 300;
     font-style: normal;
+    font-display: fallback;
 }
 
 @font-face {
@@ -12,6 +13,7 @@
     src: url('../fonts/Cafe24Ohsquare.woff2') format('woff2');
     font-weight: bold;
     font-style: normal;
+    font-display: fallback;
 }
 
 @font-face {
@@ -20,6 +22,7 @@
     src: url('../fonts/NanumBarunGothic.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
+    font-display: fallback;
 }
 
 @font-face {
@@ -28,6 +31,7 @@
     src: url('../fonts/NanumBarunGothicLight.woff2') format('woff2');
     font-weight: 300;
     font-style: normal;
+    font-display: fallback;
 }
 
 @font-face {
@@ -36,4 +40,5 @@
     src: url('../fonts/NanumBarunGothicBold.woff2') format('woff2');
     font-weight: bold;
     font-style: normal;
+    font-display: fallback;
 }

@@ -7,6 +7,7 @@ body > div[id^='__next'],
 body {
     height: 100%;
     font-size: 10px;
+    background-color: var(--beige-300);
 }
 
 html body,
@@ -20,6 +21,14 @@ h4,
 h5,
 h6 {
     letter-spacing: -0.015em;
+}
+
+button,
+a,
+button:hover,
+button:focus,
+button:active {
+    outline: none !important;
 }
 
 :root {
