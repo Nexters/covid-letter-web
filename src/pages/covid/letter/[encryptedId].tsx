@@ -1,7 +1,7 @@
 import {GetServerSideProps} from 'next'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {Letter, LetterState} from '$types/response/letter'
-import {formatDate} from '$utils/date'
+import {convertCommonDateFormat} from '$utils/date'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
 import {useProfileContext} from '$contexts/ProfileContext'
@@ -26,7 +26,7 @@ const LetterDetail = ({letter}: {letter: Letter}) => {
     return (
         <>
             <div>질문: {question}</div>
-            <div>작성날짜 | {formatDate(createdDate)}</div>
+            <div>작성날짜 | {convertCommonDateFormat(createdDate)}</div>
             <div>제목: {title}</div>
             <div>~~~~~~</div>
             <div>내용: {contents}</div>

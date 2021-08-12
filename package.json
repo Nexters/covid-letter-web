@@ -25,6 +25,7 @@
         "bezier-easing": "^2.1.0",
         "core-js": "^3.15.2",
         "cross-env": "^7.0.3",
+        "date-fns": "^2.23.0",
         "http": "0.0.1-security",
         "mobx": "^6.3.2",
         "mobx-react-lite": "^3.2.0",

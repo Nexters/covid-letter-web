@@ -6,7 +6,7 @@ import cookies from 'next-cookies'
 import Back from '$components/appbar/Back'
 import HalfLayer from '$components/layer/HalfLayer'
 import {useState} from 'react'
-import {formatDate} from '$utils/date'
+import {convertCommonDateFormat} from '$utils/date'
 
 const Container = styled.div`
     background-color: #f2f2f2;
@@ -51,7 +51,7 @@ const Letters = ({letters}: {letters: Letter[]}) => {
                     {letters.map(({title, state, sticker, createdDate, encryptedId}) => (
                         <ItemContainer key={encryptedId} onClick={() => openEnvelope(encryptedId)}>
                             <div>제목: {title}</div>
-                            <div>작성일: {formatDate(createdDate)}</div>
+                            <div>작성일: {convertCommonDateFormat(createdDate)}</div>
                             <div>발송기준: -</div>
                             <div>전송상태: {state} - UI 적용</div>
                             <div>스티커: {sticker} - UI 적용</div>
