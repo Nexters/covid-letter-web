@@ -7,26 +7,10 @@ export default class CustomDocument extends Document {
             <Html lang="ko">
                 <Head>
                     <meta charSet="utf-8" />
-                    <link
-                        rel="preload"
-                        href="/assets/styles/index.css"
-                        as="style"
-                    />
-                    <link
-                        rel="stylesheet"
-                        type="text/css"
-                        href="/assets/styles/index.css"
-                    />
-                    <link
-                        rel="preload"
-                        href="/assets/styles/font.css"
-                        as="style"
-                    />
-                    <link
-                        rel="stylesheet"
-                        type="text/css"
-                        href="/assets/styles/font.css"
-                    />
+                    <link rel="preload" href="/assets/styles/font.css" as="style" />
+                    <link rel="stylesheet" type="text/css" href="/assets/styles/font.css" />
+                    <link rel="preload" href="/assets/styles/index.css" as="style" />
+                    <link rel="stylesheet" type="text/css" href="/assets/styles/index.css" />
                 </Head>
                 <body>
                     <Main />
