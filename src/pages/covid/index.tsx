@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import MainHeader from '$components/header'
 import {CovidStats, LetterStats} from '$types/response/stat'
 import {numberFormat} from '$utils/index'
@@ -8,11 +9,12 @@ import {InferGetServerSidePropsType} from 'next'
 import tw from 'twin.macro'
 import {Button} from 'antd'
 import AnalyzeSection from '$components/main/AnalyzeSection'
-import {PropsWithAccessToken} from '$types/index'
+import {PropsFromApp} from '$types/index'
 import MyLetterSection from '$components/main/MyLetterSection'
 import StatBadge from '$components/main/StatBadge'
 import useLogout from '$hooks/useLogout'
-import {useState} from 'react'
+import {useAlertStore} from '$contexts/StoreContext'
+import {observer} from 'mobx-react-lite'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -65,13 +67,20 @@ const Main = ({
     sented,
     token,
     isGoogleLogin,
-}: PropsWithAccessToken<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
+    isMobile,
+}: PropsFromApp<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
     const [isLogined, setIsLogined] = useState(!!token)
     const logout = useLogout(isGoogleLogin)
+    const {alert} = useAlertStore()
 
     const logoutPage = () => {
         logout()
         setIsLogined(false)
+        if (!isMobile) {
+            alert({
+                title: '로그아웃되었습니다.',
+            })
+        }
     }
 
     return (
@@ -183,4 +192,4 @@ export async function getServerSideProps() {
     }
 }
 
-export default Main
+export default observer(Main)
