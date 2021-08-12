@@ -42,7 +42,7 @@ interface State {
 type ACCESS_TOKEN = string | undefined
 
 const needToCheckCookiePath = (pathname: string) => {
-    const needLogin = [ROUTES.POST].includes(pathname)
+    const needLogin = [...Object.values(ROUTES.COVID.LETTER)].includes(pathname)
     const needMain = [ROUTES.ROOT, ROUTES.LOGIN].includes(pathname)
 
     return {

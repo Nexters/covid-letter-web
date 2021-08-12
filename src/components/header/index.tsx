@@ -10,7 +10,6 @@ import {useState} from 'react'
 import tw from 'twin.macro'
 import WelcomeArea from '$components/main/WelcomeArea'
 import {SidebarButton} from '$components/main/types'
-import useLogout from '$hooks/useLogout'
 import {useProfileContext} from '$contexts/ProfileContext'
 import LoginedWelcomeArea from '$components/main/LoginedWelcomeArea'
 
@@ -62,9 +61,9 @@ const LeftButtonList = () => {
     )
 }
 
-const MainHeader = ({logined, isGoogleLogin}: {logined: boolean; isGoogleLogin: boolean}) => {
+const MainHeader = ({logined, logout}: {logined: boolean; logout: () => void}) => {
     const {profile} = useProfileContext()
-    const logout = useLogout(isGoogleLogin)
+
     const [sidebarShow, setSidebarShow] = useState(false)
 
     const openSidebar = () => setSidebarShow(true)

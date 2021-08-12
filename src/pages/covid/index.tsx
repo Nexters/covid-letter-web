@@ -11,6 +11,8 @@ import AnalyzeSection from '$components/main/AnalyzeSection'
 import {PropsWithAccessToken} from '$types/index'
 import MyLetterSection from '$components/main/MyLetterSection'
 import StatBadge from '$components/main/StatBadge'
+import useLogout from '$hooks/useLogout'
+import {useState} from 'react'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -64,9 +66,17 @@ const Main = ({
     token,
     isGoogleLogin,
 }: PropsWithAccessToken<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
+    const [isLogined, setIsLogined] = useState(!!token)
+    const logout = useLogout(isGoogleLogin)
+
+    const logoutPage = () => {
+        logout()
+        setIsLogined(false)
+    }
+
     return (
         <>
-            <MainHeader logined={!!token} isGoogleLogin={isGoogleLogin} />
+            <MainHeader logined={isLogined} logout={logoutPage} />
             <Container>
                 <TitleContainer>
                     <Title>
@@ -141,7 +151,7 @@ const Main = ({
                         },
                     ]}
                 />
-                <MyLetterSection logined={!!token} />
+                <MyLetterSection logined={isLogined} />
             </Container>
         </>
     )
