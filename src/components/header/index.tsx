@@ -38,7 +38,7 @@ const titleButtonCss = css`
 
 const headerButtonCss = css`
     ${tw`tw-font-ohsquare tw-text-base tw-text-primary-green-300 hover:tw-text-primary-green-500 focus:tw-text-primary-green-500`}
-    padding: 0 .8rem
+    padding: 0.8rem
 `
 
 const SidebarContainer = styled.div`
