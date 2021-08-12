@@ -4,7 +4,6 @@ import {NextApiRequest, NextApiResponse} from 'next'
 import {LetterStats} from '$types/response/stat'
 
 const routes = async (_req: NextApiRequest, res: NextApiResponse<Response<LetterStats>>) => {
-    res.setHeader('Set-Cookie', [`letterLogin=; path=/; expires=-1`, `googleLogin=; path=/; expires=-1`])
     res.status(200).json(
         createResponse({
             unsented: 12000,
