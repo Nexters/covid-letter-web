@@ -1,34 +1,35 @@
 import {LetterOption} from '$types/response/letter'
 import {withAxios} from '$utils/fetcher/withAxios'
 import styled from '@emotion/styled'
-import {css, jsx} from '@emotion/react'
-import tw from 'twin.macro'
-import {useState} from 'react'
+import {css} from '@emotion/react'
+import {ReactChild, useState} from 'react'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
+import tw from 'twin.macro'
 
+type ButtonPropsType = {
+    children?: ReactChild
+    isClicked?: boolean
+}
 const Container = styled.section`
-    // tw\`tw-bg-beige-300\`,
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 360px;
+    ${tw`tw-bg-beige-300 tw-flex tw-flex-col tw-justify-center`}
+    max-width: 36rem;
     height: 100vh;
     margin: 0 auto;
-    background: #eae6d7;
 `
 
 const Title = styled.h3`
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 24px;
-    padding-left: 24px;
-    padding-right: 24px;
+    ${tw`tw-font-ohsquare tw-font-bold tw-text-primary-green-500`}
+    font-size: 2rem;
+    line-height: 2.4rem;
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;
     .sub-title {
-        margin-top: 8px;
+        ${tw`tw-font-ohsquare-air`}
+        margin-top: 0.8rem;
         font-weight: normal;
-        font-size: 16px;
-        line-height: 19px;
+        font-size: 1.6rem;
+        line-height: 1.9rem;
     }
 `
 
@@ -36,47 +37,42 @@ const ButtonList = styled.ul`
     display: inherit;
     align-self: center;
     flex-direction: column;
-    gap: 20px;
-    margin-top: 48px;
+    gap: 2rem;
+    margin-top: 4.8rem;
 `
 
-const Button = styled.button([
-    // tw`tw-bg-yellow-600`,
+const Button = styled.button<ButtonPropsType>([
     css`
-        min-width: 312px;
-        height: 52px;
-        border-radius: 4px;
+        ${tw`tw-bg-beige-300 tw-font-ohsquare-air tw-text-grey-700`}
+        min-width: 31.2rem;
+        height: 5.2rem;
+        border-radius: 0.4rem;
+        letter-spacing: -0.015em;
+        font-size: 1.6rem;
     `,
     ({isClicked}) =>
         isClicked
-            ? css`
-                  background: #d1a65a;
-                  border: 2px solid #11373e; //tw-border
-                  font-weight: bold;
-              `
+            ? tw`tw-bg-primary-yellow-600 
+            tw-font-bold tw-font-ohsquare tw-text-primary-green-500
+            tw-border-2 tw-border-primary-green-600`
             : css`
-                  background: #eae6d7;
-                  border: 1px solid #d4cec4;
+                  border: 1px solid #d4cec4; // 디자인 시스템에 이 색이 없는 관계로...
               `,
 ])
 
 const ConfirmButton = styled.button`
-    position: fixed;
-    min-width: 360px;
-    height: 52px;
-    background: #11373e;
-    bottom: 0;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 25px;
+    ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
+    min-width: 36rem;
+    height: 5.2rem;
+    font-size: 1.6rem;
+    line-height: 2.5rem;
 `
 
 interface Props {
     options: LetterOption[]
 }
 
-const LetterOptionPage = ({options}: Props, {isMobile}: {isMobile: boolean}) => {
+const LetterOptionPage = ({options}: Props) => {
     const router = useRouter()
 
     const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
@@ -112,7 +108,7 @@ const LetterOptionPage = ({options}: Props, {isMobile}: {isMobile: boolean}) => 
 
 export async function getStaticProps() {
     const res = await withAxios<LetterOption[]>({
-        url: '/letter/option',
+        url: '/letters/options',
         method: 'GET',
     })
 
