@@ -26,7 +26,7 @@
             "$contexts/*": ["contexts/*"]
         },
         "typeRoots": ["./node_modules/@types"],
-        "types": ["jest", "react"],
+        "types": ["jest", "react", "@emotion/react/types/css-prop"],
         "allowSyntheticDefaultImports": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
