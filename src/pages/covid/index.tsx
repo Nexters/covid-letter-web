@@ -15,6 +15,8 @@ import StatBadge from '$components/main/StatBadge'
 import useLogout from '$hooks/useLogout'
 import {useAlertStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
+import {useRouter} from 'next/router'
+import ROUTES from '$constants/routes'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -71,7 +73,8 @@ const Main = ({
 }: PropsFromApp<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
     const [isLogined, setIsLogined] = useState(!!token)
     const logout = useLogout(isGoogleLogin)
-    const {alert} = useAlertStore()
+    const {confirm, alert} = useAlertStore()
+    const router = useRouter()
 
     const logoutPage = () => {
         logout()
@@ -79,6 +82,20 @@ const Main = ({
         if (!isMobile) {
             alert({
                 title: '로그아웃되었습니다.',
+            })
+        }
+    }
+
+    const createNewLetter = () => {
+        if (!isLogined) {
+            confirm({
+                title: '앗! 당황하셨죠?',
+                message: '이 기능은 로그인을 해야\n사용할 수 있는 기능입니다.\n로그인 하시겠어요?',
+                onSuccess: () => {
+                    router.push(ROUTES.LOGIN)
+                },
+                successText: '네.할래요!',
+                cancelText: '아니요.안할래요',
             })
         }
     }
@@ -102,7 +119,9 @@ const Main = ({
                 <MainImage>
                     <SvgHome />
                 </MainImage>
-                <LetterButton block>편지 작성</LetterButton>
+                <LetterButton block onClick={createNewLetter}>
+                    편지 작성
+                </LetterButton>
                 <AnalyzeSection
                     style={{
                         marginTop: '3.2rem',

@@ -3,6 +3,7 @@ import {noop} from '$utils/index'
 import React from 'react'
 
 export interface Alert {
+    type: AlertType | null
     title: string
     message: string
     successText: string
@@ -20,8 +21,16 @@ export interface AlertState extends Alert {
     confirm: (args: Partial<Alert>) => void
 }
 
+export const ALERT_TYPE = {
+    ALERT: 'ALERT',
+    CONFIRM: 'CONFIRM',
+} as const
+
+export type AlertType = typeof ALERT_TYPE[keyof typeof ALERT_TYPE]
+
 const createAlert = (): AlertState => {
     return {
+        type: null,
         isShow: false,
         title: '',
         message: '',
@@ -40,6 +49,7 @@ const createAlert = (): AlertState => {
         alert({title, message, successText, onSuccess, onOpen, onClose}) {
             onOpen && onOpen()
 
+            this.type = ALERT_TYPE.ALERT
             this.isShow = true
             this.title = title || ''
             this.message = message || ''
@@ -47,18 +57,10 @@ const createAlert = (): AlertState => {
             this.onSuccess = onSuccess || noop
             this.onClose = onClose || noop
         },
-        confirm({
-            title,
-            message,
-            successText,
-            onSuccess,
-            cancelText,
-            onCancel,
-            onOpen,
-            onClose,
-        }) {
+        confirm({title, message, successText, onSuccess, cancelText, onCancel, onOpen, onClose}) {
             onOpen && onOpen()
 
+            this.type = ALERT_TYPE.CONFIRM
             this.isShow = true
             this.title = title || ''
             this.message = message || ''
