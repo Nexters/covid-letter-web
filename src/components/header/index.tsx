@@ -3,7 +3,7 @@ import Sidebar from '$components/sidebar'
 import ROUTES from '$constants/routes'
 import {css} from '@emotion/react'
 import styled from '@emotion/styled'
-import {Button, PageHeader} from 'antd'
+import {Button} from 'antd'
 import SvgSidemenu from 'assets/IconSideMenu'
 import {useRouter} from 'next/router'
 import {useState} from 'react'
@@ -13,16 +13,16 @@ import {SidebarButton} from '$components/main/types'
 import {useProfileContext} from '$contexts/ProfileContext'
 import LoginedWelcomeArea from '$components/main/LoginedWelcomeArea'
 
-const headerCss = css`
-    padding: 1.5rem 2.4rem;
+const HeaderWrapper = tw.div`tw-flex tw-flex-wrap tw-justify-between tw-items-center`
+const HeaderLeft = tw.div`tw-flex tw-items-center tw-truncate`
+const HeaderRight = tw.span`tw-truncate`
 
-    .ant-page-header-heading {
-        ${tw`tw-items-center`}
-    }
-    .ant-page-header-heading-left,
-    .ant-page-header-heading-extra {
-        margin: 0;
-    }
+const HeaderContainer = styled.div`
+    ${tw`tw-m-0 tw-truncate`}
+    box-sizing: border-box;
+    list-style: none;
+    position: relative;
+    padding: 1.5rem 2.4rem;
 `
 
 const titleButtonCss = css`
@@ -85,15 +85,18 @@ const MainHeader = ({logined, logout}: {logined: boolean; logout: () => void}) =
         : []
     return (
         <>
-            <PageHeader
-                title={<LeftButtonList />}
-                css={headerCss}
-                extra={
-                    <a onClick={openSidebar}>
-                        <SvgSidemenu />
-                    </a>
-                }
-            />
+            <HeaderContainer>
+                <HeaderWrapper>
+                    <HeaderLeft>
+                        <LeftButtonList />
+                    </HeaderLeft>
+                    <HeaderRight>
+                        <a onClick={openSidebar}>
+                            <SvgSidemenu />
+                        </a>
+                    </HeaderRight>
+                </HeaderWrapper>
+            </HeaderContainer>
             <Sidebar isShow={sidebarShow} closeFn={closeSidebar}>
                 <SidebarContainer>
                     {logined && profile ? (
