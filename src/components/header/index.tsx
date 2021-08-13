@@ -3,7 +3,6 @@ import Sidebar from '$components/sidebar'
 import ROUTES from '$constants/routes'
 import {css} from '@emotion/react'
 import styled from '@emotion/styled'
-import {Button} from 'antd'
 import SvgSidemenu from 'assets/IconSideMenu'
 import {useRouter} from 'next/router'
 import {useState} from 'react'
@@ -35,9 +34,12 @@ const titleButtonCss = css`
     }
 `
 
-const headerButtonCss = css`
-    ${tw`tw-font-ohsquare tw-text-base tw-text-primary-green-300 hover:tw-text-primary-green-500 focus:tw-text-primary-green-500`}
-    padding: 0.8rem
+const Button = styled.button`
+    ${tw`tw-font-ohsquare tw-font-bold tw-text-base tw-text-primary-green-300 hover:tw-text-primary-green-500 focus:tw-text-primary-green-500`}
+    padding: 0.8rem;
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
 `
 
 const SidebarContainer = styled.div`
@@ -48,15 +50,8 @@ const LeftButtonList = () => {
     const router = useRouter()
     return (
         <div css={titleButtonCss}>
-            <Button type="link" css={headerButtonCss} className={router.pathname === ROUTES.COVID.MAIN ? 'active' : ''}>
-                홈
-            </Button>
-            <Button
-                type="link"
-                css={headerButtonCss}
-                className={router.pathname === ROUTES.COVID.LETTER.LIST ? 'active' : ''}>
-                부치지 못한 편지
-            </Button>
+            <Button className={router.pathname === ROUTES.COVID.MAIN ? 'active' : ''}>홈</Button>
+            <Button className={router.pathname === ROUTES.COVID.LETTER.LIST ? 'active' : ''}>부치지 못한 편지</Button>
         </div>
     )
 }

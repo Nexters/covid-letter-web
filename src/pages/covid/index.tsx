@@ -7,7 +7,6 @@ import styled from '@emotion/styled'
 import SvgHome from 'assets/HomeImage'
 import {InferGetServerSidePropsType} from 'next'
 import tw from 'twin.macro'
-import {Button} from 'antd'
 import AnalyzeSection from '$components/main/AnalyzeSection'
 import {PropsFromApp} from '$types/index'
 import MyLetterSection from '$components/main/MyLetterSection'
@@ -47,8 +46,8 @@ const MainImage = styled.div`
     margin-top: 1.2rem;
 `
 
-const LetterButton = styled(Button)`
-    ${tw`tw-border-primary-green-500 hover:tw-border-primary-green-500 tw-bg-primary-green-500 hover:tw-bg-primary-green-500 focus:tw-bg-primary-green-500 tw-text-grey-000 hover:tw-text-grey-000 focus:tw-text-grey-000 tw-border-0 tw-font-ohsquare tw-font-bold tw-h-auto tw-text-base`}
+const LetterButton = styled.button`
+    ${tw`tw-w-full tw-border-primary-green-500 hover:tw-border-primary-green-500 tw-bg-primary-green-500 hover:tw-bg-primary-green-500 focus:tw-bg-primary-green-500 tw-text-grey-000 hover:tw-text-grey-000 focus:tw-text-grey-000 tw-border-0 tw-font-ohsquare tw-font-bold tw-text-base`}
     margin-top: 2.4rem;
     padding: 1.35rem 0;
     border-radius: 0.4rem;
@@ -123,9 +122,7 @@ const Main = ({
                 <MainImage>
                     <SvgHome />
                 </MainImage>
-                <LetterButton block onClick={createNewLetter}>
-                    편지 작성
-                </LetterButton>
+                <LetterButton onClick={createNewLetter}>편지 작성</LetterButton>
                 <AnalyzeSection
                     style={{
                         marginTop: '3.2rem',

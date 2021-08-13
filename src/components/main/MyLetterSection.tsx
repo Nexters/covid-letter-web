@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import {Button} from 'antd'
 import ImageMailBox from 'assets/ImageMailBox'
 import tw from 'twin.macro'
 
@@ -16,10 +15,9 @@ const Title = styled.div`
     margin: 2.4rem 0;
 `
 
-const LetterButton = styled(Button)`
-    ${tw`tw-font-ohsquare tw-font-bold tw-text-base tw-text-primary-green-500 hover:tw-text-primary-green-500`}
+const LetterButton = styled.button`
+    ${tw`tw-w-full tw-font-ohsquare tw-font-bold tw-text-base tw-text-primary-green-500 hover:tw-text-primary-green-500`}
     padding: 1.35rem 0;
-    height: inherit;
     background-color: transparent;
     border: 2px solid var(--primary-green-500);
     border-radius: 0.4rem;
@@ -51,7 +49,7 @@ const MyLetterSection = ({logined}: {logined: boolean}) => {
                     작성했습니다!
                 </span>
             </Title>
-            <LetterButton block>편지 목록 보기</LetterButton>
+            <LetterButton>편지 목록 보기</LetterButton>
         </Container>
     )
 }
