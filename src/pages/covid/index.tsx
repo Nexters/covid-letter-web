@@ -17,6 +17,8 @@ import {observer} from 'mobx-react-lite'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
 import toast from '$components/toast'
+import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
+import {FlexStart} from '$styles/utils/layout'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -26,7 +28,9 @@ const Container = styled.div`
 `
 
 const TitleContainer = styled.div`
-    ${tw`tw-flex tw-text-left tw-flex-1 tw-justify-start tw-items-center tw-font-ohsquare tw-font-bold tw-text-xl tw-text-primary-green-500`}
+    ${FontOhsquare}
+    ${FlexStart}
+    ${tw`tw-text-left tw-text-xl tw-text-primary-green-500`}
 `
 
 const Title = styled.span``
@@ -37,7 +41,9 @@ const Highlight = styled.span`
 `
 
 const SubTitle = styled.div`
-    ${tw`tw-flex tw-text-left tw-flex-1 tw-justify-start tw-items-center tw-font-ohsquare-air tw-font-light tw-text-base tw-text-grey-700`}
+    ${FontOhsquareAir}
+    ${FlexStart}
+    ${tw`tw-text-left tw-text-base tw-text-grey-700`}
     margin-top: 1.2rem;
 `
 
@@ -47,14 +53,16 @@ const MainImage = styled.div`
 `
 
 const LetterButton = styled.button`
-    ${tw`tw-w-full tw-border-primary-green-500 hover:tw-border-primary-green-500 tw-bg-primary-green-500 hover:tw-bg-primary-green-500 focus:tw-bg-primary-green-500 tw-text-grey-000 hover:tw-text-grey-000 focus:tw-text-grey-000 tw-border-0 tw-font-ohsquare tw-font-bold tw-text-base`}
+    ${FontOhsquare}
+    ${tw`tw-w-full tw-border-primary-green-500 hover:tw-border-primary-green-500 tw-bg-primary-green-500 hover:tw-bg-primary-green-500 focus:tw-bg-primary-green-500 tw-text-grey-000 hover:tw-text-grey-000 focus:tw-text-grey-000 tw-border-0 tw-text-base`}
     margin-top: 2.4rem;
     padding: 1.35rem 0;
     border-radius: 0.4rem;
 `
 
 const Value = styled.div`
-    ${tw`tw-text-primary-green-500 tw-font-ohsquare tw-font-bold tw-text-base`}
+    ${FontOhsquare}
+    ${tw`tw-text-primary-green-500 tw-text-base`}
     padding-top: .4rem;
 `
 
