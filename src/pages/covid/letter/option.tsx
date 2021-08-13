@@ -106,7 +106,7 @@ const LetterOptionPage = ({options}: Props) => {
     )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const res = await withAxios<LetterOption[]>({
         url: '/letters/options',
         method: 'GET',
