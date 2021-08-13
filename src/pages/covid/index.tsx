@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import MainHeader from '$components/header'
 import {CovidStats, LetterStats} from '$types/response/stat'
 import {numberFormat} from '$utils/index'
@@ -8,11 +9,15 @@ import {InferGetServerSidePropsType} from 'next'
 import tw from 'twin.macro'
 import {Button} from 'antd'
 import AnalyzeSection from '$components/main/AnalyzeSection'
-import {PropsWithAccessToken} from '$types/index'
+import {PropsFromApp} from '$types/index'
 import MyLetterSection from '$components/main/MyLetterSection'
 import StatBadge from '$components/main/StatBadge'
 import useLogout from '$hooks/useLogout'
-import {useState} from 'react'
+import {useAlertStore} from '$contexts/StoreContext'
+import {observer} from 'mobx-react-lite'
+import {useRouter} from 'next/router'
+import ROUTES from '$constants/routes'
+import toast from '$components/toast'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -65,13 +70,38 @@ const Main = ({
     sented,
     token,
     isGoogleLogin,
-}: PropsWithAccessToken<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
+    isMobile,
+}: PropsFromApp<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
     const [isLogined, setIsLogined] = useState(!!token)
+
     const logout = useLogout(isGoogleLogin)
+    const {confirm, alert} = useAlertStore()
+    const router = useRouter()
 
     const logoutPage = () => {
         logout()
         setIsLogined(false)
+        if (!isMobile) {
+            alert({
+                title: '로그아웃되었습니다.',
+            })
+        } else {
+            toast('로그아웃되었습니다.', 1500)
+        }
+    }
+
+    const createNewLetter = () => {
+        if (!isLogined) {
+            confirm({
+                title: '앗! 당황하셨죠?',
+                message: '이 기능은 로그인을 해야\n사용할 수 있는 기능입니다.\n로그인 하시겠어요?',
+                onSuccess: () => {
+                    router.push(ROUTES.LOGIN)
+                },
+                successText: '네.할래요!',
+                cancelText: '아니요.안할래요',
+            })
+        }
     }
 
     return (
@@ -93,7 +123,9 @@ const Main = ({
                 <MainImage>
                     <SvgHome />
                 </MainImage>
-                <LetterButton block>편지 작성</LetterButton>
+                <LetterButton block onClick={createNewLetter}>
+                    편지 작성
+                </LetterButton>
                 <AnalyzeSection
                     style={{
                         marginTop: '3.2rem',
@@ -183,4 +215,4 @@ export async function getServerSideProps() {
     }
 }
 
-export default Main
+export default observer(Main)
