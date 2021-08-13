@@ -19,6 +19,7 @@ import ROUTES from '$constants/routes'
 import toast from '$components/toast'
 import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
 import {FlexStart} from '$styles/utils/layout'
+import {MainButton} from '$styles/utils/components'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -52,9 +53,8 @@ const MainImage = styled.div`
     margin-top: 1.2rem;
 `
 
-const LetterButton = styled.button`
-    ${FontOhsquare}
-    ${tw`tw-w-full tw-border-primary-green-500 hover:tw-border-primary-green-500 tw-bg-primary-green-500 hover:tw-bg-primary-green-500 focus:tw-bg-primary-green-500 tw-text-grey-000 hover:tw-text-grey-000 focus:tw-text-grey-000 tw-border-0 tw-text-base`}
+const LetterButton = styled(MainButton)`
+    ${tw`tw-w-full`}
     margin-top: 2.4rem;
     padding: 1.35rem 0;
     border-radius: 0.4rem;
