@@ -4,13 +4,11 @@ import tw from 'twin.macro'
 import {ReactNode} from 'react'
 import {noop} from '$utils/index'
 import {animated, Transition} from 'react-spring'
-
-const flexCenter = tw`
-    tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center 
-`
+import {FlexCenter} from '$styles/utils/layout'
 
 const Container = styled.div`
-    ${flexCenter}
+    ${FlexCenter}
+    ${tw`tw-text-center`}
     box-sizing: border-box;
     position: fixed;
     bottom: 3.2rem;
