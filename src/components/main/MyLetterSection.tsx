@@ -1,3 +1,5 @@
+import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
+import {FlexCenter} from '$styles/utils/layout'
 import styled from '@emotion/styled'
 import ImageMailBox from 'assets/ImageMailBox'
 import tw from 'twin.macro'
@@ -7,16 +9,20 @@ const Container = styled.div`
 `
 
 const ImageContainer = styled.div`
-    ${tw`tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center`}
+    ${FlexCenter}
+    ${tw`tw-text-center`}
 `
 
 const Title = styled.div`
-    ${tw`tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center tw-font-ohsquare-air tw-font-normal tw-text-lg tw-text-grey-800`}
+    ${FlexCenter}
+    ${FontOhsquareAir}
+    ${tw`tw-text-center tw-text-lg tw-text-grey-800`}
     margin: 2.4rem 0;
 `
 
 const LetterButton = styled.button`
-    ${tw`tw-w-full tw-font-ohsquare tw-font-bold tw-text-base tw-text-primary-green-500 hover:tw-text-primary-green-500`}
+    ${FontOhsquare}
+    ${tw`tw-w-full tw-text-base tw-text-primary-green-500 hover:tw-text-primary-green-500`}
     padding: 1.35rem 0;
     background-color: transparent;
     border: 2px solid var(--primary-green-500);
@@ -30,7 +36,7 @@ const LetterButton = styled.button`
 `
 
 const Highlight = styled.span`
-    ${tw`tw-font-ohsquare tw-font-bold`}
+    ${FontOhsquare}
 `
 
 const MyLetterSection = ({logined}: {logined: boolean}) => {
