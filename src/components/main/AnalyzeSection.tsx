@@ -1,3 +1,5 @@
+import {FontOhsquareAir} from '$styles/utils/font'
+import {FlexCenter} from '$styles/utils/layout'
 import React, {ReactNode} from 'react'
 import tw, {styled} from 'twin.macro'
 
@@ -8,7 +10,9 @@ const Section = styled.div`
 `
 
 const Title = styled.div`
-    ${tw`tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center tw-font-ohsquare-air tw-font-light tw-text-base tw-text-grey-800`}
+    ${FontOhsquareAir}
+    ${FlexCenter}
+    ${tw`tw-text-center tw-text-base tw-text-grey-800`}
 `
 
 const TitleSpan = styled.span`
