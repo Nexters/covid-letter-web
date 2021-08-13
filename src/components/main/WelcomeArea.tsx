@@ -1,16 +1,20 @@
 import ROUTES from '$constants/routes'
+import {FontOhsquare} from '$styles/utils/font'
+import {FlexBetween} from '$styles/utils/layout'
 import styled from '@emotion/styled'
 import IconMore from 'assets/IconMore'
 import Link from 'next/link'
 import tw from 'twin.macro'
 
 const Container = styled.div`
-    ${tw`tw-flex tw-text-left tw-flex-1 tw-justify-between tw-items-center`}
+    ${FlexBetween}
+    ${tw`tw-text-left`}
     margin: 3.5rem 0;
 `
 
 const WelcomeText = styled.div`
-    ${tw`tw-font-ohsquare tw-font-bold tw-text-xl tw-text-primary-green-500`}
+    ${FontOhsquare}
+    ${tw`tw-text-xl tw-text-primary-green-500`}
 `
 
 const WelcomeArea = () => {
