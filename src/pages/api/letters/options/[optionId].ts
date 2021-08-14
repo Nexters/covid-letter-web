@@ -7,6 +7,7 @@ import {API_URL_BASE} from '$config'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Response<Question | null>>) {
     const {optionId} = req.query
+    console.debug(optionId, 'option')
     try {
         const {
             data: {errorCode, message, data: question},
@@ -25,6 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             },
         })
     } catch (e) {
+        console.error(e)
         res.status(500).json({
             code: RESPONSE.ERROR,
             message: '질문 가져오기 실패',
