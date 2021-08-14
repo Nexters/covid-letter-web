@@ -84,8 +84,8 @@ const LetterOptionPage = ({options}: Props) => {
     const onClickConfirm = () => {
         if (selectedOptionId === -1) return
         router.push({
-            pathname: ROUTES.COVID.LETTER.NEW,
-            query: {option: selectedOptionId},
+            pathname: ROUTES.COVID.LETTER.NEW.MAIN,
+            query: {optionId: selectedOptionId},
         })
     }
     return (

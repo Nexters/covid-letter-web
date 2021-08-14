@@ -3,6 +3,8 @@ import tw from 'twin.macro'
 import NewLetterQuestion from './question'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {Question} from '$types/response/letter'
+import cookies from 'next-cookies'
+import {GetServerSideProps} from 'next'
 
 interface Props {
     question: Question[]
@@ -17,11 +19,15 @@ const NewLetter = ({question}: Props) => {
     )
 }
 
-export async function getServerSideProps(context: {query: {optionId: number}}) {
-    const {optionId} = context.query
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const {letterLogin} = cookies(context)
+    const optionId = context.query.option
     const res = await withAxios<Question[]>({
-        url: `/letters/options/1`,
+        url: `/letters/options/${optionId}`,
         method: 'GET',
+        headers: {
+            Authorization: letterLogin,
+        },
     })
     const question = res
 

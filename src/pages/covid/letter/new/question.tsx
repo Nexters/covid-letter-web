@@ -1,22 +1,21 @@
-import {useRef, useState} from 'react'
+import {useState} from 'react'
 import {Question} from '$types/response/letter'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import Answer from './answer'
 
-const INITIAL_ID = 0
-
 const NewLetterQuestion = ({question}: {question: Question[]}) => {
+    const INITIAL_ID = 0
     const [currentQuestionId, setCurrentQuestionId] = useState<number>(INITIAL_ID)
     const onClickNext = () => {
-        if (currentQuestionId === question.length - 1) setCurrentQuestionId(INITIAL_ID)
+        if (currentQuestionId === Object.keys(question).length - 1) setCurrentQuestionId(INITIAL_ID)
         else setCurrentQuestionId(currentQuestionId + 1)
     }
 
     return (
         <>
             <QuestionWrapper>
-                <span className="question-number">질문 {question[currentQuestionId].id + 1}</span>
+                <span className="question-number">질문 {currentQuestionId + 1}</span>
                 <h3>{question[currentQuestionId].text}</h3>
                 <span className="create-date">작성 날짜 | 2021.00.00</span>
             </QuestionWrapper>

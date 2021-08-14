@@ -13,6 +13,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             data: {errorCode, message, data: question},
         }: AxiosResponse<ServerResponse<Question>> = await axios.get(
             `${API_URL_BASE}/letters/options/${optionId}/questions`,
+            {
+                headers: req.headers,
+            },
         )
         if (errorCode) {
             console.info(`errorCode: ${errorCode}, message: ${message}`)
@@ -26,7 +29,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             },
         })
     } catch (e) {
-        console.error(e)
         res.status(500).json({
             code: RESPONSE.ERROR,
             message: '질문 가져오기 실패',
