@@ -20,73 +20,80 @@ const LoginBridge = ({error, error_description}: LoginBridgeProps) => {
 LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
     const {code, state, returnUrl} = query
 
-    if (code && state) {
-        const tokenResult = await withAxios<Partial<TokenResponse>>({
-            url: `/login/naver/token`,
-            method: 'post',
-            data: {
-                code,
-                state,
-                grant_type: GrantType.create,
-            },
-        })
-
-        const {error, error_description, access_token} = tokenResult
-
-        if (!error) {
-            const profileData = await withAxios<ProfileResponse>({
-                url: '/login/naver/profile',
-                method: 'POST',
+    try {
+        if (code && state) {
+            const tokenResult = await withAxios<Partial<TokenResponse>>({
+                url: `/login/naver/token`,
+                method: 'post',
                 data: {
-                    access_token,
+                    code,
+                    state,
+                    grant_type: GrantType.create,
                 },
             })
 
-            if (profileData) {
-                /**
-                 * @todo BE로 프로필 정보 전송 + jwt 받아서 cookie에 저장
-                 */
-                const {name, email, id} = profileData.response
-                const sessionResult = await withAxios<LoginToken>({
-                    url: '/login',
+            const {error, error_description, access_token} = tokenResult
+
+            if (!error) {
+                const profileData = await withAxios<ProfileResponse>({
+                    url: '/login/naver/profile',
                     method: 'POST',
                     data: {
-                        name,
-                        email,
-                        identifier: id,
+                        access_token,
                     },
                 })
 
-                if (sessionResult) {
-                    const {accessToken, tokenExpirationTime} = sessionResult
+                if (profileData) {
+                    /**
+                     * @todo BE로 프로필 정보 전송 + jwt 받아서 cookie에 저장
+                     */
+                    const {name, email, id} = profileData.response
+                    const sessionResult = await withAxios<LoginToken>({
+                        url: '/login',
+                        method: 'POST',
+                        data: {
+                            name,
+                            email,
+                            identifier: id,
+                        },
+                    })
 
-                    res?.setHeader(
-                        'Set-Cookie',
-                        `letterLogin=${accessToken}; path=/; max-age=${tokenExpirationTime} HttpOnly`,
-                    )
-                    if (res && req) {
-                        res!.writeHead(302, {Location: returnUrl})
-                        res!.end()
-                    } else {
-                        Router.push(returnUrl as string)
+                    if (sessionResult) {
+                        const {accessToken, tokenExpirationTime} = sessionResult
+
+                        res?.setHeader(
+                            'Set-Cookie',
+                            `letterLogin=${accessToken}; path=/; max-age=${tokenExpirationTime} HttpOnly`,
+                        )
+                        if (res && req) {
+                            res!.writeHead(302, {Location: returnUrl})
+                            res!.end()
+                        } else {
+                            Router.push(returnUrl as string)
+                        }
                     }
                 }
-            }
 
+                return {
+                    error: 'INVALID_ACCESS',
+                    error_description: '진입 불가능',
+                }
+            }
             return {
-                error: 'INVALID_ACCESS',
-                error_description: '진입 불가능',
+                error,
+                error_description,
             }
         }
-        return {
-            error,
-            error_description,
-        }
-    }
 
-    return {
-        error: 'AUTHORIZE_ERROR',
-        error_description: '네이버 로그인 실패',
+        return {
+            error: 'AUTHORIZE_ERROR',
+            error_description: '네이버 로그인 실패',
+        }
+    } catch (error) {
+        return {
+            error: error?.message || JSON.stringify(error),
+            error_description: '네이버 로그인 실패',
+        }
     }
 }
 
