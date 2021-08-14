@@ -21,7 +21,6 @@ const NewLetterQuestion = ({question}: {question: Question[]}) => {
             </QuestionWrapper>
             <Button onClick={onClickNext}>다른 질문에 대답할래요</Button>
             <Answer />
-            <ConfirmButton>확인</ConfirmButton>
         </>
     )
 }
@@ -62,14 +61,6 @@ const Button = styled.button`
     border-radius: 0.4rem;
     color: #403f3e; //디자인 시스템에 없는 색
     font-size: 1.4rem;
-`
-
-const ConfirmButton = styled.button`
-    ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
-    min-width: 36rem;
-    height: 5.2rem;
-    font-size: 1.6rem;
-    line-height: 2.5rem;
 `
 
 export default NewLetterQuestion

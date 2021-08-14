@@ -7,6 +7,57 @@ import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
 import tw from 'twin.macro'
 
+interface Props {
+    options: LetterOption[]
+}
+
+const LetterOptionPage = ({options}: Props) => {
+    const router = useRouter()
+
+    const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
+    const onClickOption = (option: LetterOption) => {
+        if (option.id === selectedOptionId) {
+            setSelectedOptionId(-1)
+        } else setSelectedOptionId(option.id)
+    }
+    const onClickConfirm = () => {
+        if (selectedOptionId === -1) return
+        router.push({
+            pathname: ROUTES.COVID.LETTER.NEW.MAIN,
+            query: {optionId: selectedOptionId},
+        })
+    }
+    return (
+        <Container>
+            <Title>
+                발송 기준 선택 📮
+                <p className="sub-title">언제 발송을 원하시나요?</p>
+            </Title>
+            <ButtonList>
+                {options.map((option, index) => (
+                    <li key={option.id} onClick={() => onClickOption(option)}>
+                        <Button isClicked={index === selectedOptionId}>{option.text}</Button>
+                    </li>
+                ))}
+            </ButtonList>
+            <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
+        </Container>
+    )
+}
+
+export async function getServerSideProps() {
+    const res = await withAxios<LetterOption[]>({
+        url: '/letters/options',
+        method: 'GET',
+    })
+
+    const options = res.map((option) => ({
+        ...option,
+    }))
+
+    return {props: {options}}
+}
+
 type ButtonPropsType = {
     children?: ReactChild
     isClicked?: boolean
@@ -67,55 +118,4 @@ const ConfirmButton = styled.button`
     font-size: 1.6rem;
     line-height: 2.5rem;
 `
-
-interface Props {
-    options: LetterOption[]
-}
-
-const LetterOptionPage = ({options}: Props) => {
-    const router = useRouter()
-
-    const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
-    const onClickOption = (option: LetterOption) => {
-        if (option.id === selectedOptionId) {
-            setSelectedOptionId(-1)
-        } else setSelectedOptionId(option.id)
-    }
-    const onClickConfirm = () => {
-        if (selectedOptionId === -1) return
-        router.push({
-            pathname: ROUTES.COVID.LETTER.NEW.MAIN,
-            query: {optionId: selectedOptionId},
-        })
-    }
-    return (
-        <Container>
-            <Title>
-                발송 기준 선택 📮
-                <p className="sub-title">언제 발송을 원하시나요?</p>
-            </Title>
-            <ButtonList>
-                {options.map((option, index) => (
-                    <li key={option.id} onClick={() => onClickOption(option)}>
-                        <Button isClicked={index === selectedOptionId}>{option.text}</Button>
-                    </li>
-                ))}
-            </ButtonList>
-            <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
-        </Container>
-    )
-}
-
-export async function getServerSideProps() {
-    const res = await withAxios<LetterOption[]>({
-        url: '/letters/options',
-        method: 'GET',
-    })
-
-    const options = res.map((option) => ({
-        ...option,
-    }))
-
-    return {props: {options}}
-}
 export default LetterOptionPage
