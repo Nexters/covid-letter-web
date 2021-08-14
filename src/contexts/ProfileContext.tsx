@@ -18,8 +18,8 @@ export const ProfileProvider = ({children, token}: {children: ReactNode; token?:
     } = useRequest<User>(
         {
             url: '/profile',
-            params: {
-                accessToken: token,
+            headers: {
+                Authorization: token,
             },
         },
         {
