@@ -20,7 +20,7 @@ interface Config {
 const config = getConfig()
 const publicRuntimeConfig: Config = config.publicRuntimeConfig
 
-export const HOST_URL = env === 'local' ? 'http://localhost:3000' : 'https://its-me.netlify.app' // real domain
+export const HOST_URL = env === 'local' ? 'http://localhost:3000' : 'https://covid-letter-web.vercel.app' // real domain
 
 export const {
     REACT_APP_ENV,
