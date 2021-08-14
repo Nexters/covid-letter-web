@@ -33,6 +33,7 @@ const Layer = styled.div`
 `
 
 const TextContainer = styled.div`
+    ${tw`tw-bg-beige-200`}
     padding: 2.4rem;
     word-break: keep-all;
     overflow-wrap: break-word;
