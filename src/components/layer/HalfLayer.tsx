@@ -3,6 +3,7 @@ import {animated, useTransition} from 'react-spring'
 import bezierEasing from 'bezier-easing'
 import styled from '@emotion/styled'
 import React, {PropsWithChildren} from 'react'
+import Overlay from '$components/overlay'
 
 const Container = styled.div`
     position: fixed;
@@ -11,6 +12,9 @@ const Container = styled.div`
     right: 0;
     bottom: 0;
     z-index: 2010;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
 `
 
 const Content = styled(animated.div)`
@@ -25,16 +29,6 @@ const Content = styled(animated.div)`
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     padding: 2.4rem;
-`
-
-const Overlay = styled(animated.div)`
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background-color: #000;
-    opacity: 0;
 `
 
 interface HalfLayerProps {
@@ -55,16 +49,6 @@ const HalfLayer = ({children, isShow, closeFn}: PropsWithChildren<HalfLayerProps
         },
     })
 
-    const overlayTransition = useTransition(isShow, {
-        from: {opacity: 0},
-        enter: {opacity: 0.5},
-        leave: {opacity: 0},
-        config: {
-            duration: 300,
-            easing: bezierEasing(0.33, 0, 0.2, 1),
-        },
-    })
-
     return (
         <Portal>
             {transitions((props, item) => {
@@ -72,9 +56,7 @@ const HalfLayer = ({children, isShow, closeFn}: PropsWithChildren<HalfLayerProps
                     item && (
                         <Container>
                             <Content style={props}>{children}</Content>
-                            {overlayTransition((overlayProps, overlayItem) => {
-                                return overlayItem && <Overlay style={overlayProps} onClick={closeFn} />
-                            })}
+                            <Overlay shouldScrollLock isShow={isShow} position={'fixed'} closeFn={closeFn} />
                         </Container>
                     )
                 )
