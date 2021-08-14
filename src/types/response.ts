@@ -1,4 +1,4 @@
-export type ResponseCode = '00' | '99' | '01'
+export type ResponseCode = '00' | '99' | '01' | '024'
 
 /**
  * @todo BE와 논의가 필요합니다.
@@ -8,4 +8,11 @@ export interface Response<T> {
     code: ResponseCode
     message: string
     result: T
+}
+
+export interface ServerResponse<T> {
+    data: T
+    errorCode: number
+    message: string
+    status: number
 }

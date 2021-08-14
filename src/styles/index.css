@@ -1,3 +1,66 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body > div[id^='__next'],
+body {
+    height: 100%;
+    font-size: 10px;
+    background-color: var(--beige-300);
+}
+
+html body,
+div,
+ul,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    letter-spacing: -0.015em;
+}
+
+button,
+a,
+button:hover,
+button:focus,
+button:active {
+    outline: none !important;
+}
+
+:root {
+    --primary-green-600: #07282e;
+    --primary-green-500: #11373e;
+    --primary-green-400: #2d4f47;
+    --primary-green-300: #5e7c75;
+    --primary-green-200: #818d8a;
+
+    --primary-yellow-700: #c29b54;
+    --primary-yellow-600: #d1a65a;
+    --primary-yellow-500: #dcae5c;
+    --primary-yellow-400: #e7bf78;
+    --primary-yellow-300: #eac98f;
+
+    --grey-800: #22211f;
+    --grey-700: #5f5d59;
+    --grey-600: #807c76;
+    --grey-500: #adaaa5;
+    --grey-400: #bbbbbb;
+    --grey-300: #dfdfdf;
+    --grey-200: #efefef;
+    --grey-100: #f8f8f8;
+    --grey-000: #ffffff;
+
+    --beige-600: #b6a76f;
+    --beige-500: #cbc4a8;
+    --beige-400: #ded9c6;
+    --beige-300: #eae6d7;
+    --beige-200: #f6f4e8;
+
+    --blue-500: #6993ff;
+    --red-500: #ff6463;
+    --green-500: #4bccae;
+}

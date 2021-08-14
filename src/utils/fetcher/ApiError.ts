@@ -1,4 +1,5 @@
 import {RESPONSE} from '$constants'
+import ROUTES from '$constants/routes'
 import {ResponseCode} from '$types/response'
 
 export class ApiError extends Error {
@@ -17,11 +18,24 @@ export class CommonApiError extends ApiError {
 export class RedirectArror extends ApiError {
     code = RESPONSE.REDIRECT
     message = '[SYSTEM] Api Error'
-    redirect = () => `https://www.naver.com`
+    redirect = (url?: string) => url || ROUTES.ROOT
 }
+
+export class AccessTokenError extends ApiError {
+    code = RESPONSE.INVALID_ACCESS_TOKEN
+    message = '[SYSTEM] Access Token is Expired or Invalid'
+    redirect = (url?: string) => url || ROUTES.ROOT
+}
+
+export const isInstanceOfApiError = (e: unknown): e is ApiError =>
+    e instanceof ApiError
 
 export const isInstanceOfCommonApiError = (e: unknown): e is CommonApiError =>
     e instanceof CommonApiError
 
 export const isInstanceOfRedirectArror = (e: unknown): e is RedirectArror =>
     e instanceof RedirectArror
+
+export const isInstanceOfAccessTokenError = (
+    e: unknown,
+): e is AccessTokenError => e instanceof AccessTokenError

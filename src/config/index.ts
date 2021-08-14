@@ -1,16 +1,29 @@
-const setPort = (env?: string) => {
-    switch (env) {
-        case 'production':
-            return 8081
-        case 'local':
-        default:
-            return 3000
-    }
-}
+import getConfig from 'next/config'
 
 const env = process.env.REACT_APP_ENV
 
-const PORT = setPort(env)
-const baseURL = 'http://localhost' // production 에서 추후 리얼 도메인 연결
+interface Config {
+    REACT_APP_ENV: string
+    API_URL_BASE: string
+    OAUTH: {
+        NAVER: {
+            CLIENT_ID: string
+            CLIENT_SECRET: string
+        }
+        GOOGLE: {
+            CLIENT_ID: string
+            API_KEY: string
+        }
+    }
+}
 
-export const HOST_URL = `${baseURL}:${PORT}`
+const config = getConfig()
+const publicRuntimeConfig: Config = config.publicRuntimeConfig
+
+export const HOST_URL = env === 'local' ? 'http://localhost:3000' : 'https://its-me.netlify.app' // real domain
+
+export const {
+    REACT_APP_ENV,
+    API_URL_BASE,
+    OAUTH: {NAVER, GOOGLE},
+} = publicRuntimeConfig

@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const {REACT_APP_ENV} = process.env
-const CONFIG = require(`./src/config/${REACT_APP_ENV}`)
-
 const isLocal = REACT_APP_ENV === 'local'
+const CONFIG = require(`./src/config/${REACT_APP_ENV}`)
 const LOCAL_ORIGIN = 'http://localhost:3000'
 
 /** both server and client */
@@ -11,9 +10,6 @@ const publicRuntimeConfig = {
     ...CONFIG,
 }
 
-/**
- * @todo api proxy(local) 추가 필요
- */
 module.exports = {
     env: publicRuntimeConfig,
     publicRuntimeConfig,
@@ -27,10 +23,7 @@ module.exports = {
         entry: async () => {
             const entries = await originalEntries()
 
-            if (
-                entries['main.js'] &&
-                !entries['main.js'].includes('./src/utils/polyfills.js')
-            ) {
+            if (entries['main.js'] && !entries['main.js'].includes('./src/utils/polyfills.js')) {
                 entries['main.js'].unshift('./src/utils/polyfills.js')
             }
 
@@ -38,6 +31,16 @@ module.exports = {
         },
         plugins: [...plugins, new webpack.IgnorePlugin(/\/__tests__\//)],
     }),
+    async redirects() {
+        return [
+            {
+                basePath: false,
+                source: '/',
+                destination: '/covid',
+                permanent: true,
+            },
+        ]
+    },
     ...(isLocal && {
         async rewrites() {
             return [
