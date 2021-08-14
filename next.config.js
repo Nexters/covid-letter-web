@@ -14,6 +14,10 @@ module.exports = {
     env: publicRuntimeConfig,
     publicRuntimeConfig,
     generateEtags: true,
+    images: {
+        loader: "imgix",
+        path: "https://noop/",
+    },
     webpack: ({entry: originalEntries, plugins, ...restConfig}, {webpack}) => ({
         ...restConfig,
         entry: async () => {
