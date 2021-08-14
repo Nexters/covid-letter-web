@@ -18,7 +18,7 @@ const STICKER = {
     GOOD: 'GOOD',
     OK: 'OK',
 } as const
-type STICKER = typeof STICKER[keyof typeof STICKER]
+export type STICKER = typeof STICKER[keyof typeof STICKER]
 
 export interface Letter {
     contents: string
