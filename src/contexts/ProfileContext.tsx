@@ -25,6 +25,7 @@ export const ProfileProvider = ({children, token}: {children: ReactNode; token?:
         {
             revalidateOnMount: !!token,
             shouldRetryOnError: false,
+            initialData: token ? undefined : ({} as User),
         },
     )
 
