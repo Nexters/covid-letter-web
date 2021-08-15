@@ -1,3 +1,4 @@
+import {FontNanumBarunGothic} from '$styles/utils/font'
 import styled from '@emotion/styled'
 import Link from 'next/link'
 import tw from 'twin.macro'
@@ -12,13 +13,15 @@ const ButtonList = styled.ul`
 `
 
 const ButtonItem = styled.li`
-    ${tw`tw-text-left tw-font-nanumBarunGothic tw-font-semibold tw-text-base tw-text-grey-800`}
+    ${FontNanumBarunGothic('semibold')}
+    ${tw`tw-text-left tw-text-base tw-text-grey-800`}
     width: 100%;
     padding: 1.4rem 0;
 
     a,
     button {
-        ${tw`tw-font-nanumBarunGothic tw-font-semibold tw-text-base tw-text-grey-800 hover:tw-text-grey-800`}
+        ${FontNanumBarunGothic('semibold')}
+        ${tw`tw-text-base tw-text-grey-800 hover:tw-text-grey-800`}
     }
 `
 

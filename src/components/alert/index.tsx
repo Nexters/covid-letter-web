@@ -1,5 +1,6 @@
 import {useAlertStore} from '$contexts/StoreContext'
 import usePortal from '$hooks/usePortal'
+import {MainButton} from '$styles/utils/components'
 import styled from '@emotion/styled'
 import {observer} from 'mobx-react-lite'
 import {Fragment} from 'react'
@@ -32,6 +33,7 @@ const Layer = styled.div`
 `
 
 const TextContainer = styled.div`
+    ${tw`tw-bg-beige-200`}
     padding: 2.4rem;
     word-break: keep-all;
     overflow-wrap: break-word;
@@ -61,9 +63,7 @@ const CancelButton = styled.button`
     ${tw`tw-bg-grey-300 hover:tw-bg-grey-300 focus:tw-bg-grey-300 tw-text-grey-500 hover:tw-text-grey-500 focus:tw-text-grey-500`}
 `
 
-const SuccessButton = styled.button`
-    ${tw`tw-bg-primary-green-500 hover:tw-bg-primary-green-500 hover:tw-bg-primary-green-500 tw-text-grey-000 hover:tw-text-grey-000 focus:tw-text-grey-000`}
-`
+const SuccessButton = styled(MainButton)``
 
 const AlertContainer = () => {
     const {type, isShow, title, message, successText, cancelText, onSuccess, onCancel, close} = useAlertStore()
