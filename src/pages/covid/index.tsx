@@ -7,7 +7,6 @@ import styled from '@emotion/styled'
 import SvgHome from 'assets/HomeImage'
 import {InferGetServerSidePropsType} from 'next'
 import tw from 'twin.macro'
-import {Button} from 'antd'
 import AnalyzeSection from '$components/main/AnalyzeSection'
 import {PropsFromApp} from '$types/index'
 import MyLetterSection from '$components/main/MyLetterSection'
@@ -18,6 +17,9 @@ import {observer} from 'mobx-react-lite'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
 import toast from '$components/toast'
+import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
+import {FlexStart} from '$styles/utils/layout'
+import {MainButton} from '$styles/utils/components'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -27,7 +29,9 @@ const Container = styled.div`
 `
 
 const TitleContainer = styled.div`
-    ${tw`tw-flex tw-text-left tw-flex-1 tw-justify-start tw-items-center tw-font-ohsquare tw-font-bold tw-text-xl tw-text-primary-green-500`}
+    ${FontOhsquare}
+    ${FlexStart}
+    ${tw`tw-text-left tw-text-xl tw-text-primary-green-500`}
 `
 
 const Title = styled.span``
@@ -38,7 +42,9 @@ const Highlight = styled.span`
 `
 
 const SubTitle = styled.div`
-    ${tw`tw-flex tw-text-left tw-flex-1 tw-justify-start tw-items-center tw-font-ohsquare-air tw-font-light tw-text-base tw-text-grey-700`}
+    ${FontOhsquareAir}
+    ${FlexStart}
+    ${tw`tw-text-left tw-text-base tw-text-grey-700`}
     margin-top: 1.2rem;
 `
 
@@ -47,15 +53,16 @@ const MainImage = styled.div`
     margin-top: 1.2rem;
 `
 
-const LetterButton = styled(Button)`
-    ${tw`tw-border-primary-green-500 hover:tw-border-primary-green-500 tw-bg-primary-green-500 hover:tw-bg-primary-green-500 focus:tw-bg-primary-green-500 tw-text-grey-000 hover:tw-text-grey-000 focus:tw-text-grey-000 tw-border-0 tw-font-ohsquare tw-font-bold tw-h-auto tw-text-base`}
+const LetterButton = styled(MainButton)`
+    ${tw`tw-w-full`}
     margin-top: 2.4rem;
     padding: 1.35rem 0;
     border-radius: 0.4rem;
 `
 
 const Value = styled.div`
-    ${tw`tw-text-primary-green-500 tw-font-ohsquare tw-font-bold tw-text-base`}
+    ${FontOhsquare}
+    ${tw`tw-text-primary-green-500 tw-text-base`}
     padding-top: .4rem;
 `
 
@@ -123,9 +130,7 @@ const Main = ({
                 <MainImage>
                     <SvgHome />
                 </MainImage>
-                <LetterButton block onClick={createNewLetter}>
-                    편지 작성
-                </LetterButton>
+                <LetterButton onClick={createNewLetter}>편지 작성</LetterButton>
                 <AnalyzeSection
                     style={{
                         marginTop: '3.2rem',

@@ -1,17 +1,22 @@
+import {FontNanumBarunGothic, FontOhsquare} from '$styles/utils/font'
+import {FlexCenter} from '$styles/utils/layout'
 import styled from '@emotion/styled'
 import IconArrowDown from 'assets/IconArrowDown'
 import IconArrowUp from 'assets/IconArrowUp'
 import tw from 'twin.macro'
 
 const Value = styled.div`
-    ${tw`tw-text-primary-green-500 tw-font-ohsquare tw-font-bold tw-text-base`}
+    ${FontOhsquare}
+    ${tw`tw-text-primary-green-500 tw-text-base`}
     padding-top: .4rem;
 `
 
 type RateColorType = 'red' | 'blue' | 'green'
 
 const StatRate = styled.div`
-    ${tw`tw-flex tw-flex-1 tw-justify-center tw-items-center tw-text-xs tw-text-center tw-font-nanumBarunGothic`}
+    ${FlexCenter}
+    ${FontNanumBarunGothic('normal')}
+    ${tw`tw-text-xs tw-text-center`}
     border-radius: 100rem;
     margin-top: 1rem;
     padding: 0.2rem 0.8rem;

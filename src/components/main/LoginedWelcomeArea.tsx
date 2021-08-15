@@ -1,3 +1,4 @@
+import {FontNanumBarunGothic, FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 
@@ -8,18 +9,21 @@ const Container = styled.div`
 const Email = styled.div`
     ${tw`tw-text-left`}
     span {
-        ${tw`tw-font-nanumBarunGothic tw-text-xs tw-text-beige-600 tw-bg-beige-300`}
+        ${FontNanumBarunGothic('normal')}
+        ${tw`tw-text-xs tw-text-beige-600 tw-bg-beige-300`}
         padding: .4rem .8rem;
         border-radius: 2rem;
     }
 `
 
 const Title = styled.div`
-    ${tw`tw-text-left tw-font-ohsquare tw-font-bold tw-text-xl tw-text-primary-green-500`}
+    ${FontOhsquare}
+    ${tw`tw-text-left tw-text-xl tw-text-primary-green-500`}
     margin-top: 1.2rem;
 `
 const WelcomeText = styled.div`
-    ${tw`tw-text-left tw-font-ohsquare-air tw-font-normal tw-text-xl tw-text-primary-green-500`}
+    ${FontOhsquareAir}
+    ${tw`tw-text-left tw-text-xl tw-text-primary-green-500`}
 `
 
 interface LoginedWelcomeAreaProps {

@@ -10,7 +10,8 @@
             "$config": ["config/index"],
             "$types/*": ["types/*"],
             "$hooks/*": ["hooks/*"],
-            "$contexts/*": ["contexts/*"]
+            "$contexts/*": ["contexts/*"],
+            "$styles/*": ["styles/*"]
         }
     },
     "include": ["src"]

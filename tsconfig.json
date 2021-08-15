@@ -23,7 +23,8 @@
             "$config": ["config/index"],
             "$types/*": ["types/*"],
             "$hooks/*": ["hooks/*"],
-            "$contexts/*": ["contexts/*"]
+            "$contexts/*": ["contexts/*"],
+            "$styles/*": ["styles/*"]
         },
         "typeRoots": ["./node_modules/@types"],
         "types": ["jest", "react", "@emotion/react/types/css-prop"],

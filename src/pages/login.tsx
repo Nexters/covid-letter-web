@@ -4,22 +4,22 @@ import ROUTES from '$constants/routes'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import SvgLogin from 'assets/LoginBg'
-
-const commonTw = tw`
-    tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center
-`
+import {FlexCenter} from '$styles/utils/layout'
+import {FontNanumBarunGothic, FontOhsquareAir} from '$styles/utils/font'
 
 const Container = styled.div``
 
 const Title = styled.div`
-    ${commonTw}
-    ${tw`tw-text-xl tw-font-ohsquare-air tw-text-primary-green-500 tw-font-light`}
+    ${FlexCenter}
+    ${FontOhsquareAir}
+    ${tw`tw-text-center tw-text-xl tw-text-primary-green-500`}
     padding-top: 8rem;
 `
 
 const SubTitle = styled.div`
-    ${commonTw}
-    ${tw`tw-text-sm tw-font-nanumBarunGothic tw-font-light tw-text-grey-700`}
+    ${FlexCenter}
+    ${FontNanumBarunGothic('light')}
+    ${tw`tw-text-center tw-text-sm tw-text-grey-700`}
     margin-top: 1.2rem;
 `
 
@@ -31,6 +31,8 @@ const BottomFixed = styled.div`
 `
 
 const Img = styled.div`
+    ${FlexCenter}
+    ${tw`tw-text-center`}
     margin-top: 7.8rem;
 `
 
@@ -40,12 +42,14 @@ const Intro = styled.div`
     padding: 3.6rem 2.4rem 2.4rem;
 `
 
-const introTitleTw = tw`
-    tw-text-xl tw-font-ohsquare-air tw-text-grey-800
+const IntroTitle = styled.div`
+    ${FontOhsquareAir}
+    ${tw`tw-text-xl tw-text-grey-800`}
 `
 
 const IntroContent = styled.div`
-    ${tw`tw-text-base tw-font-nanumBarunGothic tw-font-normal tw-text-grey-600`}
+    ${FontNanumBarunGothic('normal')}
+    ${tw`tw-text-base tw-text-grey-600`}
     padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '2.4rem 0 13.6rem' : '2.4rem 0 3.2rem')};
 `
 
@@ -76,11 +80,11 @@ const Login = ({isMobile}: {isMobile: boolean}) => {
             </Title>
             <SubTitle>어려운 시기, 미래의 나에게 마음을 담아 전해요.</SubTitle>
             <BottomFixed isMobile={isMobile}>
-                <Img css={commonTw}>
+                <Img>
                     <SvgLogin />
                 </Img>
                 <Intro>
-                    <div css={introTitleTw}>온전히 나에게 집중하는 시간...</div>
+                    <IntroTitle>온전히 나에게 집중하는 시간...</IntroTitle>
                     <IntroContent isMobile={isMobile}>
                         이 서비스는 시끄러운 외부 환경에서 벗어나 스스로를 돌아보고 돌볼 수 있는 시간을 제공하는
                         플랫폼이에요. 삶에 대한 깊이있는 질문에 답하기를 통해 자신의 생각을 정리하고 오직 자신에게
