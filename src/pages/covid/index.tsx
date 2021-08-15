@@ -108,7 +108,9 @@ const Main = ({
                 successText: '응, 할래!',
                 cancelText: '아니, 안할래',
             })
+            return
         }
+        router.push(ROUTES.COVID.LETTER.OPTION)
     }
 
     return (
