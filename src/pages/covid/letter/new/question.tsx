@@ -3,21 +3,22 @@ import {Question} from '$types/response/letter'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import Answer from './answer'
+import {getCurrentDate} from '$utils/date'
 
-const NewLetterQuestion = ({question}: {question: Question[]}) => {
+const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
     const INITIAL_ID = 0
-    const [currentQuestionId, setCurrentQuestionId] = useState<number>(INITIAL_ID)
+    const [currentQuestionIdx, setCurrentQuestionIdx] = useState<number>(INITIAL_ID)
     const onClickNext = () => {
-        if (currentQuestionId === Object.keys(question).length - 1) setCurrentQuestionId(INITIAL_ID)
-        else setCurrentQuestionId(currentQuestionId + 1)
+        if (currentQuestionIdx === Object.keys(questions).length - 1) setCurrentQuestionIdx(INITIAL_ID)
+        else setCurrentQuestionIdx(currentQuestionIdx + 1)
     }
 
     return (
         <>
             <QuestionWrapper>
-                <span className="question-number">질문 {currentQuestionId + 1}</span>
-                <h3>{question[currentQuestionId].text}</h3>
-                <span className="create-date">작성 날짜 | 2021.00.00</span>
+                <span className="question-number">질문 {currentQuestionIdx + 1}</span>
+                <h3>{questions[currentQuestionIdx].text}</h3>
+                <span className="create-date">작성 날짜 | {getCurrentDate()}</span>
             </QuestionWrapper>
             <Button onClick={onClickNext}>다른 질문에 대답할래요</Button>
             <Answer />

@@ -1,15 +1,14 @@
-import {STICKER} from '$types/response/letter'
+import {Sticker} from '$types/response/letter'
 
 interface NewLetter {
     answer: string
     title: string
-    optionId?: number
-    questionId?: number
-    sticker?: STICKER
+    questionId: number
+    sticker: Sticker
 }
 
 export interface LetterState extends NewLetter {
-    addAnswer: (answer: string) => void //변수명 고민..
+    addAnswer: (answer: string) => void
     addTitle: (title: string) => void
     resetAnswer: () => void
 }
@@ -18,7 +17,6 @@ const createLetter = (): LetterState => {
     return {
         answer: '',
         title: '',
-        optionId: 0,
         questionId: 0,
         sticker: 'OK',
 
@@ -32,8 +30,11 @@ const createLetter = (): LetterState => {
 
         resetAnswer: () => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore 이거 처리가 너무 어려워요 8ㅅ8 도와주세욥 ㅠㅠ
+            // @ts-ignore
             this.title = ''
+
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             this.answer = ''
         },
     }

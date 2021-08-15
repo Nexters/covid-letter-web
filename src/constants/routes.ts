@@ -18,7 +18,7 @@ const ROUTES = Object.freeze({
             OPTION: `${THEME_COVID_PATH}/letter/option`, //편지 작성 시 발송기준 선택 페이지
             NEW: {
                 MAIN: `${THEME_COVID_PATH}/letter/new/[optionId]`, //편지 본문 작성 페이지
-                STICKER: `${THEME_COVID_PATH}/letter/new/sticker`, //편지 스티커 선택 페이지
+                ATTACH: `${THEME_COVID_PATH}/letter/new/attach`, //편지 스티커 선택 페이지
                 FINISH: `${THEME_COVID_PATH}/letter/new/finish`, //편지 발송 완료 페이지
             },
         },

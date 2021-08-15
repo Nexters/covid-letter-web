@@ -34,9 +34,9 @@ const LetterOptionPage = ({options}: Props) => {
                 <p className="sub-title">언제 발송을 원하시나요?</p>
             </Title>
             <ButtonList>
-                {options.map((option, index) => (
+                {options.map((option) => (
                     <li key={option.id} onClick={() => onClickOption(option)}>
-                        <Button isClicked={index === selectedOptionId}>{option.text}</Button>
+                        <Button isClicked={option.id === selectedOptionId}>{option.text}</Button>
                     </li>
                 ))}
             </ButtonList>
@@ -64,7 +64,6 @@ type ButtonPropsType = {
 }
 const Container = styled.section`
     ${tw`tw-bg-beige-300 tw-flex tw-flex-col tw-justify-center`}
-    max-width: 36rem;
     height: 100vh;
     margin: 0 auto;
 `
@@ -113,7 +112,8 @@ const Button = styled.button<ButtonPropsType>([
 
 const ConfirmButton = styled.button`
     ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
-    min-width: 36rem;
+    max-width: 42rem;
+    width: 100%;
     height: 5.2rem;
     font-size: 1.6rem;
     line-height: 2.5rem;

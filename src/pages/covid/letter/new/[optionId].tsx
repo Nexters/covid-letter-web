@@ -7,14 +7,14 @@ import cookies from 'next-cookies'
 import {GetServerSideProps} from 'next'
 
 interface Props {
-    question: Question[]
+    questions: Question[]
 }
 
-const NewLetter = ({question}: Props) => {
+const NewLetter = ({questions}: Props) => {
     return (
         <Container>
             <Header />
-            <NewLetterQuestion question={question} />
+            <NewLetterQuestion questions={questions} />
         </Container>
     )
 }
@@ -29,9 +29,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             Authorization: letterLogin,
         },
     })
-    const question = res
+    const questions = res
 
-    return {props: {question}}
+    return {props: {questions}}
 }
 
 const Container = styled.section`
