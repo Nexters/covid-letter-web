@@ -90,23 +90,23 @@ const Main = ({
         setIsLogined(false)
         if (!isMobile) {
             alert({
-                title: '로그아웃되었습니다.',
+                title: '로그아웃 됐어. 다시 돌아올거지?',
             })
         } else {
-            toast('로그아웃되었습니다.', 1500)
+            toast('로그아웃 됐어. 다시 돌아올거지?', 1500)
         }
     }
 
     const createNewLetter = () => {
         if (!isLogined) {
             confirm({
-                title: '앗! 당황하셨죠?',
-                message: '이 기능은 로그인을 해야\n사용할 수 있는 기능입니다.\n로그인 하시겠어요?',
+                title: '앗! 당황했어?',
+                message: '이 기능은 로그인을 해야\n사용할 수 있는 기능이야!\n로그인할래?',
                 onSuccess: () => {
                     router.push(ROUTES.LOGIN)
                 },
-                successText: '네.할래요!',
-                cancelText: '아니요.안할래요',
+                successText: '응, 할래!',
+                cancelText: '아니, 안할래',
             })
         }
     }
@@ -119,13 +119,13 @@ const Main = ({
                     <Title>
                         <Highlight>총 {numberFormat(unsented + sented)}통</Highlight>의 편지가
                         <br />
-                        작성되었어요.
+                        작성되었어!
                     </Title>
                 </TitleContainer>
                 <SubTitle>
                     코로나가 끝나는 그 날,
                     <br />
-                    마음을 담은 편지를 전달해줄게요.
+                    마음을 담은 편지를 전달해줄게:)
                 </SubTitle>
                 <MainImage>
                     <SvgHome />
@@ -176,7 +176,7 @@ const Main = ({
                     style={{
                         marginTop: '1.6rem',
                     }}
-                    title="이만큼 작성됐어요"
+                    title="이만큼 작성됐어!"
                     info={[
                         {
                             title: '미발송 편지',
