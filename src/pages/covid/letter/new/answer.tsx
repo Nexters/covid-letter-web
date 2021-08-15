@@ -12,7 +12,7 @@ const Answer = () => {
     const onClickConfirm = () => {
         if (answer.length === 0 || title.length === 0) return
         router.push({
-            pathname: ROUTES.COVID.LETTER.NEW.STICKER,
+            pathname: ROUTES.COVID.LETTER.NEW.ATTACH,
             query: {optionId: router.query.optionId},
         })
     }
@@ -39,11 +39,13 @@ const AnswerWrapper = styled.section`
     ${tw`tw-bg-beige-200 
         tw-flex tw-flex-col`}
     width: 100%;
+    max-width: 42rem;
     height: 28.8rem;
     position: fixed;
     bottom: 5.2rem;
     padding: 3.2rem 2.4rem 1.6rem;
     letter-spacing: -0.015em;
+    border-radius: 1rem;
 `
 const TitleInput = styled.input`
     ${tw`tw-bg-beige-200 tw-font-ohsquare-air tw-text-grey-800`}
@@ -62,7 +64,8 @@ const AnswerInput = styled.textarea`
 
 const ConfirmButton = styled.button`
     ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
-    min-width: 36rem;
+    max-width: 42rem;
+    width: 100%;
     height: 5.2rem;
     font-size: 1.6rem;
     line-height: 2.5rem;
