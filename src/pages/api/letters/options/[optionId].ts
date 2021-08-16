@@ -7,11 +7,15 @@ import {API_URL_BASE} from '$config'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Response<Question | null>>) {
     const {optionId} = req.query
+    console.debug(optionId, 'option')
     try {
         const {
             data: {errorCode, message, data: question},
         }: AxiosResponse<ServerResponse<Question>> = await axios.get(
             `${API_URL_BASE}/letters/options/${optionId}/questions`,
+            {
+                headers: req.headers,
+            },
         )
         if (errorCode) {
             console.info(`errorCode: ${errorCode}, message: ${message}`)

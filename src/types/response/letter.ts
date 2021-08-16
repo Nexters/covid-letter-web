@@ -18,7 +18,7 @@ const STICKER = {
     GOOD: 'GOOD',
     OK: 'OK',
 } as const
-type STICKER = typeof STICKER[keyof typeof STICKER]
+export type Sticker = typeof STICKER[keyof typeof STICKER]
 
 export interface Letter {
     contents: string
@@ -27,7 +27,7 @@ export interface Letter {
     encryptedId: string
     questionId: string
     state: LetterState
-    sticker: STICKER
+    sticker: Sticker
     title: string
 }
 

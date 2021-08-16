@@ -7,14 +7,64 @@ import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
 import tw from 'twin.macro'
 
+interface Props {
+    options: LetterOption[]
+}
+
+const LetterOptionPage = ({options}: Props) => {
+    const router = useRouter()
+
+    const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
+    const onClickOption = (option: LetterOption) => {
+        if (option.id === selectedOptionId) {
+            setSelectedOptionId(-1)
+        } else setSelectedOptionId(option.id)
+    }
+    const onClickConfirm = () => {
+        if (selectedOptionId === -1) return
+        router.push({
+            pathname: ROUTES.COVID.LETTER.NEW.MAIN,
+            query: {optionId: selectedOptionId},
+        })
+    }
+    return (
+        <Container>
+            <Title>
+                발송 기준 선택 📮
+                <p className="sub-title">언제 발송을 원하시나요?</p>
+            </Title>
+            <ButtonList>
+                {options.map((option) => (
+                    <li key={option.id} onClick={() => onClickOption(option)}>
+                        <Button isClicked={option.id === selectedOptionId}>{option.text}</Button>
+                    </li>
+                ))}
+            </ButtonList>
+            <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
+        </Container>
+    )
+}
+
+export async function getServerSideProps() {
+    const res = await withAxios<LetterOption[]>({
+        url: '/letters/options',
+        method: 'GET',
+    })
+
+    const options = res.map((option) => ({
+        ...option,
+    }))
+
+    return {props: {options}}
+}
+
 type ButtonPropsType = {
     children?: ReactChild
     isClicked?: boolean
 }
 const Container = styled.section`
     ${tw`tw-bg-beige-300 tw-flex tw-flex-col tw-justify-center`}
-    max-width: 36rem;
-    height: 100vh;
+    height: calc(100vh - 5.2rem);
     margin: 0 auto;
 `
 
@@ -62,60 +112,10 @@ const Button = styled.button<ButtonPropsType>([
 
 const ConfirmButton = styled.button`
     ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
-    min-width: 36rem;
+    max-width: 42rem;
+    width: 100%;
     height: 5.2rem;
     font-size: 1.6rem;
     line-height: 2.5rem;
 `
-
-interface Props {
-    options: LetterOption[]
-}
-
-const LetterOptionPage = ({options}: Props) => {
-    const router = useRouter()
-
-    const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
-    const onClickOption = (option: LetterOption) => {
-        if (option.id === selectedOptionId) {
-            setSelectedOptionId(-1)
-        } else setSelectedOptionId(option.id)
-    }
-    const onClickConfirm = () => {
-        if (selectedOptionId === -1) return
-        router.push({
-            pathname: ROUTES.COVID.LETTER.NEW,
-            query: {option: selectedOptionId},
-        })
-    }
-    return (
-        <Container>
-            <Title>
-                발송 기준 선택 📮
-                <p className="sub-title">언제 발송을 원하시나요?</p>
-            </Title>
-            <ButtonList>
-                {options.map((option, index) => (
-                    <li key={option.id} onClick={() => onClickOption(option)}>
-                        <Button isClicked={index === selectedOptionId}>{option.text}</Button>
-                    </li>
-                ))}
-            </ButtonList>
-            <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
-        </Container>
-    )
-}
-
-export async function getServerSideProps() {
-    const res = await withAxios<LetterOption[]>({
-        url: '/letters/options',
-        method: 'GET',
-    })
-
-    const options = res.map((option) => ({
-        ...option,
-    }))
-
-    return {props: {options}}
-}
 export default LetterOptionPage

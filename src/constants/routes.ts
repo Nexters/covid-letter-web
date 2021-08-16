@@ -14,7 +14,11 @@ const ROUTES = Object.freeze({
             ENVELOPE: `${THEME_COVID_PATH}/letter/envelope`, //메일수신함에서 로그인없이 다이렉트로 접근 시 편지 봉투 모달만 존재
             DETAIL: `${THEME_COVID_PATH}/letter/[encryptedId]`, //편지내용 상세 페이지
             OPTION: `${THEME_COVID_PATH}/letter/option`, //편지 작성 시 발송기준 선택 페이지
-            NEW: `${THEME_COVID_PATH}/letter/new/[option]`, //편지 본문 작성 페이지
+            NEW: {
+                MAIN: `${THEME_COVID_PATH}/letter/new/[optionId]`, //편지 본문 작성 페이지
+                ATTACH: `${THEME_COVID_PATH}/letter/new/attach`, //편지 스티커 선택 페이지
+                FINISH: `${THEME_COVID_PATH}/letter/new/finish`, //편지 발송 완료 페이지
+            },
         },
     },
 })
