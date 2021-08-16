@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Container = styled.section`
     ${tw`tw-bg-beige-300 tw-flex tw-flex-col`}
     max-width: 36rem;
-    height: 100vh;
+    height: calc(100vh - 5.2rem);
     margin: 0 auto;
     text-align: center;
     align-items: center;

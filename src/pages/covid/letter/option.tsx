@@ -64,7 +64,7 @@ type ButtonPropsType = {
 }
 const Container = styled.section`
     ${tw`tw-bg-beige-300 tw-flex tw-flex-col tw-justify-center`}
-    height: 100vh;
+    height: calc(100vh - 5.2rem);
     margin: 0 auto;
 `
 
