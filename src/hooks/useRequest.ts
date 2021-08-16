@@ -4,10 +4,7 @@ import {AxiosError} from 'axios'
 import useSWR, {SWRConfiguration, SWRResponse} from 'swr'
 
 interface SwrReturn<Data, Error>
-    extends Pick<
-        SWRResponse<Data, AxiosError<Error>>,
-        'isValidating' | 'revalidate' | 'error' | 'mutate'
-    > {
+    extends Pick<SWRResponse<Data, AxiosError<Error>>, 'isValidating' | 'revalidate' | 'error' | 'mutate'> {
     data: Data | undefined
     response: Data | undefined
 }
@@ -16,6 +13,8 @@ export interface SwrConfig<Data = unknown, Error = unknown>
     extends Omit<SWRConfiguration<Data, AxiosError<Error>>, 'initialData'> {
     initialData?: Data
 }
+
+const retrieveData = <Data = unknown>(data: Data) => new Promise<Data>((resolve) => resolve(data))
 
 export default function useRequest<Data = unknown, Error = unknown>(
     request: RequestConfig,
@@ -29,7 +28,7 @@ export default function useRequest<Data = unknown, Error = unknown>(
         mutate,
     } = useSWR(
         request && JSON.stringify(request),
-        () => withAxios<Data>(request),
+        () => (initialData ? retrieveData(initialData) : withAxios<Data>(request)),
         {
             ...config,
             initialData,

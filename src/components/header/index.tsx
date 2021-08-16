@@ -115,7 +115,7 @@ const MainHeader = ({logined, logout}: {logined: boolean; logout: () => void}) =
                                         <span style={{marginRight: '1.7rem'}}>💬</span>자주 묻는 질문
                                     </>
                                 ),
-                                link: ROUTES.COVID.SIDE.FAQ,
+                                link: '#', // 외부링크
                             },
                             {
                                 title: (
@@ -123,7 +123,7 @@ const MainHeader = ({logined, logout}: {logined: boolean; logout: () => void}) =
                                         <span style={{marginRight: '1.7rem'}}>💡</span>서비스 피드백
                                     </>
                                 ),
-                                link: ROUTES.COVID.SIDE.REVIEW,
+                                link: '#', // 외부링크
                             },
                             ...logoutValue,
                         ]}
