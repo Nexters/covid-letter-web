@@ -28,13 +28,8 @@ const createLetter = (): LetterState => {
             this.title = title || ''
         },
 
-        resetAnswer: () => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
+        resetAnswer() {
             this.title = ''
-
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             this.answer = ''
         },
     }
