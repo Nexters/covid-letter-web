@@ -37,12 +37,8 @@ const LoginedWelcomeArea = ({email, name}: LoginedWelcomeAreaProps) => {
             <Email>
                 <span>{email}</span>
             </Email>
-            <Title>안녕하세요. {name}님.</Title>
-            <WelcomeText>
-                오늘도 나에게 편지를
-                <br />
-                남겨볼까요?
-            </WelcomeText>
+            <Title>안녕, 나야!</Title>
+            <WelcomeText>오늘도 편지를 남겨볼까?</WelcomeText>
         </Container>
     )
 }

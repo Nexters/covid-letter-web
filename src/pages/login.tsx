@@ -78,7 +78,11 @@ const Login = ({isMobile}: {isMobile: boolean}) => {
                 <br />
                 ‘코로나’편
             </Title>
-            <SubTitle>어려운 시기, 미래의 나에게 마음을 담아 전해요.</SubTitle>
+            <SubTitle>
+                안녕, 나야! 어려운 시기,
+                <br />
+                미래의 나에게 마음을 담아 전해줘.
+            </SubTitle>
             <BottomFixed isMobile={isMobile}>
                 <Img>
                     <SvgLogin />
@@ -87,10 +91,15 @@ const Login = ({isMobile}: {isMobile: boolean}) => {
                     <IntroTitle>온전히 나에게 집중하는 시간...</IntroTitle>
                     <IntroContent isMobile={isMobile}>
                         이 서비스는 시끄러운 외부 환경에서 벗어나 스스로를 돌아보고 돌볼 수 있는 시간을 제공하는
-                        플랫폼이에요. 삶에 대한 깊이있는 질문에 답하기를 통해 자신의 생각을 정리하고 오직 자신에게
-                        집중하는 순간을 느껴보세요. 세상에 너무 많은 정보와 네트워킹이 범람하는 요즘, 많은 사람들이
-                        인생에서 가장 중요한 것은 바로 자신이라는 사실을 잊어버리곤 한답니다. 나에게 쓰는 편지는 이처럼
-                        가장 소중한 자신을 이해하고 알아가는 과정을 제시해줍니다.
+                        플랫폼이야.
+                        <br />
+                        삶에 대한 깊이있는 질문에 답하기를 통해 자신의 생각을 정리하고 오직 자신에게 집중하는 순간을
+                        느껴봐.
+                        <br />
+                        세상에 너무 많은 정보와 네트워킹이 범람하는 요즘, 많은 사람들이 인생에서 가장 중요한 것은 바로
+                        자신이라는 사실을 잊어버리곤 해.
+                        <br />
+                        나에게 쓰는 편지는 이처럼 가장 소중한 자신을 이해하고 알아가는 과정을 제시해줘.
                     </IntroContent>
                     <ButtonContainer isMobile={isMobile}>
                         <NaverLoginButton returnUrl={ROUTES.COVID.MAIN} isMobile={isMobile} />

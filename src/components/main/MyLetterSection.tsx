@@ -51,7 +51,7 @@ const MyLetterSection = ({logined}: {logined: boolean}) => {
                 <span>
                     나에게 <Highlight>00 통의 편지</Highlight>를
                     <br />
-                    작성했습니다!
+                    작성했어!
                 </span>
             </Title>
             <LetterButton>편지 목록 보기</LetterButton>
