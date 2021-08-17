@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import MainHeader from '$components/header'
+import MainHeader from '$components/header/MainHeader'
 import {CovidStats, LetterStats} from '$types/response/stat'
 import {numberFormat} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
