@@ -28,10 +28,9 @@ const WelcomeText = styled.div`
 
 interface LoginedWelcomeAreaProps {
     email: string
-    name: string
 }
 
-const LoginedWelcomeArea = ({email, name}: LoginedWelcomeAreaProps) => {
+const LoginedWelcomeArea = ({email}: LoginedWelcomeAreaProps) => {
     return (
         <Container>
             <Email>
