@@ -4,10 +4,14 @@ import tw from 'twin.macro'
 import StickerList from '$components/sticker'
 import ROUTES from '$constants/routes'
 import {useRouter} from 'next/router'
+import {useLetterStore} from '$contexts/StoreContext'
+import {observer} from 'mobx-react-lite'
 
 const Attach = () => {
     const router = useRouter()
+    const {sticker} = useLetterStore()
     const onClickConfirm = () => {
+        if (!sticker.type) return
         router.push({
             pathname: ROUTES.COVID.LETTER.NEW.FINISH,
             query: {optionId: router.query.optionId},
@@ -23,12 +27,27 @@ const Attach = () => {
                 </Header>
                 <StickerDescription>
                     <Sticker>
-                        <span className="question-mark">?</span>
+                        {sticker.type ? <span>{sticker.type}</span> : <span className="question-mark">?</span>}
                     </Sticker>
-                    <span className="sticker-name">지금 나는...</span>
-                    <span className="sticker-desc">
-                        미래의 나에게 <br /> 어떤 감정을 전달하고 싶어?
-                    </span>
+                    {sticker.label ? (
+                        <span className="sticker-name">{sticker.label}</span>
+                    ) : (
+                        <span className="sticker-name">지금 나는...</span>
+                    )}
+                    {sticker.desc ? (
+                        <span className="sticker-desc">
+                            {sticker.desc.split('\n').map((text) => (
+                                <span key={text}>
+                                    {text}
+                                    <br />
+                                </span>
+                            ))}
+                        </span>
+                    ) : (
+                        <span className="sticker-desc">
+                            미래의 나에게 <br /> 어떤 감정을 전달하고 싶어?
+                        </span>
+                    )}
                 </StickerDescription>
                 <StickerList />
                 <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
@@ -39,7 +58,6 @@ const Attach = () => {
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300 tw-flex tw-flex-col`}
-    //max-width: 36rem;
     height: 100%;
     margin: 0 auto;
     padding-top: 5.6rem;
@@ -100,4 +118,4 @@ const ConfirmButton = styled.button`
     line-height: 2.5rem;
     z-index: 2;
 `
-export default Attach
+export default observer(Attach)
