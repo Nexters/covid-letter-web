@@ -17,12 +17,11 @@ const HeaderLeft = tw.div`tw-flex tw-items-center tw-truncate`
 const HeaderRight = tw.span`tw-truncate`
 
 const HeaderContainer = styled.div`
-    ${tw`tw-m-0 tw-truncate`}
+    ${tw`tw-m-0 tw-truncate tw-bg-beige-300`}
     box-sizing: border-box;
     list-style: none;
     position: relative;
     padding: 1.5rem 1.6rem;
-    background: #eae6d7;
 `
 
 const titleButtonCss = css`
