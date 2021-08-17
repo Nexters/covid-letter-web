@@ -40,9 +40,10 @@ const Attach = () => {
 const Container = styled.div`
     ${tw`tw-bg-beige-300 tw-flex tw-flex-col`}
     //max-width: 36rem;
-    height: calc(100vh - 5.2rem);
+    height: 100%;
     margin: 0 auto;
     padding-top: 5.6rem;
+    padding-bottom: 5.6rem;
 `
 
 const Header = styled.section`
@@ -97,5 +98,6 @@ const ConfirmButton = styled.button`
     height: 5.2rem;
     font-size: 1.6rem;
     line-height: 2.5rem;
+    z-index: 2;
 `
 export default Attach
