@@ -14,18 +14,29 @@ import SvgStickerUnhappy from '../../assets/sticker/Unhappy'
 const Stickers = () => {
     return (
         <>
-            <SvgStickerBlue width={'5rem'} height={'5rem'} />
-            <SvgStickerExpect width={'5rem'} height={'5rem'} />
-            <SvgStickerFighting width={'5rem'} height={'5rem'} />
-            <SvgStickerGood width={'5rem'} height={'5rem'} />
-            <SvgStickerHappy width={'5rem'} height={'5rem'} />
-            <SvgStickerLove width={'5rem'} height={'5rem'} />
-            <SvgStickerOk width={'5rem'} height={'5rem'} />
-            <SvgStickerSad width={'5rem'} height={'5rem'} />
-            <SvgStickerShame width={'5rem'} height={'5rem'} />
-            <SvgStickerShock width={'5rem'} height={'5rem'} />
-            <SvgStickerShy width={'5rem'} height={'5rem'} />
-            <SvgStickerUnhappy width={'5rem'} height={'5rem'} />
+            <SvgStickerBlue width={'5rem'} />
+            <br />
+            <SvgStickerExpect width={'5rem'} />
+            <br />
+            <SvgStickerFighting width={'5rem'} />
+            <br />
+            <SvgStickerGood width={'5rem'} />
+            <br />
+            <SvgStickerHappy width={'5rem'} />
+            <br />
+            <SvgStickerLove width={'5rem'} />
+            <br />
+            <SvgStickerOk width={'5rem'} />
+            <br />
+            <SvgStickerSad width={'5rem'} />
+            <br />
+            <SvgStickerShame width={'5rem'} />
+            <br />
+            <SvgStickerShock width={'5rem'} />
+            <br />
+            <SvgStickerShy width={'5rem'} />
+            <br />
+            <SvgStickerUnhappy width={'5rem'} />
         </>
     )
 }

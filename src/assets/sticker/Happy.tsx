@@ -1,8 +1,8 @@
-function SvgStickerHappy({width = '1rem', height = '1rem'}: {width: string, height: string}) {
+function SvgStickerHappy({width = '1rem'}: {width: string}) {
   return (
       <svg
           width={width}
-          height={height}
+          height={width}
           viewBox="0 0 68 68"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
