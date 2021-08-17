@@ -25,7 +25,7 @@ const Container = styled.div`
     ${tw`tw-bg-beige-300`}
     min-height: 100vh;
     height: 100%;
-    padding: 3.2rem 2.4rem;
+    padding: ${7.1 + 3.2}rem 2.4rem 3.2rem;
 `
 
 const TitleContainer = styled.div`
