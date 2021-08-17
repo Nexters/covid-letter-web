@@ -94,11 +94,7 @@ const MainHeader = ({logined, logout}: {logined: boolean; logout: () => void}) =
             </HeaderContainer>
             <Sidebar isShow={sidebarShow} closeFn={closeSidebar}>
                 <SidebarContainer>
-                    {logined && profile ? (
-                        <LoginedWelcomeArea email={profile.email as string} name={profile.name as string} />
-                    ) : (
-                        <WelcomeArea />
-                    )}
+                    {logined && profile ? <LoginedWelcomeArea email={profile.email as string} /> : <WelcomeArea />}
                     <SidebarButtonList
                         list={[
                             {
