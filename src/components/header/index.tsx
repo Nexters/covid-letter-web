@@ -21,7 +21,8 @@ const HeaderContainer = styled.div`
     box-sizing: border-box;
     list-style: none;
     position: relative;
-    padding: 1.5rem 2.4rem;
+    padding: 1.5rem 1.6rem;
+    background: #eae6d7;
 `
 
 const titleButtonCss = css`
