@@ -6,6 +6,7 @@ import ROUTES from '$constants/routes'
 import {useRouter} from 'next/router'
 import {useLetterStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
+import {StickerFactory} from '$components/sticker/stickerFactory'
 
 const Attach = () => {
     const router = useRouter()
@@ -27,7 +28,11 @@ const Attach = () => {
                 </Header>
                 <StickerDescription>
                     <Sticker>
-                        {sticker.type ? <span>{sticker.type}</span> : <span className="question-mark">?</span>}
+                        {sticker.type ? (
+                            <span className="sticker">{StickerFactory(sticker.type, '8rem')}</span>
+                        ) : (
+                            <span className="question-mark">?</span>
+                        )}
                     </Sticker>
                     {sticker.label ? (
                         <span className="sticker-name">{sticker.label}</span>
