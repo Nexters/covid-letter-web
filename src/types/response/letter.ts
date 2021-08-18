@@ -4,7 +4,7 @@ export enum LetterState {
     DISPLAYED = 'DISPLAYED', //전송완료(읽음)
 }
 
-const STICKER_TYPE = {
+export const STICKER_TYPE = {
     HAPPY: 'HAPPY',
     EXPECT: 'EXPECT',
     SHY: 'SHY',
