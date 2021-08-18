@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import BackSvg from '../../assets/BackSvg'
+import {useRouter} from 'next/router'
 
 const BackContainer = styled.div`
     position: absolute;
@@ -11,9 +12,10 @@ const BackContainer = styled.div`
 `
 
 const Back = () => {
+    const router = useRouter()
 
     const handleBack = () => {
-        console.log('back button clicked')
+        router.back()
     }
 
     return (
