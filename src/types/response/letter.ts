@@ -4,7 +4,7 @@ export enum LetterState {
     DISPLAYED = 'DISPLAYED', //전송완료(읽음)
 }
 
-const STICKER = {
+export const STICKER_TYPE = {
     HAPPY: 'HAPPY',
     EXPECT: 'EXPECT',
     SHY: 'SHY',
@@ -18,7 +18,7 @@ const STICKER = {
     GOOD: 'GOOD',
     OK: 'OK',
 } as const
-export type Sticker = typeof STICKER[keyof typeof STICKER]
+export type StickerType = typeof STICKER_TYPE[keyof typeof STICKER_TYPE] | undefined
 
 export interface Letter {
     contents: string
@@ -27,7 +27,7 @@ export interface Letter {
     encryptedId: string
     questionId: string
     state: LetterState
-    sticker: Sticker
+    sticker: StickerType
     title: string
 }
 
