@@ -1,42 +1,42 @@
-import BLUE from 'assets/sticker/Blue'
-import EXPECT from 'assets/sticker/Expect'
-import FIGHTING from 'assets/sticker/Fighting'
-import GOOD from 'assets/sticker/Good'
-import HAPPY from 'assets/sticker/Happy'
-import LOVE from 'assets/sticker/Love'
-import OK from 'assets/sticker/Ok'
-import SAD from 'assets/sticker/Sad'
-import SHAME from 'assets/sticker/Shame'
-import SHOCK from 'assets/sticker/Shock'
-import SHY from 'assets/sticker/Shy'
-import UNHAPPY from 'assets/sticker/Unhappy'
+import Blue from 'assets/sticker/Blue'
+import Expect from 'assets/sticker/Expect'
+import Fighting from 'assets/sticker/Fighting'
+import Good from 'assets/sticker/Good'
+import Happy from 'assets/sticker/Happy'
+import Love from 'assets/sticker/Love'
+import Ok from 'assets/sticker/Ok'
+import Sad from 'assets/sticker/Sad'
+import Shame from 'assets/sticker/Shame'
+import Shock from 'assets/sticker/Shock'
+import Shy from 'assets/sticker/Shy'
+import Unhappy from 'assets/sticker/Unhappy'
 import {STICKER_TYPE, StickerType} from '$types/response/letter'
 
 export const StickerFactory = (stickerType: StickerType, width = '5.2rem') => {
     switch (stickerType) {
         case STICKER_TYPE.HAPPY:
-            return <HAPPY width={width} />
+            return <Happy width={width} />
         case STICKER_TYPE.EXPECT:
-            return <EXPECT width={width} />
+            return <Expect width={width} />
         case STICKER_TYPE.SHY:
-            return <SHY width={width} />
+            return <Shy width={width} />
         case STICKER_TYPE.LOVE:
-            return <LOVE width={width} />
+            return <Love width={width} />
         case STICKER_TYPE.UNHAPPY:
-            return <UNHAPPY width={width} />
+            return <Unhappy width={width} />
         case STICKER_TYPE.SAD:
-            return <SAD width={width} />
+            return <Sad width={width} />
         case STICKER_TYPE.SHOCK:
-            return <SHOCK width={width} />
+            return <Shock width={width} />
         case STICKER_TYPE.BLUE:
-            return <BLUE width={width} />
+            return <Blue width={width} />
         case STICKER_TYPE.SHAME:
-            return <SHAME width={width} />
+            return <Shame width={width} />
         case STICKER_TYPE.FIGHTING:
-            return <FIGHTING width={width} />
+            return <Fighting width={width} />
         case STICKER_TYPE.GOOD:
-            return <GOOD width={width} />
+            return <Good width={width} />
         case STICKER_TYPE.OK:
-            return <OK width={width} />
+            return <Ok width={width} />
     }
 }
