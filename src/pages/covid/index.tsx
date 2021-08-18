@@ -119,7 +119,6 @@ const Main = ({
         router.push(ROUTES.COVID.LETTER.OPTION)
     }
 
-    console.log(numberFormat(unsented + sented))
     const transitions = useNumberAnimation(numberFormat(unsented + sented))
 
     return (
