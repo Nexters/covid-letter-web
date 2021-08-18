@@ -7,19 +7,36 @@ import Back from '$components/appbar/Back'
 import HalfLayer from '$components/layer/HalfLayer'
 import {useState} from 'react'
 import {convertCommonDateFormat} from '$utils/date'
+import tw from 'twin.macro'
+import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
+import {FlexStart} from '$styles/utils/layout'
+import EmptyLetterListContainer from '$components/letter/EmptyLetterListContainer'
 
 const Container = styled.div`
-    background-color: #f2f2f2;
+    ${tw`tw-bg-beige-300 tw-h-screen`}
     min-height: 100vh;
-    height: 100%;
+    padding: 3.2rem 2.4rem;
 `
-
 const LettersContainer = styled.div`
     padding-top: 5.6rem;
 `
+const TitleContainer = styled.div`
+    ${FontOhsquare}
+    ${FlexStart}
+    ${tw`tw-text-left tw-text-xl tw-text-primary-green-500`}
+    
+    .icon-letter {
+        margin-top: 0.2rem;
+        margin-left: 0.8rem;
+    }
+`
+const SubTitle = styled.div`
+    ${FontOhsquareAir}
+    ${FlexStart}
+    ${tw`tw-text-left tw-text-base tw-text-primary-green-500`}
+    margin-top: 0.8rem;
+`
 
-const Title = styled.div``
-const SubTitle = styled.div``
 const ListContainer = styled.ul``
 const ItemContainer = styled.li`
     margin: 1rem;
@@ -41,28 +58,37 @@ const Letters = ({letters}: {letters: Letter[]}) => {
         setIsShowEnvelop(false)
     }
 
+    const letterList = letters.length > 0
+        ? (
+            <ListContainer>
+                {letters.map(({title, state, sticker, createdDate, encryptedId}) => (
+                    <ItemContainer key={encryptedId} onClick={() => openEnvelope(encryptedId)}>
+                        <div>제목: {title}</div>
+                        <div>작성일: {convertCommonDateFormat(createdDate)}</div>
+                        <div>발송기준: -</div>
+                        <div>전송상태: {state} - UI 적용</div>
+                        <div>스티커: {sticker} - UI 적용</div>
+                    </ItemContainer>
+                ))}
+            </ListContainer>
+        )
+        : <EmptyLetterListContainer />
+
     return (
-        <Container>
+        <>
             <Back />
-            <LettersContainer>
-                <Title>작성한 편지 목록</Title>
-                <SubTitle>과거의 내가 작성한 편지들이에요.</SubTitle>
-                <ListContainer>
-                    {letters.map(({title, state, sticker, createdDate, encryptedId}) => (
-                        <ItemContainer key={encryptedId} onClick={() => openEnvelope(encryptedId)}>
-                            <div>제목: {title}</div>
-                            <div>작성일: {convertCommonDateFormat(createdDate)}</div>
-                            <div>발송기준: -</div>
-                            <div>전송상태: {state} - UI 적용</div>
-                            <div>스티커: {sticker} - UI 적용</div>
-                        </ItemContainer>
-                    ))}
-                </ListContainer>
-            </LettersContainer>
-            <HalfLayer isShow={isShowEnvelope} closeFn={closeEnvelope} >
-                {openedLetterId}
-            </HalfLayer>
-        </Container>
+            <Container>
+                <LettersContainer>
+                    <TitleContainer>작성한 편지 목록 <span className="icon-letter">✉️</span></TitleContainer>
+                    <SubTitle>과거의 내가 작성한 편지들이에요.</SubTitle>
+                    {letterList}
+                </LettersContainer>
+
+                <HalfLayer isShow={isShowEnvelope} closeFn={closeEnvelope} >
+                    {openedLetterId}
+                </HalfLayer>
+            </Container>
+        </>
     )
 }
 
