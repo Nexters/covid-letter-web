@@ -17,11 +17,16 @@ const HeaderLeft = tw.div`tw-flex tw-items-center tw-truncate`
 const HeaderRight = tw.span`tw-truncate`
 
 const HeaderContainer = styled.div`
-    ${tw`tw-m-0 tw-truncate`}
+    ${tw`tw-m-0 tw-truncate tw-bg-beige-300`}
     box-sizing: border-box;
     list-style: none;
-    position: relative;
-    padding: 1.5rem 2.4rem;
+    padding: 1.5rem 1.6rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 420px;
+    margin: 0 auto;
 `
 
 const titleButtonCss = css`
@@ -56,7 +61,12 @@ const LeftButtonList = () => {
     )
 }
 
-const MainHeader = ({logined, logout}: {logined: boolean; logout: () => void}) => {
+type Props = {
+    logined: boolean
+    logout: () => void
+}
+
+const MainHeader = ({logined, logout}: Props) => {
     const {profile} = useProfileContext()
 
     const [sidebarShow, setSidebarShow] = useState(false)
@@ -94,11 +104,7 @@ const MainHeader = ({logined, logout}: {logined: boolean; logout: () => void}) =
             </HeaderContainer>
             <Sidebar isShow={sidebarShow} closeFn={closeSidebar}>
                 <SidebarContainer>
-                    {logined && profile ? (
-                        <LoginedWelcomeArea email={profile.email as string} name={profile.name as string} />
-                    ) : (
-                        <WelcomeArea />
-                    )}
+                    {logined && profile ? <LoginedWelcomeArea email={profile.email as string} /> : <WelcomeArea />}
                     <SidebarButtonList
                         list={[
                             {

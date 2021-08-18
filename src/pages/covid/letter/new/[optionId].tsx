@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
-import NewLetterQuestion from './question'
+import NewLetterQuestion from '$components/question/question'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {Question} from '$types/response/letter'
 import cookies from 'next-cookies'
@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Container = styled.section`
     ${tw`tw-bg-beige-300 tw-flex tw-flex-col`}
-    max-width: 36rem;
+    //max-width: 36rem;
     height: calc(100vh - 5.2rem);
     margin: 0 auto;
     text-align: center;

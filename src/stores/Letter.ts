@@ -1,9 +1,16 @@
-import {Sticker} from '$types/response/letter'
+import {StickerType} from '$types/response/letter'
 
+interface Sticker {
+    type: StickerType
+    label: string
+    desc: string
+}
 interface NewLetter {
     answer: string
     title: string
     questionId: number
+    optionId?: number
+    optionText?: string
     sticker: Sticker
 }
 
@@ -11,6 +18,8 @@ export interface LetterState extends NewLetter {
     addAnswer: (answer: string) => void
     addTitle: (title: string) => void
     resetAnswer: () => void
+    chooseOption: (optionId: number, optionText: string) => void
+    chooseSticker: (sticker: Sticker) => void
 }
 
 const createLetter = (): LetterState => {
@@ -18,7 +27,13 @@ const createLetter = (): LetterState => {
         answer: '',
         title: '',
         questionId: 0,
-        sticker: 'OK',
+        optionId: 0,
+        optionText: '',
+        sticker: {
+            type: undefined,
+            label: '',
+            desc: '',
+        },
 
         addAnswer(answer: string) {
             this.answer = answer || ''
@@ -31,6 +46,15 @@ const createLetter = (): LetterState => {
         resetAnswer() {
             this.title = ''
             this.answer = ''
+        },
+
+        chooseOption(optionId: number, optionText: string) {
+            this.optionId = optionId || 0
+            this.optionText = optionText || ''
+        },
+
+        chooseSticker(sticker: Sticker) {
+            this.sticker = sticker || {type: undefined, label: '', desc: ''}
         },
     }
 }
