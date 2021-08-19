@@ -9,10 +9,11 @@ import {useState} from 'react'
 import {convertCommonDateFormat} from '$utils/date'
 import tw from 'twin.macro'
 import {FontNanumBarunGothic, FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
-import {FlexBetween, FlexCenter, FlexStart} from '$styles/utils/layout'
+import {FlexBetween, FlexStart} from '$styles/utils/layout'
 import EmptyLetterListContainer from '$components/letter/EmptyLetterListContainer'
 import Divider from '$components/letter/Divider'
 import {StickerWithLetterFactory} from '$components/sticker/stickerWithLetterFactory'
+import {LetterStateTagFactory} from '$components/letter/LetterStateTagFactory'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300 tw-h-screen`}
@@ -43,10 +44,11 @@ const ListContainer = styled.div`
     margin-top: 3.2rem;
 `
 const ItemContainer = styled.div`
-    
+    cursor: pointer;    
 `
 
 const ItemTitleWrapper = styled.div`
+    ${FlexStart}
     .text {
         ${tw`tw-text-sm tw-font-light tw-text-grey-800`}
         letter-spacing: -0.015em;
@@ -81,23 +83,20 @@ const Letters = ({letters}: {letters: Letter[]}) => {
     const letterList = letters.length > 0
         ? (
             <ListContainer>
-                {letters.map(({title, state, sticker, createdDate, encryptedId}, index) => (
+                {letters.map(({title, state, sticker, createdDate, encryptedId, sendOptionText}, index) => (
                     <>
-                        {/*<ItemContainer key={encryptedId} className="letter_item" onClick={() => openEnvelope(encryptedId)}>*/}
-                        <ItemContainer key={encryptedId} className="letter_item" onClick={() => {}}>
+                        <ItemContainer key={encryptedId} className="letter_item" onClick={() => openEnvelope(encryptedId)}>
                             <ItemTitleWrapper>
                                 <span className='text'>{title}</span>
-                                  - 발송상태 {state}
+                                {LetterStateTagFactory(state)}
                             </ItemTitleWrapper>
                             <ItemDescWrapper>
                                 <div className='text-wrap'>
                                     작성일: {convertCommonDateFormat(createdDate)}
                                     <br/>
-                                    발송기준:
+                                    발송기준: {sendOptionText}
                                 </div>
-                                <div>
-                                    {StickerWithLetterFactory(sticker)}
-                                </div>
+                                {StickerWithLetterFactory(sticker)}
                             </ItemDescWrapper>
                         </ItemContainer>
                         {index !== letters.length - 1 && <Divider/>}

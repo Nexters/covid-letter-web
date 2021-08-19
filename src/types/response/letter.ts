@@ -28,6 +28,7 @@ export interface Letter {
     questionId: string
     state: LetterState
     sticker: StickerType
+    sendOptionText: string
     title: string
 }
 
