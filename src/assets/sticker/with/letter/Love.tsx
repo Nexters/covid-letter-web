@@ -5,7 +5,10 @@ function SvgStickerWithLetterLove({width = '1rem'}: {width: string}) {
       viewBox="0 0 64 38"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-labelledby="편지봉투 안에 스티커. 사랑해"
     >
+      <title>편지봉투 안에 스티커. 사랑해</title>
       <g clipPath="url(#love_svg__clip0)">
         <path
           d="M3.774 37.012a2.8 2.8 0 01-2.016-.855 2.853 2.853 0 01-.807-2.052V3.876a2.874 2.874 0 01.807-2.052A2.822 2.822 0 013.774.969h56.47a2.8 2.8 0 012.018.855 2.854 2.854 0 01.806 2.052v30.286a2.875 2.875 0 01-.806 2.052 2.822 2.822 0 01-2.017.855l-56.47-.057z"
