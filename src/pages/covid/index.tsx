@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import {CovidStats, LetterStats} from '$types/response/stat'
 import {numberFormat} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
@@ -10,7 +9,7 @@ import AnalyzeSection from '$components/main/AnalyzeSection'
 import {PropsFromApp} from '$types/index'
 import MyLetterSection from '$components/main/MyLetterSection'
 import StatBadge from '$components/main/StatBadge'
-import {useAlertStore} from '$contexts/StoreContext'
+import {useAlertStore, useAuthStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
@@ -20,6 +19,7 @@ import {MainButton} from '$styles/utils/components'
 import useNumberAnimation from '$hooks/useNumberAnimation'
 import {animated} from 'react-spring'
 import MainLayout from '$components/layout/MainLayout'
+import {useEffect} from 'react'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -83,7 +83,15 @@ const Main = ({
     isGoogleLogin,
     isMobile,
 }: PropsFromApp<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
-    const [isLogined, setIsLogined] = useState(!!token)
+    const {isLogined, loginUser, clearUser} = useAuthStore()
+
+    useEffect(() => {
+        if (token) {
+            loginUser()
+        } else {
+            clearUser()
+        }
+    }, [token])
 
     const {confirm} = useAlertStore()
     const router = useRouter()
@@ -107,11 +115,7 @@ const Main = ({
     const transitions = useNumberAnimation(numberFormat(unsented + sented))
 
     return (
-        <MainLayout
-            logined={isLogined}
-            isMobile={isMobile}
-            isGoogleLogin={isGoogleLogin}
-            clear={() => setIsLogined(false)}>
+        <MainLayout isMobile={isMobile} isGoogleLogin={isGoogleLogin}>
             <Container>
                 <TitleContainer>
                     <Title>
