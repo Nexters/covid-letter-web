@@ -22,6 +22,8 @@ const publicRuntimeConfig: Config = config.publicRuntimeConfig
 
 export const HOST_URL = env === 'local' ? 'http://localhost:3000' : 'https://covid-letter-web.vercel.app' // real domain
 
+export const ORIGIN_DOMAIN = env === 'local' ? 'http://localhost' : 'https://covid-letter-web.vercel.app'
+
 export const {
     REACT_APP_ENV,
     API_URL_BASE,

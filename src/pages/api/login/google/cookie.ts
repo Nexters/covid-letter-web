@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import {HOST_URL} from '$config'
+import {ORIGIN_DOMAIN} from '$config'
 import {Response} from '$types/response'
 import {LoginToken} from '$types/response/login'
 import {createResponse} from '$utils/fetcher/withAxios'
@@ -16,7 +16,7 @@ const routes = async (req: CookieApiRequest, res: NextApiResponse<Response<strin
         `letterLogin=${accessToken}; path=/; max-age=${tokenExpirationTime} HttpOnly`,
         `googleLogin=1; path=/; max-age=${tokenExpirationTime} HttpOnly`,
     ])
-    res.status(200).json(createResponse(`${HOST_URL}${returnUrl}`))
+    res.status(200).json(createResponse(`${ORIGIN_DOMAIN}${returnUrl}`))
 }
 
 module.exports = routes
