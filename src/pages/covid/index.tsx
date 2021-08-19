@@ -132,6 +132,7 @@ const Main = ({
                             {transitions((props, item) => (
                                 <AnimatedSpan style={props}>{item.number}</AnimatedSpan>
                             ))}
+                            통
                         </Highlight>
                         의 편지가
                         <br />
