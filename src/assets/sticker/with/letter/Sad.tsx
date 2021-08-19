@@ -2,7 +2,6 @@ function SvgStickerWithLetterSad({width = '1rem'}: {width: string}) {
   return (
     <svg
       width={width}
-      height={width}
       viewBox="0 0 64 38"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
