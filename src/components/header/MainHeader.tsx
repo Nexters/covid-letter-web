@@ -27,6 +27,7 @@ const HeaderContainer = styled.div`
     right: 0;
     max-width: 420px;
     margin: 0 auto;
+    z-index: 2000;
 `
 
 const titleButtonCss = css`
