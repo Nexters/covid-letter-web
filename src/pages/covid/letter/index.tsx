@@ -11,6 +11,7 @@ import tw from 'twin.macro'
 import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
 import {FlexStart} from '$styles/utils/layout'
 import EmptyLetterListContainer from '$components/letter/EmptyLetterListContainer'
+import Divider from '$components/letter/Divider'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300 tw-h-screen`}
@@ -37,9 +38,10 @@ const SubTitle = styled.div`
     margin-top: 0.8rem;
 `
 
-const ListContainer = styled.ul``
-const ItemContainer = styled.li`
-    margin: 1rem;
+const ListContainer = styled.div`
+    margin-top: 3.2rem;
+`
+const ItemContainer = styled.div`
     padding 1rem;
     border: solid;
 `
@@ -61,14 +63,17 @@ const Letters = ({letters}: {letters: Letter[]}) => {
     const letterList = letters.length > 0
         ? (
             <ListContainer>
-                {letters.map(({title, state, sticker, createdDate, encryptedId}) => (
-                    <ItemContainer key={encryptedId} onClick={() => openEnvelope(encryptedId)}>
-                        <div>제목: {title}</div>
-                        <div>작성일: {convertCommonDateFormat(createdDate)}</div>
-                        <div>발송기준: -</div>
-                        <div>전송상태: {state} - UI 적용</div>
-                        <div>스티커: {sticker} - UI 적용</div>
-                    </ItemContainer>
+                {letters.map(({title, state, sticker, createdDate, encryptedId}, index) => (
+                    <>
+                        <ItemContainer key={encryptedId} className="letter_item" onClick={() => openEnvelope(encryptedId)}>
+                            <div>제목: {title}</div>
+                            <div>작성일: {convertCommonDateFormat(createdDate)}</div>
+                            <div>발송기준: -</div>
+                            <div>전송상태: {state} - UI 적용</div>
+                            <div>스티커: {sticker} - UI 적용</div>
+                        </ItemContainer>
+                        {index !== letters.length - 1 && <Divider/>}
+                    </>
                 ))}
             </ListContainer>
         )
