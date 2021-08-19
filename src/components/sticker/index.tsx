@@ -12,7 +12,11 @@ const StickerList = () => {
             {stickerList.map((item) => (
                 <StickerItemWrapper key={item.type}>
                     <StickerWrapper onClick={() => chooseSticker(item)}>
-                        {sticker.type === item.type ? <span></span> : <>{StickerFactory(item.type)}</>}
+                        {sticker.type === item.type ? (
+                            <span></span>
+                        ) : (
+                            <span className="sticker">{StickerFactory(item.type)}</span>
+                        )}
                     </StickerWrapper>
                     <SpeechBubble>{item.label}</SpeechBubble>
                 </StickerItemWrapper>
@@ -37,6 +41,7 @@ const StickerItemWrapper = styled.article`
 
 const StickerWrapper = styled.div`
     ${tw`tw-bg-grey-000 
+    tw-flex tw-justify-center  
     tw-border-2 tw-border-grey-300 tw-rounded-full`}
     width: 6rem;
     height: 6rem;
@@ -44,6 +49,9 @@ const StickerWrapper = styled.div`
     text-align: center;
     line-height: 8rem;
     margin-bottom: 0.6rem;
+    .sticker {
+        margin-top: 3%;
+    }
 `
 
 const SpeechBubble = styled.div`
