@@ -8,3 +8,17 @@ services:
         volumes:
             - ./deployment/configs/nginx.conf:/etc/nginx/nginx.conf
             - ./deployment/configs/variable.conf:/etc/nginx/variable.conf
+        networks:
+            - nextjs
+    app:
+        build:
+            context: .
+            args:
+                REACT_APP_ENV: local
+        networks:
+            - nextjs
+
+networks:
+    nextjs:
+        # Use a custom driver
+        driver: bridge
