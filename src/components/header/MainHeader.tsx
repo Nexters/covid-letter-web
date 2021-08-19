@@ -44,11 +44,26 @@ const Button = styled.button`
 `
 
 const LeftButtonList = () => {
+    const buttonList = [
+        {
+            text: '홈',
+            link: ROUTES.COVID.MAIN,
+        },
+        {
+            text: '부치지 못한 편지',
+            link: ROUTES.COVID.LETTER.LIST,
+        },
+    ]
     const router = useRouter()
+    const goLink = (link: string) => router.push(link)
+
     return (
         <div css={titleButtonCss}>
-            <Button className={router.pathname === ROUTES.COVID.MAIN ? 'active' : ''}>홈</Button>
-            <Button className={router.pathname === ROUTES.COVID.LETTER.LIST ? 'active' : ''}>부치지 못한 편지</Button>
+            {buttonList.map(({text, link}) => (
+                <Button key={text} className={router.pathname === link ? 'active' : ''} onClick={() => goLink(link)}>
+                    {text}
+                </Button>
+            ))}
         </div>
     )
 }
