@@ -51,7 +51,7 @@ const LeftButtonList = () => {
         },
         {
             text: '부치지 못한 편지',
-            link: ROUTES.COVID.LETTER.LIST,
+            link: ROUTES.COVID.LETTER.LIST, // 인혁님 브랜치에서 수정 부탁드려요 :)
         },
     ]
     const router = useRouter()

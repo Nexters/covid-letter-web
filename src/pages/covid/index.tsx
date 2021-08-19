@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import MainHeader from '$components/header/MainHeader'
 import {CovidStats, LetterStats} from '$types/response/stat'
 import {numberFormat} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
@@ -22,6 +21,7 @@ import {FlexStart} from '$styles/utils/layout'
 import {MainButton} from '$styles/utils/components'
 import useNumberAnimation from '$hooks/useNumberAnimation'
 import {animated} from 'react-spring'
+import MainLayout from '$components/layout/MainLayout'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -122,8 +122,7 @@ const Main = ({
     const transitions = useNumberAnimation(numberFormat(unsented + sented))
 
     return (
-        <>
-            <MainHeader logined={isLogined} logout={logoutPage} />
+        <MainLayout logined={isLogined} logout={logoutPage}>
             <Container>
                 <TitleContainer>
                     <Title>
@@ -207,7 +206,7 @@ const Main = ({
                 />
                 <MyLetterSection logined={isLogined} />
             </Container>
-        </>
+        </MainLayout>
     )
 }
 
