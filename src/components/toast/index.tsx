@@ -11,7 +11,7 @@ const Container = styled.div`
     ${tw`tw-text-center`}
     box-sizing: border-box;
     position: fixed;
-    bottom: 3.2rem;
+    bottom: 2.4rem;
     left: 0;
     right: 0;
     z-index: 2010;

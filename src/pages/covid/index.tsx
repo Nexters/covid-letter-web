@@ -20,6 +20,8 @@ import toast from '$components/toast'
 import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
 import {FlexStart} from '$styles/utils/layout'
 import {MainButton} from '$styles/utils/components'
+import useNumberAnimation from '$hooks/useNumberAnimation'
+import {animated} from 'react-spring'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -64,6 +66,10 @@ const Value = styled.div`
     ${FontOhsquare}
     ${tw`tw-text-primary-green-500 tw-text-base`}
     padding-top: .4rem;
+`
+
+const AnimatedSpan = styled(animated.span)`
+    ${tw`tw-inline-block`}
 `
 
 const Main = ({
@@ -113,13 +119,22 @@ const Main = ({
         router.push(ROUTES.COVID.LETTER.OPTION)
     }
 
+    const transitions = useNumberAnimation(numberFormat(unsented + sented))
+
     return (
         <>
             <MainHeader logined={isLogined} logout={logoutPage} />
             <Container>
                 <TitleContainer>
                     <Title>
-                        <Highlight>총 {numberFormat(unsented + sented)}통</Highlight>의 편지가
+                        <Highlight>
+                            총{' '}
+                            {transitions((props, item) => (
+                                <AnimatedSpan style={props}>{item.number}</AnimatedSpan>
+                            ))}
+                            통
+                        </Highlight>
+                        의 편지가
                         <br />
                         작성되었어!
                     </Title>
