@@ -3,9 +3,7 @@ import {css} from '@emotion/react'
 import styled from '@emotion/styled'
 import SvgSidemenu from 'assets/IconSideMenu'
 import {useRouter} from 'next/router'
-import {useState} from 'react'
 import tw from 'twin.macro'
-import MainSidebar from '$components/main/MainSidebar'
 
 const HeaderWrapper = tw.div`tw-flex tw-flex-wrap tw-justify-between tw-items-center`
 const HeaderLeft = tw.div`tw-flex tw-items-center tw-truncate`
@@ -69,16 +67,10 @@ const LeftButtonList = () => {
 }
 
 type Props = {
-    logined: boolean
-    logout: () => void
+    openSidebar: () => void
 }
 
-const MainHeader = ({logined, logout}: Props) => {
-    const [sidebarShow, setSidebarShow] = useState(false)
-
-    const openSidebar = () => setSidebarShow(true)
-    const closeSidebar = () => setSidebarShow(false)
-
+const MainHeader = ({openSidebar}: Props) => {
     return (
         <>
             <HeaderContainer>
@@ -93,7 +85,6 @@ const MainHeader = ({logined, logout}: Props) => {
                     </HeaderRight>
                 </HeaderWrapper>
             </HeaderContainer>
-            <MainSidebar isShow={sidebarShow} closeFn={closeSidebar} logined={logined} logout={logout} />
         </>
     )
 }
