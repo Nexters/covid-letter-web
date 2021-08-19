@@ -10,12 +10,10 @@ import AnalyzeSection from '$components/main/AnalyzeSection'
 import {PropsFromApp} from '$types/index'
 import MyLetterSection from '$components/main/MyLetterSection'
 import StatBadge from '$components/main/StatBadge'
-import useLogout from '$hooks/useLogout'
 import {useAlertStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
-import toast from '$components/toast'
 import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
 import {FlexStart} from '$styles/utils/layout'
 import {MainButton} from '$styles/utils/components'
@@ -87,21 +85,8 @@ const Main = ({
 }: PropsFromApp<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
     const [isLogined, setIsLogined] = useState(!!token)
 
-    const logout = useLogout(isGoogleLogin)
-    const {confirm, alert} = useAlertStore()
+    const {confirm} = useAlertStore()
     const router = useRouter()
-
-    const logoutPage = () => {
-        logout()
-        setIsLogined(false)
-        if (!isMobile) {
-            alert({
-                title: '로그아웃 됐어. 다시 돌아올거지?',
-            })
-        } else {
-            toast('로그아웃 됐어. 다시 돌아올거지?', 1500)
-        }
-    }
 
     const createNewLetter = () => {
         if (!isLogined) {
@@ -122,7 +107,11 @@ const Main = ({
     const transitions = useNumberAnimation(numberFormat(unsented + sented))
 
     return (
-        <MainLayout logined={isLogined} logout={logoutPage}>
+        <MainLayout
+            logined={isLogined}
+            isMobile={isMobile}
+            isGoogleLogin={isGoogleLogin}
+            clear={() => setIsLogined(false)}>
             <Container>
                 <TitleContainer>
                     <Title>
