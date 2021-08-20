@@ -2,8 +2,8 @@ FROM node:alpine
 
 EXPOSE 3000
 
-ARG REACT_APP_ENV
-ENV REACT_APP_ENV=${REACT_APP_ENV}
+ARG NEXT_PUBLIC_ENV
+ENV NEXT_PUBLIC_ENV=${NEXT_PUBLIC_ENV}
 
 WORKDIR /app/admin
 
@@ -14,8 +14,8 @@ RUN  npm ci
 
 COPY ./ ./
 
-RUN echo "Based on env: $REACT_APP_ENV"
+RUN echo "Based on env: $NEXT_PUBLIC_ENV"
 
-RUN npm run build:${REACT_APP_ENV}
+RUN npm run build:${NEXT_PUBLIC_ENV}
 
-ENTRYPOINT pm2 list && REACT_APP_ENV=${REACT_APP_ENV} pm2-runtime start pm2.config.js
+ENTRYPOINT pm2 list && NEXT_PUBLIC_ENV=${NEXT_PUBLIC_ENV} pm2-runtime start pm2.config.js

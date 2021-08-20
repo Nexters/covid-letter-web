@@ -12,4 +12,4 @@ services:
         build:
             context: .
             args:
-                REACT_APP_ENV: local
+                NEXT_PUBLIC_ENV: local

@@ -9,7 +9,7 @@ const PROFILES = {
 }
 
 function createPm2Config() {
-    const profile = process.env.REACT_APP_ENV
+    const profile = process.env.NEXT_PUBLIC_ENV
     const envConfig = PROFILES[profile]
     return {
         apps: [
@@ -25,7 +25,7 @@ function createPm2Config() {
                 log_date_format: '<YYYY-MM-DD HH:mm:ss>',
                 env: {
                     NODE_ENV: 'production',
-                    REACT_APP_ENV: profile,
+                    NEXT_PUBLIC_ENV: profile,
                 },
                 ...envConfig,
             },
