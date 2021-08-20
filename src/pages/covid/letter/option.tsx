@@ -6,6 +6,8 @@ import {ReactChild, useState} from 'react'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
 import tw from 'twin.macro'
+import {observer} from 'mobx-react-lite'
+import {useLetterStore} from '$contexts/StoreContext'
 
 interface Props {
     options: LetterOption[]
@@ -13,12 +15,16 @@ interface Props {
 
 const LetterOptionPage = ({options}: Props) => {
     const router = useRouter()
+    const {chooseOption} = useLetterStore()
 
     const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
     const onClickOption = (option: LetterOption) => {
         if (option.id === selectedOptionId) {
             setSelectedOptionId(-1)
-        } else setSelectedOptionId(option.id)
+        } else {
+            chooseOption(option.id, option.text)
+            setSelectedOptionId(option.id)
+        }
     }
     const onClickConfirm = () => {
         if (selectedOptionId === -1) return
@@ -99,12 +105,20 @@ const Button = styled.button<ButtonPropsType>([
         border-radius: 0.4rem;
         letter-spacing: -0.015em;
         font-size: 1.6rem;
+        &:hover {
+            ${tw`tw-bg-beige-500 tw-bg-opacity-40`}
+        }
     `,
     ({isClicked}) =>
         isClicked
-            ? tw`tw-bg-primary-yellow-600 
+            ? css`
+                  ${tw`tw-bg-primary-yellow-600
             tw-font-bold tw-font-ohsquare tw-text-primary-green-500
-            tw-border-2 tw-border-primary-green-600`
+            tw-border-2 tw-border-primary-green-600`}
+                  &:hover {
+                      background: #bb9045;
+                  }
+              `
             : css`
                   border: 1px solid #d4cec4; // 디자인 시스템에 이 색이 없는 관계로...
               `,
@@ -118,4 +132,4 @@ const ConfirmButton = styled.button`
     font-size: 1.6rem;
     line-height: 2.5rem;
 `
-export default LetterOptionPage
+export default observer(LetterOptionPage)
