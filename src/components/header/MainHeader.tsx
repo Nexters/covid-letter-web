@@ -1,16 +1,9 @@
-import SidebarButtonList from '$components/main/SidebarButtonList'
-import Sidebar from '$components/sidebar'
 import ROUTES from '$constants/routes'
 import {css} from '@emotion/react'
 import styled from '@emotion/styled'
 import SvgSidemenu from 'assets/IconSideMenu'
 import {useRouter} from 'next/router'
-import {useState} from 'react'
 import tw from 'twin.macro'
-import WelcomeArea from '$components/main/WelcomeArea'
-import {SidebarButton} from '$components/main/types'
-import {useProfileContext} from '$contexts/ProfileContext'
-import LoginedWelcomeArea from '$components/main/LoginedWelcomeArea'
 
 const HeaderWrapper = tw.div`tw-flex tw-flex-wrap tw-justify-between tw-items-center`
 const HeaderLeft = tw.div`tw-flex tw-items-center tw-truncate`
@@ -48,47 +41,36 @@ const Button = styled.button`
     box-shadow: none;
 `
 
-const SidebarContainer = styled.div`
-    padding: 3.2rem 0;
-`
-
 const LeftButtonList = () => {
+    const buttonList = [
+        {
+            text: '홈',
+            link: ROUTES.COVID.MAIN,
+        },
+        {
+            text: '부치지 못한 편지',
+            link: ROUTES.COVID.LETTER.LIST, // 인혁님 브랜치에서 수정 부탁드려요 :)
+        },
+    ]
     const router = useRouter()
+    const goLink = (link: string) => router.push(link)
+
     return (
         <div css={titleButtonCss}>
-            <Button className={router.pathname === ROUTES.COVID.MAIN ? 'active' : ''}>홈</Button>
-            <Button className={router.pathname === ROUTES.COVID.LETTER.LIST ? 'active' : ''}>부치지 못한 편지</Button>
+            {buttonList.map(({text, link}) => (
+                <Button key={text} className={router.pathname === link ? 'active' : ''} onClick={() => goLink(link)}>
+                    {text}
+                </Button>
+            ))}
         </div>
     )
 }
 
 type Props = {
-    logined: boolean
-    logout: () => void
+    openSidebar: () => void
 }
 
-const MainHeader = ({logined, logout}: Props) => {
-    const {profile} = useProfileContext()
-
-    const [sidebarShow, setSidebarShow] = useState(false)
-
-    const openSidebar = () => setSidebarShow(true)
-    const closeSidebar = () => setSidebarShow(false)
-    const logoutValue: SidebarButton[] = logined
-        ? [
-              {
-                  title: (
-                      <>
-                          <span style={{marginRight: '1.7rem'}}>🏃</span>로그아웃
-                      </>
-                  ),
-                  onClick: () => {
-                      closeSidebar()
-                      logout()
-                  },
-              },
-          ]
-        : []
+const MainHeader = ({openSidebar}: Props) => {
     return (
         <>
             <HeaderContainer>
@@ -103,40 +85,6 @@ const MainHeader = ({logined, logout}: Props) => {
                     </HeaderRight>
                 </HeaderWrapper>
             </HeaderContainer>
-            <Sidebar isShow={sidebarShow} closeFn={closeSidebar}>
-                <SidebarContainer>
-                    {logined && profile ? <LoginedWelcomeArea email={profile.email as string} /> : <WelcomeArea />}
-                    <SidebarButtonList
-                        list={[
-                            {
-                                title: (
-                                    <>
-                                        <span style={{marginRight: '1.7rem'}}>👋</span>안녕, 나야 소개
-                                    </>
-                                ),
-                                link: ROUTES.COVID.SIDE.ABOUT,
-                            },
-                            {
-                                title: (
-                                    <>
-                                        <span style={{marginRight: '1.7rem'}}>💬</span>자주 묻는 질문
-                                    </>
-                                ),
-                                link: '#', // 외부링크
-                            },
-                            {
-                                title: (
-                                    <>
-                                        <span style={{marginRight: '1.7rem'}}>💡</span>서비스 피드백
-                                    </>
-                                ),
-                                link: '#', // 외부링크
-                            },
-                            ...logoutValue,
-                        ]}
-                    />
-                </SidebarContainer>
-            </Sidebar>
         </>
     )
 }
