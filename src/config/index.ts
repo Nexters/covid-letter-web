@@ -20,9 +20,9 @@ interface Config {
 const config = getConfig()
 const publicRuntimeConfig: Config = config.publicRuntimeConfig
 
-export const HOST_URL = env === 'local' ? 'http://localhost:3000' : 'https://covid-letter-web.vercel.app' // real domain
+export const HOST_URL = env === 'local' ? 'http://localhost:3000' : 'http://110.165.17.179:3000' // real domain
 
-export const ORIGIN_DOMAIN = env === 'local' ? 'http://localhost' : 'https://covid-letter-web.vercel.app'
+export const ORIGIN_DOMAIN = env === 'local' ? 'http://localhost' : 'http://110.165.17.179'
 
 export const {
     NEXT_PUBLIC_ENV,

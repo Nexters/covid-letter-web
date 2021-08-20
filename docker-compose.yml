@@ -12,4 +12,4 @@ services:
         build:
             context: .
             args:
-                NEXT_PUBLIC_ENV: local
+                NEXT_PUBLIC_ENV: production
