@@ -25,7 +25,7 @@ function createPm2Config() {
                 log_date_format: '<YYYY-MM-DD HH:mm:ss>',
                 env: {
                     NODE_ENV: 'production',
-                    REACT_APP_ENV: profile || 'local',
+                    REACT_APP_ENV: profile,
                 },
                 ...envConfig,
             },
