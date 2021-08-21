@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
-import {FontOhsquare} from './font'
+import {FontNanumBarunGothic} from './font'
 
 const MainButton = styled.button`
-    ${FontOhsquare}
+    ${FontNanumBarunGothic('bold')}
     ${tw`
         tw-border-primary-green-500 
         hover:tw-border-primary-green-600 
