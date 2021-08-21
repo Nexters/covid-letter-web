@@ -22,7 +22,7 @@ const publicRuntimeConfig: Config = config.publicRuntimeConfig
 
 export const HOST_URL = 'http://localhost:3000'
 
-export const ORIGIN_DOMAIN = env === 'local' ? 'http://localhost:3000' : 'http://110.165.17.179'
+export const ORIGIN_DOMAIN = env === 'local' ? 'http://localhost:3000' : 'http://halo-its.me'
 
 export const {
     NEXT_PUBLIC_ENV,
