@@ -44,7 +44,7 @@ export const stickerList: sticker[] = [
     },
     {
         type: 'UNHAPPY',
-        label: '속상',
+        label: '속상해',
         desc: '누가 널 속상하게 했어! 누구야 데리고와!\n나중에 보면 별거 아닐거야',
     },
     {
@@ -59,7 +59,7 @@ export const stickerList: sticker[] = [
     },
     {
         type: 'BLUE',
-        label: '우울',
+        label: '우울해',
         desc: '마음이 많이 가라앉아있구나.\n난 언제나 네 곁에 있어.',
     },
     {

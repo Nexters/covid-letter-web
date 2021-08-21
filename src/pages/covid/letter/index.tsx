@@ -8,9 +8,12 @@ import HalfLayer from '$components/layer/HalfLayer'
 import {useState} from 'react'
 import {convertCommonDateFormat} from '$utils/date'
 import tw from 'twin.macro'
-import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
-import {FlexStart} from '$styles/utils/layout'
+import {FontNanumBarunGothic, FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
+import {FlexBetween, FlexStart} from '$styles/utils/layout'
 import EmptyLetterListContainer from '$components/letter/EmptyLetterListContainer'
+import Divider from '$components/letter/Divider'
+import {StickerWithLetterFactory} from '$components/sticker/stickerWithLetterFactory'
+import {LetterStateTagFactory} from '$components/letter/LetterStateTagFactory'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300 tw-h-screen`}
@@ -37,11 +40,29 @@ const SubTitle = styled.div`
     margin-top: 0.8rem;
 `
 
-const ListContainer = styled.ul``
-const ItemContainer = styled.li`
-    margin: 1rem;
-    padding 1rem;
-    border: solid;
+const ListContainer = styled.div`
+    margin-top: 3.2rem;
+`
+const ItemContainer = styled.div`
+    cursor: pointer;    
+`
+
+const ItemTitleWrapper = styled.div`
+    ${FlexStart}
+    .text {
+        ${tw`tw-text-sm tw-font-light tw-text-grey-800`}
+        letter-spacing: -0.015em;
+    }
+`
+
+const ItemDescWrapper = styled.div`
+    ${FlexBetween}
+    margin-top: 0.8rem;
+    .text-wrap {
+        ${tw`tw-text-xs tw-text-grey-700`}
+        ${FontNanumBarunGothic('light')}
+        letter-spacing: -0.015em;
+    }
 `
 
 const Letters = ({letters}: {letters: Letter[]}) => {
@@ -61,14 +82,24 @@ const Letters = ({letters}: {letters: Letter[]}) => {
     const letterList = letters.length > 0
         ? (
             <ListContainer>
-                {letters.map(({title, state, sticker, createdDate, encryptedId}) => (
-                    <ItemContainer key={encryptedId} onClick={() => openEnvelope(encryptedId)}>
-                        <div>제목: {title}</div>
-                        <div>작성일: {convertCommonDateFormat(createdDate)}</div>
-                        <div>발송기준: -</div>
-                        <div>전송상태: {state} - UI 적용</div>
-                        <div>스티커: {sticker} - UI 적용</div>
-                    </ItemContainer>
+                {letters.map(({title, state, sticker, createdDate, encryptedId, sendOptionText}, index) => (
+                    <>
+                        <ItemContainer key={encryptedId} className="letter_item" onClick={() => openEnvelope(encryptedId)}>
+                            <ItemTitleWrapper>
+                                <span className='text'>{title}</span>
+                                {LetterStateTagFactory(state)}
+                            </ItemTitleWrapper>
+                            <ItemDescWrapper>
+                                <div className='text-wrap'>
+                                    작성일: {convertCommonDateFormat(createdDate)}
+                                    <br/>
+                                    발송기준: {sendOptionText}
+                                </div>
+                                {StickerWithLetterFactory(sticker)}
+                            </ItemDescWrapper>
+                        </ItemContainer>
+                        {index !== letters.length - 1 && <Divider/>}
+                    </>
                 ))}
             </ListContainer>
         )
