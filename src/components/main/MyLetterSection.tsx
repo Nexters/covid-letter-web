@@ -1,7 +1,7 @@
 import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
 import {FlexCenter} from '$styles/utils/layout'
 import styled from '@emotion/styled'
-import ImageMailBox from 'assets/ImageMailBox'
+import MailBoxImage from 'assets/images/MailBoxImage'
 import tw from 'twin.macro'
 
 const Container = styled.div`
@@ -45,7 +45,7 @@ const MyLetterSection = ({logined}: {logined: boolean}) => {
     return (
         <Container>
             <ImageContainer>
-                <ImageMailBox />
+                <MailBoxImage />
             </ImageContainer>
             <Title>
                 <span>

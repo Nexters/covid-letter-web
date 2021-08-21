@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
-import BackSvg from 'assets/BackSvg'
-import IconClose from 'assets/IconClose'
+import IconBack from 'assets/icons/IconBack'
+import IconClose from 'assets/icons/IconClose'
 import tw from 'twin.macro'
 import {HEADER_POSITION} from './constants'
 import {HeaderPosition, HeaderType} from './types'
@@ -38,7 +38,7 @@ const CommonHeader = ({type, onClick, position = HEADER_POSITION.LEFT, isFixed =
                     case 'BACK':
                         return (
                             <button onClick={onClick}>
-                                <BackSvg width={'2.4rem'} height={'2.4rem'} />
+                                <IconBack width={'2.4rem'} height={'2.4rem'} />
                             </button>
                         )
                     case 'CLOSE':

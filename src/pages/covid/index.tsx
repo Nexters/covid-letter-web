@@ -2,7 +2,7 @@ import {CovidStats, LetterStats} from '$types/response/stat'
 import {numberFormat} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
 import styled from '@emotion/styled'
-import SvgHome from 'assets/HomeImage'
+import HomeImage from 'assets/images/HomeImage'
 import {InferGetServerSidePropsType} from 'next'
 import tw from 'twin.macro'
 import AnalyzeSection from '$components/main/AnalyzeSection'
@@ -137,7 +137,7 @@ const Main = ({
                     마음을 담은 편지를 전달해줄게:)
                 </SubTitle>
                 <MainImage>
-                    <SvgHome />
+                    <HomeImage />
                 </MainImage>
                 <LetterButton onClick={createNewLetter}>편지 작성</LetterButton>
                 <AnalyzeSection

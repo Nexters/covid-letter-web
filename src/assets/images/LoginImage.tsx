@@ -1,4 +1,4 @@
-function SvgLogin({width = '80%'}) {
+function LoginImage({width = '80%'}) {
     return (
         <svg width={width} viewBox="0 0 298 156" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff">
             <path
@@ -197,4 +197,4 @@ function SvgLogin({width = '80%'}) {
     )
 }
 
-export default SvgLogin
+export default LoginImage

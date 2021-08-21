@@ -3,7 +3,7 @@ import {GOOGLE} from '$config'
 import {GoogleLoginResponse, useGoogleLogin} from 'react-google-login'
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
-import SvgGoogle from 'assets/GoogleLogo'
+import GoogleLogo from 'assets/logos/GoogleLogo'
 import {LoginToken} from '$types/response/login'
 
 const commonTw = tw`
@@ -63,7 +63,7 @@ const GoogleLoginButton = ({returnUrl, isMobile}: GoogleLoginButtonProps) => {
     })
     return (
         <Button onClick={signIn} isMobile={isMobile}>
-            <SvgGoogle style={{marginRight: '24px'}} />
+            <GoogleLogo style={{marginRight: '24px'}} />
             Google로 계속하기
         </Button>
     )

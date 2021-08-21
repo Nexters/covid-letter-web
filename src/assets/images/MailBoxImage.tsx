@@ -1,4 +1,4 @@
-function ImageMailBox() {
+function MailBoxImage() {
     return (
         <svg width="55%" viewBox="0 0 180 150" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#mailbox_svg__clip0)" color="#fff">
@@ -154,4 +154,4 @@ function ImageMailBox() {
     )
 }
 
-export default ImageMailBox
+export default MailBoxImage

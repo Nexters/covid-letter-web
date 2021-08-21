@@ -1,7 +1,7 @@
 import ROUTES from '$constants/routes'
 import {css} from '@emotion/react'
 import styled from '@emotion/styled'
-import SvgSidemenu from 'assets/IconSideMenu'
+import IconSideMenu from 'assets/icons/IconSideMenu'
 import {useRouter} from 'next/router'
 import tw from 'twin.macro'
 
@@ -80,7 +80,7 @@ const MainHeader = ({openSidebar}: Props) => {
                     </HeaderLeft>
                     <HeaderRight>
                         <a onClick={openSidebar}>
-                            <SvgSidemenu />
+                            <IconSideMenu />
                         </a>
                     </HeaderRight>
                 </HeaderWrapper>
