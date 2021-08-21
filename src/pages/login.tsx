@@ -39,7 +39,7 @@ const Img = styled.div`
 const Intro = styled.div`
     background-color: rgba(246, 244, 232, 0.8);
     border-radius: 2.4rem 2.4rem 0px 0px;
-    padding: 3.6rem 2.4rem 2.4rem;
+    padding: 4.2rem 2.4rem 3.2rem;
 `
 
 const IntroTitle = styled.div`
@@ -50,7 +50,7 @@ const IntroTitle = styled.div`
 const IntroContent = styled.div`
     ${FontNanumBarunGothic('normal')}
     ${tw`tw-text-sm tw-text-grey-600`}
-    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.6rem 0 13.6rem' : '1.6rem 0 3.2rem')};
+    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.6rem 0 12.6rem' : '1.6rem 0 3.2rem')};
 `
 
 const ButtonContainer = styled.div`
