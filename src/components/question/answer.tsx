@@ -3,6 +3,7 @@ import {observer} from 'mobx-react-lite'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import AutoTextArea from '$components/textarea'
+import TextareaAutosize from 'react-textarea-autosize'
 
 export const MAX_LETTER_ANSWER_LENGTH = 1000
 export const MAX_LETTER_TITLE_LENGTH = 12
@@ -26,7 +27,7 @@ const Answer = () => {
             </TitleInputWrapper>
             <hr className="divider" />
             <AnswerInputWrapper>
-                <AutoTextArea className="answer" value={answer} onChange={(e) => addAnswer(e.target.value)} />
+                <AutoTextArea />
                 <div className="sub-items">
                     <span className="answer-length">
                         {answer.length}/{MAX_LETTER_ANSWER_LENGTH}
@@ -48,6 +49,7 @@ const AnswerWrapper = styled.section`
     margin-top: 5.5rem;
     letter-spacing: -0.015em;
     border-radius: 1rem;
+    min-height: 40vh;
     .divider {
         ${tw`tw-border-t-2 tw-border-beige-400 tw-border-dashed`}
         margin-top: 0.8rem;
