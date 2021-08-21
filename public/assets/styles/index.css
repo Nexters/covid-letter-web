@@ -579,6 +579,17 @@ video {
   border-color: currentColor;
 }
 
+html,
+    body > div[id^='__next'],
+    body {
+  height: 100%;
+  font-size: 10px;
+  background-color: var(--beige-300);
+  font-family: NanumBarunGothic, Arial, sans-serif !important;
+  font-weight: normal;
+  font-style: normal;
+}
+
 .tw-container {
   width: 100%;
 }
@@ -21336,13 +21347,16 @@ video {
   content: none;
 }
 
-html,
+/* html,
 body > div[id^='__next'],
 body {
-  height: 100%;
-  font-size: 10px;
-  background-color: var(--beige-300);
-}
+    height: 100%;
+    font-size: 10px;
+    background-color: var(--beige-300);
+    font-family: NanumBarunGothic, Arial, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+} */
 
 html body,
 div,

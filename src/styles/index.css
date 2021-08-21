@@ -2,12 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body > div[id^='__next'],
-body {
-    height: 100%;
-    font-size: 10px;
-    background-color: var(--beige-300);
+@layer base {
+    html,
+    body > div[id^='__next'],
+    body {
+        height: 100%;
+        font-size: 10px;
+        background-color: var(--beige-300);
+        font-family: NanumBarunGothic, Arial, sans-serif !important;
+        font-weight: normal;
+        font-style: normal;
+    }
 }
 
 html body,
