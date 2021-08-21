@@ -24,6 +24,7 @@ export interface Letter {
     contents: string
     createdDate: string
     email: string
+    name: string,
     encryptedId: string
     questionId: string
     state: LetterState

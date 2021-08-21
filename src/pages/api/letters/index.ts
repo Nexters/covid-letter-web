@@ -24,6 +24,7 @@ export default async function handler(
                 return {
                     ...letter,
                     contents: '', //목록조회 시 contents 공백 처리(상세 조회 외에 contents 가 노출되면 안된다)
+                    name: '최인혁', //todo remove 추후 서버 수정 시 삭제할 것
                 }
             })
         })

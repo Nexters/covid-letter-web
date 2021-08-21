@@ -15,7 +15,6 @@ import Divider from '$components/letter/Divider'
 import {StickerWithLetterFactory} from '$components/sticker/stickerWithLetterFactory'
 import {LetterStateTagFactory} from '$components/letter/LetterStateTagFactory'
 import Envelope from '$components/letter/Envelope'
-import {useProfileContext} from '$contexts/ProfileContext'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300 tw-h-screen`}
@@ -69,7 +68,6 @@ const ItemDescWrapper = styled.div`
 
 const Letters = ({letters}: {letters: Letter[]}) => {
 
-    const {profile} = useProfileContext()
     const [isShowEnvelope, setIsShowEnvelop] = useState<boolean>(false)
     const [openedLetter, setOpenedLetter] = useState<Letter | null>(null)
 
@@ -86,8 +84,8 @@ const Letters = ({letters}: {letters: Letter[]}) => {
         ? (
             <ListContainer>
                 {letters.map(({title, state, sticker, createdDate, encryptedId, sendOptionText}, index) => (
-                    <>
-                        <ItemContainer key={encryptedId} className="letter_item" onClick={() => openEnvelope(encryptedId)}>
+                    <div key={encryptedId}>
+                        <ItemContainer className="letter_item" onClick={() => openEnvelope(encryptedId)}>
                             <ItemTitleWrapper>
                                 <span className='text'>{title}</span>
                                 {LetterStateTagFactory(state)}
@@ -102,7 +100,7 @@ const Letters = ({letters}: {letters: Letter[]}) => {
                             </ItemDescWrapper>
                         </ItemContainer>
                         {index !== letters.length - 1 && <Divider/>}
-                    </>
+                    </div>
                 ))}
             </ListContainer>
         )
@@ -119,7 +117,7 @@ const Letters = ({letters}: {letters: Letter[]}) => {
                 </LettersContainer>
 
                 <HalfLayer isShow={isShowEnvelope} closeFn={closeEnvelope} >
-                    {openedLetter && (<Envelope letter={openedLetter} name={profile?.name} email={profile?.email}/>)}
+                    {openedLetter && (<Envelope letter={openedLetter} />)}
                 </HalfLayer>
             </Container>
         </>
