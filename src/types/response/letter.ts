@@ -27,6 +27,7 @@ export interface Letter {
     name: string,
     encryptedId: string
     questionId: string
+    questionText: string
     state: LetterState
     sticker: StickerType
     sendOptionText: string
