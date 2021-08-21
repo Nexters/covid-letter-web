@@ -28,6 +28,7 @@ const AutoTextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
 const TextAreaWrapper = styled.div`
     display: inherit;
     flex-grow: 1;
+    min-height: 8.5rem;
     .textarea {
         ${tw`tw-bg-beige-200`}
         width: 100%;
