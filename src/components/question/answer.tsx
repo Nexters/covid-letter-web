@@ -34,6 +34,7 @@ const Answer = () => {
                         {title.length}/{MAX_LETTER_TITLE_LENGTH}
                     </span>
                 </TitleInputWrapper>
+                <hr className="divider" />
                 <AnswerInputWrapper>
                     <textarea
                         className="answer"
@@ -70,6 +71,11 @@ const AnswerWrapper = styled.section`
     margin-top: 5.5rem;
     letter-spacing: -0.015em;
     border-radius: 1rem;
+    .divider {
+        ${tw`tw-border-t-2 tw-border-beige-400 tw-border-dashed`}
+        margin-top: 0.8rem;
+        margin-bottom: 2.4rem;
+    }
 `
 
 const TitleInputWrapper = styled.div`

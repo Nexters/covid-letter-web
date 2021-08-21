@@ -1,5 +1,3 @@
-import {useState} from 'react'
-import MainHeader from '$components/header/MainHeader'
 import {CovidStats, LetterStats} from '$types/response/stat'
 import {numberFormat} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
@@ -11,17 +9,17 @@ import AnalyzeSection from '$components/main/AnalyzeSection'
 import {PropsFromApp} from '$types/index'
 import MyLetterSection from '$components/main/MyLetterSection'
 import StatBadge from '$components/main/StatBadge'
-import useLogout from '$hooks/useLogout'
-import {useAlertStore} from '$contexts/StoreContext'
+import {useAlertStore, useAuthStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
-import toast from '$components/toast'
 import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
 import {FlexStart} from '$styles/utils/layout'
 import {MainButton} from '$styles/utils/components'
 import useNumberAnimation from '$hooks/useNumberAnimation'
 import {animated} from 'react-spring'
+import MainLayout from '$components/layout/MainLayout'
+import {useEffect} from 'react'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -85,23 +83,18 @@ const Main = ({
     isGoogleLogin,
     isMobile,
 }: PropsFromApp<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
-    const [isLogined, setIsLogined] = useState(!!token)
+    const {isLogined, loginUser, clearUser} = useAuthStore()
 
-    const logout = useLogout(isGoogleLogin)
-    const {confirm, alert} = useAlertStore()
-    const router = useRouter()
-
-    const logoutPage = () => {
-        logout()
-        setIsLogined(false)
-        if (!isMobile) {
-            alert({
-                title: '로그아웃 됐어. 다시 돌아올거지?',
-            })
+    useEffect(() => {
+        if (token) {
+            loginUser()
         } else {
-            toast('로그아웃 됐어. 다시 돌아올거지?', 1500)
+            clearUser()
         }
-    }
+    }, [token])
+
+    const {confirm} = useAlertStore()
+    const router = useRouter()
 
     const createNewLetter = () => {
         if (!isLogined) {
@@ -122,8 +115,7 @@ const Main = ({
     const transitions = useNumberAnimation(numberFormat(unsented + sented))
 
     return (
-        <>
-            <MainHeader logined={isLogined} logout={logoutPage} />
+        <MainLayout isMobile={isMobile} isGoogleLogin={isGoogleLogin}>
             <Container>
                 <TitleContainer>
                     <Title>
@@ -207,7 +199,7 @@ const Main = ({
                 />
                 <MyLetterSection logined={isLogined} />
             </Container>
-        </>
+        </MainLayout>
     )
 }
 

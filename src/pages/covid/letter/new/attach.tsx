@@ -29,7 +29,7 @@ const Attach = () => {
                 <StickerDescription>
                     <Sticker>
                         {sticker.type ? (
-                            <span className="sticker">{StickerFactory(sticker.type, '8rem')}</span>
+                            <span className="sticker">{StickerFactory(sticker.type, '6.8rem')}</span>
                         ) : (
                             <span className="question-mark">?</span>
                         )}
@@ -106,12 +106,17 @@ const StickerDescription = styled.section`
 `
 
 const Sticker = styled.div`
-    ${tw`tw-bg-grey-000 tw-border-2 tw-border-grey-300 tw-rounded-full`}
+    ${tw`tw-bg-grey-000 
+        tw-flex tw-justify-center
+    tw-border-2 tw-border-grey-300 tw-rounded-full`}
     width: 8rem;
     height: 8rem;
     box-sizing: border-box;
     text-align: center;
     line-height: 8rem;
+    .sticker {
+        margin-top: 5%;
+    }
 `
 
 const ConfirmButton = styled.button`
