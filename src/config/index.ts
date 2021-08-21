@@ -1,9 +1,9 @@
 import getConfig from 'next/config'
 
-const env = process.env.REACT_APP_ENV
+const env = process.env.NEXT_PUBLIC_ENV
 
 interface Config {
-    REACT_APP_ENV: string
+    NEXT_PUBLIC_ENV: string
     API_URL_BASE: string
     OAUTH: {
         NAVER: {
@@ -20,10 +20,12 @@ interface Config {
 const config = getConfig()
 const publicRuntimeConfig: Config = config.publicRuntimeConfig
 
-export const HOST_URL = env === 'local' ? 'http://localhost:3000' : 'https://covid-letter-web.vercel.app' // real domain
+export const HOST_URL = 'http://localhost:3000'
+
+export const ORIGIN_DOMAIN = env === 'local' ? 'http://localhost:3000' : 'http://110.165.17.179'
 
 export const {
-    REACT_APP_ENV,
+    NEXT_PUBLIC_ENV,
     API_URL_BASE,
     OAUTH: {NAVER, GOOGLE},
 } = publicRuntimeConfig

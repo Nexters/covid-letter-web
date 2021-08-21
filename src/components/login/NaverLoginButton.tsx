@@ -1,5 +1,5 @@
 import {withAxios} from '$utils/fetcher/withAxios'
-import {HOST_URL} from '$config'
+import {ORIGIN_DOMAIN} from '$config'
 import {AuthorizeResponse} from '$types/login/naver'
 import ROUTES from '$constants/routes'
 import tw from 'twin.macro'
@@ -37,7 +37,7 @@ const NaverLoginButton = ({returnUrl, isMobile}: NaverLoginButtonProps) => {
                 method: 'get',
                 params: {
                     redirect_uri: encodeURIComponent(
-                        `${HOST_URL}${ROUTES.BRIDGE}/naver?returnUrl=${encodeURIComponent(returnUrl)}`,
+                        `${ORIGIN_DOMAIN}${ROUTES.BRIDGE}/naver?returnUrl=${encodeURIComponent(returnUrl)}`,
                     ),
                 },
             })

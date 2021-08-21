@@ -8,7 +8,7 @@ jest.mock('next/config', () => () => {
     return {
         ...config,
         publicRuntimeConfig: {
-            REACT_APP_ENV: 'local',
+            NEXT_PUBLIC_ENV: 'local',
             OAUTH: {
                 NAVER: {
                     CLIENT_ID: 'naver-client-id',

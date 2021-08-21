@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const {REACT_APP_ENV} = process.env
-const isLocal = REACT_APP_ENV === 'local'
-const CONFIG = require(`./src/config/${REACT_APP_ENV}`)
+const {NEXT_PUBLIC_ENV} = process.env
+const isLocal = NEXT_PUBLIC_ENV === 'local'
+const CONFIG = require(`./src/config/${NEXT_PUBLIC_ENV}`)
 const LOCAL_ORIGIN = 'http://localhost:3000'
 
 /** both server and client */
 const publicRuntimeConfig = {
-    REACT_APP_ENV,
+    NEXT_PUBLIC_ENV,
     ...CONFIG,
 }
 
@@ -15,8 +15,8 @@ module.exports = {
     publicRuntimeConfig,
     generateEtags: true,
     images: {
-        loader: "imgix",
-        path: "https://noop/",
+        loader: 'imgix',
+        path: 'https://noop/',
     },
     webpack: ({entry: originalEntries, plugins, ...restConfig}, {webpack}) => ({
         ...restConfig,
