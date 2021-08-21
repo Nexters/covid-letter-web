@@ -14,6 +14,8 @@ import EmptyLetterListContainer from '$components/letter/EmptyLetterListContaine
 import Divider from '$components/letter/Divider'
 import {StickerWithLetterFactory} from '$components/sticker/stickerWithLetterFactory'
 import {LetterStateTagFactory} from '$components/letter/LetterStateTagFactory'
+import Envelope from '$components/letter/Envelope'
+import {useProfileContext} from '$contexts/ProfileContext'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300 tw-h-screen`}
@@ -67,15 +69,16 @@ const ItemDescWrapper = styled.div`
 
 const Letters = ({letters}: {letters: Letter[]}) => {
 
-    const [isShowEnvelope, setIsShowEnvelop] = useState(false)
-    const [openedLetterId, setOpenedLetterId] = useState('')
+    const {profile} = useProfileContext()
+    const [isShowEnvelope, setIsShowEnvelop] = useState<boolean>(false)
+    const [openedLetter, setOpenedLetter] = useState<Letter | null>(null)
 
     const openEnvelope = (encryptedId: string) => {
-        setOpenedLetterId(encryptedId)
+        setOpenedLetter(letters.filter(letter => letter.encryptedId === encryptedId)[0])
         setIsShowEnvelop(true)
     }
     const closeEnvelope = () => {
-        setOpenedLetterId('')
+        setOpenedLetter(null)
         setIsShowEnvelop(false)
     }
 
@@ -116,7 +119,7 @@ const Letters = ({letters}: {letters: Letter[]}) => {
                 </LettersContainer>
 
                 <HalfLayer isShow={isShowEnvelope} closeFn={closeEnvelope} >
-                    {openedLetterId}
+                    {openedLetter && (<Envelope letter={openedLetter} name={profile?.name} email={profile?.email}/>)}
                 </HalfLayer>
             </Container>
         </>
