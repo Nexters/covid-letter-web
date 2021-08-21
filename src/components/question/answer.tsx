@@ -2,70 +2,48 @@ import {useLetterStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
-import ROUTES from '$constants/routes'
-import {useRouter} from 'next/router'
+import AutoTextArea from '$components/textarea'
 
 export const MAX_LETTER_ANSWER_LENGTH = 1000
 export const MAX_LETTER_TITLE_LENGTH = 12
 
 const Answer = () => {
-    const router = useRouter()
-
     const {answer, title, addAnswer, addTitle, resetAnswer} = useLetterStore()
-    const onClickConfirm = () => {
-        if (answer.length === 0 || title.length === 0) return
-        router.push({
-            pathname: ROUTES.COVID.LETTER.NEW.ATTACH,
-            query: {optionId: router.query.optionId},
-        })
-    }
+
     return (
-        <>
-            <AnswerWrapper>
-                <TitleInputWrapper>
-                    <input
-                        className="title"
-                        placeholder="제목은 여기에 적어!"
-                        value={title}
-                        maxLength={12}
-                        onChange={(e) => addTitle(e.target.value)}
-                    />
-                    <span className="title-length">
-                        {title.length}/{MAX_LETTER_TITLE_LENGTH}
+        <AnswerWrapper>
+            <TitleInputWrapper>
+                <input
+                    className="title"
+                    placeholder="제목은 여기에 적어!"
+                    value={title}
+                    maxLength={12}
+                    onChange={(e) => addTitle(e.target.value)}
+                />
+                <span className="title-length">
+                    {title.length}/{MAX_LETTER_TITLE_LENGTH}
+                </span>
+            </TitleInputWrapper>
+            <hr className="divider" />
+            <AnswerInputWrapper>
+                <AutoTextArea className="answer" value={answer} onChange={(e) => addAnswer(e.target.value)} />
+                <div className="sub-items">
+                    <span className="answer-length">
+                        {answer.length}/{MAX_LETTER_ANSWER_LENGTH}
                     </span>
-                </TitleInputWrapper>
-                <hr className="divider" />
-                <AnswerInputWrapper>
-                    <textarea
-                        className="answer"
-                        value={answer}
-                        maxLength={1000}
-                        placeholder="질문에 대하여 편하게 대답해주시고, 그 외에 하고싶은 말을 자유롭게 적어주세요."
-                        onChange={(e) => addAnswer(e.target.value)}
-                    />
-                    <div className="sub-items">
-                        <span className="answer-length">
-                            {answer.length}/{MAX_LETTER_ANSWER_LENGTH}
-                        </span>
-                        <button className="reset-button" onClick={resetAnswer}>
-                            전부 지우기
-                        </button>
-                    </div>
-                </AnswerInputWrapper>
-            </AnswerWrapper>
-            <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
-        </>
+                    <button className="reset-button" onClick={resetAnswer}>
+                        전부 지우기
+                    </button>
+                </div>
+            </AnswerInputWrapper>
+        </AnswerWrapper>
     )
 }
 
 const AnswerWrapper = styled.section`
     ${tw`tw-bg-beige-200 
         tw-flex tw-flex-col`}
-    width: 100%;
-    max-width: 42rem;
-    height: calc(100vh - 43rem);
-    min-height: 40%;
-    position: fixed;
+    min-height: calc(100vh - 38rem);
     bottom: 5.2rem;
     padding: 3.2rem 2.4rem 1.6rem;
     margin-top: 5.5rem;
@@ -99,16 +77,19 @@ const TitleInputWrapper = styled.div`
 
 const AnswerInputWrapper = styled.div`
     ${tw`tw-bg-beige-200 tw-font-nanumBarunGothic tw-text-grey-800`}
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
     font-size: 1.4rem;
     line-height: 2.2rem;
     .answer {
         ${tw`tw-bg-beige-200`}
         width: 100%;
-        height: calc(100% - 2.2rem);
+        min-height: calc(100% - 2.2rem);
     }
     .sub-items {
-        display: flex;
+        display: inherit;
         justify-content: space-between;
         font-size: 1.4rem;
         line-height: 2.2rem;
@@ -119,15 +100,6 @@ const AnswerInputWrapper = styled.div`
             ${tw`tw-text-grey-700`}
         }
     }
-`
-
-const ConfirmButton = styled.button`
-    ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
-    max-width: 42rem;
-    width: 100%;
-    height: 5.2rem;
-    font-size: 1.6rem;
-    line-height: 2.5rem;
 `
 
 export default observer(Answer)

@@ -1,13 +1,14 @@
-import {LetterOption} from '$types/response/letter'
-import {withAxios} from '$utils/fetcher/withAxios'
 import styled from '@emotion/styled'
 import {css} from '@emotion/react'
 import {ReactChild, useState} from 'react'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
 import tw from 'twin.macro'
+import {withAxios} from '$utils/fetcher/withAxios'
 import {observer} from 'mobx-react-lite'
 import {useLetterStore} from '$contexts/StoreContext'
+import {MainButton} from '$styles/utils/components'
+import {LetterOption} from '$types/response/letter'
 
 interface Props {
     options: LetterOption[]
@@ -106,7 +107,8 @@ const Button = styled.button<ButtonPropsType>([
         letter-spacing: -0.015em;
         font-size: 1.6rem;
         &:hover {
-            ${tw`tw-bg-beige-500 tw-bg-opacity-40`}
+            background: rgba(203, 196, 168, 0.4);
+            border: 1px solid #d4cec4;
         }
     `,
     ({isClicked}) =>
@@ -117,6 +119,7 @@ const Button = styled.button<ButtonPropsType>([
             tw-border-2 tw-border-primary-green-600`}
                   &:hover {
                       background: #bb9045;
+                      border: 2px solid #11373e;
                   }
               `
             : css`
@@ -124,7 +127,7 @@ const Button = styled.button<ButtonPropsType>([
               `,
 ])
 
-const ConfirmButton = styled.button`
+const ConfirmButton = styled(MainButton)`
     ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
     max-width: 42rem;
     width: 100%;
