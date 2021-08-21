@@ -59,10 +59,9 @@ const ItemDescWrapper = styled.div`
     ${FlexBetween}
     margin-top: 0.8rem;
     .text-wrap {
-        ${tw`tw-text-xs`}
+        ${tw`tw-text-xs tw-text-grey-700`}
         ${FontNanumBarunGothic('light')}
         letter-spacing: -0.015em;
-        color: #5B5A57;
     }
 `
 
