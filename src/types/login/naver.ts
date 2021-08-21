@@ -1,5 +1,6 @@
-import {GrantType} from '$constants'
+import {GRANT_TYPE} from '$constants'
 
+export type GrantType = typeof GRANT_TYPE[keyof typeof GRANT_TYPE]
 export interface AuthorizeRequest {
     redirect_uri: string
     response_type: 'code'

@@ -1,12 +1,12 @@
-import {CovidStats, LetterStats} from '$types/response/stat'
+import {CovidStatResponse} from '$types/response/stat'
 import {numberFormat} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
 import styled from '@emotion/styled'
 import HomeImage from 'assets/images/HomeImage'
-import {InferGetServerSidePropsType} from 'next'
+import {GetServerSidePropsContext, InferGetServerSidePropsType} from 'next'
 import tw from 'twin.macro'
 import AnalyzeSection from '$components/main/AnalyzeSection'
-import {PropsFromApp} from '$types/index'
+import {PropsFromApp, ValueMap} from '$types/index'
 import MyLetterSection from '$components/main/MyLetterSection'
 import StatBadge from '$components/main/StatBadge'
 import {useAlertStore, useAuthStore} from '$contexts/StoreContext'
@@ -20,6 +20,8 @@ import useNumberAnimation from '$hooks/useNumberAnimation'
 import {animated} from 'react-spring'
 import MainLayout from '$components/layout/MainLayout'
 import {useEffect} from 'react'
+import cookies from 'next-cookies'
+import {getIntervalFromTodayToNextday} from '$utils/date'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -70,14 +72,14 @@ const AnimatedSpan = styled(animated.span)`
 `
 
 const Main = ({
-    confirmedCase,
-    confirmedIncrease,
-    completeCure,
-    cureIncrease,
-    completeShot,
-    shotRate,
-    unsented,
-    sented,
+    vaccinated, // 2차 접종 완료자 수   <-- 접종 완료율로 변경 필요!!
+    vaccinatedPer, // 2차 접종 완료자 수 (전일대비 증감량) <-- 접종 완료율로 변경 필요!!
+    confirmed, // 확진자수
+    confirmedPer, // 확진자수 (전일대비 증감량)
+    cured, // 완치자수
+    curedPer, // 완치자수 (전일대비 증감량)
+    letterSend, // 발송된 편지
+    letterPending, // 미발송 편지수
     token,
     isGoogleLogin,
     isMobile,
@@ -111,7 +113,7 @@ const Main = ({
         router.push(ROUTES.COVID.LETTER.OPTION)
     }
 
-    const transitions = useNumberAnimation(numberFormat(unsented + sented))
+    const transitions = useNumberAnimation(numberFormat(letterSend + letterPending))
 
     return (
         <MainLayout isMobile={isMobile} isGoogleLogin={isGoogleLogin}>
@@ -148,35 +150,16 @@ const Main = ({
                         {
                             title: '접종 완료율',
                             value: (
-                                <StatBadge
-                                    type={'blue'}
-                                    value={`${completeShot}%`}
-                                    change={`${shotRate}%`}
-                                    isIncrease={true}
-                                />
+                                <StatBadge type={'blue'} value={vaccinated} change={vaccinatedPer} isIncrease={true} />
                             ),
                         },
                         {
                             title: '총 확진자 수',
-                            value: (
-                                <StatBadge
-                                    type={'red'}
-                                    value={numberFormat(confirmedCase)}
-                                    change={numberFormat(confirmedIncrease)}
-                                    isIncrease={true}
-                                />
-                            ),
+                            value: <StatBadge type={'red'} value={confirmed} change={confirmedPer} isIncrease={true} />,
                         },
                         {
                             title: '총 완치자 수',
-                            value: (
-                                <StatBadge
-                                    type={'green'}
-                                    value={numberFormat(completeCure)}
-                                    change={numberFormat(cureIncrease)}
-                                    isIncrease={true}
-                                />
-                            ),
+                            value: <StatBadge type={'green'} value={cured} change={curedPer} isIncrease={true} />,
                         },
                     ]}
                 />
@@ -188,11 +171,11 @@ const Main = ({
                     info={[
                         {
                             title: '미발송 편지',
-                            value: <Value>{numberFormat(unsented)}</Value>,
+                            value: <Value>{numberFormat(letterPending)}</Value>,
                         },
                         {
                             title: '발송된 편지',
-                            value: <Value>{numberFormat(sented)}</Value>,
+                            value: <Value>{numberFormat(letterSend)}</Value>,
                         },
                     ]}
                 />
@@ -206,24 +189,30 @@ const Main = ({
  *
  * @todo 코로나 통계, 편지 통계 가져올 때 활용
  */
-export async function getServerSideProps() {
-    const covidStats = await withAxios<CovidStats>({
-        url: '/covid/stats',
-    })
-
-    const letterStats = await withAxios<LetterStats>({
-        url: '/letter/stats',
-    })
-
-    if (!covidStats || !letterStats) {
+export async function getServerSideProps({req, res}: GetServerSidePropsContext) {
+    const {covidApiResult} = cookies({req})
+    if (covidApiResult) {
         return {
-            props: {} as CovidStats & LetterStats,
+            props: Object.assign({}, covidApiResult as unknown as ValueMap) as CovidStatResponse<string>,
+        }
+    }
+    const stats = await withAxios<CovidStatResponse<string>>({
+        url: '/covidstat',
+    })
+
+    if (!stats) {
+        return {
+            props: {} as CovidStatResponse<string>,
             notFound: true,
         }
     }
 
+    const maxAge = getIntervalFromTodayToNextday()
+
+    res?.setHeader('Set-Cookie', `covidApiResult=${JSON.stringify(stats)}; path=/; max-age=${maxAge}`)
+
     return {
-        props: {...covidStats, ...letterStats},
+        props: {...stats},
         notFound: false,
     }
 }
