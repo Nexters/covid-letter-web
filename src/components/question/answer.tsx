@@ -62,7 +62,6 @@ const TitleInputWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     min-width: 19.5rem;
-    height: 4.2rem;
     font-size: 1.8rem;
     .title {
         ${tw`tw-bg-beige-200`}
@@ -83,16 +82,17 @@ const AnswerInputWrapper = styled.div`
     justify-content: space-between;
     font-size: 1.4rem;
     line-height: 2.2rem;
+    min-height: 100%;
     .answer {
         ${tw`tw-bg-beige-200`}
         width: 100%;
-        min-height: calc(100% - 2.2rem);
     }
     .sub-items {
         display: inherit;
         justify-content: space-between;
         font-size: 1.4rem;
         line-height: 2.2rem;
+        margin-top: 2.4rem;
         .answer-length {
             ${tw`tw-text-grey-500`}
         }
