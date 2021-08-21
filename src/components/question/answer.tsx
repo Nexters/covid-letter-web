@@ -43,7 +43,6 @@ const Answer = () => {
 const AnswerWrapper = styled.section`
     ${tw`tw-bg-beige-200 
         tw-flex tw-flex-col`}
-    min-height: calc(100vh - 38rem);
     bottom: 5.2rem;
     padding: 3.2rem 2.4rem 1.6rem;
     margin-top: 5.5rem;
@@ -63,6 +62,7 @@ const TitleInputWrapper = styled.div`
     align-items: center;
     min-width: 19.5rem;
     font-size: 1.8rem;
+    height: 4.2rem;
     .title {
         ${tw`tw-bg-beige-200`}
         line-height: 2.5rem;

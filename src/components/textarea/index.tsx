@@ -1,7 +1,10 @@
 import React, {useState, useEffect, useRef, TextareaHTMLAttributes} from 'react'
 import styled from '@emotion/styled'
+import {useLetterStore} from '$contexts/StoreContext'
 
 const AutoTextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
+    const {addAnswer} = useLetterStore()
+
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const [text, setText] = useState('')
     const [textAreaHeight, setTextAreaHeight] = useState('calc(30vh - 3rem)')
@@ -16,6 +19,7 @@ const AutoTextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
         setTextAreaHeight('auto')
         setParentHeight(`${textAreaRef.current!.scrollHeight}px`)
         setText(event.target.value)
+        addAnswer(event.target.value)
 
         if (props.onChange) {
             props.onChange(event)
