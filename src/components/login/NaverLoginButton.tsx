@@ -7,6 +7,7 @@ import styled from '@emotion/styled'
 import SvgNaver from 'assets/NaverLogo'
 import {useAlertStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
+import {FontNanumBarunGothic} from '$styles/utils/font'
 
 const commonTw = tw`
     tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center
@@ -14,9 +15,10 @@ const commonTw = tw`
 
 const Button = styled.button`
     ${commonTw}
-    ${tw`tw-font-ohsquare tw-font-bold tw-text-base tw-bg-grey-000`}
+    ${FontNanumBarunGothic('semibold')}
+    ${tw`tw-text-base tw-bg-grey-000`}
     width: 100%;
-    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.65rem 0' : '1.85rem 0')};
+    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.5rem 0' : '1.5rem 0')};
     color: #767678;
     border: 1px solid #e6e6ea;
 `
