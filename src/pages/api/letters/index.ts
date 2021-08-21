@@ -9,9 +9,9 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Response<Letter[] | null>>,
 ) {
-    const {letterLogin} = req.body
+    const {letterLogin, unposted} = req.body
     try {
-        const {data: {errorCode, message, data: letters}}: AxiosResponse<ServerResponse<Letter[]>> = await axios.get(`${API_URL_BASE}/letters`, {headers: {Authorization: letterLogin}})
+        const {data: {errorCode, message, data: letters}}: AxiosResponse<ServerResponse<Letter[]>> = await axios.get(`${API_URL_BASE}/letters?unposted=${unposted}`, {headers: {Authorization: letterLogin}})
         if (errorCode) {
             console.info(`errorCode: ${errorCode}, message: ${message}`)
             throw new Error(message)
