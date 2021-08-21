@@ -5,24 +5,34 @@ import tw from 'twin.macro'
 import {HEADER_POSITION} from './constants'
 import {HeaderPosition, HeaderType} from './types'
 
+type ContainerProps = {
+    isFixed: boolean
+    position: HeaderPosition
+}
+
 const Container = styled.div`
-    ${tw`tw-fixed`}
+    ${tw`tw-bg-beige-300`}
+    position: ${({isFixed}: ContainerProps) => (isFixed ? 'fixed' : 'relative')};
     top: 0;
     left: 0;
     right: 0;
     padding: 1.6rem;
-    text-align: ${({position}: {position: HeaderPosition}) => position};
+    max-width: 420px;
+    margin: 0 auto;
+    width: 100%;
+    text-align: ${({position}: ContainerProps) => position};
 `
 
 type CommonHeaderProps = {
     type: HeaderType
     position?: HeaderPosition
     onClick?: (e?: React.SyntheticEvent) => void
+    isFixed?: boolean
 }
 
-const CommonHeader = ({type, onClick, position = HEADER_POSITION.LEFT}: CommonHeaderProps) => {
+const CommonHeader = ({type, onClick, position = HEADER_POSITION.LEFT, isFixed = false}: CommonHeaderProps) => {
     return (
-        <Container position={position}>
+        <Container position={position} isFixed={isFixed}>
             {(() => {
                 switch (type) {
                     case 'BACK':

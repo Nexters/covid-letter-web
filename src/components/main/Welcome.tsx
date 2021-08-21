@@ -17,7 +17,7 @@ const WelcomeText = styled.div`
     ${tw`tw-text-xl tw-text-primary-green-500`}
 `
 
-const WelcomeArea = () => {
+const Welcome = () => {
     return (
         <Link href={ROUTES.LOGIN}>
             <a>
@@ -35,4 +35,4 @@ const WelcomeArea = () => {
     )
 }
 
-export default WelcomeArea
+export default Welcome

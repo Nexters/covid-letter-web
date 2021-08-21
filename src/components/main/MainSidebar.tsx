@@ -2,7 +2,7 @@ import SidebarButtonList from '$components/main/SidebarButtonList'
 import Sidebar from '$components/sidebar'
 import ROUTES from '$constants/routes'
 import styled from '@emotion/styled'
-import WelcomeArea from '$components/main/WelcomeArea'
+import Welcome from '$components/main/Welcome'
 import {SidebarButton} from '$components/main/types'
 import {useProfileContext} from '$contexts/ProfileContext'
 import LoginedWelcomeArea from '$components/main/LoginedWelcomeArea'
@@ -38,7 +38,7 @@ const MainSidebar = ({isShow, logined, closeFn, logout}: MainSidebarProps) => {
     return (
         <Sidebar isShow={isShow} closeFn={closeFn}>
             <SidebarContainer>
-                {logined && profile ? <LoginedWelcomeArea email={profile.email as string} /> : <WelcomeArea />}
+                {logined && profile ? <LoginedWelcomeArea email={profile.email as string} /> : <Welcome />}
                 <SidebarButtonList
                     list={[
                         {
