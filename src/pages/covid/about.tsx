@@ -1,9 +1,11 @@
 import CommonHeader from '$components/header/CommonHeader'
 import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
+import ROUTES from '$constants/routes'
 import {FontNanumBarunGothic, FontOhsquareAir} from '$styles/utils/font'
 import {FlexCenter} from '$styles/utils/layout'
 import styled from '@emotion/styled'
 import IconCheck from 'assets/icons/IconCheck'
+import {useRouter} from 'next/router'
 import {ReactNode} from 'react'
 import tw from 'twin.macro'
 
@@ -126,9 +128,14 @@ const list: List[] = [
 ]
 
 const About = () => {
+    const router = useRouter()
+
+    const goMain = () => {
+        router.push(ROUTES.COVID.MAIN)
+    }
     return (
         <>
-            <CommonHeader type={HEADER_TYPE.CLOSE} position={HEADER_POSITION.RIGHT} />
+            <CommonHeader type={HEADER_TYPE.CLOSE} position={HEADER_POSITION.RIGHT} onClick={goMain} />
             <TitleSection>
                 “
                 <br />

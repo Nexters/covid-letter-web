@@ -43,7 +43,7 @@ const CommonHeader = ({type, onClick, position = HEADER_POSITION.LEFT, isFixed =
                         )
                     case 'CLOSE':
                         return (
-                            <button>
+                            <button onClick={onClick}>
                                 <IconClose />
                             </button>
                         )
