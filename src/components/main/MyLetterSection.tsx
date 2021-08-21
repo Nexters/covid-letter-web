@@ -1,4 +1,4 @@
-import {FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
+import {FontNanumBarunGothic, FontOhsquare} from '$styles/utils/font'
 import {FlexCenter} from '$styles/utils/layout'
 import styled from '@emotion/styled'
 import MailBoxImage from 'assets/images/MailBoxImage'
@@ -15,13 +15,13 @@ const ImageContainer = styled.div`
 
 const Title = styled.div`
     ${FlexCenter}
-    ${FontOhsquareAir}
+    ${FontNanumBarunGothic()}
     ${tw`tw-text-center tw-text-lg tw-text-grey-800`}
     margin: 2.4rem 0;
 `
 
 const LetterButton = styled.button`
-    ${FontOhsquare}
+    ${FontNanumBarunGothic('semibold')}
     ${tw`tw-w-full tw-text-base tw-text-primary-green-500 hover:tw-text-primary-green-500 hover:tw-bg-grey-100 focus:tw-bg-grey-100`}
     padding: 1.35rem 0;
     background-color: transparent;
@@ -49,9 +49,9 @@ const MyLetterSection = ({logined}: {logined: boolean}) => {
             </ImageContainer>
             <Title>
                 <span>
-                    나에게 <Highlight>00 통의 편지</Highlight>를
+                    지금까지 나에게
                     <br />
-                    작성했어!
+                    <Highlight>00 통의 편지</Highlight>를 작성했어!
                 </span>
             </Title>
             <LetterButton>편지 목록 보기</LetterButton>

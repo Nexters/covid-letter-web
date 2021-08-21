@@ -1,6 +1,7 @@
 import {useAlertStore} from '$contexts/StoreContext'
 import usePortal from '$hooks/usePortal'
 import {MainButton} from '$styles/utils/components'
+import {FontNanumBarunGothic} from '$styles/utils/font'
 import styled from '@emotion/styled'
 import {observer} from 'mobx-react-lite'
 import {Fragment} from 'react'
@@ -8,7 +9,8 @@ import {ALERT_TYPE} from 'stores/Alert'
 import tw from 'twin.macro'
 
 const Container = styled.div`
-    ${tw`tw-font-nanumBarunGothic tw-text-base`}
+    ${FontNanumBarunGothic()}
+    ${tw`tw-text-base`}
     position: fixed;
     top: 0;
     left: 0;

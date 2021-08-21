@@ -42,7 +42,6 @@ const Highlight = styled.span`
 `
 
 const SubTitle = styled.div`
-    ${FontOhsquareAir}
     ${FlexStart}
     ${tw`tw-text-left tw-text-base tw-text-grey-700`}
     margin-top: 1.2rem;

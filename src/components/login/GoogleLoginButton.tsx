@@ -5,6 +5,7 @@ import tw from 'twin.macro'
 import styled from '@emotion/styled'
 import GoogleLogo from 'assets/logos/GoogleLogo'
 import {LoginToken} from '$types/response/login'
+import {FontNanumBarunGothic} from '$styles/utils/font'
 
 const commonTw = tw`
     tw-flex tw-text-center tw-flex-1 tw-justify-center tw-items-center
@@ -12,9 +13,10 @@ const commonTw = tw`
 
 const Button = styled.button`
     ${commonTw}
-    ${tw`tw-font-ohsquare tw-font-bold tw-text-base`}
+    ${FontNanumBarunGothic('semibold')}
+    ${tw`tw-text-base`}
     width: 100%;
-    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.65rem 0' : '1.85rem 0')};
+    padding: ${({isMobile}: {isMobile: boolean}) => (isMobile ? '1.5rem 0' : '1.5rem 0')};
     color: #fff;
     background-color: #dc4e41;
     border: 1px solid #dc4e41;
