@@ -1,7 +1,7 @@
 import {LetterState} from '$types/response/letter'
 import styled from '@emotion/styled'
-import SvgLetterStatePending from '../../assets/tag/letter/Pending'
-import SvgLetterStateSend from '../../assets/tag/letter/Send'
+import SvgLetterStatePending from 'assets/tag/letter/Pending'
+import SvgLetterStateSend from 'assets/tag/letter/Send'
 
 const Container = styled.div`
     margin-left: 0.8rem;
@@ -10,9 +10,17 @@ const Container = styled.div`
 export const LetterStateTagFactory = (letterState: LetterState) => {
     switch (letterState) {
         case LetterState.PENDING:
-            return <Container><SvgLetterStatePending /></Container>
+            return (
+                <Container>
+                    <SvgLetterStatePending />
+                </Container>
+            )
         case LetterState.SEND:
-            return <Container><SvgLetterStateSend /></Container>
+            return (
+                <Container>
+                    <SvgLetterStateSend />
+                </Container>
+            )
         case LetterState.DISPLAYED:
             return <></>
     }
