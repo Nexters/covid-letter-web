@@ -15,8 +15,8 @@ module.exports = {
          * - spacing // If you’d like to customize these values for padding, margin, width, and height all at once
          */
         fontSize: {
-            '3xs': ['0.9rem', '1.4rem'],
-            '2xs': ['1rem', '1.6rem'],
+            '3xs': ['1rem', '1.6rem'],
+            '2xs': ['1.1rem', '1.9rem'],
             xs: ['1.2rem', '1.9rem'],
             sm: ['1.4rem', '2.2rem'],
             base: ['1.6rem', '2.5rem'],

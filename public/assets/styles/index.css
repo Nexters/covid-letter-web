@@ -16746,13 +16746,13 @@ html,
 }
 
 .tw-text-3xs {
-  font-size: 0.9rem;
-  line-height: 1.4rem;
+  font-size: 1rem;
+  line-height: 1.6rem;
 }
 
 .tw-text-2xs {
-  font-size: 1rem;
-  line-height: 1.6rem;
+  font-size: 1.1rem;
+  line-height: 1.9rem;
 }
 
 .tw-text-xs {
@@ -21346,17 +21346,6 @@ html,
 .tw-content-none {
   content: none;
 }
-
-/* html,
-body > div[id^='__next'],
-body {
-    height: 100%;
-    font-size: 10px;
-    background-color: var(--beige-300);
-    font-family: NanumBarunGothic, Arial, sans-serif;
-    font-weight: normal;
-    font-style: normal;
-} */
 
 html body,
 div,
@@ -37500,13 +37489,13 @@ button:active {
   }
 
   .sm\:tw-text-3xs {
-    font-size: 0.9rem;
-    line-height: 1.4rem;
+    font-size: 1rem;
+    line-height: 1.6rem;
   }
 
   .sm\:tw-text-2xs {
-    font-size: 1rem;
-    line-height: 1.6rem;
+    font-size: 1.1rem;
+    line-height: 1.9rem;
   }
 
   .sm\:tw-text-xs {
@@ -58008,13 +57997,13 @@ button:active {
   }
 
   .md\:tw-text-3xs {
-    font-size: 0.9rem;
-    line-height: 1.4rem;
+    font-size: 1rem;
+    line-height: 1.6rem;
   }
 
   .md\:tw-text-2xs {
-    font-size: 1rem;
-    line-height: 1.6rem;
+    font-size: 1.1rem;
+    line-height: 1.9rem;
   }
 
   .md\:tw-text-xs {
@@ -78516,13 +78505,13 @@ button:active {
   }
 
   .lg\:tw-text-3xs {
-    font-size: 0.9rem;
-    line-height: 1.4rem;
+    font-size: 1rem;
+    line-height: 1.6rem;
   }
 
   .lg\:tw-text-2xs {
-    font-size: 1rem;
-    line-height: 1.6rem;
+    font-size: 1.1rem;
+    line-height: 1.9rem;
   }
 
   .lg\:tw-text-xs {
@@ -99024,13 +99013,13 @@ button:active {
   }
 
   .xl\:tw-text-3xs {
-    font-size: 0.9rem;
-    line-height: 1.4rem;
+    font-size: 1rem;
+    line-height: 1.6rem;
   }
 
   .xl\:tw-text-2xs {
-    font-size: 1rem;
-    line-height: 1.6rem;
+    font-size: 1.1rem;
+    line-height: 1.9rem;
   }
 
   .xl\:tw-text-xs {
@@ -119532,13 +119521,13 @@ button:active {
   }
 
   .\32xl\:tw-text-3xs {
-    font-size: 0.9rem;
-    line-height: 1.4rem;
+    font-size: 1rem;
+    line-height: 1.6rem;
   }
 
   .\32xl\:tw-text-2xs {
-    font-size: 1rem;
-    line-height: 1.6rem;
+    font-size: 1.1rem;
+    line-height: 1.9rem;
   }
 
   .\32xl\:tw-text-xs {
