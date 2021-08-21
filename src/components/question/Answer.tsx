@@ -3,13 +3,12 @@ import {observer} from 'mobx-react-lite'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import AutoTextArea from '$components/textarea'
-import TextareaAutosize from 'react-textarea-autosize'
 
 export const MAX_LETTER_ANSWER_LENGTH = 1000
 export const MAX_LETTER_TITLE_LENGTH = 12
 
 const Answer = () => {
-    const {answer, title, addAnswer, addTitle, resetAnswer} = useLetterStore()
+    const {answer, title, addTitle, resetAnswer} = useLetterStore()
 
     return (
         <AnswerWrapper>
