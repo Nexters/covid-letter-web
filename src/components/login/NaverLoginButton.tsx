@@ -4,7 +4,7 @@ import {AuthorizeResponse} from '$types/login/naver'
 import ROUTES from '$constants/routes'
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
-import SvgNaver from 'assets/NaverLogo'
+import NaverLogo from 'assets/logos/NaverLogo'
 import {useAlertStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 
@@ -50,7 +50,7 @@ const NaverLoginButton = ({returnUrl, isMobile}: NaverLoginButtonProps) => {
     }
     return (
         <Button onClick={() => handleLogin()} isMobile={isMobile}>
-            <SvgNaver style={{marginRight: '24px'}} />
+            <NaverLogo style={{marginRight: '24px'}} />
             네이버로 계속하기
         </Button>
     )

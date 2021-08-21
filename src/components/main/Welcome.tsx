@@ -2,7 +2,7 @@ import ROUTES from '$constants/routes'
 import {FontOhsquare} from '$styles/utils/font'
 import {FlexBetween} from '$styles/utils/layout'
 import styled from '@emotion/styled'
-import IconMore from 'assets/IconMore'
+import IconMore from 'assets/icons/IconMore'
 import Link from 'next/link'
 import tw from 'twin.macro'
 
@@ -17,7 +17,7 @@ const WelcomeText = styled.div`
     ${tw`tw-text-xl tw-text-primary-green-500`}
 `
 
-const WelcomeArea = () => {
+const Welcome = () => {
     return (
         <Link href={ROUTES.LOGIN}>
             <a>
@@ -35,4 +35,4 @@ const WelcomeArea = () => {
     )
 }
 
-export default WelcomeArea
+export default Welcome

@@ -1,8 +1,8 @@
 import {FontNanumBarunGothic, FontOhsquare} from '$styles/utils/font'
 import {FlexCenter} from '$styles/utils/layout'
 import styled from '@emotion/styled'
-import IconArrowDown from 'assets/IconArrowDown'
-import IconArrowUp from 'assets/IconArrowUp'
+import IconArrowDown from 'assets/icons/IconArrowDown'
+import IconArrowUp from 'assets/icons/IconArrowUp'
 import tw from 'twin.macro'
 
 const Value = styled.div`

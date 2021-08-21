@@ -3,7 +3,7 @@ import GoogleLoginButton from '$components/login/GoogleLoginButton'
 import ROUTES from '$constants/routes'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
-import SvgLogin from 'assets/LoginBg'
+import LoginImage from 'assets/images/LoginImage'
 import {FlexCenter} from '$styles/utils/layout'
 import {FontNanumBarunGothic, FontOhsquareAir} from '$styles/utils/font'
 
@@ -85,7 +85,7 @@ const Login = ({isMobile}: {isMobile: boolean}) => {
             </SubTitle>
             <BottomFixed isMobile={isMobile}>
                 <Img>
-                    <SvgLogin />
+                    <LoginImage />
                 </Img>
                 <Intro>
                     <IntroTitle>온전히 나에게 집중하는 시간...</IntroTitle>

@@ -5,7 +5,7 @@ import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import Overlay from '$components/overlay'
 import {PropsWithChildren} from 'react'
-import IconClose from 'assets/IconClose'
+import IconClose from 'assets/icons/IconClose'
 
 const Container = styled.div`
     position: fixed;

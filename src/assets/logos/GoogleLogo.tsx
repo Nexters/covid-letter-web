@@ -1,4 +1,4 @@
-function SvgGoogle({style}: {style: React.CSSProperties}) {
+function GoogleLogo({style}: {style: React.CSSProperties}) {
     return (
         <svg
             width="1.6rem"
@@ -17,4 +17,4 @@ function SvgGoogle({style}: {style: React.CSSProperties}) {
     )
 }
 
-export default SvgGoogle
+export default GoogleLogo
