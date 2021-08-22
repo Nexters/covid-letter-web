@@ -1,37 +1,35 @@
-import {RESPONSE} from '$constants'
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {LetterOptionResponse} from '$types/response/letter'
+import {RESPONSE} from '$constants'
+import {LetterOption} from '$types/response/letter'
+import {Response, ServerResponse} from '$types/response'
+import axios, {AxiosResponse} from 'axios'
+import {API_URL_BASE} from '$config'
 
-export default function handler(_req: NextApiRequest, res: NextApiResponse<LetterOptionResponse>) {
-    res.status(200).json({
-        code: RESPONSE.NORMAL,
-        message: '',
-        result: [
-            {
-                id: 0,
-                covidStat: 1000,
-                text: '코로나 1000명',
-            },
-            {
-                id: 1,
-                covidStat: 2000,
-                text: '코로나 2000명',
-            },
-            {
-                id: 2,
-                covidStat: 3000,
-                text: '코로나 3000명',
-            },
-            {
-                id: 3,
-                covidStat: 4000,
-                text: '코로나 4000명',
-            },
-            {
-                id: 4,
-                covidStat: 5000,
-                text: '코로나 5000명',
-            },
-        ],
-    })
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Response<LetterOption[] | null>>) {
+    try {
+        const {
+            data: {errorCode, message, data: options},
+        }: AxiosResponse<ServerResponse<LetterOption[]>> = await axios.get(`${API_URL_BASE}/letters/options`, {
+            headers: req.headers,
+        })
+        if (errorCode) {
+            console.info(`errorCode: ${errorCode}, message: ${message}`)
+        }
+
+        res.status(200).json({
+            code: RESPONSE.NORAML,
+            message: '',
+            result: options.map((option) => {
+                return {
+                    ...option,
+                }
+            }),
+        })
+    } catch (e) {
+        res.status(500).json({
+            code: RESPONSE.ERROR,
+            message: '옵션 목록 조회 실패',
+            result: null,
+        })
+    }
 }
