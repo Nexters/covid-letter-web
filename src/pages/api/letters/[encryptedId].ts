@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {Letter, LetterState} from '$types/response/letter'
+import {Letter} from '$types/response/letter'
 import {Response, ServerResponse} from '$types/response'
 import {RESPONSE} from '$constants'
 import axios, {AxiosResponse} from 'axios'
@@ -24,7 +24,7 @@ export default async function handler(
                 ...letter,
                 createdDate: new Date().toDateString(), //현재 BE 테스트데이터에 createdDate 가 null 로 되어있어 임시용도
                 name: '최인혁', //todo remove 추후 서버 수정 시 삭제할 것
-                sendOptionId: 1, //tdoo remove
+                sendOptionId: 1, //todo remove
             },
         })
 

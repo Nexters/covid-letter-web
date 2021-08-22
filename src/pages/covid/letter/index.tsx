@@ -73,14 +73,12 @@ const Letters = ({letters}: {letters: Letter[]}) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const {letterLogin} = cookies(context)
+    const {letterLogin: token} = cookies(context)
     const letters = await withAxios<Letter[]>({
         url: '/letters',
+        headers: {Authorization: token},
         method: 'GET',
-        data: {
-            letterLogin,
-            unposted: false,
-        },
+        params: {unposted: false},
     })
 
     return {
