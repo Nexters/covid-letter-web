@@ -5,32 +5,57 @@ import {convertCommonDateFormat} from '$utils/date'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
 import {useProfileContext} from '$contexts/ProfileContext'
+import HalfLayer from '$components/layer/HalfLayer'
+import {useState} from 'react'
+
+const ServicePromotion = () => {
+    const router = useRouter()
+
+    return (
+        <>
+            과거에서부터 나에게 온
+            편지가 어땠어?
+            오늘 받아본 편지를 읽고
+            위로가 되었다면,
+
+            <br />
+            미래의 나에게 편지 써보지 않을래?
+            <br />
+
+            <button onClick={() => router.push(ROUTES.LOGIN)}>로그인하고 편지쓸래!</button>
+            <br />
+
+            <button onClick={() => router.push(ROUTES.COVID.SIDE.ABOUT)}>서비스 먼저 구경할래</button>
+        </>
+    )
+}
 
 const LetterDetail = ({letter}: {letter: Letter}) => {
-    const {title, contents, createdDate} = letter
-    const question = '코로나 전,\n가장 마지막에 여행을 다녀온 나라는\n어디인가요?' //todo be api 조회 시 questionText 조회되면 수정할 것
-
     const router = useRouter()
     const {profile} = useProfileContext()
+    const [isShowServicePromotion, setIsShowServicePromotion] = useState<boolean>(false)
+
+    const {title, contents, createdDate, questionText} = letter
     const finishReadLetter = () => {
-        if (profile) { //로그인 되어 있는 경우
+        if (profile?.id) {
             router.push(ROUTES.COVID.LETTER.LIST)
             return
         }
 
-        //로그인 되어 있지 않은 경우(이메일에서 바로 접근한 경우)
-        //todo 로그인 유도 모달 띄우기
-        console.log('로그인 유도 모달 open')
+        setIsShowServicePromotion(true)
     }
 
     return (
         <>
-            <div>질문: {question}</div>
+            <div>질문: {questionText}</div>
             <div>작성날짜 | {convertCommonDateFormat(createdDate)}</div>
             <div>제목: {title}</div>
             <div>~~~~~~</div>
             <div>내용: {contents}</div>
             <button onClick={finishReadLetter}>다 읽었어요!</button>
+            <HalfLayer isShow={isShowServicePromotion} closeFn={() => setIsShowServicePromotion(false)}>
+                <ServicePromotion />
+            </HalfLayer>
         </>
     )
 }

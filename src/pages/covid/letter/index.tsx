@@ -14,6 +14,79 @@ import EmptyLetterListContainer from '$components/letter/EmptyLetterListContaine
 import Divider from '$components/letter/Divider'
 import {StickerWithLetterFactory} from '$components/sticker/stickerWithLetterFactory'
 import {LetterStateTagFactory} from '$components/letter/LetterStateTagFactory'
+import Envelope from '$components/letter/Envelope'
+
+const Letters = ({letters}: {letters: Letter[]}) => {
+
+    const [isShowEnvelope, setIsShowEnvelop] = useState<boolean>(false)
+    const [openedLetter, setOpenedLetter] = useState<Letter | null>(null)
+
+    const openEnvelope = (encryptedId: string) => {
+        setOpenedLetter(letters.filter(letter => letter.encryptedId === encryptedId)[0])
+        setIsShowEnvelop(true)
+    }
+    const closeEnvelope = () => {
+        setOpenedLetter(null)
+        setIsShowEnvelop(false)
+    }
+
+    const letterList = letters.length === 0
+        ? <EmptyLetterListContainer />
+        : <ListContainer>
+                {letters.map(({title, state, sticker, createdDate, encryptedId, sendOptionText}, index) => (
+                    <div key={encryptedId}>
+                        <ItemContainer className="letter_item" onClick={() => openEnvelope(encryptedId)}>
+                            <ItemTitleWrapper>
+                                <span className='text'>{title}</span>
+                                {LetterStateTagFactory(state)}
+                            </ItemTitleWrapper>
+                            <ItemDescWrapper>
+                                <div className='text-wrap'>
+                                    작성일: {convertCommonDateFormat(createdDate)}
+                                    <br/>
+                                    발송기준: {sendOptionText}
+                                </div>
+                                {StickerWithLetterFactory(sticker)}
+                            </ItemDescWrapper>
+                        </ItemContainer>
+                        {index !== letters.length - 1 && <Divider/>}
+                    </div>
+                ))}
+          </ListContainer>
+
+    return (
+        <>
+            <Back />
+            <Container>
+                <LettersContainer>
+                    <TitleContainer>작성한 편지 목록 <span className="icon-letter">✉️</span></TitleContainer>
+                    <SubTitle>과거의 내가 작성한 편지들이에요.</SubTitle>
+                    {letterList}
+                </LettersContainer>
+
+                <HalfLayer isShow={isShowEnvelope} closeFn={closeEnvelope} >
+                    {openedLetter && (<Envelope letter={openedLetter} />)}
+                </HalfLayer>
+            </Container>
+        </>
+    )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const {letterLogin: token} = cookies(context)
+    const letters = await withAxios<Letter[]>({
+        url: '/letters',
+        headers: {Authorization: token},
+        method: 'GET',
+        params: {unposted: false},
+    })
+
+    return {
+        props: {
+            letters,
+        },
+    }
+}
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300 tw-h-screen`}
@@ -45,6 +118,7 @@ const ListContainer = styled.div`
 `
 const ItemContainer = styled.div`
     cursor: pointer;    
+    padding-bottom: 1.6rem;
 `
 
 const ItemTitleWrapper = styled.div`
@@ -64,80 +138,5 @@ const ItemDescWrapper = styled.div`
         letter-spacing: -0.015em;
     }
 `
-
-const Letters = ({letters}: {letters: Letter[]}) => {
-
-    const [isShowEnvelope, setIsShowEnvelop] = useState(false)
-    const [openedLetterId, setOpenedLetterId] = useState('')
-
-    const openEnvelope = (encryptedId: string) => {
-        setOpenedLetterId(encryptedId)
-        setIsShowEnvelop(true)
-    }
-    const closeEnvelope = () => {
-        setOpenedLetterId('')
-        setIsShowEnvelop(false)
-    }
-
-    const letterList = letters.length > 0
-        ? (
-            <ListContainer>
-                {letters.map(({title, state, sticker, createdDate, encryptedId, sendOptionText}, index) => (
-                    <>
-                        <ItemContainer key={encryptedId} className="letter_item" onClick={() => openEnvelope(encryptedId)}>
-                            <ItemTitleWrapper>
-                                <span className='text'>{title}</span>
-                                {LetterStateTagFactory(state)}
-                            </ItemTitleWrapper>
-                            <ItemDescWrapper>
-                                <div className='text-wrap'>
-                                    작성일: {convertCommonDateFormat(createdDate)}
-                                    <br/>
-                                    발송기준: {sendOptionText}
-                                </div>
-                                {StickerWithLetterFactory(sticker)}
-                            </ItemDescWrapper>
-                        </ItemContainer>
-                        {index !== letters.length - 1 && <Divider/>}
-                    </>
-                ))}
-            </ListContainer>
-        )
-        : <EmptyLetterListContainer />
-
-    return (
-        <>
-            <Back />
-            <Container>
-                <LettersContainer>
-                    <TitleContainer>작성한 편지 목록 <span className="icon-letter">✉️</span></TitleContainer>
-                    <SubTitle>과거의 내가 작성한 편지들이에요.</SubTitle>
-                    {letterList}
-                </LettersContainer>
-
-                <HalfLayer isShow={isShowEnvelope} closeFn={closeEnvelope} >
-                    {openedLetterId}
-                </HalfLayer>
-            </Container>
-        </>
-    )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const {letterLogin} = cookies(context)
-    const letters = await withAxios<Letter[]>({
-        url: '/letters',
-        method: 'GET',
-        data: {
-            letterLogin,
-        },
-    })
-
-    return {
-        props: {
-            letters,
-        },
-    }
-}
 
 export default Letters
