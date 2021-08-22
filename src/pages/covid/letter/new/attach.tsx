@@ -11,6 +11,7 @@ import {withAxios} from '$utils/fetcher/withAxios'
 import {Letter} from '$types/response/letter'
 import cookies from 'next-cookies'
 import {GetServerSideProps} from 'next'
+import {useProfileContext} from '$contexts/ProfileContext'
 
 type Props = {
     isMobile: boolean
@@ -20,30 +21,34 @@ type Props = {
 const Attach = (props: Props) => {
     const router = useRouter()
     const {sticker, answer, title, questionId, optionId} = useLetterStore()
+    const {profile, addLettersCount} = useProfileContext()
     const onClickConfirm = async () => {
-        console.log(props, 'props')
         if (!sticker.type) return
-        const response = await withAxios<Letter>({
-            url: '/letters/save',
-            method: 'POST',
-            data: {
-                contents: answer,
-                questionId: questionId,
-                sendOptionId: optionId,
-                sticker: sticker.type,
-                title: title,
-            },
-            headers: {
-                Authorization: props.token,
-            },
-        })
-        if (response) {
-            router.push({
-                pathname: ROUTES.COVID.LETTER.NEW.FINISH,
-                query: {optionId: router.query.optionId},
+        try {
+            const response = await withAxios<Letter>({
+                url: '/letters/save',
+                method: 'POST',
+                data: {
+                    contents: answer,
+                    questionId: questionId,
+                    sendOptionId: optionId,
+                    sticker: sticker.type,
+                    title: title,
+                },
+                headers: {
+                    Authorization: props.token,
+                },
             })
-        } else {
-            console.log('error')
+            if (response) {
+                addLettersCount(profile)
+                router.push({
+                    pathname: ROUTES.COVID.LETTER.NEW.FINISH,
+                    query: {optionId: router.query.optionId},
+                })
+            }
+        } catch (e) {
+            console.error(e)
+            throw new Error(e)
         }
     }
     return (
