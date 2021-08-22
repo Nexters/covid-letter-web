@@ -114,11 +114,11 @@ const SubTitle = styled.div`
 `
 
 const ListContainer = styled.div`
-    margin-top: 3.2rem;
+    padding: 0.8rem 0;
 `
 const ItemContainer = styled.div`
     cursor: pointer;    
-    padding-bottom: 1.6rem;
+    margin: 1.6rem 0;
 `
 
 const ItemTitleWrapper = styled.div`
