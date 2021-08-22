@@ -78,8 +78,8 @@ const Main = ({
     confirmedPer, // 확진자수 (전일대비 증감량)
     cured, // 완치자수
     curedPer, // 완치자수 (전일대비 증감량)
-    letterSend, // 발송된 편지
-    letterPending, // 미발송 편지수
+    lettersSend, // 발송된 편지
+    lettersPending, // 미발송 편지수
     token,
     isGoogleLogin,
     isMobile,
@@ -113,7 +113,7 @@ const Main = ({
         router.push(ROUTES.COVID.LETTER.OPTION)
     }
 
-    const transitions = useNumberAnimation(numberFormat(letterSend + letterPending))
+    const transitions = useNumberAnimation(numberFormat(lettersSend + lettersPending))
 
     return (
         <MainLayout isMobile={isMobile} isGoogleLogin={isGoogleLogin}>
@@ -171,11 +171,11 @@ const Main = ({
                     info={[
                         {
                             title: '미발송 편지',
-                            value: <Value>{numberFormat(letterPending)}</Value>,
+                            value: <Value>{numberFormat(lettersPending)}</Value>,
                         },
                         {
                             title: '발송된 편지',
-                            value: <Value>{numberFormat(letterSend)}</Value>,
+                            value: <Value>{numberFormat(lettersSend)}</Value>,
                         },
                     ]}
                 />

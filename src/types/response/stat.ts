@@ -24,6 +24,6 @@ export type CovidStatResponse<T = number | string> = {
     cured: T // 완치자수
     curedPer: T // 완치자수 (전일대비 증감량)
 
-    letterSend: number // 발송된 편지
-    letterPending: number // 미발송 편지수
+    lettersSend: number // 발송된 편지
+    lettersPending: number // 미발송 편지수
 }
