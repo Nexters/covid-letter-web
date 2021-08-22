@@ -9,12 +9,26 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Response<Letter | null>>
 ) {
-    const {encryptedId} = req.query
+    // const {encryptedId} = req.query
     try {
-        const {data: {errorCode, message, data: letter}}: AxiosResponse<ServerResponse<Letter>> = await axios.get(`${API_URL_BASE}/letters/${encryptedId}`)
-        if (errorCode) {
-            console.info(`errorCode: ${errorCode}, message: ${message}`)
-            throw new Error(message)
+        // const {data: {errorCode, message, data: letter}}: AxiosResponse<ServerResponse<Letter>> = await axios.get(`${API_URL_BASE}/letters/${encryptedId}`)
+        // if (errorCode) {
+        //     console.info(`errorCode: ${errorCode}, message: ${message}`)
+        //     throw new Error(message)
+        // }
+
+        const letter = {
+            title: 'TITLE1',
+            contents: '내용요용용용',
+            email: 'email',
+            name: null,
+            state: 'PENDING',
+            sticker: 'BLUE',
+            questionId: 8,
+            questionText: '질문질문 질문텍스트',
+            encryptedId: 'ENCRYPTED2',
+            sendOptionText: '해외 여행이 가능할 때',
+            createdDate: '2021-08-04T12:09:59'
         }
 
         res.status(200).json({
