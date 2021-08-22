@@ -4,7 +4,7 @@ import {User} from '$types/response/user'
 
 interface ProfileContextState {
     profile: User | undefined
-    reset: () => void
+    addLettersCount: (args: User) => void
     error: Error | undefined
 }
 
@@ -32,8 +32,14 @@ export const ProfileProvider = ({children, token}: {children: ReactNode; token?:
     const value = useMemo(
         () => ({
             profile,
-            reset() {
-                refreshProfile()
+            addLettersCount(args: User) {
+                refreshProfile(
+                    {
+                        ...args,
+                        lettersCount: args.lettersCount + 1,
+                    },
+                    false,
+                )
             },
             error,
         }),

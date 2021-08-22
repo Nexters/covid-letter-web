@@ -1,4 +1,4 @@
-import {GrantType} from '$constants'
+import {GRANT_TYPE} from '$constants'
 import {ProfileResponse, TokenResponse} from '$types/login/naver'
 import {LoginToken} from '$types/response/login'
 import {withAxios} from '$utils/fetcher/withAxios'
@@ -28,7 +28,7 @@ LoginBridge.getInitialProps = async ({req, res, query}: NextPageContext) => {
                 data: {
                     code,
                     state,
-                    grant_type: GrantType.create,
+                    grant_type: GRANT_TYPE.create,
                 },
             })
 

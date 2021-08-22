@@ -29,7 +29,7 @@ module.exports = {
         'no-unused-expressions': 'off',
         '@typescript-eslint/no-unused-expressions': ['error'],
         'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': 'warn',
+        '@typescript-eslint/no-unused-vars': 'error',
         'react/react-in-jsx-scope': 'off',
         'react/jsx-handler-names': [
             'off',
