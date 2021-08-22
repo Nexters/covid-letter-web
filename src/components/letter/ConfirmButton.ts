@@ -12,6 +12,7 @@ const ConfirmButton = styled.button`
     
     &:disabled {
         ${tw`tw-bg-grey-300 tw-text-grey-400`}
+        cursor: not-allowed;
     }
 `
 

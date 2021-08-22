@@ -16,56 +16,6 @@ import {StickerWithLetterFactory} from '$components/sticker/stickerWithLetterFac
 import {LetterStateTagFactory} from '$components/letter/LetterStateTagFactory'
 import Envelope from '$components/letter/Envelope'
 
-const Container = styled.div`
-    ${tw`tw-bg-beige-300 tw-h-screen`}
-    min-height: 100vh;
-    padding: 3.2rem 2.4rem;
-`
-const LettersContainer = styled.div`
-    padding-top: 5.6rem;
-`
-const TitleContainer = styled.div`
-    ${FontOhsquare}
-    ${FlexStart}
-    ${tw`tw-text-left tw-text-xl tw-text-primary-green-500`}
-    
-    .icon-letter {
-        margin-top: 0.2rem;
-        margin-left: 0.8rem;
-    }
-`
-const SubTitle = styled.div`
-    ${FontOhsquareAir}
-    ${FlexStart}
-    ${tw`tw-text-left tw-text-base tw-text-primary-green-500`}
-    margin-top: 0.8rem;
-`
-
-const ListContainer = styled.div`
-    margin-top: 3.2rem;
-`
-const ItemContainer = styled.div`
-    cursor: pointer;    
-`
-
-const ItemTitleWrapper = styled.div`
-    ${FlexStart}
-    .text {
-        ${tw`tw-text-sm tw-font-light tw-text-grey-800`}
-        letter-spacing: -0.015em;
-    }
-`
-
-const ItemDescWrapper = styled.div`
-    ${FlexBetween}
-    margin-top: 0.8rem;
-    .text-wrap {
-        ${tw`tw-text-xs tw-text-grey-700`}
-        ${FontNanumBarunGothic('light')}
-        letter-spacing: -0.015em;
-    }
-`
-
 const Letters = ({letters}: {letters: Letter[]}) => {
 
     const [isShowEnvelope, setIsShowEnvelop] = useState<boolean>(false)
@@ -80,9 +30,9 @@ const Letters = ({letters}: {letters: Letter[]}) => {
         setIsShowEnvelop(false)
     }
 
-    const letterList = letters.length > 0
-        ? (
-            <ListContainer>
+    const letterList = letters.length === 0
+        ? <EmptyLetterListContainer />
+        : <ListContainer>
                 {letters.map(({title, state, sticker, createdDate, encryptedId, sendOptionText}, index) => (
                     <div key={encryptedId}>
                         <ItemContainer className="letter_item" onClick={() => openEnvelope(encryptedId)}>
@@ -102,9 +52,7 @@ const Letters = ({letters}: {letters: Letter[]}) => {
                         {index !== letters.length - 1 && <Divider/>}
                     </div>
                 ))}
-            </ListContainer>
-        )
-        : <EmptyLetterListContainer />
+          </ListContainer>
 
     return (
         <>
@@ -141,5 +89,56 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
     }
 }
+
+const Container = styled.div`
+    ${tw`tw-bg-beige-300 tw-h-screen`}
+    min-height: 100vh;
+    padding: 3.2rem 2.4rem;
+`
+const LettersContainer = styled.div`
+    padding-top: 5.6rem;
+`
+const TitleContainer = styled.div`
+    ${FontOhsquare}
+    ${FlexStart}
+    ${tw`tw-text-left tw-text-xl tw-text-primary-green-500`}
+    
+    .icon-letter {
+        margin-top: 0.2rem;
+        margin-left: 0.8rem;
+    }
+`
+const SubTitle = styled.div`
+    ${FontOhsquareAir}
+    ${FlexStart}
+    ${tw`tw-text-left tw-text-base tw-text-primary-green-500`}
+    margin-top: 0.8rem;
+`
+
+const ListContainer = styled.div`
+    margin-top: 3.2rem;
+`
+const ItemContainer = styled.div`
+    cursor: pointer;    
+    padding-bottom: 1.6rem;
+`
+
+const ItemTitleWrapper = styled.div`
+    ${FlexStart}
+    .text {
+        ${tw`tw-text-sm tw-font-light tw-text-grey-800`}
+        letter-spacing: -0.015em;
+    }
+`
+
+const ItemDescWrapper = styled.div`
+    ${FlexBetween}
+    margin-top: 0.8rem;
+    .text-wrap {
+        ${tw`tw-text-xs tw-text-grey-700`}
+        ${FontNanumBarunGothic('light')}
+        letter-spacing: -0.015em;
+    }
+`
 
 export default Letters

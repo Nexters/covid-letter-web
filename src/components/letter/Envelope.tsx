@@ -1,7 +1,6 @@
 import {Letter, LetterState} from '$types/response/letter'
 import ROUTES from '$constants/routes'
 import {useRouter} from 'next/router'
-import {useAlertStore} from '$contexts/StoreContext'
 import {convertCommonDateFormat} from '$utils/date'
 import styled from '@emotion/styled'
 import ConfirmButton from '$components/letter/ConfirmButton'
@@ -25,12 +24,8 @@ const Envelope = ({letter}: EnvelopeProps) => {
     const isAvailableOpenLetter = state !== LetterState.PENDING
 
     const router = useRouter()
-    const {alert} = useAlertStore()
     const openLetter = () => {
         if (!isAvailableOpenLetter) {
-            alert({
-                title: '[TEXT 수정필요] 아직 편지를 열어 볼 수 없어요',
-            })
             return
         }
 
