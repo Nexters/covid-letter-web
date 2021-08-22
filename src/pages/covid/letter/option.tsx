@@ -8,6 +8,8 @@ import ROUTES from '$constants/routes'
 import tw from 'twin.macro'
 import {observer} from 'mobx-react-lite'
 import {useLetterStore} from '$contexts/StoreContext'
+import cookies from 'next-cookies'
+import {GetServerSideProps} from 'next'
 
 interface Props {
     options: LetterOption[]
@@ -51,15 +53,16 @@ const LetterOptionPage = ({options}: Props) => {
     )
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const {letterLogin} = cookies(context)
     const res = await withAxios<LetterOption[]>({
         url: '/letters/options',
         method: 'GET',
+        headers: {
+            Authorization: letterLogin,
+        },
     })
-
-    const options = res.map((option) => ({
-        ...option,
-    }))
+    const options = res
 
     return {props: {options}}
 }
