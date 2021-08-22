@@ -3,6 +3,8 @@ import ROUTES from '$constants/routes'
 import {useRouter} from 'next/router'
 import {useAlertStore} from '$contexts/StoreContext'
 import {convertCommonDateFormat} from '$utils/date'
+import styled from '@emotion/styled'
+import ConfirmButton from '$components/letter/ConfirmButton'
 
 type EnvelopeProps = {
     letter: Letter
@@ -32,7 +34,7 @@ const Envelope = ({letter}: EnvelopeProps) => {
     }
 
     return (
-        <>
+        <Container>
             <div>{encryptedId}</div>
             <div>제목: {title}</div>
             <div>작성일: {convertCommonDateFormat(createdDate)}</div>
@@ -41,11 +43,16 @@ const Envelope = ({letter}: EnvelopeProps) => {
             <div>email: {email}</div>
             <div>전송상태: {state} - UI 적용</div>
             <div>스티커: {sticker} - UI 적용</div>
-            <button /**disabled={!isAvailableOpenLetter}**/ onClick={openLetter}>
+            <ConfirmButton disabled={!isAvailableOpenLetter} onClick={openLetter}>
                 {letterOpenButtonText[state]}
-            </button>
-        </>
+            </ConfirmButton>
+        </Container>
     )
 }
+
+const Container = styled.section`
+    padding: 1.6rem 0 5.2rem 0;
+`
+
 
 export default Envelope
