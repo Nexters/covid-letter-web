@@ -5,6 +5,10 @@ import {useAlertStore} from '$contexts/StoreContext'
 import {convertCommonDateFormat} from '$utils/date'
 import styled from '@emotion/styled'
 import ConfirmButton from '$components/letter/ConfirmButton'
+import {FlexBetween, FlexStart} from '$styles/utils/layout'
+import tw from 'twin.macro'
+import {StickerFactory} from '$components/sticker/stickerFactory'
+import {StampFactory} from '$components/stamp/stampFactory'
 
 type EnvelopeProps = {
     letter: Letter
@@ -17,7 +21,7 @@ const letterOpenButtonText = {
 }
 
 const Envelope = ({letter}: EnvelopeProps) => {
-    const {encryptedId, title, sticker, sendOptionText, state, createdDate, email, name} = letter
+    const {encryptedId, title, sticker, sendOptionId, sendOptionText, state, createdDate, email, name} = letter
     const isAvailableOpenLetter = state !== LetterState.PENDING
 
     const router = useRouter()
@@ -35,14 +39,32 @@ const Envelope = ({letter}: EnvelopeProps) => {
 
     return (
         <Container>
-            <div>{encryptedId}</div>
-            <div>제목: {title}</div>
-            <div>작성일: {convertCommonDateFormat(createdDate)}</div>
-            <div>발송기준: {sendOptionText}</div>
-            <div>이름: {name}</div>
-            <div>email: {email}</div>
-            <div>전송상태: {state} - UI 적용</div>
-            <div>스티커: {sticker} - UI 적용</div>
+            <TitleWrapper>
+                <Highlight>{title}</Highlight>
+                {StickerFactory(sticker, '2.4rem')}
+            </TitleWrapper>
+            <DescWrapper>
+                <div>
+                    <div>
+                        <div><span>To. {name}</span></div>
+                        <div><span className="grey">{email}</span></div>
+                    </div>
+                    <div className="send-option">
+                        <div><span className="grey">발송 기준</span></div>
+                        <div><span>{sendOptionText}</span></div>
+                    </div>
+                </div>
+                {StampFactory(sendOptionId, '11.2rem')}
+            </DescWrapper>
+            <Divider />
+            <SenderWrapper>
+                <div className="send-date">
+                    <span>작성날짜</span>
+                    <span>{convertCommonDateFormat(createdDate)}</span>
+                </div>
+                <div>From. {name}</div>
+            </SenderWrapper>
+
             <ConfirmButton disabled={!isAvailableOpenLetter} onClick={openLetter}>
                 {letterOpenButtonText[state]}
             </ConfirmButton>
@@ -51,7 +73,61 @@ const Envelope = ({letter}: EnvelopeProps) => {
 }
 
 const Container = styled.section`
-    padding: 1.6rem 0 5.2rem 0;
+    padding-top: 1.6rem;
+    padding-bottom: 4.5rem;
+    margin-bottom: 2.8rem;
+`
+const TitleWrapper = styled.div`
+   ${FlexStart}
+`
+
+const Highlight = styled.span`
+    ${tw`tw-font-normal tw-text-base`}
+    line-height: 2.4rem;
+    letter-spacing: -0.015em;
+    margin-right: 1.2rem;
+
+    background-image: linear-gradient(1turn, var(--beige-300), var(--beige-300) 0.8rem, transparent 0, transparent);
+`
+
+const DescWrapper = styled.div`
+   ${FlexBetween}
+   ${tw`tw-font-normal tw-text-sm tw-text-left`}
+   margin-top: 3.4rem;
+   line-height: 2.2rem;
+   letter-spacing: -0.015em;
+
+   div + div {
+        margin-top: 0.4rem;
+   }
+   .send-option {
+        margin-top: 1.6rem;
+   }
+   .grey {
+        ${tw`tw-font-light tw-text-grey-600`}
+   }
+`
+const Divider = styled.div`
+    ${tw`tw-border-2 tw-border-solid tw-border-grey-200`}
+    margin: 3.2rem 0 2.4rem 0;
+`
+
+const SenderWrapper = styled.div`
+    ${tw`tw-text-sm tw-text-right`}
+    line-height: 22px;
+    letter-spacing: -0.015em;
+
+    .send-date {
+        ${tw`tw-font-light tw-text-grey-600`}
+
+        span + span {
+            margin-left: 1.3rem;
+        }
+    }
+
+    .sender-name {
+         ${tw`tw-font-normal tw-text-grey-800`}
+    }
 `
 
 

@@ -30,6 +30,7 @@ export interface Letter {
     questionText: string
     state: LetterState
     sticker: StickerType
+    sendOptionId: number
     sendOptionText: string
     title: string
 }
