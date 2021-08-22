@@ -7,16 +7,44 @@ import {useRouter} from 'next/router'
 import {useLetterStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 import {StickerFactory} from '$components/sticker/stickerFactory'
+import {withAxios} from '$utils/fetcher/withAxios'
+import {Letter} from '$types/response/letter'
+import cookies from 'next-cookies'
+import {GetServerSideProps} from 'next'
 
-const Attach = () => {
+type Props = {
+    isMobile: boolean
+    token: string
+    isGoogleLogin: boolean
+}
+const Attach = (props: Props) => {
     const router = useRouter()
-    const {sticker} = useLetterStore()
-    const onClickConfirm = () => {
+    const {sticker, answer, title, questionId, optionId} = useLetterStore()
+    const onClickConfirm = async () => {
+        console.log(props, 'props')
         if (!sticker.type) return
-        router.push({
-            pathname: ROUTES.COVID.LETTER.NEW.FINISH,
-            query: {optionId: router.query.optionId},
+        const response = await withAxios<Letter>({
+            url: '/letters/save',
+            method: 'POST',
+            data: {
+                contents: answer,
+                questionId: questionId,
+                sendOptionId: optionId,
+                sticker: sticker.type,
+                title: title,
+            },
+            headers: {
+                Authorization: props.token,
+            },
         })
+        if (response) {
+            router.push({
+                pathname: ROUTES.COVID.LETTER.NEW.FINISH,
+                query: {optionId: router.query.optionId},
+            })
+        } else {
+            console.log('error')
+        }
     }
     return (
         <>
@@ -59,6 +87,11 @@ const Attach = () => {
             </Container>
         </>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const res = cookies(context)
+    return {props: {res}}
 }
 
 const Container = styled.div`
