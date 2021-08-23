@@ -1,10 +1,10 @@
-import React, {TextareaHTMLAttributes} from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 import {useLetterStore} from '$contexts/StoreContext'
 import TextareaAutosize from 'react-textarea-autosize'
 import tw from 'twin.macro'
 
-const AutoTextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
+const AutoTextArea = () => {
     const {answer, addAnswer} = useLetterStore()
 
     const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
