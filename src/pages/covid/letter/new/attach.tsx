@@ -9,8 +9,6 @@ import {observer} from 'mobx-react-lite'
 import {StickerFactory} from '$components/sticker/stickerFactory'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {Letter} from '$types/response/letter'
-import cookies from 'next-cookies'
-import {GetServerSideProps} from 'next'
 import {useProfileContext} from '$contexts/ProfileContext'
 
 type Props = {
@@ -26,7 +24,7 @@ const Attach = (props: Props) => {
         if (!sticker.type) return
         try {
             const response = await withAxios<Letter>({
-                url: '/letters/save',
+                url: '/letters',
                 method: 'POST',
                 data: {
                     contents: answer,
@@ -40,7 +38,7 @@ const Attach = (props: Props) => {
                 },
             })
             if (response) {
-                addLettersCount(profile)
+                if (profile) addLettersCount(profile)
                 router.push({
                     pathname: ROUTES.COVID.LETTER.NEW.FINISH,
                     query: {optionId: router.query.optionId},
@@ -92,11 +90,6 @@ const Attach = (props: Props) => {
             </Container>
         </>
     )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const res = cookies(context)
-    return {props: {res}}
 }
 
 const Container = styled.div`
