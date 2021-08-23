@@ -17,7 +17,14 @@ const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
         <QuestionContainer>
             <QuestionWrapper>
                 <span className="question-number">질문 {currentQuestionIdx + 1}</span>
-                <h3>{questions[currentQuestionIdx].text}</h3>
+                <h3>
+                    {questions[currentQuestionIdx].text?.split('\n').map((text) => (
+                        <span key={text}>
+                            {text}
+                            <br />
+                        </span>
+                    ))}
+                </h3>
                 <span className="create-date">작성 날짜 | {getCurrentDate()}</span>
             </QuestionWrapper>
             <Button onClick={onClickNext}>다른 질문에 대답할래요</Button>
@@ -61,6 +68,7 @@ const Button = styled.button`
         tw-font-ohsquare-air
     `}
     min-width: 16.2rem;
+    margin: 0 auto;
     padding: 1rem 1.6rem;
     height: 4.2rem;
     box-sizing: border-box;
