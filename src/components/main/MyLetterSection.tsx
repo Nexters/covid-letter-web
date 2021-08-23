@@ -1,3 +1,4 @@
+import {useProfileContext} from '$contexts/ProfileContext'
 import {FontNanumBarunGothic, FontOhsquare} from '$styles/utils/font'
 import {FlexCenter} from '$styles/utils/layout'
 import styled from '@emotion/styled'
@@ -39,9 +40,13 @@ const Highlight = styled.span`
 `
 
 const MyLetterSection = ({logined}: {logined: boolean}) => {
-    if (!logined) {
+    const {profile} = useProfileContext()
+    if (!logined || !profile) {
         return null
     }
+
+    const {lettersCount} = profile
+
     return (
         <Container>
             <ImageContainer>
@@ -51,7 +56,7 @@ const MyLetterSection = ({logined}: {logined: boolean}) => {
                 <span>
                     지금까지 나에게
                     <br />
-                    <Highlight>00 통의 편지</Highlight>를 작성했어!
+                    <Highlight>{lettersCount} 통의 편지</Highlight>를 작성했어!
                 </span>
             </Title>
             <LetterButton>편지 목록 보기</LetterButton>

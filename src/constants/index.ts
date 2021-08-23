@@ -8,13 +8,11 @@ export const RESPONSE: {[key in string]: ResponseCode} = {
     INVALID_ACCESS_TOKEN: '024',
 }
 
-export const GrantType = {
+export const GRANT_TYPE = {
     create: 'authorization_code',
     refresh: 'refresh_token',
     delete: 'delete',
 } as const
-
-export type GrantType = typeof GrantType[keyof typeof GrantType]
 
 interface sticker {
     type: StickerType
@@ -83,3 +81,8 @@ export const stickerList: sticker[] = [
         desc: '그동안 얼마나 열심히 노력했겠어!\n진짜 고생많았어! 너무 멋있어!',
     },
 ]
+
+export const TIME_UNIT = {
+    MINUTE: 60,
+    HOUR: 60 * 60,
+}

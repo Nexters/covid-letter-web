@@ -4,7 +4,7 @@ import {
     isInstanceOfRedirectArror,
 } from '$utils/fetcher/ApiError'
 import {apiErrorHandler} from '$utils/fetcher/apiErrorHandler'
-import {Component, ErrorInfo, ReactNode} from 'react'
+import {Component, ReactNode} from 'react'
 
 export interface FallbackProps {
     error: Error
@@ -30,7 +30,7 @@ export default class ErrorBoundary extends Component<Props, State> {
         return {error}
     }
 
-    componentDidCatch(error: Error, __: ErrorInfo) {
+    componentDidCatch(error: Error) {
         if (
             isInstanceOfCommonApiError(error) ||
             isInstanceOfRedirectArror(error) ||

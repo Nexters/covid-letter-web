@@ -7,16 +7,47 @@ import {useRouter} from 'next/router'
 import {useLetterStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 import {StickerFactory} from '$components/sticker/stickerFactory'
+import {withAxios} from '$utils/fetcher/withAxios'
+import {Letter} from '$types/response/letter'
+import {useProfileContext} from '$contexts/ProfileContext'
 
-const Attach = () => {
+type Props = {
+    isMobile: boolean
+    token: string
+    isGoogleLogin: boolean
+}
+const Attach = (props: Props) => {
     const router = useRouter()
-    const {sticker} = useLetterStore()
-    const onClickConfirm = () => {
+    const {sticker, answer, title, questionId, optionId} = useLetterStore()
+    const {profile, addLettersCount} = useProfileContext()
+    const onClickConfirm = async () => {
         if (!sticker.type) return
-        router.push({
-            pathname: ROUTES.COVID.LETTER.NEW.FINISH,
-            query: {optionId: router.query.optionId},
-        })
+        try {
+            const response = await withAxios<Letter>({
+                url: '/letters',
+                method: 'POST',
+                data: {
+                    contents: answer,
+                    questionId: questionId,
+                    sendOptionId: optionId,
+                    sticker: sticker.type,
+                    title: title,
+                },
+                headers: {
+                    Authorization: props.token,
+                },
+            })
+            if (response) {
+                if (profile) addLettersCount(profile)
+                router.push({
+                    pathname: ROUTES.COVID.LETTER.NEW.FINISH,
+                    query: {optionId: router.query.optionId},
+                })
+            }
+        } catch (e) {
+            console.error(e)
+            throw new Error(e)
+        }
     }
     return (
         <>

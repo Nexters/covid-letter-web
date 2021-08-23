@@ -7,6 +7,8 @@ import tw from 'twin.macro'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {observer} from 'mobx-react-lite'
 import {useLetterStore} from '$contexts/StoreContext'
+import cookies from 'next-cookies'
+import {GetServerSideProps} from 'next'
 import {MainButton} from '$styles/utils/components'
 import {LetterOption} from '$types/response/letter'
 
@@ -52,15 +54,15 @@ const LetterOptionPage = ({options}: Props) => {
     )
 }
 
-export async function getServerSideProps() {
-    const res = await withAxios<LetterOption[]>({
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const {letterLogin} = cookies(context)
+    const options = await withAxios<LetterOption[]>({
         url: '/letters/options',
         method: 'GET',
+        headers: {
+            Authorization: letterLogin,
+        },
     })
-
-    const options = res.map((option) => ({
-        ...option,
-    }))
 
     return {props: {options}}
 }
