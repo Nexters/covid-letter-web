@@ -33,4 +33,19 @@ const MainButton = styled.button`
     }
 `
 
-export {MainButton}
+const MainLineButton = styled.button`
+   ${FontNanumBarunGothic('bold')}
+    ${tw`
+        tw-border-primary-green-500 
+        
+        hover:tw-bg-grey-100 
+        focus:tw-bg-grey-100
+        
+        tw-text-primary-green-500
+        
+        tw-border-2 
+        tw-text-base
+    `}
+`
+
+export {MainButton, MainLineButton}
