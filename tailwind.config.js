@@ -48,6 +48,7 @@ module.exports = {
                 400: 'var(--beige-400)',
                 300: 'var(--beige-300)',
                 200: 'var(--beige-200)',
+                100: 'var(--beige-100)',
             },
             grey: {
                 800: 'var(--grey-800)',

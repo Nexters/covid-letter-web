@@ -23,7 +23,7 @@ const Content = styled(animated.div)`
     right: 0;
     bottom: 0;
     z-index: 10;
-    background-color: #fff;
+    background-color: ${({bgColor}: {bgColor: string}) => bgColor};
     box-sizing: border-box;
     text-align: center;
     border-top-left-radius: 1rem;
@@ -33,10 +33,12 @@ const Content = styled(animated.div)`
 
 interface HalfLayerProps {
     isShow: boolean
+    isShowOverlay?: boolean
+    bgColor?: string
     closeFn: (e: React.SyntheticEvent) => void
 }
 
-const HalfLayer = ({children, isShow, closeFn}: PropsWithChildren<HalfLayerProps>) => {
+const HalfLayer = ({children, isShow, isShowOverlay = true, closeFn, bgColor = '#fff'}: PropsWithChildren<HalfLayerProps>) => {
     const {Portal} = usePortal()
 
     const transitions = useTransition(isShow, {
@@ -55,8 +57,8 @@ const HalfLayer = ({children, isShow, closeFn}: PropsWithChildren<HalfLayerProps
                 return (
                     item && (
                         <Container>
-                            <Content style={props}>{children}</Content>
-                            <Overlay shouldScrollLock isShow={isShow} position={'fixed'} closeFn={closeFn} />
+                            <Content style={props} bgColor={bgColor}>{children}</Content>
+                            <Overlay shouldScrollLock isShow={isShowOverlay} position={'fixed'} closeFn={closeFn} />
                         </Container>
                     )
                 )
