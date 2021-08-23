@@ -3,6 +3,10 @@ const PROFILES = {
         instances: 1,
         node_args: '--trace-warnings',
     },
+    dev: {
+        instances: 2,
+        node_args: '--trace-warnings',
+    },
     production: {
         instances: 4,
     },
