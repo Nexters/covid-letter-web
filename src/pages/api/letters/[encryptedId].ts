@@ -1,14 +1,9 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {Letter} from '$types/response/letter'
-import {Response, ServerResponse} from '$types/response'
+import {Response} from '$types/response'
 import {RESPONSE} from '$constants'
-import axios, {AxiosResponse} from 'axios'
-import {API_URL_BASE} from '$config'
 
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse<Response<Letter | null>>
-) {
+export default async function handler(_req: NextApiRequest, res: NextApiResponse<Response<Letter | null>>) {
     // const {encryptedId} = req.query
     try {
         // const {data: {errorCode, message, data: letter}}: AxiosResponse<ServerResponse<Letter>> = await axios.get(`${API_URL_BASE}/letters/${encryptedId}`)
@@ -28,7 +23,7 @@ export default async function handler(
             questionText: '질문질문 질문텍스트',
             encryptedId: 'ENCRYPTED2',
             sendOptionText: '해외 여행이 가능할 때',
-            createdDate: '2021-08-04T12:09:59'
+            createdDate: '2021-08-04T12:09:59',
         }
 
         res.status(200).json({
@@ -41,7 +36,6 @@ export default async function handler(
                 sendOptionId: 1, //todo remove
             },
         })
-
     } catch (e) {
         res.status(500).json({
             code: RESPONSE.ERROR,
