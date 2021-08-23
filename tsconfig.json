@@ -16,6 +16,7 @@
         "baseUrl": "src",
         "paths": {
             "$components/*": ["components/*"],
+            "$assets/*": ["assets/*"],
             "$utils/*": ["utils/*"],
             "$constants/*": ["constants/*"],
             "$constants": ["constants/index"],
