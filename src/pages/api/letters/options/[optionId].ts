@@ -7,7 +7,6 @@ import {API_URL_BASE} from '$config'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Response<Question | null>>) {
     const {optionId} = req.query
-    console.debug(optionId, 'option')
     try {
         const {
             data: {errorCode, message, data: question},

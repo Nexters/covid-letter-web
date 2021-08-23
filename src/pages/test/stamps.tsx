@@ -1,9 +1,9 @@
-import SvgStampCovidend from '../../assets/stamp/covidend'
-import SvgStampMaskfree from '../../assets/stamp/maskfree'
-import SvgStampNodate from '../../assets/stamp/nodate'
-import SvgStampTravel from '../../assets/stamp/travel'
-import SvgStampUnder100 from '../../assets/stamp/under100'
-import SvgStampVaccine from '../../assets/stamp/vaccine'
+import SvgStampCovidend from '$assets/stamp/Covidend'
+import SvgStampMaskfree from '$assets/stamp/Maskfree'
+import SvgStampNodate from '$assets/stamp/Nodate'
+import SvgStampTravel from '$assets/stamp/Travel'
+import SvgStampUnder100 from '$assets/stamp/Under100'
+import SvgStampVaccine from '$assets/stamp/Vaccine'
 
 const Stamps = () => {
     return (

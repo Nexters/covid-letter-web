@@ -5,6 +5,7 @@ import {FontNanumBarunGothic, FontOhsquareAir} from '$styles/utils/font'
 import {FlexCenter} from '$styles/utils/layout'
 import styled from '@emotion/styled'
 import IconCheck from 'assets/icons/IconCheck'
+import IntroImage from 'assets/images/IntroImage'
 import {useRouter} from 'next/router'
 import {ReactNode} from 'react'
 import tw from 'twin.macro'
@@ -13,12 +14,13 @@ const TitleSection = styled.div`
     ${FlexCenter}
     ${FontOhsquareAir}
     ${tw`tw-text-2xl tw-text-center`}
-    padding-top: 3.6rem;
+    margin-top: 3.6rem;
 `
 
 const ImageSection = styled.div`
     ${FlexCenter}
     ${tw`tw-text-center`}
+    margin: 4rem auto 4.4rem;
 `
 
 const IntroSection = styled.div`
@@ -144,9 +146,7 @@ const About = () => {
                 코로나가 끝난다면...
             </TitleSection>
             <ImageSection>
-                이미지
-                <br />
-                영역
+                <IntroImage />
             </ImageSection>
             <IntroSection>
                 {list.map(({title, content}: List, index: number) => (
