@@ -55,14 +55,13 @@ const LetterOptionPage = ({options}: Props) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {letterLogin} = cookies(context)
-    const res = await withAxios<LetterOption[]>({
+    const options = await withAxios<LetterOption[]>({
         url: '/letters/options',
         method: 'GET',
         headers: {
             Authorization: letterLogin,
         },
     })
-    const options = res
 
     return {props: {options}}
 }

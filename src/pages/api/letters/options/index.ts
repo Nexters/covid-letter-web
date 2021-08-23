@@ -14,16 +14,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         })
         if (errorCode) {
             console.info(`errorCode: ${errorCode}, message: ${message}`)
+            throw new Error(message)
         }
 
         res.status(200).json({
             code: RESPONSE.NORAML,
             message: '',
-            result: options.map((option) => {
-                return {
-                    ...option,
-                }
-            }),
+            result: options.reduce((pre: LetterOption[], option: LetterOption) => {
+                if (option.id < 6) pre.push(option)
+                return pre
+            }, []),
         })
     } catch (e) {
         res.status(500).json({
