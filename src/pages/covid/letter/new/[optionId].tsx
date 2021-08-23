@@ -9,9 +9,10 @@ import Answer from '$components/question/Answer'
 import ROUTES from '$constants/routes'
 import {useLetterStore} from '$contexts/StoreContext'
 import {useRouter} from 'next/router'
-import {ReactChild, useRef, useState} from 'react'
+import {ReactChild, useEffect, useRef, useState} from 'react'
 import useResizeObserver from '$hooks/useResizeObserver'
 import {css} from '@emotion/react'
+import {observer} from 'mobx-react-lite'
 
 interface Props {
     questions: Question[]
@@ -19,7 +20,12 @@ interface Props {
 
 const NewLetter = ({questions}: Props) => {
     const router = useRouter()
-    const {answer, title} = useLetterStore()
+    const {answer, title, optionId} = useLetterStore()
+    useEffect(() => {
+        if (!optionId) {
+            router.push({pathname: ROUTES.COVID.LETTER.OPTION})
+        }
+    }, [])
     const [viewportHeight, setViewportHeight] = useState(0)
     const [targetHeight, setTargetHeight] = useState(0)
     const [isKeyboardView, setIsKeyboardView] = useState(false)
@@ -99,4 +105,4 @@ const ConfirmButton = styled.button`
     font-size: 1.6rem;
     line-height: 2.5rem;
 `
-export default NewLetter
+export default observer(NewLetter)
