@@ -10,7 +10,7 @@ import Envelope from '$components/letter/Envelope'
  */
 const Direct = ({letter}: {letter: Letter}) => {
     return (
-        <HalfLayer isShow={true} closeFn={() => {}}>
+        <HalfLayer isShow={true} isShowOverlay={false} closeFn={() => {}}>
             <Envelope letter={letter}/>
         </HalfLayer>
     )
