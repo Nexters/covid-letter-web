@@ -1,4 +1,4 @@
-env: local
+env: dev
 
 nginx:
     image:
