@@ -10,7 +10,7 @@ import {
 import {apiErrorHandler, apiServerErrorHandler} from '$utils/fetcher/apiErrorHandler'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
-import ROUTES from '$constants/routes'
+import ROUTES, {NEED_LOGIN_ROUTES} from '$constants/routes'
 import cookies from 'next-cookies'
 import Router from 'next/router'
 import {ProfileProvider} from '$contexts/ProfileContext'
@@ -43,7 +43,7 @@ interface State {
 type ACCESS_TOKEN = string | undefined
 
 const needToCheckCookiePath = (pathname: string) => {
-    const needLogin = [...Object.values(ROUTES.COVID.LETTER)].includes(pathname)
+    const needLogin = NEED_LOGIN_ROUTES.includes(pathname)
     const needMain = [ROUTES.ROOT, ROUTES.LOGIN].includes(pathname)
 
     return {

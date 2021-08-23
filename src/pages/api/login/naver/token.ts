@@ -1,6 +1,6 @@
 import {NAVER} from '$config'
-import {GrantType} from '$constants'
-import {TokenRequest, TokenResponse} from '$types/login/naver'
+import {GRANT_TYPE} from '$constants'
+import {GrantType, TokenRequest, TokenResponse} from '$types/login/naver'
 import {Response} from '$types/response'
 import {createErrorResponse, createResponse} from '$utils/fetcher/withAxios'
 import axios from 'axios'
@@ -12,18 +12,18 @@ const getRequestData = (
     {code, state, refresh_token, access_token, service_provider}: Partial<TokenRequest>,
 ) => {
     switch (grant_type) {
-        case GrantType.create:
+        case GRANT_TYPE.create:
             return {
                 grant_type,
                 code,
                 state,
             }
-        case GrantType.refresh:
+        case GRANT_TYPE.refresh:
             return {
                 grant_type,
                 refresh_token,
             }
-        case GrantType.delete:
+        case GRANT_TYPE.delete:
             return {
                 grant_type,
                 access_token,

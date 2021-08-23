@@ -1,17 +1,26 @@
 import styled from '@emotion/styled'
 import IconBack from 'assets/icons/IconBack'
 import {useRouter} from 'next/router'
+import tw from 'twin.macro'
 
-const BackContainer = styled.div`
-    position: absolute;
+type ContainerProps = {
+    backgroundColor: string
+}
+
+const Container = styled.div`
+    ${tw`tw-absolute`}
     left: 0%;
     right: 0%;
     height: 5.6rem;
-    background: #eae6d7;
     padding: 1.6rem;
+    background-color: ${({backgroundColor}: ContainerProps) => backgroundColor};
 `
 
-const Back = () => {
+type BackProps = {
+    backgroundColor?: string
+}
+
+const Back = ({backgroundColor = 'var(--beige-300)'}: BackProps) => {
     const router = useRouter()
 
     const handleBack = () => {
@@ -19,11 +28,11 @@ const Back = () => {
     }
 
     return (
-        <BackContainer>
+        <Container backgroundColor={backgroundColor}>
             <button onClick={handleBack}>
                 <IconBack width={'2.4rem'} height={'2.4rem'} />
             </button>
-        </BackContainer>
+        </Container>
     )
 }
 
