@@ -60,14 +60,6 @@ const Attach = () => {
     )
 }
 
-const Container = styled.div`
-    ${tw`tw-bg-beige-300 tw-flex tw-flex-col`}
-    height: 100%;
-    margin: 0 auto;
-    padding-top: 5.6rem;
-    padding-bottom: 5.6rem;
-`
-
 const Header = styled.section`
     margin: 3.2rem 0 5.6rem 2.4rem;
     h3 {
