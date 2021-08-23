@@ -52,53 +52,44 @@ const Attach = (props: Props) => {
     return (
         <>
             <Back />
-            <Container>
-                <Header>
-                    <h3>편지 스티커 선택 💌</h3>
-                    <h4>스티커로 메세지를 전달해봐!</h4>
-                </Header>
-                <StickerDescription>
-                    <Sticker>
-                        {sticker.type ? (
-                            <span className="sticker">{StickerFactory(sticker.type, '6.8rem')}</span>
-                        ) : (
-                            <span className="question-mark">?</span>
-                        )}
-                    </Sticker>
-                    {sticker.label ? (
-                        <span className="sticker-name">{sticker.label}</span>
+
+            <Header>
+                <h3>편지 스티커 선택 💌</h3>
+                <h4>스티커로 메세지를 전달해봐!</h4>
+            </Header>
+            <StickerDescription>
+                <Sticker>
+                    {sticker.type ? (
+                        <span className="sticker">{StickerFactory(sticker.type, '6.8rem')}</span>
                     ) : (
-                        <span className="sticker-name">지금 나는...</span>
+                        <span className="question-mark">?</span>
                     )}
-                    {sticker.desc ? (
-                        <span className="sticker-desc">
-                            {sticker.desc.split('\n').map((text) => (
-                                <span key={text}>
-                                    {text}
-                                    <br />
-                                </span>
-                            ))}
-                        </span>
-                    ) : (
-                        <span className="sticker-desc">
-                            미래의 나에게 <br /> 어떤 감정을 전달하고 싶어?
-                        </span>
-                    )}
-                </StickerDescription>
-                <StickerList />
-                <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
-            </Container>
+                </Sticker>
+                {sticker.label ? (
+                    <span className="sticker-name">{sticker.label}</span>
+                ) : (
+                    <span className="sticker-name">지금 나는...</span>
+                )}
+                {sticker.desc ? (
+                    <span className="sticker-desc">
+                        {sticker.desc.split('\n').map((text) => (
+                            <span key={text}>
+                                {text}
+                                <br />
+                            </span>
+                        ))}
+                    </span>
+                ) : (
+                    <span className="sticker-desc">
+                        미래의 나에게 <br /> 어떤 감정을 전달하고 싶어?
+                    </span>
+                )}
+            </StickerDescription>
+            <StickerList />
+            <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
         </>
     )
 }
-
-const Container = styled.div`
-    ${tw`tw-bg-beige-300 tw-flex tw-flex-col`}
-    height: 100%;
-    margin: 0 auto;
-    padding-top: 5.6rem;
-    padding-bottom: 5.6rem;
-`
 
 const Header = styled.section`
     margin: 3.2rem 0 5.6rem 2.4rem;

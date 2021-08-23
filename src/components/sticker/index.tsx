@@ -32,6 +32,7 @@ const StickerListWrapper = styled.section`
     row-gap: 3rem;
     column-gap: 2.4rem;
     padding: 0 2.8rem 5.6rem;
+    margin-bottom: 5.2rem;
 `
 
 const StickerItemWrapper = styled.article`
