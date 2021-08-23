@@ -49,3 +49,5 @@ spec:
             path: nginx.conf
           - key: variable.conf
             path: variable.conf
+      imagePullSecrets:
+      - name: regcred

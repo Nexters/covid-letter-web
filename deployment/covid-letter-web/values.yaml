@@ -2,7 +2,7 @@ env: dev
 
 nginx:
     image:
-        registry: workingnewjeong/nginx
+        registry: itsme-reg.kr.ncr.ntruss.com/nginx-dev
         tag: latest
         pullPolicy: Always
     resources:
@@ -12,7 +12,7 @@ nginx:
 
 nodejs:
     image:
-        registry: workingnewjeong/covid-letter-web-dev_app
+        registry: itsme-reg.kr.ncr.ntruss.com/covid-letter-web-dev_app
         tag: latest
         pullPolicy: Always
     resources:
