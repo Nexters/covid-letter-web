@@ -24,7 +24,6 @@ const NewLetter = ({questions}: Props) => {
     const [targetHeight, setTargetHeight] = useState(0)
     const [isKeyboardView, setIsKeyboardView] = useState(false)
     const onClickConfirm = () => {
-        console.log('here')
         if (answer.length === 0 || title.length === 0) return
         router.push({
             pathname: ROUTES.COVID.LETTER.NEW.ATTACH,
@@ -84,7 +83,7 @@ const Container = styled.section`
 const Header = styled.section<PropsType>(({isKeyboardView}) =>
     isKeyboardView
         ? css`
-              height: 0;
+              transform: translateY(-5.5rem);
               margin-top: -5.5rem;
           `
         : css`
