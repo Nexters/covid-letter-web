@@ -5,6 +5,9 @@ import {RESPONSE} from '$constants'
 import axios, {AxiosResponse} from 'axios'
 import {API_URL_BASE} from '$config'
 
+/**
+ * 편지 읽음 처리
+ */
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Response<Letter | null>>
