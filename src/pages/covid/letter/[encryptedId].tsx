@@ -91,8 +91,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     })
 
     if (letter.state === LetterState.SEND) {
-        //todo 읽음처리 API 호출(호출결과 기다릴 필요없음)
-        console.log('읽음처리: ', encryptedId)
+        withAxios<Letter>({ //읽음처리는 호출결과 기다릴 필요없음
+            url: `/letters/${encryptedId}/state`,
+            method: 'PUT',
+        })
     }
 
     return {
