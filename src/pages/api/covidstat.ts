@@ -25,16 +25,32 @@ const parseToNumber = ({
 })
 
 const routes = async (req: NextApiRequest, res: NextApiResponse<Response<CovidStatResponse<string>>>) => {
-    const {
-        data: {data},
-    }: AxiosResponse<ServerResponse<CovidStatResponse<number>>> = await axios.get(`${API_URL_BASE}/covidstat`, {
-        headers: req.headers,
-    })
+    try {
+        const {
+            data: {data},
+        }: AxiosResponse<ServerResponse<CovidStatResponse<number>>> = await axios.get(`${API_URL_BASE}/covidstat`, {
+            headers: req.headers,
+        })
 
-    const result = parseToNumber(data)
+        const result = parseToNumber(data)
 
-    res.status(200).json(createResponse<CovidStatResponse<string>>(result))
-    return
+        res.status(200).json(createResponse<CovidStatResponse<string>>(result))
+        return
+    } catch {
+        res.status(200).json(
+            createResponse<CovidStatResponse<string>>({
+                date: '2021-08-23',
+                vaccinated: '11,112,222', // 2차 접종 완료자 수   <-- 접종 완료율로 변경 필요!!
+                vaccinatedPer: '22,222', // 2차 접종 완료자 수 (전일대비 증감량) <-- 접종 완료율로 변경 필요!!
+                confirmed: '111,111', // 확진자수
+                confirmedPer: '1,112', // 확진자수 (전일대비 증감량)
+                cured: '222,222', // 완치자수
+                curedPer: '2,222', // 완치자수 (전일대비 증감량)
+                lettersSend: 11, // 발송된 편지
+                lettersPending: 2, // 미발송 편지수
+            }),
+        )
+    }
 }
 
 module.exports = routes
