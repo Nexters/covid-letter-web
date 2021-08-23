@@ -20,6 +20,7 @@ export interface LetterState extends NewLetter {
     resetAnswer: () => void
     chooseOption: (optionId: number, optionText: string) => void
     chooseSticker: (sticker: Sticker) => void
+    setQuestionId: (questionId: number) => void
 }
 
 const createLetter = (): LetterState => {
@@ -55,6 +56,10 @@ const createLetter = (): LetterState => {
 
         chooseSticker(sticker: Sticker) {
             this.sticker = sticker || {type: undefined, label: '', desc: ''}
+        },
+
+        setQuestionId(questionId: number) {
+            this.questionId = questionId || 0
         },
     }
 }
