@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {Letter} from '$types/response/letter'
+import {Letter, LetterState, STICKER_TYPE} from '$types/response/letter'
 import {Response} from '$types/response'
 import {RESPONSE} from '$constants'
 
@@ -17,8 +17,8 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
             contents: '내용요용용용',
             email: 'email',
             name: null,
-            state: 'PENDING',
-            sticker: 'BLUE',
+            state: LetterState.PENDING,
+            sticker: STICKER_TYPE.BLUE,
             questionId: 8,
             questionText: '질문질문 질문텍스트',
             encryptedId: 'ENCRYPTED2',

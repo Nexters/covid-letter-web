@@ -24,9 +24,9 @@ export interface Letter {
     contents: string
     createdDate: string
     email: string
-    name: string,
+    name: string
     encryptedId: string
-    questionId: string
+    questionId: number
     questionText: string
     state: LetterState
     sticker: StickerType
