@@ -2,11 +2,11 @@ import {useState} from 'react'
 import {Question} from '$types/response/letter'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
-import Answer from './answer'
 import {getCurrentDate} from '$utils/date'
 
+const INITIAL_ID = 0
+
 const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
-    const INITIAL_ID = 0
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState<number>(INITIAL_ID)
     const onClickNext = () => {
         if (currentQuestionIdx === Object.keys(questions).length - 1) setCurrentQuestionIdx(INITIAL_ID)
@@ -14,18 +14,30 @@ const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
     }
 
     return (
-        <>
+        <QuestionContainer>
             <QuestionWrapper>
                 <span className="question-number">질문 {currentQuestionIdx + 1}</span>
-                <h3>{questions[currentQuestionIdx].text}</h3>
+                <h3>
+                    {questions[currentQuestionIdx].text?.split('\n').map((text) => (
+                        <span key={text}>
+                            {text}
+                            <br />
+                        </span>
+                    ))}
+                </h3>
                 <span className="create-date">작성 날짜 | {getCurrentDate()}</span>
             </QuestionWrapper>
             <Button onClick={onClickNext}>다른 질문에 대답할래요</Button>
-            <Answer />
-        </>
+        </QuestionContainer>
     )
 }
 
+const QuestionContainer = styled.section`
+    display: inherit;
+    flex-direction: inherit;
+    min-width: 100%;
+    justify-content: space-between;
+`
 const QuestionWrapper = styled.div`
     letter-spacing: -0.015rem;
     margin: 1.6rem 1.4rem 2.4rem;
@@ -56,6 +68,7 @@ const Button = styled.button`
         tw-font-ohsquare-air
     `}
     min-width: 16.2rem;
+    margin: 0 auto;
     padding: 1rem 1.6rem;
     height: 4.2rem;
     box-sizing: border-box;

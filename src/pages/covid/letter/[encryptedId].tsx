@@ -12,28 +12,7 @@ import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import Divider from '$components/letter/Divider'
 import {css} from '@emotion/react'
-
-const ServicePromotion = () => {
-    const router = useRouter()
-
-    return (
-        <>
-            과거에서부터 나에게 온
-            편지가 어땠어?
-            오늘 받아본 편지를 읽고
-            위로가 되었다면,
-
-            <br />
-            미래의 나에게 편지 써보지 않을래?
-            <br />
-
-            <button onClick={() => router.push(ROUTES.LOGIN)}>로그인하고 편지쓸래!</button>
-            <br />
-
-            <button onClick={() => router.push(ROUTES.COVID.SIDE.ABOUT)}>서비스 먼저 구경할래</button>
-        </>
-    )
-}
+import ServicePromotion from '$components/letter/ServicePromotion'
 
 const LetterDetail = ({letter}: {letter: Letter}) => {
     const router = useRouter()
@@ -76,7 +55,7 @@ const LetterDetail = ({letter}: {letter: Letter}) => {
             </Container>
             <ConfirmButton onClick={finishReadLetter}>다 읽었어요!</ConfirmButton>
 
-            <HalfLayer isShow={isShowServicePromotion} closeFn={() => setIsShowServicePromotion(false)}>
+            <HalfLayer isShow={isShowServicePromotion} closeFn={() => setIsShowServicePromotion(false)} bgColor={'var(--beige-200)'}>
                 <ServicePromotion />
             </HalfLayer>
         </>
@@ -91,8 +70,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     })
 
     if (letter.state === LetterState.SEND) {
-        //todo 읽음처리 API 호출(호출결과 기다릴 필요없음)
-        console.log('읽음처리: ', encryptedId)
+        withAxios<Letter>({ //읽음처리는 호출결과 기다릴 필요없음
+            url: `/letters/${encryptedId}/state`,
+            method: 'PUT',
+        })
     }
 
     return {
@@ -110,16 +91,16 @@ const Container = styled.div`
 
 const TitleWrap = styled.section`
     padding: 2.4rem;
-    
+
     .title-text {
         ${tw`tw-text-lg`}
         letter-spacing: -0.015em;
     }
-    
+
     .send-date {
         ${tw`tw-text-grey-600 tw-font-light tw-text-sm`}
         letter-spacing: -0.015em;
-        
+
         .vertical-divider {
             ${tw`tw-hue-rotate-90 tw-border-grey-600`}
             margin: 0 1.2rem;
@@ -141,12 +122,12 @@ const QuestionWrap = styled.section`
         ${tw`tw-font-light tw-text-xs tw-text-grey-600`}
         letter-spacing: -0.015em;
     }
-    
+
     .question-text {
         ${tw`tw-text-sm tw-text-grey-700`}
         letter-spacing: -0.015em;
     }
-    
+
     div + div {
         margin-top: 0.8rem;
     }
@@ -164,6 +145,5 @@ const ConfirmButton = styled.button`
 const dividerCss = css`
     margin: 0 2.4rem;
 `
-
 
 export default LetterDetail
