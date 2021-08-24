@@ -12,6 +12,7 @@ import {useRouter} from 'next/router'
 import {ReactChild, useRef, useState} from 'react'
 import useResizeObserver from '$hooks/useResizeObserver'
 import {css} from '@emotion/react'
+import {observer} from 'mobx-react-lite'
 
 interface Props {
     questions: Question[]
@@ -99,4 +100,4 @@ const ConfirmButton = styled.button`
     font-size: 1.6rem;
     line-height: 2.5rem;
 `
-export default NewLetter
+export default observer(NewLetter)
