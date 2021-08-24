@@ -1,3 +1,5 @@
+import MainBgLeftDownImage from '$assets/images/MainBgLeftDownImage'
+import MainBgRightDownImage from '$assets/images/MainBgRightDownImage'
 import PostCardColPattern from '$assets/patterns/PostCardColPattern'
 import styled from '@emotion/styled'
 import {useEffect, useRef, useState} from 'react'
@@ -44,12 +46,22 @@ const BackgroundBorder = styled.div`
                 return ``
         }
     }};
-
-    z-index: 10;
 `
 
 const ColumnWrapper = styled.div`
     ${tw`tw-flex tw-flex-col tw-justify-start`}
+`
+
+const LeftDownWrapper = styled.div`
+    position: fixed;
+    bottom: 4%;
+    left: 2.8%;
+`
+
+const RightDownWrapper = styled.div`
+    position: fixed;
+    bottom: 4%;
+    right: 2.8%;
 `
 
 const PcBackground = () => {
@@ -84,6 +96,12 @@ const PcBackground = () => {
                     ))}
                 </ColumnWrapper>
             </BackgroundBorder>
+            <LeftDownWrapper>
+                <MainBgLeftDownImage />
+            </LeftDownWrapper>
+            <RightDownWrapper>
+                <MainBgRightDownImage />
+            </RightDownWrapper>
         </>
     )
 }
