@@ -5,7 +5,7 @@ import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 import {FontNanumBarunGothic} from '$styles/utils/font'
 import {FlexBetween} from '$styles/utils/layout'
 import styled from '@emotion/styled'
-import {CSSProperties, ReactNode, useRef} from 'react'
+import {CSSProperties, ReactNode, useEffect, useRef, useState} from 'react'
 import tw from 'twin.macro'
 
 const Container = styled.section`
@@ -226,11 +226,31 @@ const TutorialMessage = ({
     )
 }
 
+type SkeletonLayerState = {
+    [key: number]: DOMRectList
+}
+
 const SkeletonLayer = () => {
+    const unknownList = [] as unknown as DOMRectList
+    const [, setRectList] = useState<SkeletonLayerState>({
+        1: unknownList,
+        2: unknownList,
+        3: unknownList,
+        4: unknownList,
+    })
     const tutoRef1 = useRef<HTMLSpanElement>(null)
     const tutoRef2 = useRef<HTMLButtonElement>(null)
     const tutoRef3 = useRef<HTMLAnchorElement>(null)
     const tutoRef4 = useRef<HTMLButtonElement>(null)
+
+    useEffect(() => {
+        setRectList({
+            1: tutoRef1.current?.getClientRects() || unknownList,
+            2: tutoRef2.current?.getClientRects() || unknownList,
+            3: tutoRef3.current?.getClientRects() || unknownList,
+            4: tutoRef4.current?.getClientRects() || unknownList,
+        })
+    }, [])
     return (
         <>
             <CommonHeader
