@@ -11,8 +11,8 @@ import {useAlertStore, useLetterStore} from '$contexts/StoreContext'
 import {useRouter} from 'next/router'
 import {useEffect} from 'react'
 import {observer} from 'mobx-react-lite'
-import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 import CommonHeader from '$components/header/CommonHeader'
+import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 
 interface Props {
     questions: Question[]

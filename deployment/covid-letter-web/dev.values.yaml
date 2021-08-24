@@ -1,0 +1,26 @@
+env: dev
+
+nginx:
+    image:
+        registry: itsme-reg.kr.ncr.ntruss.com/nginx-dev
+        tag: latest
+        pullPolicy: Always
+    resources:
+        limits:
+            cpu: 1
+            memory: 1Gi
+
+nodejs:
+    image:
+        registry: itsme-reg.kr.ncr.ntruss.com/covid-letter-web-dev_app
+        tag: latest
+        pullPolicy: Always
+    resources:
+        limits:
+            cpu: 1
+            memory: 1Gi
+    containerPort: 3000
+
+hpa:
+    minReplicas: 1
+    maxReplicas: 1
