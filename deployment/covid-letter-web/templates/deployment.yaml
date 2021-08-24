@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "covid-letter-web.fullname" . }}
+  labels:
+    {{- include "covid-letter-web.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.hpa.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "covid-letter-web.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "covid-letter-web.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: nginx
+        {{- with .Values.nginx.image }}
+        image: '{{ .registry }}:{{ .tag }}'
+        imagePullPolicy: {{ .pullPolicy }}
+        {{- end }}
+        ports:
+        - protocol: TCP
+          containerPort: 80
+        resources: {{ toYaml .Values.nginx.resoucres | nindent 10 }}
+        volumeMounts:
+        - name: config-dir
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+        - name: config-dir
+          mountPath: /etc/nginx/variable.conf
+          subPath: variable.conf
+      - name: nodejs
+        {{- with .Values.nodejs.image }}
+        image: '{{ .registry }}:{{ .tag }}'
+        imagePullPolicy: {{ .pullPolicy }}
+        {{- end }}
+        ports:
+        - protocol: TCP
+          containerPort: 3000
+        resources: {{ toYaml .Values.nodejs.resoucres | nindent 10 }}
+      volumes:
+      - name: config-dir
+        configMap:
+          name: {{ include "covid-letter-web.fullname" . }}-configs
+          items:
+          - key: nginx.conf
+            path: nginx.conf
+          - key: variable.conf
+            path: variable.conf
+      imagePullSecrets:
+      - name: regcred
