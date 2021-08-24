@@ -12,7 +12,8 @@ const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
 
     const clickNextQuestion = () => {
         if (questionId !== null) {
-            if (questionId === Object.keys(questions).length - 1) {
+            const isLastQuestion = questionId === Object.keys(questions).length - 1
+            if (isLastQuestion) {
                 setQuestionId(INITIAL_ID)
             } else {
                 setQuestionId(questionId + 1)
