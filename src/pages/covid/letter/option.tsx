@@ -13,7 +13,6 @@ import {MainButton} from '$styles/utils/components'
 import {LetterOption} from '$types/response/letter'
 import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 import CommonHeader from '$components/header/CommonHeader'
-import {FontNanumBarunGothic} from '$styles/utils/font'
 
 interface Props {
     options: LetterOption[]
@@ -39,6 +38,11 @@ const LetterOptionPage = ({options}: Props) => {
             query: {optionId: selectedOptionId},
         })
     }
+    // const confirmWithNoOption = () => {
+    //     router.push({
+    //         pathname: ROUTES.COVID.LETTER.NEW.MAIN,
+    //     })
+    // }
     const goMain = () => {
         router.push(ROUTES.COVID.MAIN)
     }
@@ -58,7 +62,7 @@ const LetterOptionPage = ({options}: Props) => {
                             <Button isClicked={option.id === selectedOptionId}>{option.text}</Button>
                         </li>
                     ))}
-                    <TextButton>발송 기준은 나중에 정할래!</TextButton>
+                    {/*<TextButton onClick={confirmWithNoOption}>발송 기준은 나중에 정할래!</TextButton>*/}
                 </>
             </ButtonList>
 
@@ -146,19 +150,19 @@ const Button = styled.button<ButtonPropsType>([
               `,
 ])
 
-const TextButton = styled.button`
-    ${FontNanumBarunGothic('normal')}
-    ${tw`tw-text-grey-600`}
-  font-size: 1.6rem;
-    line-height: 1.8rem;
-    text-align: center;
-    margin-top: 0.8rem;
-    text-decoration: underline;
-    text-underline-position: under;
-`
+// const TextButton = styled.button`
+//     ${FontNanumBarunGothic('normal')}
+//     ${tw`tw-text-grey-600`}
+//   font-size: 1.6rem;
+//     line-height: 1.8rem;
+//     text-align: center;
+//     margin-top: 0.8rem;
+//     text-decoration: underline;
+//     text-underline-position: under;
+// `
 
 const ConfirmButton = styled(MainButton)`
-    ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
+    ${tw`tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
     max-width: 42rem;
     width: 100%;
     height: 5.2rem;
