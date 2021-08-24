@@ -60,7 +60,7 @@ const Letters = ({letters}: {letters: Letter[]}) => {
             <Container>
                 <LettersContainer>
                     <TitleContainer>작성한 편지 목록 <span className="icon-letter">✉️</span></TitleContainer>
-                    <SubTitle>과거의 내가 작성한 편지들이에요.</SubTitle>
+                    <SubTitle>과거의 내가 작성한 편지들이야.</SubTitle>
                     {letterList}
                 </LettersContainer>
 
@@ -89,7 +89,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Container = styled.div`
-    ${tw`tw-bg-beige-300 tw-h-screen`}
+    ${tw`tw-bg-beige-200 tw-h-screen`}
     min-height: 100vh;
     padding: 3.2rem 2.4rem;
 `
