@@ -1,8 +1,10 @@
+import ROUTES from '$constants/routes'
 import {useProfileContext} from '$contexts/ProfileContext'
 import {FontNanumBarunGothic, FontOhsquare} from '$styles/utils/font'
 import {FlexCenter} from '$styles/utils/layout'
 import styled from '@emotion/styled'
 import MailBoxImage from 'assets/images/MailBoxImage'
+import {useRouter} from 'next/router'
 import tw from 'twin.macro'
 
 const Container = styled.div`
@@ -40,12 +42,18 @@ const Highlight = styled.span`
 `
 
 const MyLetterSection = ({logined}: {logined: boolean}) => {
+    const router = useRouter()
     const {profile} = useProfileContext()
+
     if (!logined || !profile) {
         return null
     }
 
     const {lettersCount} = profile
+
+    const goLetterList = () => {
+        router.push(ROUTES.COVID.LETTER.LIST)
+    }
 
     return (
         <Container>
@@ -59,7 +67,7 @@ const MyLetterSection = ({logined}: {logined: boolean}) => {
                     <Highlight>{lettersCount} 통의 편지</Highlight>를 작성했어!
                 </span>
             </Title>
-            <LetterButton>편지 목록 보기</LetterButton>
+            <LetterButton onClick={goLetterList}>편지 목록 보기</LetterButton>
         </Container>
     )
 }
