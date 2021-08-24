@@ -96,7 +96,6 @@ const ButtonList = styled.ul`
     display: inherit;
     align-self: center;
     flex-direction: column;
-    gap: 2rem;
     margin-top: 4.8rem;
 `
 
@@ -108,6 +107,7 @@ const Button = styled.button<ButtonPropsType>([
         border-radius: 0.4rem;
         letter-spacing: -0.015em;
         font-size: 1.6rem;
+        margin-bottom: 1.6rem;
         &:hover {
             background: rgba(203, 196, 168, 0.4);
             border: 1px solid #d4cec4;

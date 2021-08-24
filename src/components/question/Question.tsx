@@ -33,6 +33,7 @@ const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
                 <span className="create-date">작성 날짜 | {getCurrentDate()}</span>
             </QuestionWrapper>
             <Button onClick={onClickNext}>다른 질문에 대답할래요</Button>
+            <TextButton onClick={onClickNext}>오늘은 자유롭게 쓸래</TextButton>
         </QuestionContainer>
     )
 }
@@ -82,4 +83,13 @@ const Button = styled.button`
     font-size: 1.4rem;
 `
 
+const TextButton = styled.button`
+    ${tw`tw-text-primary-green-300 tw-font-nanumBarunGothic `}
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    letter-spacing: -0.015em;
+    padding-top: 1.2rem;
+    text-decoration: underline;
+    text-underline-position: under;
+`
 export default observer(NewLetterQuestion)
