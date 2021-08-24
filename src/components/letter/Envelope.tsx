@@ -54,15 +54,15 @@ const Envelope = ({letter}: EnvelopeProps) => {
             <Divider />
             <SenderWrapper>
                 <div className="send-date">
-                    <span>작성날짜</span>
+                    <span>작성 날짜</span>
                     <span>{convertCommonDateFormat(createdDate)}</span>
                 </div>
-                <div>From. {name}</div>
+                <div className="sender-name">From. {name}</div>
             </SenderWrapper>
 
-            <ConfirmButton disabled={!isAvailableOpenLetter} onClick={openLetter}>
+            <LetterOpenButton disabled={!isAvailableOpenLetter} onClick={openLetter}>
                 {letterOpenButtonText[state]}
-            </ConfirmButton>
+            </LetterOpenButton>
         </Container>
     )
 }
@@ -111,6 +111,10 @@ const SenderWrapper = styled.div`
     ${tw`tw-text-sm tw-text-right`}
     line-height: 22px;
     letter-spacing: -0.015em;
+    
+    .send-date + .sender-name {
+        margin-top: 0.4rem;
+    }
 
     .send-date {
         ${tw`tw-font-light tw-text-grey-600`}
@@ -125,5 +129,8 @@ const SenderWrapper = styled.div`
     }
 `
 
+const LetterOpenButton = styled(ConfirmButton)`
+    left: 0;
+`
 
 export default Envelope

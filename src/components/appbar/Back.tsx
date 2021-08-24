@@ -20,7 +20,7 @@ type BackProps = {
     backgroundColor?: string
 }
 
-const Back = ({backgroundColor = 'var(--beige-200)'}: BackProps) => {
+const Back = ({backgroundColor = 'var(--beige-300)'}: BackProps) => {
     const router = useRouter()
 
     const handleBack = () => {

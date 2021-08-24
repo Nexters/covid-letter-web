@@ -8,7 +8,7 @@ import HalfLayer from '$components/layer/HalfLayer'
 import {useState} from 'react'
 import {convertCommonDateFormat} from '$utils/date'
 import tw from 'twin.macro'
-import {FontNanumBarunGothic, FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
+import {FontNanumBarunGothic, FontOhsquare} from '$styles/utils/font'
 import {FlexBetween, FlexStart} from '$styles/utils/layout'
 import EmptyLetterListContainer from '$components/letter/EmptyLetterListContainer'
 import Divider from '$components/letter/Divider'
@@ -89,7 +89,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Container = styled.div`
-    ${tw`tw-bg-beige-200 tw-h-screen`}
+    ${tw`tw-bg-beige-300 tw-h-screen`}
     min-height: 100vh;
     padding: 3.2rem 2.4rem;
 `
@@ -107,7 +107,6 @@ const TitleContainer = styled.div`
     }
 `
 const SubTitle = styled.div`
-    ${FontOhsquareAir}
     ${FlexStart}
     ${tw`tw-text-left tw-text-base tw-text-primary-green-500`}
     margin-top: 0.8rem;
@@ -124,7 +123,7 @@ const ItemContainer = styled.div`
 const ItemTitleWrapper = styled.div`
     ${FlexStart}
     .text {
-        ${tw`tw-text-sm tw-font-light tw-text-grey-800`}
+        ${tw`tw-text-sm tw-text-grey-800`}
         letter-spacing: -0.015em;
     }
 `
