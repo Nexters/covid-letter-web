@@ -13,6 +13,9 @@ const Content = styled(animated.div)`
     top: 0;
     background-color: #000;
     opacity: 0;
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
 `
 
 interface OverlayProps {

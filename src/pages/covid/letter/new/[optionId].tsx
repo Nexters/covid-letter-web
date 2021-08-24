@@ -4,21 +4,23 @@ import NewLetterQuestion from '$components/question/Question'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {Question} from '$types/response/letter'
 import cookies from 'next-cookies'
-import {GetServerSideProps} from 'next'
+import {GetServerSidePropsContext, InferGetServerSidePropsType} from 'next'
 import Answer from '$components/question/Answer'
 import ROUTES from '$constants/routes'
 import {useAlertStore, useLetterStore} from '$contexts/StoreContext'
 import {useRouter} from 'next/router'
 import {useEffect} from 'react'
 import {observer} from 'mobx-react-lite'
+import TutorialLayer from '$components/tutorial/TutorialLayer'
+import useTutorial from '$hooks/useTutorial'
+import {PropsFromApp} from '$types/index'
 import CommonHeader from '$components/header/CommonHeader'
 import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 
-interface Props {
-    questions: Question[]
-}
-
-const NewLetter = ({questions}: Props) => {
+const NewLetter = ({
+    questions,
+    shouldTutorialOpen,
+}: PropsFromApp<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
     const router = useRouter()
     const {answer, title, optionId, resetStore} = useLetterStore()
     const {confirm} = useAlertStore()
@@ -48,6 +50,8 @@ const NewLetter = ({questions}: Props) => {
         return
     }
 
+    const {tutorialShow, closeTutorial} = useTutorial(shouldTutorialOpen)
+
     return (
         <>
             <CommonHeader type={HEADER_TYPE.BACK} position={HEADER_POSITION.LEFT} onClick={onClickHeaderButton} />
@@ -58,13 +62,15 @@ const NewLetter = ({questions}: Props) => {
                     <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
                 </div>
             </Container>
+            <TutorialLayer tutorialShow={tutorialShow} closeTutorial={closeTutorial} />
         </>
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const {letterLogin} = cookies(context)
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const {letterLogin, tutorialOpen} = cookies(context)
     const optionId = context.query.optionId
+
     const res = await withAxios<Question[]>({
         url: `/letters/options/${optionId}`,
         method: 'GET',
@@ -74,7 +80,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     })
     const questions = res
 
-    return {props: {questions}}
+    /** 튜토리얼 한번 보고 더이상 띄우지 않기 */
+    if (!tutorialOpen) {
+        context.res?.setHeader('Set-Cookie', `tutorialOpen=${'opened'}; path=/; HttpOnly`)
+    }
+
+    return {props: {questions, shouldTutorialOpen: !tutorialOpen}}
 }
 
 const Container = styled.section`
