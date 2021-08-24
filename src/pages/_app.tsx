@@ -21,6 +21,7 @@ import {StoreProvider} from '$contexts/StoreContext'
 import AlertContainer from '$components/alert'
 import Device from '$components/device'
 import {ToastContainer} from '$components/toast'
+import PcBackground from '$components/main/PcBackground'
 
 const Article = styled.div`
     position: relative;
@@ -148,6 +149,7 @@ class Page extends App<AppProps> {
                                 {({isMobileOnly: isMobile}) => {
                                     return (
                                         <Article className="tw-bg-beige-100">
+                                            {!isMobile && <PcBackground />}
                                             <Container className="tw-bg-beige-300">
                                                 <Component isMobile={isMobile} {...pageProps} />
                                             </Container>
