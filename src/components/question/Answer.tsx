@@ -10,7 +10,7 @@ export const MAX_LETTER_TITLE_LENGTH = 12
 const Answer = () => {
     const {answer, title, addTitle, resetAnswer} = useLetterStore()
     const {confirm} = useAlertStore()
-    const onClickResetButton = () => {
+    const handleReset = () => {
         confirm({
             title: '편지 내용을 저장하지 않았어!',
             message: '편지 내용을 저장하지 않고\n 모두 지울거야?',
@@ -43,7 +43,7 @@ const Answer = () => {
                     <span className="answer-length">
                         {answer.length}/{MAX_LETTER_ANSWER_LENGTH}
                     </span>
-                    <button className="reset-button" onClick={onClickResetButton}>
+                    <button className="reset-button" onClick={handleReset}>
                         전부 지우기
                     </button>
                 </div>

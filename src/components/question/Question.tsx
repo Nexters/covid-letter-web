@@ -10,7 +10,7 @@ const INITIAL_ID = 0
 const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
     const {questionId, setQuestionId} = useLetterStore()
 
-    const onClickNext = () => {
+    const clickNextQuestion = () => {
         if (questionId === Object.keys(questions).length - 1) {
             setQuestionId(INITIAL_ID)
         } else {
@@ -32,8 +32,8 @@ const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
                 </h3>
                 <span className="create-date">작성 날짜 | {getCurrentDate()}</span>
             </QuestionWrapper>
-            <Button onClick={onClickNext}>다른 질문에 대답할래요</Button>
-            <TextButton onClick={onClickNext}>오늘은 자유롭게 쓸래</TextButton>
+            <Button onClick={clickNextQuestion}>다른 질문에 대답할래요</Button>
+            <TextButton onClick={clickNextQuestion}>오늘은 자유롭게 쓸래</TextButton>
         </QuestionContainer>
     )
 }
