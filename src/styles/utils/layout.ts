@@ -12,4 +12,8 @@ const FlexBetween = tw`
     tw-flex tw-flex-1 tw-justify-between tw-items-center
 `
 
-export {FlexCenter, FlexStart, FlexBetween}
+const FlexEnd = tw`
+    tw-flex tw-flex-1 tw-justify-end tw-items-center
+`
+
+export {FlexCenter, FlexStart, FlexBetween, FlexEnd}
