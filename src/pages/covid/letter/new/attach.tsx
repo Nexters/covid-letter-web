@@ -1,4 +1,3 @@
-import Back from '$components/appbar/Back'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import StickerList from '$components/sticker'
@@ -11,6 +10,8 @@ import {withAxios} from '$utils/fetcher/withAxios'
 import {Letter} from '$types/response/letter'
 import {useProfileContext} from '$contexts/ProfileContext'
 import {useEffect} from 'react'
+import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
+import CommonHeader from '$components/header/CommonHeader'
 
 type Props = {
     isMobile: boolean
@@ -56,10 +57,13 @@ const Attach = (props: Props) => {
             throw new Error(e)
         }
     }
+
+    const handleHeader = () => {
+        router.push(ROUTES.COVID.LETTER.NEW.MAIN)
+    }
     return (
         <>
-            <Back />
-
+            <CommonHeader type={HEADER_TYPE.BACK} position={HEADER_POSITION.LEFT} onClick={handleHeader} />
             <Header>
                 <h3>편지 스티커 선택 💌</h3>
                 <h4>스티커로 메세지를 전달해봐!</h4>
@@ -156,5 +160,6 @@ const ConfirmButton = styled.button`
     font-size: 1.6rem;
     line-height: 2.5rem;
     z-index: 2;
+    bottom: 0;
 `
 export default observer(Attach)
