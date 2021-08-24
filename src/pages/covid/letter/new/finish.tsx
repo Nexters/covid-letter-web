@@ -7,10 +7,16 @@ import {StickerFactory} from '$components/sticker/stickerFactory'
 import {useProfileContext} from '$contexts/ProfileContext'
 import {StampFactory} from '$components/stamp/stampFactory'
 import {FontNanumBarunGothic} from '$styles/utils/font'
+import ROUTES from '$constants/routes'
+import {useRouter} from 'next/router'
 
 const Finish = () => {
+    const router = useRouter()
     const {title, optionText, sticker, optionId} = useLetterStore()
     const {profile} = useProfileContext()
+    const goMain = () => {
+        router.push(ROUTES.COVID.MAIN)
+    }
     return (
         <Container>
             {optionId !== null ? (
@@ -50,7 +56,7 @@ const Finish = () => {
                     <p className="letter-responder">{profile?.name}</p>
                 </ResponderWrapper>
             </ResultWrapper>
-            <ConfirmButton>편지 기다리기</ConfirmButton>
+            <ConfirmButton onClick={goMain}>편지 기다리기</ConfirmButton>
         </Container>
     )
 }
