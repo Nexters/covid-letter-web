@@ -147,7 +147,7 @@ class Page extends App<AppProps> {
                             <Device>
                                 {({isMobileOnly: isMobile}) => {
                                     return (
-                                        <Article className="tw-bg-beige-200">
+                                        <Article className="tw-bg-beige-100">
                                             <Container className="tw-bg-beige-300">
                                                 <Component isMobile={isMobile} {...pageProps} />
                                             </Container>
