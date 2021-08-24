@@ -3,6 +3,7 @@ import SvgStampMaskfree from '../../assets/stamp/Maskfree'
 import SvgStampTravel from '../../assets/stamp/Travel'
 import SvgStampUnder100 from '../../assets/stamp/Under100'
 import SvgStampCovidend from '../../assets/stamp/Covidend'
+import SvgStampNodate from '$assets/stamp/Nodate'
 
 export const StampFactory = (optionId: number, width = '11.2rem') => {
     switch (optionId) {
@@ -16,9 +17,7 @@ export const StampFactory = (optionId: number, width = '11.2rem') => {
             return <SvgStampVaccine width={width}/>
         case 5:
             return <SvgStampCovidend width={width}/>
-
-        /**
-         * <SvgStampNodate /> 추후 날자 미지정 선택 시
-         */
+        default:
+            return <SvgStampNodate width={width}/>
     }
 }
