@@ -8,6 +8,8 @@ import {FlexBetween, FlexStart} from '$styles/utils/layout'
 import tw from 'twin.macro'
 import {StickerFactory} from '$components/sticker/stickerFactory'
 import {StampFactory} from '$components/stamp/stampFactory'
+import EnvelopeLoading from '$components/loading/EnvelopeLoading'
+import {useState} from 'react'
 
 type EnvelopeProps = {
     letter: Letter
@@ -20,6 +22,8 @@ const letterOpenButtonText = {
 }
 
 const Envelope = ({letter}: EnvelopeProps) => {
+    const [isShowEnvelopeOpenLoading, setIsShowEnvelopeOpenLoading] = useState<boolean>(false)
+
     const {encryptedId, title, sticker, sendOptionId, sendOptionText, state, createdDate, email, name} = letter
     const isAvailableOpenLetter = state !== LetterState.PENDING
 
@@ -29,6 +33,16 @@ const Envelope = ({letter}: EnvelopeProps) => {
             return
         }
 
+        if (state === LetterState.SEND) {
+            // 처음뜯는 경우 편지로딩 노출
+            setIsShowEnvelopeOpenLoading(true)
+            return
+        }
+
+        goLetterDetail()
+    }
+
+    const goLetterDetail = () => {
         router.push({pathname: ROUTES.COVID.LETTER.DETAIL, query: {encryptedId}})
     }
 
@@ -63,6 +77,7 @@ const Envelope = ({letter}: EnvelopeProps) => {
             <LetterOpenButton disabled={!isAvailableOpenLetter} onClick={openLetter}>
                 {letterOpenButtonText[state]}
             </LetterOpenButton>
+            <EnvelopeLoading isShow={isShowEnvelopeOpenLoading} text={'편지 뜯는 중...'} delay={2000} afterLoadingFn={goLetterDetail}/>
         </Container>
     )
 }
