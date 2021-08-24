@@ -14,4 +14,4 @@ services:
         build:
             context: .
             args:
-                NEXT_PUBLIC_ENV: dev
+                NEXT_PUBLIC_ENV: production

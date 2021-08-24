@@ -27,7 +27,7 @@ export const ORIGIN_DOMAIN = ((environment) => {
         case 'local':
             return 'http://localhost:3000'
         case 'dev':
-            return 'http://110.165.18.34'
+            return 'http://dev.halo-its.me'
         case 'production':
         default:
             return 'http://halo-its.me'
