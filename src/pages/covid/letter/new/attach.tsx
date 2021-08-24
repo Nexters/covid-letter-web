@@ -10,6 +10,7 @@ import {StickerFactory} from '$components/sticker/stickerFactory'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {Letter} from '$types/response/letter'
 import {useProfileContext} from '$contexts/ProfileContext'
+import {useEffect} from 'react'
 
 type Props = {
     isMobile: boolean
@@ -19,6 +20,12 @@ type Props = {
 const Attach = (props: Props) => {
     const router = useRouter()
     const {sticker, answer, title, questionId, optionId} = useLetterStore()
+
+    useEffect(() => {
+        if (!optionId) {
+            router.push({pathname: ROUTES.COVID.LETTER.OPTION})
+        }
+    }, [])
     const {profile, addLettersCount} = useProfileContext()
     const onClickConfirm = async () => {
         if (!sticker.type) return
@@ -39,7 +46,7 @@ const Attach = (props: Props) => {
             })
             if (response) {
                 if (profile) addLettersCount(profile)
-                router.push({
+                await router.push({
                     pathname: ROUTES.COVID.LETTER.NEW.FINISH,
                     query: {optionId: router.query.optionId},
                 })

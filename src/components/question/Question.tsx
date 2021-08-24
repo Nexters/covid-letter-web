@@ -1,24 +1,29 @@
-import {useState} from 'react'
 import {Question} from '$types/response/letter'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import {getCurrentDate} from '$utils/date'
+import {useLetterStore} from '$contexts/StoreContext'
+import {observer} from 'mobx-react-lite'
 
 const INITIAL_ID = 0
 
 const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
-    const [currentQuestionIdx, setCurrentQuestionIdx] = useState<number>(INITIAL_ID)
+    const {questionId, setQuestionId} = useLetterStore()
+
     const onClickNext = () => {
-        if (currentQuestionIdx === Object.keys(questions).length - 1) setCurrentQuestionIdx(INITIAL_ID)
-        else setCurrentQuestionIdx(currentQuestionIdx + 1)
+        if (questionId === Object.keys(questions).length - 1) {
+            setQuestionId(INITIAL_ID)
+        } else {
+            setQuestionId(questionId + 1)
+        }
     }
 
     return (
         <QuestionContainer>
             <QuestionWrapper>
-                <span className="question-number">질문 {currentQuestionIdx + 1}</span>
+                <span className="question-number">질문 {questionId + 1}</span>
                 <h3>
-                    {questions[currentQuestionIdx].text?.split('\n').map((text) => (
+                    {questions[questionId].text?.split('\n').map((text) => (
                         <span key={text}>
                             {text}
                             <br />
@@ -28,6 +33,7 @@ const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
                 <span className="create-date">작성 날짜 | {getCurrentDate()}</span>
             </QuestionWrapper>
             <Button onClick={onClickNext}>다른 질문에 대답할래요</Button>
+            <TextButton onClick={onClickNext}>오늘은 자유롭게 쓸래</TextButton>
         </QuestionContainer>
     )
 }
@@ -77,4 +83,13 @@ const Button = styled.button`
     font-size: 1.4rem;
 `
 
-export default NewLetterQuestion
+const TextButton = styled.button`
+    ${tw`tw-text-primary-green-300 tw-font-nanumBarunGothic `}
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    letter-spacing: -0.015em;
+    padding-top: 1.2rem;
+    text-decoration: underline;
+    text-underline-position: under;
+`
+export default observer(NewLetterQuestion)
