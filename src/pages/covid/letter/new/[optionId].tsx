@@ -29,14 +29,14 @@ const NewLetter = ({
             router.push({pathname: ROUTES.COVID.LETTER.OPTION})
         }
     }, [])
-    const onClickConfirm = () => {
+    const handleConfirm = () => {
         if (answer.length === 0 || title.length === 0) return
         router.push({
             pathname: ROUTES.COVID.LETTER.NEW.ATTACH,
             query: {optionId: router.query.optionId},
         })
     }
-    const onClickHeaderButton = () => {
+    const handleHeader = () => {
         confirm({
             title: '아직 편지 내용이 저장되지 않았어!',
             message: '해당 페이지를 벗어나면\n편지 내용이 저장되지 않고 지워져!\n그래도 뒤로 갈거야?',
@@ -54,12 +54,12 @@ const NewLetter = ({
 
     return (
         <>
-            <CommonHeader type={HEADER_TYPE.BACK} position={HEADER_POSITION.LEFT} onClick={onClickHeaderButton} />
+            <CommonHeader type={HEADER_TYPE.BACK} position={HEADER_POSITION.LEFT} onClick={handleHeader} />
             <Container>
                 <NewLetterQuestion questions={questions} />
                 <div>
                     <Answer />
-                    <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
+                    <ConfirmButton onClick={handleConfirm}>확인</ConfirmButton>
                 </div>
             </Container>
             <TutorialLayer tutorialShow={tutorialShow} closeTutorial={closeTutorial} />

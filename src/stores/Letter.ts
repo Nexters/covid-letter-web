@@ -8,7 +8,7 @@ interface Sticker {
 interface NewLetter {
     answer: string
     title: string
-    questionId: number
+    questionId: number | null
     optionId?: number
     optionText?: string
     sticker: Sticker
@@ -20,7 +20,7 @@ export interface LetterState extends NewLetter {
     resetAnswer: () => void
     chooseOption: (optionId: number, optionText: string) => void
     chooseSticker: (sticker: Sticker) => void
-    setQuestionId: (questionId: number) => void
+    setQuestionId: (questionId: number | null) => void
     resetStore: () => void
 }
 
@@ -28,7 +28,7 @@ const createLetter = (): LetterState => {
     return {
         answer: '',
         title: '',
-        questionId: 0,
+        questionId: 1,
         optionId: 0,
         optionText: '',
         sticker: {
@@ -59,14 +59,15 @@ const createLetter = (): LetterState => {
             this.sticker = sticker || {type: undefined, label: '', desc: ''}
         },
 
-        setQuestionId(questionId: number) {
-            this.questionId = questionId || 0
+        setQuestionId(questionId: number | null) {
+            if (!questionId) this.questionId = null
+            else this.questionId = questionId
         },
 
         resetStore() {
             this.answer = ''
             this.title = ''
-            this.questionId = 0
+            this.questionId = 1
             this.optionId = 0
             this.optionText = ''
             this.sticker = {

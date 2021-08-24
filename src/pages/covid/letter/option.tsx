@@ -11,6 +11,8 @@ import cookies from 'next-cookies'
 import {GetServerSideProps} from 'next'
 import {MainButton} from '$styles/utils/components'
 import {LetterOption} from '$types/response/letter'
+import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
+import CommonHeader from '$components/header/CommonHeader'
 
 interface Props {
     options: LetterOption[]
@@ -21,7 +23,7 @@ const LetterOptionPage = ({options}: Props) => {
     const {chooseOption} = useLetterStore()
 
     const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
-    const onClickOption = (option: LetterOption) => {
+    const clickOption = (option: LetterOption) => {
         if (option.id === selectedOptionId) {
             setSelectedOptionId(-1)
         } else {
@@ -29,28 +31,43 @@ const LetterOptionPage = ({options}: Props) => {
             setSelectedOptionId(option.id)
         }
     }
-    const onClickConfirm = () => {
+    const confirm = () => {
         if (selectedOptionId === -1) return
         router.push({
             pathname: ROUTES.COVID.LETTER.NEW.MAIN,
             query: {optionId: selectedOptionId},
         })
     }
+    // const confirmWithNoOption = () => {
+    //     router.push({
+    //         pathname: ROUTES.COVID.LETTER.NEW.MAIN,
+    //     })
+    // }
+    const goMain = () => {
+        router.push(ROUTES.COVID.MAIN)
+    }
     return (
-        <Container>
-            <Title>
-                발송 기준 선택 📮
-                <p className="sub-title">언제 발송을 원하시나요?</p>
-            </Title>
+        <OptionContainer>
+            <div>
+                <CommonHeader type={HEADER_TYPE.BACK} position={HEADER_POSITION.LEFT} onClick={goMain} />
+                <Title>
+                    발송 기준 선택 📮
+                    <p className="sub-title">언제 발송하길 원해?</p>
+                </Title>
+            </div>
             <ButtonList>
-                {options.map((option) => (
-                    <li key={option.id} onClick={() => onClickOption(option)}>
-                        <Button isClicked={option.id === selectedOptionId}>{option.text}</Button>
-                    </li>
-                ))}
+                <>
+                    {options.map((option) => (
+                        <li key={option.id} onClick={() => clickOption(option)}>
+                            <Button isClicked={option.id === selectedOptionId}>{option.text}</Button>
+                        </li>
+                    ))}
+                    {/*<TextButton onClick={confirmWithNoOption}>발송 기준은 나중에 정할래!</TextButton>*/}
+                </>
             </ButtonList>
-            <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
-        </Container>
+
+            <ConfirmButton onClick={confirm}>확인</ConfirmButton>
+        </OptionContainer>
     )
 }
 
@@ -71,10 +88,12 @@ type ButtonPropsType = {
     children?: ReactChild
     isClicked?: boolean
 }
-const Container = styled.section`
-    ${tw`tw-bg-beige-300 tw-flex tw-flex-col tw-justify-center`}
-    height: calc(100vh - 5.2rem);
-    margin: 0 auto;
+
+const OptionContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
 `
 
 const Title = styled.h3`
@@ -83,6 +102,7 @@ const Title = styled.h3`
     line-height: 2.4rem;
     padding-left: 2.4rem;
     padding-right: 2.4rem;
+    margin-top: 3.2rem;
     .sub-title {
         ${tw`tw-font-ohsquare-air`}
         margin-top: 0.8rem;
@@ -93,10 +113,11 @@ const Title = styled.h3`
 `
 
 const ButtonList = styled.ul`
-    display: inherit;
-    align-self: center;
+    display: flex;
+    align-items: center;
     flex-direction: column;
-    margin-top: 4.8rem;
+    padding-top: 2.4rem;
+    padding-bottom: 2.4rem;
 `
 
 const Button = styled.button<ButtonPropsType>([
@@ -129,8 +150,19 @@ const Button = styled.button<ButtonPropsType>([
               `,
 ])
 
+// const TextButton = styled.button`
+//     ${FontNanumBarunGothic('normal')}
+//     ${tw`tw-text-grey-600`}
+//   font-size: 1.6rem;
+//     line-height: 1.8rem;
+//     text-align: center;
+//     margin-top: 0.8rem;
+//     text-decoration: underline;
+//     text-underline-position: under;
+// `
+
 const ConfirmButton = styled(MainButton)`
-    ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
+    ${tw`tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
     max-width: 42rem;
     width: 100%;
     height: 5.2rem;

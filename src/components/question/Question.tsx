@@ -5,35 +5,56 @@ import {getCurrentDate} from '$utils/date'
 import {useLetterStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 
-const INITIAL_ID = 0
+const INITIAL_ID = 1
 
 const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
     const {questionId, setQuestionId} = useLetterStore()
 
-    const onClickNext = () => {
-        if (questionId === Object.keys(questions).length - 1) {
-            setQuestionId(INITIAL_ID)
-        } else {
-            setQuestionId(questionId + 1)
-        }
+    const clickNextQuestion = () => {
+        if (questionId !== null) {
+            const isLastQuestion = questionId === Object.keys(questions).length - 1
+            if (isLastQuestion) {
+                setQuestionId(INITIAL_ID)
+            } else {
+                setQuestionId(questionId + 1)
+            }
+        } else setQuestionId(INITIAL_ID)
+    }
+
+    const clickFreeQuestion = () => {
+        setQuestionId(null)
     }
 
     return (
         <QuestionContainer>
             <QuestionWrapper>
-                <span className="question-number">질문 {questionId + 1}</span>
-                <h3>
-                    {questions[questionId].text?.split('\n').map((text) => (
-                        <span key={text}>
-                            {text}
+                {questionId !== null ? (
+                    <>
+                        <span className="question-number">질문 {questionId}</span>
+                        <h3>
+                            {questions[questionId].text?.split('\n').map((text) => (
+                                <span key={text}>
+                                    {text}
+                                    <br />
+                                </span>
+                            ))}
+                        </h3>
+                    </>
+                ) : (
+                    <>
+                        <span className="question-number">질문</span>
+                        <h3>
+                            미래의 나에게
                             <br />
-                        </span>
-                    ))}
-                </h3>
+                            자유롭게 할 말을 적어봐.
+                        </h3>
+                    </>
+                )}
+
                 <span className="create-date">작성 날짜 | {getCurrentDate()}</span>
             </QuestionWrapper>
-            <Button onClick={onClickNext}>다른 질문에 대답할래요</Button>
-            <TextButton onClick={onClickNext}>오늘은 자유롭게 쓸래</TextButton>
+            <Button onClick={clickNextQuestion}>다른 질문에 대답할래요</Button>
+            <TextButton onClick={clickFreeQuestion}>오늘은 자유롭게 쓸래</TextButton>
         </QuestionContainer>
     )
 }

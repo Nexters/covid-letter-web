@@ -27,7 +27,7 @@ const Attach = (props: Props) => {
         }
     }, [])
     const {profile, addLettersCount} = useProfileContext()
-    const onClickConfirm = async () => {
+    const confirm = async () => {
         if (!sticker.type) return
         try {
             const response = await withAxios<Letter>({
@@ -93,7 +93,7 @@ const Attach = (props: Props) => {
                 )}
             </StickerDescription>
             <StickerList />
-            <ConfirmButton onClick={onClickConfirm}>확인</ConfirmButton>
+            <ConfirmButton onClick={confirm}>확인</ConfirmButton>
         </>
     )
 }
