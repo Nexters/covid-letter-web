@@ -1,5 +1,6 @@
 import MainHeader from '$components/header/MainHeader'
 import MainSidebar from '$components/main/MainSidebar'
+import PcBackground from '$components/main/PcBackground'
 import toast from '$components/toast'
 import {useAlertStore, useAuthStore} from '$contexts/StoreContext'
 import useLogout from '$hooks/useLogout'
@@ -37,6 +38,7 @@ const MainLayout = ({children, isMobile, isGoogleLogin}: PropsWithChildren<MainL
 
     return (
         <>
+            {!isMobile && <PcBackground />}
             <MainHeader openSidebar={openSidebar} />
             {children}
             <MainSidebar isShow={sidebarShow} closeFn={closeSidebar} logined={isLogined} logout={logoutPage} />
