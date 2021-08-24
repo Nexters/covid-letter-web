@@ -1,5 +1,7 @@
 import IconCurvedArrow from '$assets/icons/IconCurvedArrow'
 import IconEraser from '$assets/icons/IconEraser'
+import CommonHeader from '$components/header/CommonHeader'
+import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 import {FontNanumBarunGothic} from '$styles/utils/font'
 import {FlexBetween} from '$styles/utils/layout'
 import styled from '@emotion/styled'
@@ -12,11 +14,6 @@ const Container = styled.section`
     text-align: center;
     min-height: calc(100vh - 5.5rem);
     justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.5);
-`
-
-const Header = styled.section`
-    height: 5.5rem;
     background-color: rgba(0, 0, 0, 0.5);
 `
 
@@ -76,7 +73,7 @@ const Button = styled.button`
 const LinkButton = styled.a`
     ${FontNanumBarunGothic()}
     ${tw`tw-text-primary-yellow-400 tw-text-sm tw-border-0`}
-    padding-bottom: 0.3rem;
+    padding-top: 1.2rem;
     text-decoration: underline;
     text-underline-position: under;
     width: fit-content;
@@ -236,7 +233,13 @@ const SkeletonLayer = () => {
     const tutoRef4 = useRef<HTMLButtonElement>(null)
     return (
         <>
-            <Header />
+            <CommonHeader
+                type={HEADER_TYPE.BACK}
+                position={HEADER_POSITION.LEFT}
+                style={{
+                    backgroundColor: 'rgba(0,0,0,.5)',
+                }}
+            />
             <Container>
                 <QuestionContainer>
                     <QuestionWrapper>
