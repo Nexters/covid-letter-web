@@ -1,5 +1,6 @@
 import MainBgLeftDownImage from '$assets/images/MainBgLeftDownImage'
 import MainBgRightDownImage from '$assets/images/MainBgRightDownImage'
+import MainBgRightUpImage from '$assets/images/MainBgRightUpImage'
 import PostCardColPattern from '$assets/patterns/PostCardColPattern'
 import styled from '@emotion/styled'
 import {useEffect, useRef, useState} from 'react'
@@ -52,6 +53,12 @@ const ColumnWrapper = styled.div`
     ${tw`tw-flex tw-flex-col tw-justify-start`}
 `
 
+const RightUpWrapper = styled.div`
+    position: fixed;
+    top: 4%;
+    right: 4.8%;
+`
+
 const LeftDownWrapper = styled.div`
     position: fixed;
     bottom: 4%;
@@ -96,6 +103,9 @@ const PcBackground = () => {
                     ))}
                 </ColumnWrapper>
             </BackgroundBorder>
+            <RightUpWrapper>
+                <MainBgRightUpImage />
+            </RightUpWrapper>
             <LeftDownWrapper>
                 <MainBgLeftDownImage />
             </LeftDownWrapper>
