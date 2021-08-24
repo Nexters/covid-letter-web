@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Container = styled.div`
-    ${tw`tw-bg-beige-200`}
+    ${tw`tw-bg-beige-300`}
     min-height: 100vh;
     padding: 8.8rem 8.5rem 0;
 `
