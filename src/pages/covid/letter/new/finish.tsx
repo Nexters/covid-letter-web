@@ -5,15 +5,29 @@ import {useLetterStore} from '$contexts/StoreContext'
 import {getCurrentDate} from '$utils/date'
 import {StickerFactory} from '$components/sticker/stickerFactory'
 import {useProfileContext} from '$contexts/ProfileContext'
+import {StampFactory} from '$components/stamp/stampFactory'
+import {FontNanumBarunGothic} from '$styles/utils/font'
 
 const Finish = () => {
-    const {title, optionText, sticker} = useLetterStore()
+    const {title, optionText, sticker, optionId} = useLetterStore()
     const {profile} = useProfileContext()
     return (
         <Container>
-            <h3>
-                편지 작성을 완료했어! <br /> 소중히 보관했다가 <br /> 안전하게 보내줄게 :)
-            </h3>
+            {optionId !== null ? (
+                <h3>
+                    편지 작성을 완료했어! <br /> 소중히 보관했다가 <br /> 안전하게 보내줄게 :)
+                </h3>
+            ) : (
+                <>
+                    <h3>
+                        편지 작성을 완료했어! <br /> 발송을 원하면 <br /> 발송 기준을 꼭 선택해줘 :)
+                    </h3>
+                    <h4>
+                        {/* eslint-disable-next-line react/no-unescaped-entities */}
+                        *발송 기준은 <br /> '부치지 못한 편지'에서 선택 가능해!
+                    </h4>
+                </>
+            )}
             <ResultWrapper>
                 <DescriptionWrapper>
                     <p className="title-wrapper">
@@ -27,7 +41,7 @@ const Finish = () => {
                             <span className="option">발송 기준</span>
                             <span className="option-text">{optionText}</span>
                         </div>
-                        <div className="img-square">이미지 테스트</div>
+                        <div className="img-square">{StampFactory(optionId || null, '11.2rem')}</div>
                     </LetterDescription>
                 </DescriptionWrapper>
                 <Divider />
@@ -51,7 +65,14 @@ const Container = styled.div`
         font-size: 2rem;
         line-height: 3.2rem;
         margin-top: 8.8rem;
-        margin-bottom: 12.3rem;
+    }
+    h4 {
+        ${FontNanumBarunGothic('normal')}
+        ${tw`tw-text-grey-600`}
+        font-size: 1.4rem;
+        line-height: 2.2rem;
+        padding-top: 2.4rem;
+        text-align: center;
     }
 `
 
@@ -65,6 +86,7 @@ const ResultWrapper = styled.section`
     bottom: 5.2rem;
     border-radius: 1rem 1rem 0 0;
     padding: 4rem 2.4rem 3.8rem;
+    margin-top: 12.3rem;
 `
 
 const DescriptionWrapper = styled.article`
