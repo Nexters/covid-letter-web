@@ -13,6 +13,8 @@ import tw from 'twin.macro'
 import Divider from '$components/letter/Divider'
 import {css} from '@emotion/react'
 import ServicePromotion from '$components/letter/ServicePromotion'
+import {FontOhsquareAir} from '$styles/utils/font'
+import ConfirmButton from '$components/letter/ConfirmButton'
 
 const LetterDetail = ({letter}: {letter: Letter}) => {
     const router = useRouter()
@@ -53,7 +55,7 @@ const LetterDetail = ({letter}: {letter: Letter}) => {
                     <div><span className="question-text">{questionText}</span></div>
                 </QuestionWrap>
             </Container>
-            <ConfirmButton onClick={finishReadLetter}>다 읽었어요!</ConfirmButton>
+            <EndReadButton onClick={finishReadLetter}>다 읽었어요!</EndReadButton>
 
             <HalfLayer isShow={isShowServicePromotion} closeFn={() => setIsShowServicePromotion(false)} bgColor={'var(--beige-200)'}>
                 <ServicePromotion />
@@ -124,6 +126,7 @@ const QuestionWrap = styled.section`
     }
 
     .question-text {
+        ${FontOhsquareAir} 
         ${tw`tw-text-sm tw-text-grey-700`}
         letter-spacing: -0.015em;
     }
@@ -133,14 +136,7 @@ const QuestionWrap = styled.section`
     }
 `
 
-const ConfirmButton = styled.button`
-    ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
-    max-width: 42rem;
-    width: 100%;
-    height: 5.2rem;
-    font-size: 1.6rem;
-    line-height: 2.5rem;
-`
+const EndReadButton = styled(ConfirmButton)``
 
 const dividerCss = css`
     margin: 0 2.4rem;

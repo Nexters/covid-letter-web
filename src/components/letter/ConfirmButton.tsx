@@ -3,7 +3,6 @@ import tw from 'twin.macro'
 
 const ConfirmButton = styled.button`
     ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
-    left: 0;
     max-width: 42rem;
     width: 100%;
     height: 5.2rem;
@@ -13,6 +12,10 @@ const ConfirmButton = styled.button`
     &:disabled {
         ${tw`tw-bg-grey-300 tw-text-grey-400`}
         cursor: not-allowed;
+    }
+    
+    &:not(:disabled):hover {
+        ${tw`tw-bg-primary-green-600`}
     }
 `
 

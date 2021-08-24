@@ -8,7 +8,7 @@ import HalfLayer from '$components/layer/HalfLayer'
 import {useState} from 'react'
 import {convertCommonDateFormat} from '$utils/date'
 import tw from 'twin.macro'
-import {FontNanumBarunGothic, FontOhsquare, FontOhsquareAir} from '$styles/utils/font'
+import {FontNanumBarunGothic, FontOhsquare} from '$styles/utils/font'
 import {FlexBetween, FlexStart} from '$styles/utils/layout'
 import EmptyLetterListContainer from '$components/letter/EmptyLetterListContainer'
 import Divider from '$components/letter/Divider'
@@ -60,7 +60,7 @@ const Letters = ({letters}: {letters: Letter[]}) => {
             <Container>
                 <LettersContainer>
                     <TitleContainer>작성한 편지 목록 <span className="icon-letter">✉️</span></TitleContainer>
-                    <SubTitle>과거의 내가 작성한 편지들이에요.</SubTitle>
+                    <SubTitle>과거의 내가 작성한 편지들이야.</SubTitle>
                     {letterList}
                 </LettersContainer>
 
@@ -107,7 +107,6 @@ const TitleContainer = styled.div`
     }
 `
 const SubTitle = styled.div`
-    ${FontOhsquareAir}
     ${FlexStart}
     ${tw`tw-text-left tw-text-base tw-text-primary-green-500`}
     margin-top: 0.8rem;
@@ -124,7 +123,7 @@ const ItemContainer = styled.div`
 const ItemTitleWrapper = styled.div`
     ${FlexStart}
     .text {
-        ${tw`tw-text-sm tw-font-light tw-text-grey-800`}
+        ${tw`tw-text-sm tw-text-grey-800`}
         letter-spacing: -0.015em;
     }
 `
