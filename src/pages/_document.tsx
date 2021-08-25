@@ -46,6 +46,11 @@ export default class CustomDocument extends Document {
                     <link rel="stylesheet" type="text/css" href="/assets/styles/font.css" />
                     <link rel="preload" href="/assets/styles/index.css" as="style" />
                     <link rel="stylesheet" type="text/css" href="/assets/styles/index.css" />
+
+                    <meta property="og:title" content="안녕, 나야" />
+                    {/* <meta property="og:image" content="http://halo-its.me/assets/images/stickers/expect.png" /> */}
+                    <meta id="metaOgUrl" property="og:url" content="http://halo-its.me" />
+                    <meta property="og:description" content="안녕, 나야. 어쩌고저쩌고" />
                 </Head>
                 <body>
                     <Main />
