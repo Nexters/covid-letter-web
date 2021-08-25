@@ -36,7 +36,7 @@ export const ProfileProvider = ({children, token}: {children: ReactNode; token?:
                 refreshProfile(
                     {
                         ...args,
-                        lettersCount: args.lettersCount + 1,
+                        totalLettersCount: args.totalLettersCount + 1,
                     },
                     false,
                 )

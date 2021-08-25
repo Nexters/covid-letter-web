@@ -49,7 +49,7 @@ const MyLetterSection = ({logined}: {logined: boolean}) => {
         return null
     }
 
-    const {lettersCount} = profile
+    const {totalLettersCount} = profile
 
     const goLetterList = () => {
         router.push(ROUTES.COVID.LETTER.LIST)
@@ -64,7 +64,7 @@ const MyLetterSection = ({logined}: {logined: boolean}) => {
                 <span>
                     지금까지 나에게
                     <br />
-                    <Highlight>{lettersCount} 통의 편지</Highlight>를 작성했어!
+                    <Highlight>{totalLettersCount} 통의 편지</Highlight>를 작성했어!
                 </span>
             </Title>
             <LetterButton onClick={goLetterList}>편지 목록 보기</LetterButton>
