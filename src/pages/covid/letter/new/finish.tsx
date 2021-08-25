@@ -12,10 +12,11 @@ import {useRouter} from 'next/router'
 
 const Finish = () => {
     const router = useRouter()
-    const {title, optionText, sticker, optionId} = useLetterStore()
+    const {title, optionText, sticker, optionId, resetStore} = useLetterStore()
     const {profile} = useProfileContext()
-    const goMain = () => {
+    const handleConfirm = () => {
         router.push(ROUTES.COVID.MAIN)
+        resetStore()
     }
     return (
         <Container>
@@ -56,7 +57,7 @@ const Finish = () => {
                     <p className="letter-responder">{profile?.name}</p>
                 </ResponderWrapper>
             </ResultWrapper>
-            <ConfirmButton onClick={goMain}>편지 기다리기</ConfirmButton>
+            <ConfirmButton onClick={handleConfirm}>편지 기다리기</ConfirmButton>
         </Container>
     )
 }
