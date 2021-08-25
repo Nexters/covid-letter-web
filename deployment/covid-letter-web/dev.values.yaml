@@ -5,6 +5,7 @@ nginx:
         registry: itsme-reg.kr.ncr.ntruss.com/nginx-dev
         tag: latest
         pullPolicy: Always
+    volumeMounts: config-dir
     resources:
         limits:
             cpu: 1
