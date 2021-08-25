@@ -55,7 +55,7 @@ const LetterOptionPage = ({options, token}: Props) => {
     const saveLetter = async () => {
         return await withAxios<Letter>({
             url: `/letters/${encryptedId}`,
-            method: 'POST',
+            method: 'PUT',
             data: {
                 sendOptionId: optionId,
             },
@@ -110,7 +110,7 @@ const LetterOptionPage = ({options, token}: Props) => {
             <ConfirmButton onClick={confirm}>확인</ConfirmButton>
             <EnvelopeLoading
                 isShow={isShowEnvelopeOpenLoading}
-                text={'편지 뜯는 중...'}
+                text={'편지 동봉 중...'}
                 delay={2000}
                 afterLoadingFn={goFinish}
             />
