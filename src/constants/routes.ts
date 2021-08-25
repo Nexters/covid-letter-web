@@ -22,9 +22,12 @@ const ROUTES = Object.freeze({
             },
         },
     },
+    ADMIN: {
+        MAIL_SEND: '/admin/mucncgzwuorozpgxdfmezksawtkd', //어드민 메일 발송
+    },
 })
 
-export const NEED_LOGIN_ROUTES = [...Object.values(ROUTES.COVID.LETTER)]
+export const NEED_LOGIN_ROUTES = [...Object.values(ROUTES.COVID.LETTER), ...Object.values(ROUTES.ADMIN)]
     .filter(routeName => routeName !== ROUTES.COVID.LETTER.DIRECT && routeName !== ROUTES.COVID.LETTER.DETAIL)
 
 export default ROUTES
