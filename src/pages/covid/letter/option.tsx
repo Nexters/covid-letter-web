@@ -32,6 +32,7 @@ const LetterOptionPage = ({options, token}: Props) => {
 
     const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
     const [isShowEnvelopeOpenLoading, setIsShowEnvelopeOpenLoading] = useState<boolean>(false)
+    const [error, setError] = useState(null)
 
     const clickOption = (option: LetterOption) => {
         if (option.id === selectedOptionId) {
@@ -69,16 +70,21 @@ const LetterOptionPage = ({options, token}: Props) => {
         setIsShowEnvelopeOpenLoading(true)
         try {
             await saveLetter()
-            goFinish()
         } catch (e) {
-            console.error(e)
+            setError(e)
             alert({
                 title: '편지 작성 중 에러가 났어!',
-                onSuccess: () => router.back(), // alert 버튼 눌렀을 때
+                onSuccess: () => router.back(),
                 onClose: () => router.back(),
             })
         }
     }
+
+    const loadingCallback = () => {
+        if (error) return
+        goFinish()
+    }
+
     const confirm = async () => {
         if (selectedOptionId === -1) return
         if (encryptedId) {
@@ -123,7 +129,7 @@ const LetterOptionPage = ({options, token}: Props) => {
                 isShow={isShowEnvelopeOpenLoading}
                 text={'편지 동봉 중...'}
                 delay={2000}
-                afterLoadingFn={() => {}}
+                afterLoadingFn={loadingCallback}
             />
         </OptionContainer>
     )
