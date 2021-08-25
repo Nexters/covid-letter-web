@@ -54,7 +54,7 @@ const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
                 <span className="create-date">작성 날짜 | {getCurrentDate()}</span>
             </QuestionWrapper>
             <Button onClick={clickNextQuestion}>다른 질문에 대답할래요</Button>
-            <TextButton onClick={clickFreeQuestion}>오늘은 자유롭게 쓸래</TextButton>
+            {questionId !== null ? <TextButton onClick={clickFreeQuestion}>오늘은 자유롭게 쓸래</TextButton> : <></>}
         </QuestionContainer>
     )
 }
@@ -73,6 +73,7 @@ const QuestionWrapper = styled.div`
         ${tw`tw-font-nanumBarunGothic tw-text-grey-800`}
         font-size: 1.4rem;
         line-height: 2.2rem;
+        background-image: linear-gradient(1turn, #e7bf78, #e7bf78 8px, transparent 0, transparent);
     }
 
     h3 {
