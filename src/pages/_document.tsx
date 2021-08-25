@@ -48,9 +48,9 @@ export default class CustomDocument extends Document {
                     <link rel="stylesheet" type="text/css" href="/assets/styles/index.css" />
 
                     <meta property="og:title" content="안녕, 나야" />
-                    {/* <meta property="og:image" content="https://halo-its.me/assets/images/stickers/expect.png" /> */}
+                    <meta property="og:image" content="https://halo-its.me/assets/images/ogimage.png" />
                     <meta id="metaOgUrl" property="og:url" content="https://halo-its.me" />
-                    <meta property="og:description" content="안녕, 나야. 어쩌고저쩌고" />
+                    <meta property="og:description" content="내가 보내는 편지 서비스" />
                 </Head>
                 <body>
                     <Main />
