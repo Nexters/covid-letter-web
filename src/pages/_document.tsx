@@ -50,7 +50,7 @@ export default class CustomDocument extends Document {
                     <meta property="og:title" content="안녕, 나야" />
                     <meta property="og:image" content="https://halo-its.me/assets/images/ogimage.png" />
                     <meta id="metaOgUrl" property="og:url" content="https://halo-its.me" />
-                    <meta property="og:description" content="내가 보내는 편지 서비스" />
+                    <meta property="og:description" content="오늘의 내가, 미래의 나에게 보내는 편지(코시국편)" />
                 </Head>
                 <body>
                     <Main />
