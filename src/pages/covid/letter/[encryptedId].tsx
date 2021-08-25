@@ -13,7 +13,6 @@ import tw from 'twin.macro'
 import Divider from '$components/letter/Divider'
 import {css} from '@emotion/react'
 import ServicePromotion from '$components/letter/ServicePromotion'
-import {FontOhsquareAir} from '$styles/utils/font'
 import ConfirmButton from '$components/letter/ConfirmButton'
 
 const LetterDetail = ({letter}: {letter: Letter}) => {
@@ -21,7 +20,8 @@ const LetterDetail = ({letter}: {letter: Letter}) => {
     const {profile} = useProfileContext()
     const [isShowServicePromotion, setIsShowServicePromotion] = useState<boolean>(false)
 
-    const {title, contents, createdDate, questionText} = letter
+    const {title, contents, createdDate} = letter
+    const questionText = letter.questionText ?? (<>질문없이 자유롭게 적은<br/>나의 이야기</>)
     const finishReadLetter = () => {
         if (profile?.id) {
             router.push(ROUTES.COVID.LETTER.LIST)
@@ -126,7 +126,6 @@ const QuestionWrap = styled.section`
     }
 
     .question-text {
-        ${FontOhsquareAir} 
         ${tw`tw-text-sm tw-text-grey-700`}
         letter-spacing: -0.015em;
     }
