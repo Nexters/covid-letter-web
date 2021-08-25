@@ -32,7 +32,6 @@ const LetterOptionPage = ({options, token}: Props) => {
 
     const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
     const [isShowEnvelopeOpenLoading, setIsShowEnvelopeOpenLoading] = useState<boolean>(false)
-    const [error, setError] = useState(null)
 
     const clickOption = (option: LetterOption) => {
         if (option.id === selectedOptionId) {
@@ -55,40 +54,43 @@ const LetterOptionPage = ({options, token}: Props) => {
         })
     }
     const saveLetter = async () => {
-        return await withAxios<Letter>({
-            url: `/letters/${encryptedId}`,
-            method: 'PUT',
-            data: {
-                sendOptionId: optionId,
-            },
-            headers: {
-                Authorization: token,
-            },
-        })
-    }
-    const sendLetterWithEncryptedId = async () => {
-        setIsShowEnvelopeOpenLoading(true)
         try {
-            await saveLetter()
+            await withAxios<Letter>({
+                url: `/letters/${encryptedId}`,
+                method: 'PUT',
+                data: {
+                    sendOptionId: optionId,
+                },
+                headers: {
+                    Authorization: token,
+                },
+            })
+            goFinish()
         } catch (e) {
-            setError(e)
+            setIsShowEnvelopeOpenLoading(false)
             alert({
                 title: '편지 작성 중 에러가 났어!',
-                onSuccess: () => router.back(),
-                onClose: () => router.back(),
+                onSuccess: () =>
+                    router.push({
+                        pathname: ROUTES.COVID.LETTER.OPTION,
+                        query: {encryptedId: encryptedId},
+                    }),
+                onClose: () =>
+                    router.push({
+                        pathname: ROUTES.COVID.LETTER.OPTION,
+                        query: {encryptedId: encryptedId},
+                    }),
             })
         }
     }
-
-    const loadingCallback = () => {
-        if (error) return
-        goFinish()
+    const showLoading = async () => {
+        setIsShowEnvelopeOpenLoading(true)
     }
 
     const confirm = async () => {
         if (selectedOptionId === -1) return
         if (encryptedId) {
-            await sendLetterWithEncryptedId()
+            await showLoading()
         } else goNewLetter()
     }
     const confirmWithNoOption = () => {
@@ -128,8 +130,8 @@ const LetterOptionPage = ({options, token}: Props) => {
             <EnvelopeLoading
                 isShow={isShowEnvelopeOpenLoading}
                 text={'편지 동봉 중...'}
-                delay={2000}
-                afterLoadingFn={loadingCallback}
+                delay={1000}
+                afterLoadingFn={saveLetter}
             />
         </OptionContainer>
     )
