@@ -73,6 +73,7 @@ const QuestionWrapper = styled.div`
         ${tw`tw-font-nanumBarunGothic tw-text-grey-800`}
         font-size: 1.4rem;
         line-height: 2.2rem;
+        background-image: linear-gradient(1turn, #e7bf78, #e7bf78 8px, transparent 0, transparent);
     }
 
     h3 {

@@ -16,6 +16,7 @@ const AutoTextArea = () => {
             <TextareaAutosize
                 value={answer}
                 maxLength={1000}
+                minRows={5}
                 placeholder="질문에 대하여 편하게 대답해주시고, 그 외에 하고싶은 말을 자유롭게 적어주세요."
                 onChange={onChangeHandler}
                 autoFocus
