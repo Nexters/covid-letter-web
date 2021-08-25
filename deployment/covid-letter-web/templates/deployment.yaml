@@ -25,12 +25,15 @@ spec:
           containerPort: 80
         resources: {{ toYaml .Values.nginx.resoucres | nindent 10 }}
         volumeMounts:
-        - name: config-dir
+        - name: {{ .Values.nginx.volumeMounts }}
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
-        - name: config-dir
+        - name: {{ .Values.nginx.volumeMounts }}
           mountPath: /etc/nginx/variable.conf
           subPath: variable.conf
+        - name: nginx-ssl
+          mountPath: "/etc/ssl/certs"
+          readOnly: true
       - name: nodejs
         {{- with .Values.nodejs.image }}
         image: '{{ .registry }}:{{ .tag }}'
@@ -49,5 +52,21 @@ spec:
             path: nginx.conf
           - key: variable.conf
             path: variable.conf
+      - name: ssl-config-dir
+        configMap:
+          name: nginx-ssl-conf
+          items:
+          - key: nginx.conf
+            path: nginx.conf
+          - key: variable.conf
+            path: variable.conf
+      - name: nginx-ssl
+        secret:
+          secretName: {{ include "covid-letter-web.fullname" . }}-nginx-ssl
+          items:
+          - key: halo-its.me_20210825XB0Z.ca-bundle.pem
+            path: halo-its.me_20210825XB0Z.ca-bundle.pem
+          - key: halo-its.me_20210825XB0Z.key.pem
+            path: halo-its.me_20210825XB0Z.key.pem
       imagePullSecrets:
       - name: regcred

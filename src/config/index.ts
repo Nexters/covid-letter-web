@@ -30,7 +30,7 @@ export const ORIGIN_DOMAIN = ((environment) => {
             return 'http://dev.halo-its.me'
         case 'production':
         default:
-            return 'http://halo-its.me'
+            return 'https://halo-its.me'
     }
 })(env)
 
