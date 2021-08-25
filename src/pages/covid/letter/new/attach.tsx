@@ -13,12 +13,14 @@ import {useEffect, useState} from 'react'
 import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 import CommonHeader from '$components/header/CommonHeader'
 import EnvelopeLoading from '$components/loading/EnvelopeLoading'
+import {NO_OPTION_ID} from '$constants'
 
 type Props = {
     isMobile: boolean
     token: string
     isGoogleLogin: boolean
 }
+
 const Attach = (props: Props) => {
     const router = useRouter()
     const {sticker, answer, title, questionId, optionId} = useLetterStore()
@@ -45,7 +47,7 @@ const Attach = (props: Props) => {
             data: {
                 contents: answer,
                 questionId: questionId,
-                sendOptionId: optionId,
+                sendOptionId: optionId === NO_OPTION_ID ? null : optionId,
                 sticker: sticker.type,
                 title: title,
             },
@@ -61,7 +63,6 @@ const Attach = (props: Props) => {
             const response = await saveLetter()
             if (response) {
                 if (profile) addLettersCount(profile)
-                // goFinish()
             }
         } catch (e) {
             console.error(e)

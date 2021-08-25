@@ -86,3 +86,5 @@ export const TIME_UNIT = {
     MINUTE: 60,
     HOUR: 60 * 60,
 }
+
+export const NO_OPTION_ID = 7
