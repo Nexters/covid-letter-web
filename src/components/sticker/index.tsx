@@ -31,8 +31,7 @@ const StickerListWrapper = styled.section`
     justify-items: center;
     row-gap: 3rem;
     column-gap: 2.4rem;
-    padding: 0 2.8rem 5.6rem;
-    margin-bottom: 5.2rem;
+    padding: 0 2.8rem 8.4rem;
 `
 
 const StickerItemWrapper = styled.article`
