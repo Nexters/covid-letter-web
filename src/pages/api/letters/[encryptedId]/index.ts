@@ -71,7 +71,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         return
     }
 
-    if (req.method === 'POST') {
+    if (req.method === 'PUT') {
         await saveLetter(req, res)
         return
     }
