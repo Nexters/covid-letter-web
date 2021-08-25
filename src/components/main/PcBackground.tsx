@@ -55,20 +55,20 @@ const ColumnWrapper = styled.div`
 
 const RightUpWrapper = styled.div`
     position: fixed;
-    top: 4%;
-    right: 4.8%;
+    top: 6%;
+    right: 4.5%;
 `
 
 const LeftDownWrapper = styled.div`
     position: fixed;
-    bottom: 4%;
-    left: 2.8%;
+    bottom: 6%;
+    left: 3.8%;
 `
 
 const RightDownWrapper = styled.div`
     position: fixed;
-    bottom: 4%;
-    right: 2.8%;
+    bottom: 6%;
+    right: 3.8%;
 `
 
 const PcBackground = () => {
