@@ -6,7 +6,7 @@ import ROUTES from '$constants/routes'
 import tw from 'twin.macro'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {observer} from 'mobx-react-lite'
-import {useLetterStore} from '$contexts/StoreContext'
+import {useAlertStore, useLetterStore} from '$contexts/StoreContext'
 import cookies from 'next-cookies'
 import {GetServerSideProps} from 'next'
 import {MainButton} from '$styles/utils/components'
@@ -27,6 +27,7 @@ interface Props {
 const LetterOptionPage = ({options, token}: Props) => {
     const router = useRouter()
     const {chooseOption, optionId} = useLetterStore()
+    const {alert} = useAlertStore()
     const {encryptedId} = router.query
 
     const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
@@ -66,7 +67,16 @@ const LetterOptionPage = ({options, token}: Props) => {
     }
     const sendLetterWithEncryptedId = async () => {
         setIsShowEnvelopeOpenLoading(true)
-        await saveLetter()
+        try {
+            await saveLetter()
+            goFinish()
+        } catch (e) {
+            console.error(e)
+            alert({
+                title: '편지 작성 중 에러가 났어!',
+            })
+            router.back()
+        }
     }
     const confirm = async () => {
         if (selectedOptionId === -1) return
@@ -112,7 +122,7 @@ const LetterOptionPage = ({options, token}: Props) => {
                 isShow={isShowEnvelopeOpenLoading}
                 text={'편지 동봉 중...'}
                 delay={2000}
-                afterLoadingFn={goFinish}
+                afterLoadingFn={() => {}}
             />
         </OptionContainer>
     )
