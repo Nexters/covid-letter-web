@@ -14,7 +14,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     try {
         const {
             data: {errorCode, message},
-        }: AxiosResponse<ServerResponse<null>> = await axios.get(`${API_URL_BASE}/mail/${sendOptionId}`)
+        }: AxiosResponse<ServerResponse<null>> = await axios.get(`${API_URL_BASE}/mail/${sendOptionId}`, {
+            headers: req.headers,
+        })
         if (errorCode) {
             console.info(`errorCode: ${errorCode}, message: ${message}`)
             throw new Error(message)
