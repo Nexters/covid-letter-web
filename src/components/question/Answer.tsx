@@ -3,6 +3,7 @@ import {observer} from 'mobx-react-lite'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import AutoTextArea from '$components/textarea'
+import IconEraser from '$assets/icons/IconEraser'
 
 export const MAX_LETTER_ANSWER_LENGTH = 1000
 export const MAX_LETTER_TITLE_LENGTH = 12
@@ -44,6 +45,7 @@ const Answer = () => {
                         {answer.length}/{MAX_LETTER_ANSWER_LENGTH}
                     </span>
                     <button className="reset-button" onClick={handleReset}>
+                        <IconEraser />
                         전부 지우기
                     </button>
                 </div>

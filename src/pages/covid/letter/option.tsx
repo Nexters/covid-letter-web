@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import {css} from '@emotion/react'
-import {ReactChild, useState} from 'react'
+import {ReactElement, useState} from 'react'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
 import tw from 'twin.macro'
@@ -16,6 +16,7 @@ import CommonHeader from '$components/header/CommonHeader'
 import {FontNanumBarunGothic} from '$styles/utils/font'
 import {NO_OPTION_ID} from '$constants'
 import EnvelopeLoading from '$components/loading/EnvelopeLoading'
+import IconCheck from '$assets/icons/IconCheck'
 
 interface Props {
     options: LetterOption[]
@@ -116,7 +117,10 @@ const LetterOptionPage = ({options, token}: Props) => {
                 <>
                     {options.map((option) => (
                         <li key={option.id} onClick={() => clickOption(option)}>
-                            <Button isClicked={option.id === selectedOptionId}>{option.text}</Button>
+                            <Button isClicked={option.id === selectedOptionId}>
+                                {option.id === selectedOptionId ? <IconCheck /> : <></>}
+                                {option.text}
+                            </Button>
                         </li>
                     ))}
                     {encryptedId ? (
@@ -151,7 +155,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 type ButtonPropsType = {
-    children?: ReactChild
+    children?: (string | Element)[] | (string | ReactElement)[]
     isClicked?: boolean
 }
 
