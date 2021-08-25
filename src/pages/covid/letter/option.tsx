@@ -10,21 +10,28 @@ import {useLetterStore} from '$contexts/StoreContext'
 import cookies from 'next-cookies'
 import {GetServerSideProps} from 'next'
 import {MainButton} from '$styles/utils/components'
-import {LetterOption} from '$types/response/letter'
+import {Letter, LetterOption} from '$types/response/letter'
 import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 import CommonHeader from '$components/header/CommonHeader'
 import {FontNanumBarunGothic} from '$styles/utils/font'
 import {NO_OPTION_ID} from '$constants'
+import EnvelopeLoading from '$components/loading/EnvelopeLoading'
 
 interface Props {
     options: LetterOption[]
+    isMobile: boolean
+    token: string
+    isGoogleLogin: boolean
 }
 
-const LetterOptionPage = ({options}: Props) => {
+const LetterOptionPage = ({options, token}: Props) => {
     const router = useRouter()
-    const {chooseOption} = useLetterStore()
+    const {chooseOption, optionId} = useLetterStore()
+    const {encryptedId} = router.query
 
     const [selectedOptionId, setSelectedOptionId] = useState<number>(-1)
+    const [isShowEnvelopeOpenLoading, setIsShowEnvelopeOpenLoading] = useState<boolean>(false)
+
     const clickOption = (option: LetterOption) => {
         if (option.id === selectedOptionId) {
             setSelectedOptionId(-1)
@@ -33,12 +40,39 @@ const LetterOptionPage = ({options}: Props) => {
             setSelectedOptionId(option.id)
         }
     }
-    const confirm = () => {
-        if (selectedOptionId === -1) return
+    const goNewLetter = () => {
         router.push({
             pathname: ROUTES.COVID.LETTER.NEW.MAIN,
             query: {optionId: selectedOptionId},
         })
+    }
+    const goFinish = () => {
+        router.push({
+            pathname: ROUTES.COVID.LETTER.NEW.FINISH,
+            query: {optionId: router.query.optionId},
+        })
+    }
+    const saveLetter = async () => {
+        return await withAxios<Letter>({
+            url: `/letters/${encryptedId}`,
+            method: 'POST',
+            data: {
+                sendOptionId: optionId,
+            },
+            headers: {
+                Authorization: token,
+            },
+        })
+    }
+    const sendLetterWithEncryptedId = async () => {
+        setIsShowEnvelopeOpenLoading(true)
+        await saveLetter()
+    }
+    const confirm = async () => {
+        if (selectedOptionId === -1) return
+        if (encryptedId) {
+            await sendLetterWithEncryptedId()
+        } else goNewLetter()
     }
     const confirmWithNoOption = () => {
         chooseOption(NO_OPTION_ID, '')
@@ -66,11 +100,20 @@ const LetterOptionPage = ({options}: Props) => {
                             <Button isClicked={option.id === selectedOptionId}>{option.text}</Button>
                         </li>
                     ))}
-                    <TextButton onClick={confirmWithNoOption}>발송 기준은 나중에 정할래!</TextButton>
+                    {encryptedId ? (
+                        <></>
+                    ) : (
+                        <TextButton onClick={confirmWithNoOption}>발송 기준은 나중에 정할래!</TextButton>
+                    )}
                 </>
             </ButtonList>
-
             <ConfirmButton onClick={confirm}>확인</ConfirmButton>
+            <EnvelopeLoading
+                isShow={isShowEnvelopeOpenLoading}
+                text={'편지 뜯는 중...'}
+                delay={2000}
+                afterLoadingFn={goFinish}
+            />
         </OptionContainer>
     )
 }

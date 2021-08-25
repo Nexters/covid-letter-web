@@ -11,22 +11,28 @@ import {FlexBetween, FlexStart} from '$styles/utils/layout'
 import Divider from '$components/letter/Divider'
 import {StickerWithLetterFactory} from '$components/sticker/stickerWithLetterFactory'
 import {convertCommonDateFormat} from '$utils/date'
+import {useRouter} from 'next/router'
+import ROUTES from '$constants/routes'
 
 const Unposted = ({
     isGoogleLogin,
     isMobile,
     letters,
 }: PropsFromApp<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
-
+    const router = useRouter()
     const goSelectSendOption = ({encryptedId}: {encryptedId: string}) => {
-        //todo 선택 시 발송옵션 선택화면으로 이동처리
-        console.info(encryptedId)
+        router.push({
+            pathname: ROUTES.COVID.LETTER.OPTION,
+            query: {encryptedId: encryptedId},
+        })
     }
 
     return (
         <MainLayout isMobile={isMobile} isGoogleLogin={isGoogleLogin}>
             <Container>
-                <TitleContainer>부치지 못한 편지<span className="icon-letter">📦️</span></TitleContainer>
+                <TitleContainer>
+                    부치지 못한 편지<span className="icon-letter">📦️</span>
+                </TitleContainer>
                 <SubTitle>발송 기준을 정하고 편지를 받아봐!</SubTitle>
                 <LettersContainer>
                     {letters.map(({title, sticker, createdDate, encryptedId}: Letter, index: number) => (
@@ -39,9 +45,11 @@ const Unposted = ({
                                         <div className="date">작성일: {convertCommonDateFormat(createdDate)}</div>
                                     </LetterItemTitleWrapper>
                                 </div>
-                                <SelectSendOptionButton onClick={() => goSelectSendOption({encryptedId})}>기준 선택</SelectSendOptionButton>
+                                <SelectSendOptionButton onClick={() => goSelectSendOption({encryptedId})}>
+                                    기준 선택
+                                </SelectSendOptionButton>
                             </LetterItem>
-                            {index !== letters.length - 1 && <Divider/>}
+                            {index !== letters.length - 1 && <Divider />}
                         </LetterItemContainer>
                     ))}
                 </LettersContainer>
@@ -76,7 +84,7 @@ const TitleContainer = styled.div`
     ${FlexStart}
     ${tw`tw-text-left tw-text-xl tw-text-primary-green-500`}
     line-height: 2.4rem;
-    
+
     .icon-letter {
         margin-top: 0.2rem;
         margin-left: 0.8rem;
@@ -99,9 +107,9 @@ const LetterItemContainer = styled.div`
 const LetterItem = styled.div`
     ${FlexBetween}
     margin-bottom: 1.6rem;
-    
+
     .sticker-title-wrapper {
-        ${FlexStart}    
+        ${FlexStart}
     }
 `
 
@@ -112,7 +120,7 @@ const LetterItemTitleWrapper = styled.div`
         ${tw`tw-text-sm tw-text-grey-800`}
         letter-spacing: -0.015em;
     }
-    
+
     .date {
         ${tw`tw-text-xs tw-font-light tw-text-grey-700`}
         letter-spacing: -0.015em;
