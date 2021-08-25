@@ -74,8 +74,9 @@ const LetterOptionPage = ({options, token}: Props) => {
             console.error(e)
             alert({
                 title: '편지 작성 중 에러가 났어!',
+                onSuccess: () => router.back(), // alert 버튼 눌렀을 때
+                onClose: () => router.back(),
             })
-            router.back()
         }
     }
     const confirm = async () => {
