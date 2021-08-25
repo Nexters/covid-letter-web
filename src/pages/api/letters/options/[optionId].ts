@@ -25,16 +25,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             return tempArr.splice(0, 3)
         }
 
-        const questionByOption = questions.filter((question) => !question.commonOptionId)
-        const commonQuestion = questions.filter((question) => question.commonOptionId)
-        const randomCommonQuestion = getRandomQuestion(commonQuestion)
+        const questionByOption = getRandomQuestion(questions.filter((question) => !question.commonOptionId))
+        const commonQuestion = getRandomQuestion(questions.filter((question) => question.commonOptionId))
+        const questionArr = [{id: -1, text: '', commonOptionId: false}, ...questionByOption, ...commonQuestion]
 
         res.status(200).json({
             code: RESPONSE.NORAML,
             message: '',
             result: {
-                ...questionByOption,
-                ...randomCommonQuestion,
+                ...questionArr,
             },
         })
     } catch (e) {

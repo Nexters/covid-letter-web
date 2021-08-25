@@ -87,4 +87,5 @@ export const TIME_UNIT = {
     HOUR: 60 * 60,
 }
 
+export const COMMON_OPTION_ID = 6
 export const NO_OPTION_ID = 7
