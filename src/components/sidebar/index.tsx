@@ -26,6 +26,7 @@ const Content = styled(animated.div)`
     text-align: center;
     padding: 2.4rem;
     width: 280px;
+    box-shadow: 3px 4px 44px 0 rgba(173, 162, 119, 0.3);
 `
 
 const Header = styled.div`
