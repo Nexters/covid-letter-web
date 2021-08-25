@@ -9,9 +9,10 @@ import {StickerFactory} from '$components/sticker/stickerFactory'
 import {withAxios} from '$utils/fetcher/withAxios'
 import {Letter} from '$types/response/letter'
 import {useProfileContext} from '$contexts/ProfileContext'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 import CommonHeader from '$components/header/CommonHeader'
+import EnvelopeLoading from '$components/loading/EnvelopeLoading'
 
 type Props = {
     isMobile: boolean
@@ -21,6 +22,7 @@ type Props = {
 const Attach = (props: Props) => {
     const router = useRouter()
     const {sticker, answer, title, questionId, optionId} = useLetterStore()
+    const [isShowEnvelopeOpenLoading, setIsShowEnvelopeOpenLoading] = useState<boolean>(false)
 
     useEffect(() => {
         if (!optionId) {
@@ -28,29 +30,38 @@ const Attach = (props: Props) => {
         }
     }, [])
     const {profile, addLettersCount} = useProfileContext()
+
+    const goFinish = () => {
+        router.push({
+            pathname: ROUTES.COVID.LETTER.NEW.FINISH,
+            query: {optionId: router.query.optionId},
+        })
+    }
+
+    const saveLetter = async () => {
+        return await withAxios<Letter>({
+            url: '/letters',
+            method: 'POST',
+            data: {
+                contents: answer,
+                questionId: questionId,
+                sendOptionId: optionId,
+                sticker: sticker.type,
+                title: title,
+            },
+            headers: {
+                Authorization: props.token,
+            },
+        })
+    }
     const confirm = async () => {
         if (!sticker.type) return
         try {
-            const response = await withAxios<Letter>({
-                url: '/letters',
-                method: 'POST',
-                data: {
-                    contents: answer,
-                    questionId: questionId,
-                    sendOptionId: optionId,
-                    sticker: sticker.type,
-                    title: title,
-                },
-                headers: {
-                    Authorization: props.token,
-                },
-            })
+            setIsShowEnvelopeOpenLoading(true)
+            const response = await saveLetter()
             if (response) {
                 if (profile) addLettersCount(profile)
-                await router.push({
-                    pathname: ROUTES.COVID.LETTER.NEW.FINISH,
-                    query: {optionId: router.query.optionId},
-                })
+                // goFinish()
             }
         } catch (e) {
             console.error(e)
@@ -98,6 +109,12 @@ const Attach = (props: Props) => {
             </StickerDescription>
             <StickerList />
             <ConfirmButton onClick={confirm}>확인</ConfirmButton>
+            <EnvelopeLoading
+                isShow={isShowEnvelopeOpenLoading}
+                text={'편지 뜯는 중...'}
+                delay={2000}
+                afterLoadingFn={goFinish}
+            />
         </>
     )
 }
