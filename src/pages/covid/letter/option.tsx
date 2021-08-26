@@ -114,23 +114,23 @@ const LetterOptionPage = ({options, token}: Props) => {
                 </Title>
             </div>
             <ButtonList>
-                <>
-                    {options.map((option) => (
-                        <li key={option.id} onClick={() => clickOption(option)}>
-                            <Button isClicked={option.id === selectedOptionId}>
-                                {option.id === selectedOptionId ? <IconCheck /> : <></>}
-                                {option.text}
-                            </Button>
-                        </li>
-                    ))}
-                    {encryptedId ? (
-                        <></>
-                    ) : (
-                        <TextButton onClick={confirmWithNoOption}>발송 기준은 나중에 정할래!</TextButton>
-                    )}
-                </>
+                {options.map((option) => (
+                    <li key={option.id} onClick={() => clickOption(option)}>
+                        <Button isClicked={option.id === selectedOptionId}>
+                            {option.id === selectedOptionId ? <IconCheck /> : <></>}
+                            {option.text}
+                        </Button>
+                    </li>
+                ))}
+                {encryptedId ? (
+                    <></>
+                ) : (
+                    <TextButton onClick={confirmWithNoOption}>발송 기준은 나중에 정할래!</TextButton>
+                )}
             </ButtonList>
-            <ConfirmButton onClick={confirm}>확인</ConfirmButton>
+            <ConfirmButton onClick={confirm} disabled={selectedOptionId === -1}>
+                확인
+            </ConfirmButton>
             <EnvelopeLoading
                 isShow={isShowEnvelopeOpenLoading}
                 text={'편지 동봉 중...'}
@@ -163,7 +163,7 @@ const OptionContainer = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 100vh;
+    margin: 0 auto;
 `
 
 const Title = styled.h3`
@@ -185,9 +185,11 @@ const Title = styled.h3`
 const ButtonList = styled.ul`
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
-    padding-top: 2.4rem;
-    padding-bottom: 2.4rem;
+    margin-top: 4.3rem;
+    padding-bottom: 7.6rem;
+    min-height: calc(100vh - 22rem);
 `
 
 const Button = styled.button<ButtonPropsType>([
@@ -234,11 +236,9 @@ const TextButton = styled.button`
 `
 
 const ConfirmButton = styled(MainButton)`
-    ${tw`tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
+    ${tw`tw-fixed tw-bottom-0`}
     max-width: 42rem;
     width: 100%;
     height: 5.2rem;
-    font-size: 1.6rem;
-    line-height: 2.5rem;
 `
 export default observer(LetterOptionPage)

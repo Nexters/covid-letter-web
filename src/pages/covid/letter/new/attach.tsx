@@ -1,19 +1,21 @@
+import {useEffect, useState} from 'react'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
-import StickerList from '$components/sticker'
-import ROUTES from '$constants/routes'
-import {useRouter} from 'next/router'
-import {useLetterStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
-import {StickerFactory} from '$components/sticker/stickerFactory'
+import {useRouter} from 'next/router'
 import {withAxios} from '$utils/fetcher/withAxios'
-import {Letter} from '$types/response/letter'
 import {useProfileContext} from '$contexts/ProfileContext'
-import {useEffect, useState} from 'react'
+import {useLetterStore} from '$contexts/StoreContext'
+import {Letter} from '$types/response/letter'
+import ROUTES from '$constants/routes'
+import {NO_OPTION_ID} from '$constants'
 import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
+import StickerList from '$components/sticker'
 import CommonHeader from '$components/header/CommonHeader'
 import EnvelopeLoading from '$components/loading/EnvelopeLoading'
-import {NO_OPTION_ID} from '$constants'
+import IconQuestion from '$assets/icons/IconQuestion'
+import {StickerFactory} from '$components/sticker/stickerFactory'
+import {MainButton} from '$styles/utils/components'
 
 type Props = {
     isMobile: boolean
@@ -88,7 +90,9 @@ const Attach = (props: Props) => {
                     {sticker.type ? (
                         <span className="sticker">{StickerFactory(sticker.type, '6.8rem')}</span>
                     ) : (
-                        <span className="question-mark">?</span>
+                        <span className="question-mark">
+                            <IconQuestion />
+                        </span>
                     )}
                 </Sticker>
                 {sticker.label ? (
@@ -112,7 +116,9 @@ const Attach = (props: Props) => {
                 )}
             </StickerDescription>
             <StickerList />
-            <ConfirmButton onClick={confirm}>확인</ConfirmButton>
+            <ConfirmButton onClick={confirm} disabled={sticker.type === undefined}>
+                확인
+            </ConfirmButton>
             <EnvelopeLoading
                 isShow={isShowEnvelopeOpenLoading}
                 text={'편지 동봉 중...'}
@@ -171,16 +177,16 @@ const Sticker = styled.div`
     .sticker {
         margin-top: 5%;
     }
+    .question-mark {
+        align-self: center;
+    }
 `
 
-const ConfirmButton = styled.button`
-    ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
+const ConfirmButton = styled(MainButton)`
+    ${tw`tw-fixed tw-bottom-0`}
     max-width: 42rem;
     width: 100%;
     height: 5.2rem;
-    font-size: 1.6rem;
-    line-height: 2.5rem;
     z-index: 2;
-    bottom: 0;
 `
 export default observer(Attach)
