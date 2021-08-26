@@ -1,19 +1,20 @@
+import {useEffect, useState} from 'react'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
-import StickerList from '$components/sticker'
-import ROUTES from '$constants/routes'
-import {useRouter} from 'next/router'
-import {useLetterStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
-import {StickerFactory} from '$components/sticker/stickerFactory'
+import {useRouter} from 'next/router'
 import {withAxios} from '$utils/fetcher/withAxios'
-import {Letter} from '$types/response/letter'
 import {useProfileContext} from '$contexts/ProfileContext'
-import {useEffect, useState} from 'react'
+import {useLetterStore} from '$contexts/StoreContext'
+import {Letter} from '$types/response/letter'
+import ROUTES from '$constants/routes'
+import {NO_OPTION_ID} from '$constants'
 import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
+import StickerList from '$components/sticker'
 import CommonHeader from '$components/header/CommonHeader'
 import EnvelopeLoading from '$components/loading/EnvelopeLoading'
-import {NO_OPTION_ID} from '$constants'
+import IconQuestion from '$assets/icons/IconQuestion'
+import {StickerFactory} from '$components/sticker/stickerFactory'
 
 type Props = {
     isMobile: boolean
@@ -88,7 +89,9 @@ const Attach = (props: Props) => {
                     {sticker.type ? (
                         <span className="sticker">{StickerFactory(sticker.type, '6.8rem')}</span>
                     ) : (
-                        <span className="question-mark">?</span>
+                        <span className="question-mark">
+                            <IconQuestion />
+                        </span>
                     )}
                 </Sticker>
                 {sticker.label ? (
@@ -170,6 +173,9 @@ const Sticker = styled.div`
     line-height: 8rem;
     .sticker {
         margin-top: 5%;
+    }
+    .question-mark {
+        align-self: center;
     }
 `
 
