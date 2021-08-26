@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import AutoTextArea from '$components/textarea'
 import IconEraser from '$assets/icons/IconEraser'
+import {useRef} from 'react'
 
 export const MAX_LETTER_ANSWER_LENGTH = 1000
 export const MAX_LETTER_TITLE_LENGTH = 12
@@ -23,6 +24,12 @@ const Answer = () => {
         })
         return
     }
+    const answerRef = useRef<HTMLTextAreaElement>(null)
+
+    const nextFocus = () => {
+        answerRef.current?.focus()
+    }
+
     return (
         <AnswerWrapper>
             <TitleInputWrapper>
@@ -34,6 +41,7 @@ const Answer = () => {
                     tabIndex={0}
                     autoFocus
                     onChange={(e) => addTitle(e.target.value)}
+                    onKeyPress={(e) => (e.key === 'Enter' ? nextFocus() : null)}
                 />
                 <span className="title-length">
                     {title.length}/{MAX_LETTER_TITLE_LENGTH}
@@ -41,7 +49,7 @@ const Answer = () => {
             </TitleInputWrapper>
             <hr className="divider" />
             <AnswerInputWrapper>
-                <AutoTextArea />
+                <AutoTextArea ref={answerRef} />
                 <div className="sub-items">
                     <span className="answer-length">
                         {answer.length}/{MAX_LETTER_ANSWER_LENGTH}
