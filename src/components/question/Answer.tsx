@@ -59,7 +59,6 @@ const AnswerWrapper = styled.section`
         tw-flex tw-flex-col`}
     bottom: 5.2rem;
     padding: 3.2rem 2.4rem 1.6rem;
-    margin-top: 5.5rem;
     letter-spacing: -0.015em;
     border-radius: 1rem;
     min-height: 40vh;

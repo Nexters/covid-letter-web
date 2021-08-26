@@ -4,6 +4,7 @@ import tw from 'twin.macro'
 import {getCurrentDate} from '$utils/date'
 import {useLetterStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
+import {FontNanumBarunGothic} from '$styles/utils/font'
 
 const INITIAL_ID = 1
 
@@ -94,8 +95,8 @@ const QuestionWrapper = styled.div`
 `
 
 const Button = styled.button`
+    ${FontNanumBarunGothic()}
     ${tw`tw-border tw-border-grey-600
-        tw-font-ohsquare-air
     `}
     min-width: 16.2rem;
     margin: 0 auto;

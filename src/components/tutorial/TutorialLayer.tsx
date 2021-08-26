@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import SkeletonLayer from './SkeletonLayer'
 
 const Container = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -12,6 +12,7 @@ const Container = styled.div`
     width: 100%;
     max-width: 420px;
     margin: 0 auto;
+    background: rgba(0, 0, 0, 0.5);
 `
 
 const TutorialLayer = ({tutorialShow, closeTutorial}: {tutorialShow: boolean; closeTutorial: () => void}) => {
