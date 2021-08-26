@@ -89,3 +89,8 @@ export const TIME_UNIT = {
 
 export const COMMON_OPTION_ID = 6
 export const NO_OPTION_ID = 7
+
+export const EXTERNAL_URL = {
+    QNA: 'https://bit.ly/2UPQeah',
+    FEEDBACK: 'https://bit.ly/3jjntvT',
+}
