@@ -6,6 +6,7 @@ import AutoTextArea from '$components/textarea'
 import IconEraser from '$assets/icons/IconEraser'
 import useWindowResize from '$hooks/useWindowResize'
 import {isMobileOnly} from 'react-device-detect'
+import {useRef} from 'react'
 
 export const MAX_LETTER_ANSWER_LENGTH = 1000
 export const MAX_LETTER_TITLE_LENGTH = 12
@@ -27,6 +28,11 @@ const Answer = () => {
     }
 
     const [, maxHeight] = useWindowResize()
+    const answerRef = useRef<HTMLTextAreaElement>(null)
+
+    const nextFocus = () => {
+        answerRef.current?.focus()
+    }
 
     return (
         <AnswerWrapper
@@ -41,6 +47,7 @@ const Answer = () => {
                     maxLength={12}
                     tabIndex={0}
                     onChange={(e) => addTitle(e.target.value)}
+                    onKeyPress={(e) => (e.key === 'Enter' ? nextFocus() : null)}
                 />
                 <span className="title-length">
                     {title.length}/{MAX_LETTER_TITLE_LENGTH}
@@ -48,7 +55,7 @@ const Answer = () => {
             </TitleInputWrapper>
             <hr className="divider" />
             <AnswerInputWrapper>
-                <AutoTextArea maxHeight={maxHeight} />
+                <AutoTextArea maxHeight={maxHeight} ref={answerRef} />
                 <div className="sub-items">
                     <span className="answer-length">
                         {answer.length}/{MAX_LETTER_ANSWER_LENGTH}

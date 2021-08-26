@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, forwardRef} from 'react'
 import styled from '@emotion/styled'
 import {useLetterStore} from '$contexts/StoreContext'
 import tw from 'twin.macro'
@@ -6,7 +6,7 @@ import {isMobileOnly} from 'react-device-detect'
 
 let wholeHeight: number
 
-const AutoTextArea = ({maxHeight}: {maxHeight: number}) => {
+const AutoTextArea = forwardRef<HTMLTextAreaElement, {maxHeight: number}>(({maxHeight}, ref) => {
     const {answer, addAnswer} = useLetterStore()
 
     useEffect(() => {
@@ -47,10 +47,11 @@ const AutoTextArea = ({maxHeight}: {maxHeight: number}) => {
                 }}
                 onFocus={onFocus}
                 onBlur={onBlur}
+                ref={ref}
             />
         </TextAreaWrapper>
     )
-}
+})
 
 const TextAreaWrapper = styled.div`
     display: inherit;
