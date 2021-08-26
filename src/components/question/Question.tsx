@@ -4,6 +4,7 @@ import tw from 'twin.macro'
 import {getCurrentDate} from '$utils/date'
 import {useLetterStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
+import {FontNanumBarunGothic} from '$styles/utils/font'
 
 const INITIAL_ID = 1
 
@@ -53,7 +54,9 @@ const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
 
                 <span className="create-date">작성 날짜 | {getCurrentDate()}</span>
             </QuestionWrapper>
-            <Button onClick={clickNextQuestion}>다른 질문에 대답할래요</Button>
+            <Button onClick={clickNextQuestion}>
+                {questionId !== null ? <span>다른 질문에 대답할래</span> : <span>다시 질문에 대답할래</span>}
+            </Button>
             {questionId !== null ? <TextButton onClick={clickFreeQuestion}>오늘은 자유롭게 쓸래</TextButton> : <></>}
         </QuestionContainer>
     )
@@ -92,8 +95,8 @@ const QuestionWrapper = styled.div`
 `
 
 const Button = styled.button`
+    ${FontNanumBarunGothic()}
     ${tw`tw-border tw-border-grey-600
-        tw-font-ohsquare-air
     `}
     min-width: 16.2rem;
     margin: 0 auto;

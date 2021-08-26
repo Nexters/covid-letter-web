@@ -20,6 +20,7 @@ import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 const NewLetter = ({
     questions,
     shouldTutorialOpen,
+    isMobile,
 }: PropsFromApp<InferGetServerSidePropsType<typeof getServerSideProps>>) => {
     const router = useRouter()
     const {answer, title, optionId, resetStore} = useLetterStore()
@@ -57,12 +58,12 @@ const NewLetter = ({
             <CommonHeader type={HEADER_TYPE.BACK} position={HEADER_POSITION.LEFT} onClick={handleHeader} />
             <Container>
                 <NewLetterQuestion questions={questions} />
-                <div>
+                <BottomWrapper isMobile={isMobile}>
                     <Answer />
                     <ConfirmButton onClick={handleConfirm}>확인</ConfirmButton>
-                </div>
+                </BottomWrapper>
             </Container>
-            <TutorialLayer tutorialShow={tutorialShow} closeTutorial={closeTutorial} />
+            <TutorialLayer isMobile={isMobile} tutorialShow={tutorialShow} closeTutorial={closeTutorial} />
         </>
     )
 }
@@ -88,11 +89,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return {props: {questions, shouldTutorialOpen: !tutorialOpen}}
 }
 
+const BottomWrapper = styled.div`
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    ${({isMobile}: {isMobile: boolean}) => (isMobile ? `` : `min-width: 420px;`)}
+    width: 100%;
+    margin: 0 auto;
+`
+
 const Container = styled.section`
     ${tw`tw-bg-beige-300 tw-flex tw-flex-col`}
     margin: 0 auto;
     text-align: center;
-    min-height: calc(100vh - 5.5rem);
     justify-content: space-between;
 `
 

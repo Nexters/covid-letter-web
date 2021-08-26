@@ -146,7 +146,7 @@ const LetterDescription = styled.div`
 
 const Divider = styled.hr`
     ${tw`tw-border-grey-200`}
-    border-top-width: 0.3rem;
+    border-top-width: 0.2rem;
     margin-bottom: 3.2rem;
 `
 

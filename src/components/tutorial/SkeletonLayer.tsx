@@ -3,18 +3,25 @@ import IconEraser from '$assets/icons/IconEraser'
 import CommonHeader from '$components/header/CommonHeader'
 import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 import {FontNanumBarunGothic} from '$styles/utils/font'
-import {FlexBetween} from '$styles/utils/layout'
 import styled from '@emotion/styled'
 import {CSSProperties, ReactNode, useEffect, useRef, useState} from 'react'
 import tw from 'twin.macro'
 
 const Container = styled.section`
-    ${tw`tw-bg-beige-300 tw-flex tw-flex-col`}
+    ${tw`tw-flex tw-flex-col`}
     margin: 0 auto;
     text-align: center;
-    min-height: calc(100vh - 5.5rem);
     justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.5);
+`
+
+const BottomWrapper = styled.div`
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    ${({isMobile}: {isMobile: boolean}) => (isMobile ? `` : `min-width: 420px;`)}
+    width: 100%;
+    margin: 0 auto;
 `
 
 const QuestionContainer = styled.section`
@@ -83,7 +90,6 @@ const AnswerWrapper = styled.section`
     ${tw`tw-flex tw-flex-col`}
     bottom: 5.2rem;
     padding: 3.2rem 2.4rem 1.6rem;
-    margin-top: 5.5rem;
     letter-spacing: -0.015em;
     border-radius: 1rem;
     min-height: 40vh;
@@ -96,18 +102,18 @@ const AnswerWrapper = styled.section`
 `
 
 const TitleInputWrapper = styled.div`
-    ${FlexBetween}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     min-width: 19.5rem;
     font-size: 1.8rem;
     height: 4.2rem;
 
     input {
+        line-height: 2.5rem;
         visibility: hidden;
     }
 
-    .title {
-        line-height: 2.5rem;
-    }
     .title-length {
         font-size: 1.2rem;
         line-height: 1.4rem;
@@ -124,6 +130,7 @@ const AnswerInputWrapper = styled.div`
     font-size: 1.4rem;
     line-height: 2.2rem;
     min-height: 100%;
+
     .answer {
         width: 100%;
     }
@@ -145,6 +152,7 @@ const TextAreaWrapper = styled.div`
     flex-grow: 1;
     min-height: 8.5rem;
     .textarea {
+        height: 110px !important;
         width: 100%;
         resize: none !important;
         visibility: hidden;
@@ -230,7 +238,7 @@ type SkeletonLayerState = {
     [key: number]: DOMRectList
 }
 
-const SkeletonLayer = () => {
+const SkeletonLayer = ({isMobile}: {isMobile: boolean}) => {
     const unknownList = [] as unknown as DOMRectList
     const [, setRectList] = useState<SkeletonLayerState>({
         1: unknownList,
@@ -257,7 +265,7 @@ const SkeletonLayer = () => {
                 type={HEADER_TYPE.BACK}
                 position={HEADER_POSITION.LEFT}
                 style={{
-                    backgroundColor: 'rgba(0,0,0,.5)',
+                    backgroundColor: 'transparent',
                 }}
             />
             <Container>
@@ -319,7 +327,7 @@ const SkeletonLayer = () => {
                         textBottom
                     />
                 </QuestionContainer>
-                <div>
+                <BottomWrapper isMobile={isMobile}>
                     <AnswerWrapper>
                         <TitleInputWrapper>
                             <input />
@@ -356,7 +364,7 @@ const SkeletonLayer = () => {
                         </AnswerInputWrapper>
                     </AnswerWrapper>
                     <ConfirmButton></ConfirmButton>
-                </div>
+                </BottomWrapper>
             </Container>
         </>
     )

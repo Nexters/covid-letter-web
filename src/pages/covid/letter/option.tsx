@@ -192,7 +192,8 @@ const ButtonList = styled.ul`
 
 const Button = styled.button<ButtonPropsType>([
     css`
-        ${tw`tw-bg-beige-300 tw-font-ohsquare-air tw-text-grey-700`}
+        ${tw`tw-bg-beige-300 tw-text-grey-700`}
+        ${FontNanumBarunGothic('normal')}
         min-width: 31.2rem;
         height: 5.2rem;
         border-radius: 0.4rem;
@@ -208,8 +209,9 @@ const Button = styled.button<ButtonPropsType>([
         isClicked
             ? css`
                   ${tw`tw-bg-primary-yellow-600
-            tw-font-bold tw-font-ohsquare tw-text-primary-green-500
+            tw-text-primary-green-500
             tw-border-2 tw-border-primary-green-600`}
+                  ${FontNanumBarunGothic('bold')}
                   &:hover {
                       background: #bb9045;
                       border: 2px solid #11373e;
