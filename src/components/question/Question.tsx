@@ -53,7 +53,9 @@ const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
 
                 <span className="create-date">작성 날짜 | {getCurrentDate()}</span>
             </QuestionWrapper>
-            <Button onClick={clickNextQuestion}>다른 질문에 대답할래요</Button>
+            <Button onClick={clickNextQuestion}>
+                {questionId !== null ? <span>다른 질문에 대답할래</span> : <span>다시 질문에 대답할래</span>}
+            </Button>
             {questionId !== null ? <TextButton onClick={clickFreeQuestion}>오늘은 자유롭게 쓸래</TextButton> : <></>}
         </QuestionContainer>
     )
