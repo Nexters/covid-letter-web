@@ -71,7 +71,10 @@ const Attach = (props: Props) => {
     }
 
     const handleHeader = () => {
-        router.push(ROUTES.COVID.LETTER.NEW.MAIN)
+        router.push({
+            pathname: ROUTES.COVID.LETTER.NEW.MAIN,
+            query: {optionId: router.query.optionId},
+        })
     }
     return (
         <>
