@@ -35,7 +35,7 @@ const StatRate = styled.div`
     color: ${({type}: {type: RateColorType}) => `var(--${type}-500)`};
 
     span {
-        margin-top: 0.3rem;
+        margin-top: 0.2rem;
     }
 `
 

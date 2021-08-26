@@ -150,7 +150,12 @@ const Main = ({
                         {
                             title: '접종 완료율',
                             value: (
-                                <StatBadge type={'blue'} value={vaccinated} change={vaccinatedPer} isIncrease={true} />
+                                <StatBadge
+                                    type={'blue'}
+                                    value={`${vaccinated}%`}
+                                    change={`${vaccinatedPer}%`}
+                                    isIncrease={true}
+                                />
                             ),
                         },
                         {
