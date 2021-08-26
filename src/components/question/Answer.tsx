@@ -4,6 +4,8 @@ import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import AutoTextArea from '$components/textarea'
 import IconEraser from '$assets/icons/IconEraser'
+import useWindowResize from '$hooks/useWindowResize'
+import {isMobileOnly} from 'react-device-detect'
 import {useRef} from 'react'
 
 export const MAX_LETTER_ANSWER_LENGTH = 1000
@@ -24,6 +26,8 @@ const Answer = () => {
         })
         return
     }
+
+    const [, maxHeight] = useWindowResize()
     const answerRef = useRef<HTMLTextAreaElement>(null)
 
     const nextFocus = () => {
@@ -31,7 +35,10 @@ const Answer = () => {
     }
 
     return (
-        <AnswerWrapper>
+        <AnswerWrapper
+            style={{
+                maxHeight: isMobileOnly ? `${maxHeight}px` : '',
+            }}>
             <TitleInputWrapper>
                 <input
                     className="title"
@@ -39,7 +46,6 @@ const Answer = () => {
                     value={title}
                     maxLength={12}
                     tabIndex={0}
-                    autoFocus
                     onChange={(e) => addTitle(e.target.value)}
                     onKeyPress={(e) => (e.key === 'Enter' ? nextFocus() : null)}
                 />
@@ -49,7 +55,7 @@ const Answer = () => {
             </TitleInputWrapper>
             <hr className="divider" />
             <AnswerInputWrapper>
-                <AutoTextArea ref={answerRef} />
+                <AutoTextArea maxHeight={maxHeight} ref={answerRef} />
                 <div className="sub-items">
                     <span className="answer-length">
                         {answer.length}/{MAX_LETTER_ANSWER_LENGTH}

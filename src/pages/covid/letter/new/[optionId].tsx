@@ -60,7 +60,7 @@ const NewLetter = ({
             <CommonHeader type={HEADER_TYPE.BACK} position={HEADER_POSITION.LEFT} onClick={handleHeader} />
             <Container>
                 <NewLetterQuestion questions={questions} />
-                <BottomWrapper isMobile={isMobile}>
+                <BottomWrapper>
                     <Answer />
                     <ConfirmButton onClick={handleConfirm} disabled={checkNoData}>
                         확인
@@ -98,7 +98,7 @@ const BottomWrapper = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    ${({isMobile}: {isMobile: boolean}) => (isMobile ? `` : `min-width: 420px;`)}
+    max-width: 420px;
     width: 100%;
     margin: 0 auto;
 `
