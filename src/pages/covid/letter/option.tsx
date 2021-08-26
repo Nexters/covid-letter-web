@@ -133,7 +133,7 @@ const LetterOptionPage = ({options, token}: Props) => {
             </ConfirmButton>
             <EnvelopeLoading
                 isShow={isShowEnvelopeOpenLoading}
-                text={'편지 동봉 중...'}
+                text={'편지 동봉 중'}
                 delay={1000}
                 afterLoadingFn={saveLetter}
             />
@@ -185,11 +185,9 @@ const Title = styled.h3`
 const ButtonList = styled.ul`
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     margin-top: 4.3rem;
     padding-bottom: 7.6rem;
-    min-height: calc(100vh - 22rem);
 `
 
 const Button = styled.button<ButtonPropsType>([

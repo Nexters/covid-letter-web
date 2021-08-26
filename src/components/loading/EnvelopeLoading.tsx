@@ -3,7 +3,8 @@ import tw from 'twin.macro'
 import LetterEnvelopeImageImage from '$assets/images/LetterEnvelopeImage'
 import {FlexCenter} from '$styles/utils/layout'
 import {FontOhsquareAir} from '$styles/utils/font'
-import {useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
+import {animated, useSpring} from 'react-spring'
 
 const DEFAULT_DELAY = 2000
 
@@ -12,6 +13,25 @@ type EnvelopeLoadingProps = {
     text: string
     delay?: number
     afterLoadingFn: () => void
+}
+
+const EnvelopeLoadingImage = () => {
+    const styles = useSpring({
+        loop: true,
+        to: useCallback(async (next) => {
+            await next({transform: 'translateY(-8px)'})
+            await next({transform: 'translateY(8px)'})
+        }, []),
+        from: {transform: 'translateY(8px)'},
+        config: {
+            tension: 150,
+        },
+    })
+    return (
+        <animated.div style={styles}>
+            <LetterEnvelopeImageImage />
+        </animated.div>
+    )
 }
 
 const EnvelopeLoading = ({isShow, text, delay = DEFAULT_DELAY, afterLoadingFn}: EnvelopeLoadingProps) => {
@@ -23,16 +43,25 @@ const EnvelopeLoading = ({isShow, text, delay = DEFAULT_DELAY, afterLoadingFn}: 
 
     return (
         <>
-            {isShow && <Layer>
-                <Container>
-                    <div>
-                        <div className="letter-envelope-image">
-                            <LetterEnvelopeImageImage />
+            {isShow && (
+                <Layer>
+                    <Container>
+                        <div>
+                            <div className="letter-envelope-image">
+                                <EnvelopeLoadingImage />
+                            </div>
+                            <LoadingTextWrapper>
+                                {text}
+                                <div className="loading">
+                                    <span>.</span>
+                                    <span>.</span>
+                                    <span>.</span>
+                                </div>
+                            </LoadingTextWrapper>
                         </div>
-                        <LoadingTextWrapper>{text}</LoadingTextWrapper>
-                    </div>
-                </Container>
-            </Layer>}
+                    </Container>
+                </Layer>
+            )}
         </>
     )
 }
@@ -52,7 +81,7 @@ const Container = styled.div`
     margin: 0 auto;
     min-height: 100vh;
     position: relative;
-    
+
     .letter-envelope-image {
         ${FlexCenter}
     }
@@ -60,9 +89,33 @@ const Container = styled.div`
 
 const LoadingTextWrapper = styled.div`
     ${FontOhsquareAir}
-    ${tw`tw-text-base tw-text-center tw-text-primary-green-400`}
+    ${tw`tw-inline-flex tw-text-base tw-text-center tw-text-primary-green-400`}
     letter-spacing: -0.015em;
-    margin-top: 1.6rem;
+    margin-top: 2rem;
+
+    .loading {
+        margin-top: -0.2rem;
+        margin-left: 0.2rem;
+        span {
+            display: inline-block;
+            animation: loading 0.8s infinite;
+            margin-left: 0.1rem;
+        }
+        span:nth-of-type(2) {
+            animation-delay: 0.1s;
+        }
+        span:nth-of-type(3) {
+            animation-delay: 0.2s;
+        }
+    }
+    @keyframes loading {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(0.8);
+        }
+    }
 `
 
 export default EnvelopeLoading
