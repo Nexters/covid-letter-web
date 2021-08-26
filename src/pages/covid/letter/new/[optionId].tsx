@@ -16,6 +16,7 @@ import useTutorial from '$hooks/useTutorial'
 import {PropsFromApp} from '$types/index'
 import CommonHeader from '$components/header/CommonHeader'
 import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
+import {MainButton} from '$styles/utils/components'
 
 const NewLetter = ({
     questions,
@@ -50,6 +51,7 @@ const NewLetter = ({
         })
         return
     }
+    const checkNoData = title.trim().length === 0 || answer.trim().length === 0
 
     const {tutorialShow, closeTutorial} = useTutorial(shouldTutorialOpen)
 
@@ -60,7 +62,9 @@ const NewLetter = ({
                 <NewLetterQuestion questions={questions} />
                 <BottomWrapper isMobile={isMobile}>
                     <Answer />
-                    <ConfirmButton onClick={handleConfirm}>확인</ConfirmButton>
+                    <ConfirmButton onClick={handleConfirm} disabled={checkNoData}>
+                        확인
+                    </ConfirmButton>
                 </BottomWrapper>
             </Container>
             <TutorialLayer isMobile={isMobile} tutorialShow={tutorialShow} closeTutorial={closeTutorial} />
@@ -106,12 +110,10 @@ const Container = styled.section`
     justify-content: space-between;
 `
 
-const ConfirmButton = styled.button`
-    ${tw`tw-relative tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
+const ConfirmButton = styled(MainButton)`
+    ${tw`tw-relative tw-bottom-0`}
     max-width: 42rem;
     width: 100%;
     height: 5.2rem;
-    font-size: 1.6rem;
-    line-height: 2.5rem;
 `
 export default observer(NewLetter)

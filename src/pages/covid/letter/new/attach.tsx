@@ -15,6 +15,7 @@ import CommonHeader from '$components/header/CommonHeader'
 import EnvelopeLoading from '$components/loading/EnvelopeLoading'
 import IconQuestion from '$assets/icons/IconQuestion'
 import {StickerFactory} from '$components/sticker/stickerFactory'
+import {MainButton} from '$styles/utils/components'
 
 type Props = {
     isMobile: boolean
@@ -115,7 +116,9 @@ const Attach = (props: Props) => {
                 )}
             </StickerDescription>
             <StickerList />
-            <ConfirmButton onClick={confirm}>확인</ConfirmButton>
+            <ConfirmButton onClick={confirm} disabled={sticker.type === undefined}>
+                확인
+            </ConfirmButton>
             <EnvelopeLoading
                 isShow={isShowEnvelopeOpenLoading}
                 text={'편지 동봉 중...'}
@@ -179,14 +182,11 @@ const Sticker = styled.div`
     }
 `
 
-const ConfirmButton = styled.button`
-    ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
+const ConfirmButton = styled(MainButton)`
+    ${tw`tw-fixed tw-bottom-0`}
     max-width: 42rem;
     width: 100%;
     height: 5.2rem;
-    font-size: 1.6rem;
-    line-height: 2.5rem;
     z-index: 2;
-    bottom: 0;
 `
 export default observer(Attach)

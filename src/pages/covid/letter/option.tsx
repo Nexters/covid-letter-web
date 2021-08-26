@@ -128,7 +128,9 @@ const LetterOptionPage = ({options, token}: Props) => {
                     <TextButton onClick={confirmWithNoOption}>발송 기준은 나중에 정할래!</TextButton>
                 )}
             </ButtonList>
-            <ConfirmButton onClick={confirm}>확인</ConfirmButton>
+            <ConfirmButton onClick={confirm} disabled={selectedOptionId === -1}>
+                확인
+            </ConfirmButton>
             <EnvelopeLoading
                 isShow={isShowEnvelopeOpenLoading}
                 text={'편지 동봉 중...'}
@@ -234,11 +236,9 @@ const TextButton = styled.button`
 `
 
 const ConfirmButton = styled(MainButton)`
-    ${tw`tw-fixed tw-bg-primary-green-500 tw-bottom-0 tw-text-grey-000 tw-font-bold`}
+    ${tw`tw-fixed tw-bottom-0`}
     max-width: 42rem;
     width: 100%;
     height: 5.2rem;
-    font-size: 1.6rem;
-    line-height: 2.5rem;
 `
 export default observer(LetterOptionPage)
