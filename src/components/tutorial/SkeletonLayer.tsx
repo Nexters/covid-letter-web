@@ -19,7 +19,7 @@ const BottomWrapper = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    min-width: 420px;
+    ${({isMobile}: {isMobile: boolean}) => (isMobile ? `` : `min-width: 420px;`)}
     width: 100%;
     margin: 0 auto;
 `
@@ -238,7 +238,7 @@ type SkeletonLayerState = {
     [key: number]: DOMRectList
 }
 
-const SkeletonLayer = () => {
+const SkeletonLayer = ({isMobile}: {isMobile: boolean}) => {
     const unknownList = [] as unknown as DOMRectList
     const [, setRectList] = useState<SkeletonLayerState>({
         1: unknownList,
@@ -327,7 +327,7 @@ const SkeletonLayer = () => {
                         textBottom
                     />
                 </QuestionContainer>
-                <BottomWrapper>
+                <BottomWrapper isMobile={isMobile}>
                     <AnswerWrapper>
                         <TitleInputWrapper>
                             <input />

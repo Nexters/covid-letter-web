@@ -15,14 +15,22 @@ const Container = styled.div`
     background: rgba(0, 0, 0, 0.5);
 `
 
-const TutorialLayer = ({tutorialShow, closeTutorial}: {tutorialShow: boolean; closeTutorial: () => void}) => {
+const TutorialLayer = ({
+    tutorialShow,
+    closeTutorial,
+    isMobile,
+}: {
+    tutorialShow: boolean
+    closeTutorial: () => void
+    isMobile: boolean
+}) => {
     const {Portal} = usePortal()
 
     if (!tutorialShow) return null
     return (
         <Portal>
             <Container onClick={closeTutorial}>
-                <SkeletonLayer />
+                <SkeletonLayer isMobile={isMobile} />
             </Container>
         </Portal>
     )
