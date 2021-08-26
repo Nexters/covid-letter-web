@@ -31,6 +31,8 @@ const Answer = () => {
                     placeholder="제목은 여기에 적어!"
                     value={title}
                     maxLength={12}
+                    tabIndex={0}
+                    autoFocus
                     onChange={(e) => addTitle(e.target.value)}
                 />
                 <span className="title-length">
