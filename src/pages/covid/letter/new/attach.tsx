@@ -96,7 +96,7 @@ const Attach = (props: Props) => {
                     )}
                 </Sticker>
                 {sticker.label ? (
-                    <span className="sticker-name">{sticker.label}</span>
+                    <span className="sticker-name highlight">{sticker.label}</span>
                 ) : (
                     <span className="sticker-name">지금 나는...</span>
                 )}
@@ -156,6 +156,10 @@ const StickerDescription = styled.section`
         line-height: 2.5rem;
         margin-top: 1.6rem;
         margin-bottom: 1.2rem;
+        &.highlight {
+            ${tw`tw-text-grey-800`}
+            background-image: linear-gradient(1turn, #E7BF78, #E7BF78 8px, transparent 0, transparent);
+        }
     }
     .sticker-desc {
         ${tw`tw-text-grey-700 tw-font-nanumBarunGothic tw-text-center`}
@@ -164,7 +168,6 @@ const StickerDescription = styled.section`
         font-weight: 300;
     }
 `
-
 const Sticker = styled.div`
     ${tw`tw-bg-grey-000 
         tw-flex tw-justify-center
