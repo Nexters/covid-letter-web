@@ -38,9 +38,12 @@ const LetterDetail = ({letter}: {letter: Letter}) => {
         setIsShowServicePromotion(true)
     }
     const handleHeader = () => {
-        router.push({
-            pathname: ROUTES.COVID.MAIN,
-        })
+        if (window.history.length < 3) {
+            router.push({pathname: ROUTES.COVID.MAIN})
+            return
+        }
+
+        router.back()
     }
 
     return (

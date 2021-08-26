@@ -13,6 +13,7 @@ import {StickerWithLetterFactory} from '$components/sticker/stickerWithLetterFac
 import {convertCommonDateFormat} from '$utils/date'
 import {useRouter} from 'next/router'
 import ROUTES from '$constants/routes'
+import EmptyUnpostedLetterListContainer from '$components/letter/EmptyUnpostedLetterListContainer'
 
 const Unposted = ({
     isGoogleLogin,
@@ -27,6 +28,28 @@ const Unposted = ({
         })
     }
 
+    const unpostedLetterList = letters.length === 0
+        ? <EmptyUnpostedLetterListContainer />
+        : <LettersContainer>
+            {letters.map(({title, sticker, createdDate, encryptedId}: Letter, index: number) => (
+                <LetterItemContainer key={encryptedId}>
+                    <LetterItem>
+                        <div className="sticker-title-wrapper">
+                            {StickerWithLetterFactory(sticker)}
+                            <LetterItemTitleWrapper>
+                                <div className="title">{title}</div>
+                                <div className="date">작성일: {convertCommonDateFormat(createdDate)}</div>
+                            </LetterItemTitleWrapper>
+                        </div>
+                        <SelectSendOptionButton onClick={() => goSelectSendOption({encryptedId})}>
+                            기준 선택
+                        </SelectSendOptionButton>
+                    </LetterItem>
+                    {index !== letters.length - 1 && <Divider />}
+                </LetterItemContainer>
+            ))}
+        </LettersContainer>
+
     return (
         <MainLayout isMobile={isMobile} isGoogleLogin={isGoogleLogin}>
             <Container>
@@ -34,25 +57,7 @@ const Unposted = ({
                     부치지 못한 편지<span className="icon-letter">📦️</span>
                 </TitleContainer>
                 <SubTitle>발송 기준을 정하고 편지를 받아봐!</SubTitle>
-                <LettersContainer>
-                    {letters.map(({title, sticker, createdDate, encryptedId}: Letter, index: number) => (
-                        <LetterItemContainer key={encryptedId}>
-                            <LetterItem>
-                                <div className="sticker-title-wrapper">
-                                    {StickerWithLetterFactory(sticker)}
-                                    <LetterItemTitleWrapper>
-                                        <div className="title">{title}</div>
-                                        <div className="date">작성일: {convertCommonDateFormat(createdDate)}</div>
-                                    </LetterItemTitleWrapper>
-                                </div>
-                                <SelectSendOptionButton onClick={() => goSelectSendOption({encryptedId})}>
-                                    기준 선택
-                                </SelectSendOptionButton>
-                            </LetterItem>
-                            {index !== letters.length - 1 && <Divider />}
-                        </LetterItemContainer>
-                    ))}
-                </LettersContainer>
+                {unpostedLetterList}
             </Container>
         </MainLayout>
     )
@@ -97,7 +102,8 @@ const SubTitle = styled.div`
 `
 
 const LettersContainer = styled.div`
-    margin-top: 4.4rem;
+    margin-top: 3.6rem;
+    padding: 0.8rem 0;
 `
 
 const LetterItemContainer = styled.div`

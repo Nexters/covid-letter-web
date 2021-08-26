@@ -6,6 +6,7 @@ import Welcome from '$components/main/Welcome'
 import {SidebarButton} from '$components/main/types'
 import {useProfileContext} from '$contexts/ProfileContext'
 import LoginedWelcomeArea from '$components/main/LoginedWelcomeArea'
+import {EXTERNAL_URL} from '$constants'
 
 const SidebarContainer = styled.div`
     padding: 3.2rem 0;
@@ -55,7 +56,7 @@ const MainSidebar = ({isShow, logined, closeFn, logout}: MainSidebarProps) => {
                                     <span style={{marginRight: '1.7rem'}}>💬</span>자주 묻는 질문
                                 </>
                             ),
-                            link: '#', // 외부 링크
+                            link: EXTERNAL_URL.QNA,
                         },
                         {
                             title: (
@@ -63,7 +64,7 @@ const MainSidebar = ({isShow, logined, closeFn, logout}: MainSidebarProps) => {
                                     <span style={{marginRight: '1.7rem'}}>💡</span>서비스 피드백
                                 </>
                             ),
-                            link: '#', // 외부 링크
+                            link: EXTERNAL_URL.FEEDBACK,
                         },
                         ...logoutValue,
                     ]}
