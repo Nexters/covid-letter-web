@@ -5,6 +5,9 @@ import IconArrowDown from 'assets/icons/IconArrowDown'
 import IconArrowUp from 'assets/icons/IconArrowUp'
 import tw from 'twin.macro'
 
+const ZERO = '0'
+const ZERO_PERCENT = '0%'
+
 const Value = styled.div`
     ${FontOhsquare}
     ${tw`tw-text-primary-green-500 tw-text-base`}
@@ -35,6 +38,7 @@ const StatRate = styled.div`
     color: ${({type}: {type: RateColorType}) => `var(--${type}-500)`};
 
     span {
+        ${tw`tw-font-semibold`}
         margin-top: 0.2rem;
     }
 `
@@ -47,16 +51,19 @@ type StatBadgeProps = {
 }
 
 const StatBadge = ({value, change, type, isIncrease}: StatBadgeProps) => {
+    const arrow = isIncrease ? (
+        <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--${type}-500)`} />
+    ) : (
+        <IconArrowDown style={{marginLeft: '.4rem'}} color={`var(--${type}-500)`} />
+    )
+
+    const isZero = change === ZERO || change === ZERO_PERCENT
     return (
         <Value>
             {value}
             <StatRate type={type}>
-                <span>{change}</span>
-                {isIncrease ? (
-                    <IconArrowUp style={{marginLeft: '.4rem'}} color={`var(--${type}-500)`} />
-                ) : (
-                    <IconArrowDown style={{marginLeft: '.4rem'}} color={`var(--${type}-500)`} />
-                )}
+                <span>{isZero ? '-' : change}</span>
+                {isZero || arrow}
             </StatRate>
         </Value>
     )

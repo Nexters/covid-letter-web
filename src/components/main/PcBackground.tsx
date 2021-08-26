@@ -1,8 +1,12 @@
 import MainBgLeftDownImage from '$assets/images/MainBgLeftDownImage'
 import MainBgRightDownImage from '$assets/images/MainBgRightDownImage'
 import MainBgRightUpImage from '$assets/images/MainBgRightUpImage'
+import Logo from '$assets/logos/Logo'
 import PostCardColPattern from '$assets/patterns/PostCardColPattern'
+import ROUTES from '$constants/routes'
+import {FontOhsquare} from '$styles/utils/font'
 import styled from '@emotion/styled'
+import {useRouter} from 'next/router'
 import {useEffect, useRef, useState} from 'react'
 import tw from 'twin.macro'
 
@@ -53,6 +57,24 @@ const ColumnWrapper = styled.div`
     ${tw`tw-flex tw-flex-col tw-justify-start`}
 `
 
+const LeftUpWrapper = styled.div`
+    ${tw`tw-text-center`}
+    position: fixed;
+    top: 6%;
+    left: 3.8%;
+
+    div {
+        user-select: none;
+        ${FontOhsquare}
+        ${tw`tw-text-lg tw-text-primary-green-400`}
+        margin-top: 1.2rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+`
+
 const RightUpWrapper = styled.div`
     position: fixed;
     top: 6%;
@@ -85,6 +107,9 @@ const PcBackground = () => {
     }, [])
 
     const columnLength = new Array(numOfNeededPatterns).fill(0)
+    const router = useRouter()
+
+    const goMain = () => router.push(ROUTES.COVID.MAIN)
     return (
         <>
             <BackgroundBorder direction={DIRECTION.LEFT}>
@@ -103,6 +128,10 @@ const PcBackground = () => {
                     ))}
                 </ColumnWrapper>
             </BackgroundBorder>
+            <LeftUpWrapper onClick={goMain}>
+                <Logo />
+                <div>안녕, 나야</div>
+            </LeftUpWrapper>
             <RightUpWrapper>
                 <MainBgRightUpImage />
             </RightUpWrapper>
