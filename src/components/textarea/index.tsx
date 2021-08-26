@@ -1,25 +1,52 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from '@emotion/styled'
 import {useLetterStore} from '$contexts/StoreContext'
-import TextareaAutosize from 'react-textarea-autosize'
 import tw from 'twin.macro'
+import {isMobileOnly} from 'react-device-detect'
 
-const AutoTextArea = () => {
+let wholeHeight: number
+
+const AutoTextArea = ({maxHeight}: {maxHeight: number}) => {
     const {answer, addAnswer} = useLetterStore()
+
+    useEffect(() => {
+        wholeHeight = window.innerHeight
+    }, [])
 
     const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         addAnswer(event.target.value)
     }
 
+    const viewHeight = maxHeight - 148
+
+    const [isFocus, setIsFocus] = useState(false)
+    const [isOpenKeyboard, setIsOpenKeyboard] = useState(false)
+
+    const onFocus = () => setIsFocus(true)
+    const onBlur = () => setIsFocus(false)
+
+    const shouldResizeHeight = isMobileOnly && isFocus && isOpenKeyboard
+
+    useEffect(() => {
+        if (wholeHeight === maxHeight) {
+            setIsOpenKeyboard(false)
+        } else {
+            setIsOpenKeyboard(true)
+        }
+    }, [maxHeight])
+
     return (
         <TextAreaWrapper>
-            <TextareaAutosize
+            <textarea
                 value={answer}
-                maxLength={1000}
-                minRows={5}
                 placeholder="질문에 대하여 편하게 대답해주시고, 그 외에 하고싶은 말을 자유롭게 적어주세요."
                 onChange={onChangeHandler}
-                className="textarea"
+                className={'textarea'}
+                style={{
+                    height: shouldResizeHeight ? `${viewHeight}px` : `auto`,
+                }}
+                onFocus={onFocus}
+                onBlur={onBlur}
             />
         </TextAreaWrapper>
     )
