@@ -121,7 +121,7 @@ const Attach = (props: Props) => {
             </ConfirmButton>
             <EnvelopeLoading
                 isShow={isShowEnvelopeOpenLoading}
-                text={'편지 동봉 중...'}
+                text={'편지 동봉 중'}
                 delay={2000}
                 afterLoadingFn={goFinish}
             />

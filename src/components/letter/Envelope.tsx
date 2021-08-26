@@ -55,12 +55,20 @@ const Envelope = ({letter}: EnvelopeProps) => {
             <DescWrapper>
                 <div>
                     <div>
-                        <div><span>To. {name}</span></div>
-                        <div><span className="grey">{email}</span></div>
+                        <div>
+                            <span>To. {name}</span>
+                        </div>
+                        <div>
+                            <span className="grey">{email}</span>
+                        </div>
                     </div>
                     <div className="send-option">
-                        <div><span className="grey">발송 기준</span></div>
-                        <div><span>{sendOptionText}</span></div>
+                        <div>
+                            <span className="grey">발송 기준</span>
+                        </div>
+                        <div>
+                            <span>{sendOptionText}</span>
+                        </div>
                     </div>
                 </div>
                 {StampFactory(sendOptionId, '11.2rem')}
@@ -77,7 +85,12 @@ const Envelope = ({letter}: EnvelopeProps) => {
             <LetterOpenButton disabled={!isAvailableOpenLetter} onClick={openLetter}>
                 {letterOpenButtonText[state]}
             </LetterOpenButton>
-            <EnvelopeLoading isShow={isShowEnvelopeOpenLoading} text={'편지 뜯는 중...'} delay={2000} afterLoadingFn={goLetterDetail}/>
+            <EnvelopeLoading
+                isShow={isShowEnvelopeOpenLoading}
+                text={'편지 뜯는 중'}
+                delay={2000}
+                afterLoadingFn={goLetterDetail}
+            />
         </Container>
     )
 }
@@ -88,7 +101,7 @@ const Container = styled.section`
     margin-bottom: 2.8rem;
 `
 const TitleWrapper = styled.div`
-   ${FlexStart}
+    ${FlexStart}
 `
 
 const Highlight = styled.span`
@@ -101,21 +114,21 @@ const Highlight = styled.span`
 `
 
 const DescWrapper = styled.div`
-   ${FlexBetween}
-   ${tw`tw-font-normal tw-text-sm tw-text-left`}
+    ${FlexBetween}
+    ${tw`tw-font-normal tw-text-sm tw-text-left`}
    margin-top: 3.4rem;
-   line-height: 2.2rem;
-   letter-spacing: -0.015em;
+    line-height: 2.2rem;
+    letter-spacing: -0.015em;
 
-   div + div {
+    div + div {
         margin-top: 0.4rem;
-   }
-   .send-option {
+    }
+    .send-option {
         margin-top: 1.6rem;
-   }
-   .grey {
+    }
+    .grey {
         ${tw`tw-font-light tw-text-grey-600`}
-   }
+    }
 `
 const Divider = styled.div`
     ${tw`tw-border-2 tw-border-solid tw-border-grey-200`}
@@ -126,7 +139,7 @@ const SenderWrapper = styled.div`
     ${tw`tw-text-sm tw-text-right`}
     line-height: 22px;
     letter-spacing: -0.015em;
-    
+
     .send-date + .sender-name {
         margin-top: 0.4rem;
     }
@@ -140,7 +153,7 @@ const SenderWrapper = styled.div`
     }
 
     .sender-name {
-         ${tw`tw-font-normal tw-text-grey-800`}
+        ${tw`tw-font-normal tw-text-grey-800`}
     }
 `
 
