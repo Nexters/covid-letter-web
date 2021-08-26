@@ -55,7 +55,7 @@ const MainSidebar = ({isShow, logined, closeFn, logout}: MainSidebarProps) => {
                                     <span style={{marginRight: '1.7rem'}}>💬</span>자주 묻는 질문
                                 </>
                             ),
-                            link: '#', // 외부링크
+                            link: 'https://bit.ly/2UPQeah',
                         },
                         {
                             title: (
@@ -63,7 +63,7 @@ const MainSidebar = ({isShow, logined, closeFn, logout}: MainSidebarProps) => {
                                     <span style={{marginRight: '1.7rem'}}>💡</span>서비스 피드백
                                 </>
                             ),
-                            link: '#', // 외부링크
+                            link: 'https://bit.ly/3jjntvT',
                         },
                         ...logoutValue,
                     ]}
