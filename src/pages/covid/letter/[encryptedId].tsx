@@ -7,13 +7,14 @@ import ROUTES from '$constants/routes'
 import {useProfileContext} from '$contexts/ProfileContext'
 import HalfLayer from '$components/layer/HalfLayer'
 import {useState} from 'react'
-import Back from '$components/appbar/Back'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import Divider from '$components/letter/Divider'
 import {css} from '@emotion/react'
 import ServicePromotion from '$components/letter/ServicePromotion'
 import ConfirmButton from '$components/letter/ConfirmButton'
+import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
+import CommonHeader from '$components/header/CommonHeader'
 
 const LetterDetail = ({letter}: {letter: Letter}) => {
     const router = useRouter()
@@ -21,7 +22,13 @@ const LetterDetail = ({letter}: {letter: Letter}) => {
     const [isShowServicePromotion, setIsShowServicePromotion] = useState<boolean>(false)
 
     const {title, contents, createdDate} = letter
-    const questionText = letter.questionText ?? (<>질문없이 자유롭게 적은<br/>나의 이야기</>)
+    const questionText = letter.questionText ?? (
+        <>
+            질문없이 자유롭게 적은
+            <br />
+            나의 이야기
+        </>
+    )
     const finishReadLetter = () => {
         if (profile?.id) {
             router.push(ROUTES.COVID.LETTER.LIST)
@@ -30,10 +37,15 @@ const LetterDetail = ({letter}: {letter: Letter}) => {
 
         setIsShowServicePromotion(true)
     }
+    const handleHeader = () => {
+        router.push({
+            pathname: ROUTES.COVID.MAIN,
+        })
+    }
 
     return (
         <>
-            <Back backgroundColor={'var(--beige-200)'}/>
+            <CommonHeader type={HEADER_TYPE.BACK} position={HEADER_POSITION.LEFT} onClick={handleHeader} />
             <Container>
                 <TitleWrap>
                     <span className="title-text">{title}</span>
@@ -44,20 +56,27 @@ const LetterDetail = ({letter}: {letter: Letter}) => {
                     </div>
                 </TitleWrap>
 
-                <Divider css={dividerCss}/>
+                <Divider css={dividerCss} />
                 <ContentsWrap>
                     <div>{contents}</div>
                 </ContentsWrap>
-                <Divider css={dividerCss}/>
+                <Divider css={dividerCss} />
 
                 <QuestionWrap>
-                    <div><span className="description">당시 받았던 질문</span></div>
-                    <div><span className="question-text">{questionText}</span></div>
+                    <div>
+                        <span className="description">당시 받았던 질문</span>
+                    </div>
+                    <div>
+                        <span className="question-text">{questionText}</span>
+                    </div>
                 </QuestionWrap>
             </Container>
             <EndReadButton onClick={finishReadLetter}>다 읽었어요!</EndReadButton>
 
-            <HalfLayer isShow={isShowServicePromotion} closeFn={() => setIsShowServicePromotion(false)} bgColor={'var(--beige-200)'}>
+            <HalfLayer
+                isShow={isShowServicePromotion}
+                closeFn={() => setIsShowServicePromotion(false)}
+                bgColor={'var(--beige-200)'}>
                 <ServicePromotion />
             </HalfLayer>
         </>
@@ -65,14 +84,15 @@ const LetterDetail = ({letter}: {letter: Letter}) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const {encryptedId} = context.query;
+    const {encryptedId} = context.query
     const letter = await withAxios<Letter>({
         url: `/letters/${encryptedId}`,
         method: 'GET',
     })
 
     if (letter.state === LetterState.SEND) {
-        withAxios<Letter>({ //읽음처리는 호출결과 기다릴 필요없음
+        withAxios<Letter>({
+            //읽음처리는 호출결과 기다릴 필요없음
             url: `/letters/${encryptedId}/state`,
             method: 'PUT',
         })
@@ -81,7 +101,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
             letter,
-        }
+        },
     }
 }
 
