@@ -58,7 +58,14 @@ const LetterDetail = ({letter}: {letter: Letter}) => {
 
                 <Divider css={dividerCss} />
                 <ContentsWrap>
-                    <div>{contents}</div>
+                    <div>
+                        {contents.split('\n').map((text, index) => (
+                            <span key={`${index}-${text}`}>
+                                {text}
+                                <br />
+                            </span>
+                        ))}
+                    </div>
                 </ContentsWrap>
                 <Divider css={dividerCss} />
 
