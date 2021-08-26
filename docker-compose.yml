@@ -7,7 +7,7 @@ services:
         ports:
             - '80:80'
         volumes:
-            - ./deployment/configs/nginx.conf:/etc/nginx/nginx.conf
+            - ./deployment/configs/${NGINX_CONF_NAME}.conf:/etc/nginx/nginx.conf
             - ./deployment/configs/variable.conf:/etc/nginx/variable.conf
             - ./deployment/certs/halo-its.me_20210825XB0Z.ca-bundle.pem:/etc/ssl/certs/halo-its.me_20210825XB0Z.ca-bundle.pem
             - ./deployment/certs/halo-its.me_20210825XB0Z.key.pem:/etc/ssl/certs/halo-its.me_20210825XB0Z.key.pem
