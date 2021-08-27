@@ -7,12 +7,13 @@ import IconEraser from '$assets/icons/IconEraser'
 import useWindowResize from '$hooks/useWindowResize'
 import {isMobileOnly} from 'react-device-detect'
 import {useRef} from 'react'
+import {FontNanumBarunGothic} from '$styles/utils/font'
 
 export const MAX_LETTER_ANSWER_LENGTH = 1000
 export const MAX_LETTER_TITLE_LENGTH = 12
 
 const Answer = () => {
-    const {answer, title, addTitle, resetAnswer} = useLetterStore()
+    const {answer, title, addTitle, resetAnswer, questionId} = useLetterStore()
     const {confirm} = useAlertStore()
     const handleReset = () => {
         confirm({
@@ -55,7 +56,15 @@ const Answer = () => {
             </TitleInputWrapper>
             <hr className="divider" />
             <AnswerInputWrapper>
-                <AutoTextArea maxHeight={maxHeight} ref={answerRef} />
+                <AutoTextArea
+                    maxHeight={maxHeight}
+                    ref={answerRef}
+                    placeholder={
+                        questionId !== null
+                            ? '질문에 편하게 대답하면 돼.\n그 외에 하고 싶은 말도 자유롭게 적어줘.'
+                            : '오늘의 기분, 미래의 나에게 전하고 싶은 메시지 등\n하고 싶은 말을 자유롭게 적어주면 돼.'
+                    }
+                />
                 <div className="sub-items">
                     <span className="answer-length">
                         {answer.length}/{MAX_LETTER_ANSWER_LENGTH}
@@ -86,7 +95,8 @@ const AnswerWrapper = styled.section`
 `
 
 const TitleInputWrapper = styled.div`
-    ${tw`tw-bg-beige-200 tw-font-ohsquare-air tw-text-grey-800`}
+    ${tw`tw-bg-beige-200 tw-text-lg tw-text-grey-800`}
+    ${FontNanumBarunGothic('normal')}
     display: flex;
     justify-content: space-between;
     align-items: center;
