@@ -19,7 +19,7 @@ const BottomWrapper = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    ${({isMobile}: {isMobile: boolean}) => (isMobile ? `` : `min-width: 420px;`)}
+    ${({isMobile}: {isMobile: boolean}) => (isMobile ? `` : `max-width: 420px;`)}
     width: 100%;
     margin: 0 auto;
 `
@@ -105,7 +105,7 @@ const TitleInputWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-width: 19.5rem;
+    width: 100%;
     font-size: 1.8rem;
     height: 4.2rem;
 
