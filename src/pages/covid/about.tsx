@@ -13,7 +13,7 @@ import tw from 'twin.macro'
 const TitleSection = styled.div`
     ${FlexCenter}
     ${FontOhsquareAir}
-    ${tw`tw-text-2xl tw-text-center`}
+    ${tw`tw-text-2xl tw-text-center tw-text-primary-green-500`}
     margin-top: 3.6rem;
 `
 
