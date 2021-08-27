@@ -5,35 +5,41 @@ import {getCurrentDate} from '$utils/date'
 import {useLetterStore} from '$contexts/StoreContext'
 import {observer} from 'mobx-react-lite'
 import {FontNanumBarunGothic} from '$styles/utils/font'
+import {useEffect, useState} from 'react'
 
-const INITIAL_ID = 1
+const INITIAL_ID = 0
 
 const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
     const {questionId, setQuestionId} = useLetterStore()
+    const [currentQuestionIdx, setCurrentQuestionIdx] = useState<number>(INITIAL_ID)
 
     const clickNextQuestion = () => {
-        if (questionId !== null) {
-            const isLastQuestion = questionId === Object.keys(questions).length - 1
-            if (isLastQuestion) {
-                setQuestionId(INITIAL_ID)
-            } else {
-                setQuestionId(questionId + 1)
-            }
-        } else setQuestionId(INITIAL_ID)
+        if (currentQuestionIdx === Object.keys(questions).length - 1) {
+            setCurrentQuestionIdx(INITIAL_ID)
+            setQuestionId(questions[INITIAL_ID].id)
+        } else {
+            setCurrentQuestionIdx(currentQuestionIdx + 1)
+            setQuestionId(questions[currentQuestionIdx + 1].id)
+        }
     }
 
     const clickFreeQuestion = () => {
+        setCurrentQuestionIdx(-1)
         setQuestionId(null)
     }
+
+    useEffect(() => {
+        setQuestionId(questions[INITIAL_ID].id)
+    }, [])
 
     return (
         <QuestionContainer>
             <QuestionWrapper>
                 {questionId !== null ? (
                     <>
-                        <span className="question-number">질문 {questionId}</span>
+                        <span className="question-number">질문 {currentQuestionIdx + 1}</span>
                         <h3>
-                            {questions[questionId].text?.split('\n').map((text) => (
+                            {questions[currentQuestionIdx].text?.split('\n').map((text) => (
                                 <span key={text}>
                                     {text}
                                     <br />

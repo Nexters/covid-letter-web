@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
         const questionByOption = getRandomQuestion(questions.filter((question) => !question.commonOptionId))
         const commonQuestion = getRandomQuestion(questions.filter((question) => question.commonOptionId))
-        const questionArr = [{id: -1, text: '', commonOptionId: false}, ...questionByOption, ...commonQuestion]
+        const questionArr = [...questionByOption, ...commonQuestion]
 
         res.status(200).json({
             code: RESPONSE.NORAML,
