@@ -42,6 +42,7 @@ const createLetter = (): LetterState => {
         },
 
         addTitle(title: string) {
+            if (title.length > 12) return
             this.title = title || ''
         },
 
