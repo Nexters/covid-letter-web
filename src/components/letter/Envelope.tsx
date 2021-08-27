@@ -130,8 +130,9 @@ const DescWrapper = styled.div`
         ${tw`tw-font-light tw-text-grey-600`}
     }
 `
-const Divider = styled.div`
-    ${tw`tw-border-2 tw-border-solid tw-border-grey-200`}
+const Divider = styled.hr`
+    ${tw`tw-border-grey-200`}
+    border-top-width: 0.2rem;
     margin: 3.2rem 0 2.4rem 0;
 `
 
