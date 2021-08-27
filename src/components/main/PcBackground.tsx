@@ -101,7 +101,7 @@ const PcBackground = () => {
         const patternHeight = patternColRef.current?.clientHeight
 
         if (patternHeight) {
-            const numOfColPatterns = Math.ceil(document.body.clientHeight / patternHeight)
+            const numOfColPatterns = Math.ceil(window.innerHeight / patternHeight)
             setNumOfNeededPatterns(numOfColPatterns - 1)
         }
     }, [])

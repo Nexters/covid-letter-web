@@ -17,55 +17,62 @@ import {LetterStateTagFactory} from '$components/letter/LetterStateTagFactory'
 import Envelope from '$components/letter/Envelope'
 
 const Letters = ({letters}: {letters: Letter[]}) => {
-
     const [isShowEnvelope, setIsShowEnvelop] = useState<boolean>(false)
     const [openedLetter, setOpenedLetter] = useState<Letter | null>(null)
 
     const openEnvelope = (encryptedId: string) => {
-        setOpenedLetter(letters.filter(letter => letter.encryptedId === encryptedId)[0])
+        setOpenedLetter(letters.filter((letter) => letter.encryptedId === encryptedId)[0])
         setIsShowEnvelop(true)
     }
     const closeEnvelope = () => {
-        setOpenedLetter(null)
         setIsShowEnvelop(false)
     }
 
-    const letterList = letters.length === 0
-        ? <EmptyLetterListContainer />
-        : <ListContainer>
+    const onDestroyHalfLayer = () => {
+        setOpenedLetter(null)
+    }
+
+    const letterList =
+        letters.length === 0 ? (
+            <EmptyLetterListContainer />
+        ) : (
+            <ListContainer>
                 {letters.map(({title, state, sticker, createdDate, encryptedId, sendOptionText}, index) => (
                     <div key={encryptedId}>
                         <ItemContainer className="letter_item" onClick={() => openEnvelope(encryptedId)}>
                             <ItemTitleWrapper>
-                                <span className='text'>{title}</span>
+                                <span className="text">{title}</span>
                                 {LetterStateTagFactory(state)}
                             </ItemTitleWrapper>
                             <ItemDescWrapper>
-                                <div className='text-wrap'>
+                                <div className="text-wrap">
                                     작성일: {convertCommonDateFormat(createdDate)}
-                                    <br/>
+                                    <br />
                                     발송기준: {sendOptionText}
                                 </div>
                                 {StickerWithLetterFactory(sticker)}
                             </ItemDescWrapper>
                         </ItemContainer>
-                        {index !== letters.length - 1 && <Divider/>}
+                        {index !== letters.length - 1 && <Divider />}
                     </div>
                 ))}
-          </ListContainer>
+            </ListContainer>
+        )
 
     return (
         <>
             <Back />
             <Container>
                 <LettersContainer>
-                    <TitleContainer>작성한 편지 목록 <span className="icon-letter">✉️</span></TitleContainer>
+                    <TitleContainer>
+                        작성한 편지 목록 <span className="icon-letter">✉️</span>
+                    </TitleContainer>
                     <SubTitle>과거의 내가 작성한 편지들이야.</SubTitle>
                     {letterList}
                 </LettersContainer>
 
-                <HalfLayer isShow={isShowEnvelope} closeFn={closeEnvelope} >
-                    {openedLetter && (<Envelope letter={openedLetter} />)}
+                <HalfLayer isShow={isShowEnvelope} closeFn={closeEnvelope} onDestroyed={onDestroyHalfLayer}>
+                    {openedLetter && <Envelope letter={openedLetter} />}
                 </HalfLayer>
             </Container>
         </>
@@ -116,7 +123,7 @@ const ListContainer = styled.div`
     padding: 0.8rem 0;
 `
 const ItemContainer = styled.div`
-    cursor: pointer;    
+    cursor: pointer;
     margin: 1.6rem 0;
 `
 

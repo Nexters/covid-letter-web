@@ -13,7 +13,7 @@ import tw from 'twin.macro'
 const TitleSection = styled.div`
     ${FlexCenter}
     ${FontOhsquareAir}
-    ${tw`tw-text-2xl tw-text-center`}
+    ${tw`tw-text-2xl tw-text-center tw-text-primary-green-500`}
     margin-top: 3.6rem;
 `
 
@@ -24,7 +24,7 @@ const ImageSection = styled.div`
 `
 
 const IntroSection = styled.div`
-    background-color: rgba(246, 244, 232, 0.8);
+    ${tw`tw-bg-beige-200`}
     border-radius: 2.4rem 2.4rem 0px 0px;
     padding: 4rem 2.4rem 3.2rem;
 
