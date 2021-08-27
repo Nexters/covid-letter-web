@@ -37,7 +37,7 @@ const Img = styled.div`
 `
 
 const Intro = styled.div`
-    background-color: rgba(246, 244, 232, 0.8);
+    ${tw`tw-bg-beige-200`}
     border-radius: 2.4rem 2.4rem 0px 0px;
     padding: 4.2rem 2.4rem 3.2rem;
 `
