@@ -1,5 +1,5 @@
 import {withAxios} from '$utils/fetcher/withAxios'
-import {GOOGLE, ORIGIN_DOMAIN} from '$config'
+import {GOOGLE} from '$config'
 import {GoogleLoginResponse, useGoogleLogin} from 'react-google-login'
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
@@ -62,9 +62,6 @@ const GoogleLoginButton = ({returnUrl, isMobile}: GoogleLoginButtonProps) => {
         clientId: GOOGLE.CLIENT_ID,
         onSuccess,
         onFailure,
-        uxMode: 'redirect',
-        isSignedIn: true,
-        redirectUri: `${ORIGIN_DOMAIN}${returnUrl}`,
     })
     return (
         <Button onClick={signIn} isMobile={isMobile}>
