@@ -5,7 +5,7 @@ import {isSSR} from '$utils/env'
 import {createMockAxiosInstance} from '$utils/__mocks__/fetcher/createMockAxiosInstance'
 import axios, {AxiosInstance} from 'axios'
 import {HOST_URL} from 'config'
-import {AuthInterceptor} from './AuthInterceptor'
+import {rejectInterceptor, resolveInterceptor} from './AuthInterceptor'
 
 export interface MockAxiosInstance {
     target: AxiosInstance
@@ -62,7 +62,7 @@ export const createErrorResponse = <T>(data: T): Response<T> => ({
 
 const createAxiosInstance = () => {
     const instance = axios.create()
-    instance.interceptors.response.use(AuthInterceptor)
+    instance.interceptors.response.use(resolveInterceptor, rejectInterceptor)
     return extendWithMock(instance)
 }
 
