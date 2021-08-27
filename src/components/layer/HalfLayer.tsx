@@ -4,6 +4,7 @@ import bezierEasing from 'bezier-easing'
 import styled from '@emotion/styled'
 import React, {PropsWithChildren} from 'react'
 import Overlay from '$components/overlay'
+import {noop} from '$utils/index'
 
 const Container = styled.div`
     position: fixed;
@@ -36,9 +37,17 @@ interface HalfLayerProps {
     isShowOverlay?: boolean
     bgColor?: string
     closeFn: (e: React.SyntheticEvent) => void
+    onDestroyed?: () => void
 }
 
-const HalfLayer = ({children, isShow, isShowOverlay = true, closeFn, bgColor = '#fff'}: PropsWithChildren<HalfLayerProps>) => {
+const HalfLayer = ({
+    children,
+    isShow,
+    isShowOverlay = true,
+    closeFn,
+    bgColor = '#fff',
+    onDestroyed = noop,
+}: PropsWithChildren<HalfLayerProps>) => {
     const {Portal} = usePortal()
 
     const transitions = useTransition(isShow, {
@@ -49,6 +58,11 @@ const HalfLayer = ({children, isShow, isShowOverlay = true, closeFn, bgColor = '
             duration: 300,
             easing: bezierEasing(0.33, 0, 0.2, 1),
         },
+        onDestroyed: (prevIsShow: boolean) => {
+            if (prevIsShow) {
+                onDestroyed()
+            }
+        },
     })
 
     return (
@@ -57,7 +71,9 @@ const HalfLayer = ({children, isShow, isShowOverlay = true, closeFn, bgColor = '
                 return (
                     item && (
                         <Container>
-                            <Content style={props} bgColor={bgColor}>{children}</Content>
+                            <Content style={props} bgColor={bgColor}>
+                                {children}
+                            </Content>
                             <Overlay shouldScrollLock isShow={isShowOverlay} position={'fixed'} closeFn={closeFn} />
                         </Container>
                     )
