@@ -153,6 +153,7 @@ const ContentsWrap = styled.section`
     min-height: 35.6rem;
     padding: 2.4rem;
     letter-spacing: -0.015em;
+    word-break: break-word;
 `
 
 const QuestionWrap = styled.section`
