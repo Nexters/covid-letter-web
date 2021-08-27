@@ -82,7 +82,11 @@
     },
     "lint-staged": {
         "**/*.{json,yaml,md}": "prettier --check",
-        "**/*.{js,jsx,tsx}": "eslint"
+        "**/*.{js,jsx,tsx}": [
+            "eslint --fix",
+            "prettier --write",
+            "git add"
+        ]
     },
     "husky": {
         "hooks": {
