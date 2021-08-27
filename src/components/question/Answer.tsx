@@ -23,7 +23,7 @@ const Answer = () => {
                 resetAnswer()
             },
             successText: '응, 지울래!',
-            cancelText: '아니',
+            cancelText: '아니!',
         })
         return
     }

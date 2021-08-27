@@ -46,8 +46,8 @@ const NewLetter = ({
                 router.push(ROUTES.COVID.LETTER.OPTION)
                 resetStore()
             },
-            successText: '응, 할래!',
-            cancelText: '아니, 안할래',
+            successText: '응, 뒤로 갈래!',
+            cancelText: '아니!',
         })
         return
     }
