@@ -6,6 +6,9 @@ import tw from 'twin.macro'
 import LoginImage from 'assets/images/LoginImage'
 import {FlexCenter} from '$styles/utils/layout'
 import {FontNanumBarunGothic, FontOhsquareAir} from '$styles/utils/font'
+import CommonHeader from '$components/header/CommonHeader'
+import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
+import {useRouter} from 'next/router'
 
 const Container = styled.div``
 
@@ -13,7 +16,7 @@ const Title = styled.div`
     ${FlexCenter}
     ${FontOhsquareAir}
     ${tw`tw-text-center tw-text-xl tw-text-primary-green-500`}
-    padding-top: 8rem;
+    padding-top: 3.2rem;
 `
 
 const SubTitle = styled.div`
@@ -71,8 +74,13 @@ const ButtonContainer = styled.div`
 `
 
 const Login = ({isMobile}: {isMobile: boolean}) => {
+    const router = useRouter()
+    const goMain = () => {
+        router.replace(ROUTES.COVID.MAIN)
+    }
     return (
         <Container>
+            <CommonHeader type={HEADER_TYPE.CLOSE} position={HEADER_POSITION.RIGHT} onClick={goMain} />
             <Title>
                 나에게 보내는 편지
                 <br />
