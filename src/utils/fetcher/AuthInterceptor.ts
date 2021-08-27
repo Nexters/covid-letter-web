@@ -1,4 +1,4 @@
-import {AxiosResponse} from 'axios'
+import {AxiosError, AxiosResponse} from 'axios'
 import {RESPONSE} from '$constants'
 import {Response} from '$types/response'
 import {AccessTokenError, CommonApiError, RedirectArror} from './ApiError'
@@ -6,7 +6,7 @@ import {AccessTokenError, CommonApiError, RedirectArror} from './ApiError'
 /**
  * @todo 회원 인증 에러 추가
  */
-export function AuthInterceptor<T>(res: AxiosResponse<Response<T>>): T {
+export function resolveInterceptor<T>(res: AxiosResponse<Response<T>>): T {
     const code = res.data.code
 
     switch (code) {
@@ -19,4 +19,24 @@ export function AuthInterceptor<T>(res: AxiosResponse<Response<T>>): T {
         default:
             return res.data.result
     }
+}
+
+class ErrorTable {
+    statusCode?: number
+    cookie?: string
+    requestUrl?: string
+    constructor(statusCode?: number, cookie?: string, requestUrl?: string) {
+        this.statusCode = statusCode
+        this.cookie = cookie
+        this.requestUrl = requestUrl
+    }
+}
+
+export function rejectInterceptor(error: AxiosError) {
+    const statusCode = error.response?.status
+    const {headers, url} = error.config
+    const errorTable = new ErrorTable(statusCode, headers?.Authorization, url)
+
+    console.table(errorTable)
+    throw error
 }
