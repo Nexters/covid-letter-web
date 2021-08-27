@@ -24,7 +24,6 @@ const Content = styled(animated.div)`
     right: 0;
     bottom: 0;
     z-index: 10;
-    background-color: ${({bgColor}: {bgColor: string}) => bgColor};
     box-sizing: border-box;
     text-align: center;
     border-top-left-radius: 1rem;
@@ -71,9 +70,7 @@ const HalfLayer = ({
                 return (
                     item && (
                         <Container>
-                            <Content style={props} bgColor={bgColor}>
-                                {children}
-                            </Content>
+                            <Content style={{...props, backgroundColor: bgColor}}>{children}</Content>
                             <Overlay shouldScrollLock isShow={isShowOverlay} position={'fixed'} closeFn={closeFn} />
                         </Container>
                     )
