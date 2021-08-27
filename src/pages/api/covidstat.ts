@@ -4,7 +4,8 @@ import {NextApiRequest, NextApiResponse} from 'next'
 import {CovidStatResponse} from '$types/response/stat'
 import {API_URL_BASE} from '$config/index'
 import axios, {AxiosResponse} from 'axios'
-import {numberFormat} from '$utils/index'
+import {numberFormat, pad1Digits} from '$utils/index'
+import {format} from 'date-fns'
 
 const parseToNumber = ({
     vaccinated,
@@ -13,41 +14,48 @@ const parseToNumber = ({
     confirmedPer,
     cured,
     curedPer,
-    ...rest
-}: CovidStatResponse<number>): CovidStatResponse<string> => ({
-    vaccinated: numberFormat(vaccinated),
-    vaccinatedPer: numberFormat(vaccinatedPer),
-    confirmed: numberFormat(confirmed),
-    confirmedPer: numberFormat(confirmedPer),
-    cured: numberFormat(cured),
-    curedPer: numberFormat(curedPer),
-    ...rest,
-})
+}: CovidStatResponse): Omit<CovidStatResponse, 'date' | 'lettersSend' | 'lettersPending'> => {
+    const padVaccinated = pad1Digits(+vaccinated)
+    const padVaccinatedPer = pad1Digits(+vaccinatedPer)
+    return {
+        vaccinated: numberFormat(+padVaccinated),
+        vaccinatedPer: numberFormat(+padVaccinatedPer),
+        confirmed: numberFormat(+confirmed),
+        confirmedPer: numberFormat(+confirmedPer),
+        cured: numberFormat(+cured),
+        curedPer: numberFormat(+curedPer),
+    }
+}
 
-const routes = async (req: NextApiRequest, res: NextApiResponse<Response<CovidStatResponse<string>>>) => {
+const routes = async (req: NextApiRequest, res: NextApiResponse<Response<CovidStatResponse>>) => {
     try {
         const {
             data: {data},
-        }: AxiosResponse<ServerResponse<CovidStatResponse<number>>> = await axios.get(`${API_URL_BASE}/covidstat`, {
+        }: AxiosResponse<ServerResponse<CovidStatResponse>> = await axios.get(`${API_URL_BASE}/covidstat`, {
             headers: req.headers,
         })
 
-        const result = parseToNumber(data)
+        const covidStats = parseToNumber(data)
 
-        res.status(200).json(createResponse<CovidStatResponse<string>>(result))
+        res.status(200).json(
+            createResponse<CovidStatResponse>({
+                ...data,
+                ...covidStats,
+            }),
+        )
         return
     } catch {
         res.status(200).json(
-            createResponse<CovidStatResponse<string>>({
-                date: '2021-08-23',
-                vaccinated: '11,112,222', // 2차 접종 완료자 수   <-- 접종 완료율로 변경 필요!!
-                vaccinatedPer: '22,222', // 2차 접종 완료자 수 (전일대비 증감량) <-- 접종 완료율로 변경 필요!!
-                confirmed: '111,111', // 확진자수
-                confirmedPer: '1,112', // 확진자수 (전일대비 증감량)
-                cured: '222,222', // 완치자수
-                curedPer: '2,222', // 완치자수 (전일대비 증감량)
-                lettersSend: 11, // 발송된 편지
-                lettersPending: 2, // 미발송 편지수
+            createResponse<CovidStatResponse>({
+                date: format(new Date(), 'yyyy-MM-dd'),
+                vaccinated: '0', // 2차 접종 완료율
+                vaccinatedPer: '0', // 2차 접종 완료율 (전일대비 증감량)
+                confirmed: '0', // 확진자수
+                confirmedPer: '0', // 확진자수 (전일대비 증감량)
+                cured: '0', // 완치자수
+                curedPer: '0', // 완치자수 (전일대비 증감량)
+                lettersSend: 0, // 발송된 편지
+                lettersPending: 0, // 미발송 편지수
             }),
         )
     }

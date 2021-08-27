@@ -23,9 +23,11 @@ const MainLayout = ({children, isMobile, isGoogleLogin}: PropsWithChildren<MainL
     const logout = useLogout(isGoogleLogin)
     const {alert} = useAlertStore()
 
-    const logoutPage = () => {
+    const logoutPage = (shouldOpenResultAlert = true) => {
         logout()
         clearUser()
+
+        if (!shouldOpenResultAlert) return
         if (!isMobile) {
             alert({
                 title: '로그아웃 됐어. 다시 돌아올거지?',
