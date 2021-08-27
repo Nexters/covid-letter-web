@@ -46,7 +46,7 @@ const Finish = () => {
                             <span className="name">To. {profile?.name}</span>
                             <span className="email">{profile?.email}</span>
                             <span className="option">발송 기준</span>
-                            <span className="option-text">{optionText}</span>
+                            <span className="option-text">{optionText || '미정'}</span>
                         </div>
                         <div className="img-square">{StampFactory(optionId || null, '11.2rem')}</div>
                     </LetterDescription>
