@@ -25,7 +25,7 @@ const Title = styled.div`
 
 const LetterButton = styled.button`
     ${FontNanumBarunGothic('semibold')}
-    ${tw`tw-w-full tw-text-base tw-text-primary-green-500 hover:tw-text-primary-green-500 hover:tw-bg-grey-100 focus:tw-bg-grey-100`}
+    ${tw`tw-w-full tw-text-base tw-text-primary-green-500 hover:tw-text-primary-green-500 hover:tw-bg-beige-400 focus:tw-bg-beige-400`}
     padding: 1.35rem 0;
     background-color: transparent;
     border: 2px solid var(--primary-green-500);
