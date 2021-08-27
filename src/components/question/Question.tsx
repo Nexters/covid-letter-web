@@ -39,7 +39,7 @@ const NewLetterQuestion = ({questions}: {questions: Question[]}) => {
                     <>
                         <span className="question-number">질문 {currentQuestionIdx + 1}</span>
                         <h3>
-                            {questions[currentQuestionIdx].text?.split('\n').map((text) => (
+                            {questions[currentQuestionIdx]?.text?.split('\n').map((text) => (
                                 <span key={text}>
                                     {text}
                                     <br />
