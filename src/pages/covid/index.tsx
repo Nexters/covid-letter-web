@@ -3,10 +3,10 @@ import {numberFormat} from '$utils/index'
 import {withAxios} from '$utils/fetcher/withAxios'
 import styled from '@emotion/styled'
 import HomeImage from 'assets/images/HomeImage'
-import {GetServerSidePropsContext, InferGetServerSidePropsType} from 'next'
+import {InferGetServerSidePropsType} from 'next'
 import tw from 'twin.macro'
 import AnalyzeSection from '$components/main/AnalyzeSection'
-import {PropsFromApp, ValueMap} from '$types/index'
+import {PropsFromApp} from '$types/index'
 import MyLetterSection from '$components/main/MyLetterSection'
 import StatBadge from '$components/main/StatBadge'
 import {useAlertStore, useAuthStore} from '$contexts/StoreContext'
@@ -20,8 +20,6 @@ import useNumberAnimation from '$hooks/useNumberAnimation'
 import {animated} from 'react-spring'
 import MainLayout from '$components/layout/MainLayout'
 import {useEffect} from 'react'
-import cookies from 'next-cookies'
-import {getIntervalFromTodayToNextday} from '$utils/date'
 
 const Container = styled.div`
     ${tw`tw-bg-beige-300`}
@@ -194,27 +192,33 @@ const Main = ({
  *
  * @todo 코로나 통계, 편지 통계 가져올 때 활용
  */
-export async function getServerSideProps({req, res}: GetServerSidePropsContext) {
-    const {covidApiResult} = cookies({req})
-    if (covidApiResult) {
-        return {
-            props: Object.assign({}, covidApiResult as unknown as ValueMap) as CovidStatResponse<string>,
-        }
-    }
-    const stats = await withAxios<CovidStatResponse<string>>({
+export async function getServerSideProps() {
+    /**
+     * @deprecated 쿠키에 캐싱된 데이터 리턴하는 로직
+     */
+    // const {covidApiResult} = cookies({req})
+    // if (covidApiResult) {
+    //     return {
+    //         props: Object.assign({}, covidApiResult as unknown as ValueMap) as CovidStatResponse,
+    //     }
+    // }
+
+    const stats = await withAxios<CovidStatResponse>({
         url: '/covidstat',
     })
 
     if (!stats) {
         return {
-            props: {} as CovidStatResponse<string>,
+            props: {} as CovidStatResponse,
             notFound: true,
         }
     }
 
-    const maxAge = getIntervalFromTodayToNextday()
-
-    res?.setHeader('Set-Cookie', `covidApiResult=${JSON.stringify(stats)}; path=/; max-age=${maxAge}`)
+    /**
+     * @deprecated 쿠키에 캐싱하는 로직
+     */
+    // const maxAge = getIntervalFromTodayToNextday()
+    // res?.setHeader('Set-Cookie', `covidApiResult=${JSON.stringify(stats)}; path=/; max-age=${maxAge}`)
 
     return {
         props: {...stats},
