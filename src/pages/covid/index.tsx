@@ -70,8 +70,8 @@ const AnimatedSpan = styled(animated.span)`
 `
 
 const Main = ({
-    vaccinated, // 2차 접종 완료자 수   <-- 접종 완료율로 변경 필요!!
-    vaccinatedPer, // 2차 접종 완료자 수 (전일대비 증감량) <-- 접종 완료율로 변경 필요!!
+    vaccinated, // 2차 접종 완료율
+    vaccinatedPer, // 2차 접종 완료율 (전일대비 증감량)
     confirmed, // 확진자수
     confirmedPer, // 확진자수 (전일대비 증감량)
     cured, // 완치자수

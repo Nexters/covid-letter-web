@@ -14,8 +14,7 @@ const parseToNumber = ({
     confirmedPer,
     cured,
     curedPer,
-    ...rest
-}: CovidStatResponse): CovidStatResponse => {
+}: CovidStatResponse): Omit<CovidStatResponse, 'date' | 'lettersSend' | 'lettersPending'> => {
     const padVaccinated = pad1Digits(+vaccinated)
     const padVaccinatedPer = pad1Digits(+vaccinatedPer)
     return {
@@ -25,7 +24,6 @@ const parseToNumber = ({
         confirmedPer: numberFormat(+confirmedPer),
         cured: numberFormat(+cured),
         curedPer: numberFormat(+curedPer),
-        ...rest,
     }
 }
 
@@ -37,9 +35,14 @@ const routes = async (req: NextApiRequest, res: NextApiResponse<Response<CovidSt
             headers: req.headers,
         })
 
-        const result = parseToNumber(data)
+        const covidStats = parseToNumber(data)
 
-        res.status(200).json(createResponse<CovidStatResponse>(result))
+        res.status(200).json(
+            createResponse<CovidStatResponse>({
+                ...data,
+                ...covidStats,
+            }),
+        )
         return
     } catch {
         res.status(200).json(
