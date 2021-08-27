@@ -38,6 +38,7 @@ const createLetter = (): LetterState => {
         },
 
         addAnswer(answer: string) {
+            if (answer.length > 1000) return
             this.answer = answer || ''
         },
 

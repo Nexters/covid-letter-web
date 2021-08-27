@@ -46,6 +46,7 @@ const AutoTextArea = forwardRef<HTMLTextAreaElement, {maxHeight: number; placeho
                     style={{
                         height: shouldResizeHeight ? `${viewHeight}px` : `auto`,
                     }}
+                    maxLength={1000}
                     onFocus={onFocus}
                     onBlur={onBlur}
                     ref={ref}
