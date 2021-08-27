@@ -48,7 +48,14 @@ const LetterDetail = ({letter}: {letter: Letter}) => {
 
     return (
         <>
-            <CommonHeader type={HEADER_TYPE.BACK} position={HEADER_POSITION.LEFT} onClick={handleHeader} />
+            <CommonHeader
+                style={{
+                    backgroundColor: 'var(--beige-200)',
+                }}
+                type={HEADER_TYPE.BACK}
+                position={HEADER_POSITION.LEFT}
+                onClick={handleHeader}
+            />
             <Container>
                 <TitleWrap>
                     <span className="title-text">{title}</span>
