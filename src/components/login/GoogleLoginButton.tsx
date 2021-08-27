@@ -62,6 +62,8 @@ const GoogleLoginButton = ({returnUrl, isMobile}: GoogleLoginButtonProps) => {
         clientId: GOOGLE.CLIENT_ID,
         onSuccess,
         onFailure,
+        uxMode: 'redirect',
+        isSignedIn: true,
     })
     return (
         <Button onClick={signIn} isMobile={isMobile}>
