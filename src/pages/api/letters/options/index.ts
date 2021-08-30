@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {COMMON_OPTION_ID, NO_OPTION_ID, RESPONSE} from '$constants'
+import {RESPONSE} from '$constants'
 import {LetterOption} from '$types/response/letter'
 import {Response, ServerResponse} from '$types/response'
 import axios, {AxiosResponse} from 'axios'
@@ -17,15 +17,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             throw new Error(message)
         }
 
-        const optionArray = options.reduce((pre: LetterOption[], option: LetterOption) => {
-            if (option.id !== COMMON_OPTION_ID && option.id !== NO_OPTION_ID) pre.push(option)
-            return pre
-        }, [])
+        const filteredOptions: LetterOption[] = options.filter((option) => option.id < 6)
 
         res.status(200).json({
             code: RESPONSE.NORAML,
             message: '',
-            result: optionArray.reverse(),
+            result: filteredOptions,
         })
     } catch (e) {
         res.status(500).json({
