@@ -32,14 +32,6 @@ const NaverLoginButton = ({returnUrl, isMobile}: NaverLoginButtonProps) => {
 
     const handleLogin = async () => {
         try {
-            /**
-             * @todo 네아로 검수 후 제거
-             */
-            alert({
-                title: '검수 진행 중이야:)',
-            })
-            return
-
             const res = await withAxios<AuthorizeResponse>({
                 url: `/login/naver/authorize`,
                 method: 'get',
