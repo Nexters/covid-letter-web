@@ -20,7 +20,7 @@ const listLetters = async (req: NextApiRequest, res: NextApiResponse<Response<Le
         }
 
         res.status(200).json({
-            code: RESPONSE.NORAML,
+            code: RESPONSE.NORMAL,
             message: '',
             result: letters.map((letter) => {
                 return {
