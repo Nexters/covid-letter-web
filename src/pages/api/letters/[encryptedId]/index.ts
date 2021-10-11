@@ -17,7 +17,7 @@ const getLetter = async (req: NextApiRequest, res: NextApiResponse<Response<Lett
         }
 
         res.status(200).json({
-            code: RESPONSE.NORAML,
+            code: RESPONSE.NORMAL,
             message: '',
             result: letter,
         })
