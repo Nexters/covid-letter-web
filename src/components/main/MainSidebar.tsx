@@ -7,9 +7,7 @@ import {SidebarButton} from '$components/main/types'
 import {useProfileContext} from '$contexts/ProfileContext'
 import LoginedWelcomeArea from '$components/main/LoginedWelcomeArea'
 import {EXTERNAL_URL} from '$constants'
-import {useAlertStore} from '$contexts/StoreContext'
-import {useEffect} from 'react'
-import {useRouter} from 'next/router'
+import useProfileError from '$hooks/useProfileError'
 
 const SidebarContainer = styled.div`
     padding: 3.2rem 0;
@@ -23,9 +21,9 @@ type MainSidebarProps = {
 }
 
 const MainSidebar = ({isShow, logined, closeFn, logout}: MainSidebarProps) => {
-    const {profile, error} = useProfileContext()
-    const {alert} = useAlertStore()
-    const router = useRouter()
+    const {profile} = useProfileContext()
+    useProfileError(() => logout(false))
+
     const logoutValue: SidebarButton[] = logined
         ? [
               {
@@ -41,22 +39,6 @@ const MainSidebar = ({isShow, logined, closeFn, logout}: MainSidebarProps) => {
               },
           ]
         : []
-
-    useEffect(() => {
-        if (error) {
-            logout(false)
-            alert({
-                title: `로그아웃되었어.\n다시 로그인해줄래?`,
-                successText: '다시 로그인할래',
-                onSuccess: () => {
-                    router.replace(ROUTES.LOGIN)
-                },
-                onClose: () => {
-                    router.replace(ROUTES.LOGIN)
-                },
-            })
-        }
-    }, [error])
 
     return (
         <Sidebar isShow={isShow} closeFn={closeFn}>

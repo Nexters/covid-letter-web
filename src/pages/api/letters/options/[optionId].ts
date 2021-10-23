@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const questionArr = [...questionByOption, ...commonQuestion]
 
         res.status(200).json({
-            code: RESPONSE.NORAML,
+            code: RESPONSE.NORMAL,
             message: '',
             result: {
                 ...questionArr,

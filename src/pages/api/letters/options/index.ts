@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const filteredOptions: LetterOption[] = options.filter((option) => option.id < 6)
 
         res.status(200).json({
-            code: RESPONSE.NORAML,
+            code: RESPONSE.NORMAL,
             message: '',
             result: filteredOptions,
         })

@@ -1,7 +1,9 @@
 import {ResponseCode} from 'types/response'
 import {StickerType} from '$types/response/letter'
 
-export const RESPONSE: {[key in string]: ResponseCode} = {
+type ResponseType = 'NORMAL' | 'ERROR' | 'REDIRECT' | 'INVALID_ACCESS_TOKEN'
+
+export const RESPONSE: {[key in ResponseType]: ResponseCode} = {
     NORMAL: '00',
     ERROR: '99',
     REDIRECT: '01',
