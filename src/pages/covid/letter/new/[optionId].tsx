@@ -17,6 +17,7 @@ import {PropsFromApp} from '$types/index'
 import CommonHeader from '$components/header/CommonHeader'
 import {HEADER_POSITION, HEADER_TYPE} from '$components/header/constants'
 import {MainButton} from '$styles/utils/components'
+import {isLocalEnv} from '$utils/env'
 
 const NewLetter = ({
     questions,
@@ -86,7 +87,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const questions = res
 
     /** 튜토리얼 한번 보고 더이상 띄우지 않기 */
-    if (!tutorialOpen) {
+    if (!tutorialOpen && !isLocalEnv) {
         context.res?.setHeader('Set-Cookie', `tutorialOpen=${'opened'}; path=/; HttpOnly`)
     }
 
