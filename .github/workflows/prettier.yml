@@ -6,20 +6,13 @@ on:
 
 jobs:
   check:
-    name: Prettier & Lint Check
-    runs-on: [self-hosted]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '16'
           check-latest: true
-
-      - name: Install packages
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Prettier
-        run: npm run prettier
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run prettier
