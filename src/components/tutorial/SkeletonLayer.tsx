@@ -209,7 +209,7 @@ const TutorialMessage = ({
     textBottom?: boolean
     spacing?: number
 }) => {
-    console.log('test임')
+    console.log('test임??')
     const targetWidth = target ? Array.prototype.slice.call(target)[0].width : 0
 
     return (
