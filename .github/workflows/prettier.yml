@@ -9,12 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
           check-latest: true
       - run: npm ci
       - run: npm run lint
-      - uses: creyD/prettier_action@v4.2
-        with:
-          prettier_options: --check .
+      - run: npm run prettier:fix
+      - with:
+          commit_message: 🚨 Apply formatting changes
+          branch: ${{ github.head_ref }}
