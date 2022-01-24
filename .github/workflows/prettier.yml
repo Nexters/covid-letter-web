@@ -17,4 +17,8 @@ jobs:
           check-latest: true
       - run: npm ci
       - run: npm run lint
-      - run: npx prettier -c .
+      - run: npm run prettier:fix
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 🚨 Apply formatting changes
+          branch: ${{ github.head_ref }}
