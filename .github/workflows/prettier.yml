@@ -15,4 +15,6 @@ jobs:
           check-latest: true
       - run: npm ci
       - run: npm run lint
-      - run: npx prettier '**/*.{json,yaml}' -c
+      - uses: creyD/prettier_action@v4.2
+        with:
+          prettier_options: --check .
