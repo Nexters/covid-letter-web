@@ -18,9 +18,8 @@
         "docker:build:production": "NEXT_PUBLIC_ENV=production NGINX_CONF_NAME=nginx  docker-compose up -d --build",
         "lint": "cross-env NEXT_PUBLIC_ENV=local next lint",
         "prettier:fix": "prettier '**/*.{json,yaml}' --write",
-        "test": "jest --config=jest.config.js",
-        "test:local": "cross-env NEXT_PUBLIC_ENV=local jest --watch",
-        "test:watch": "jest --config=jest.config.js --watch",
+        "test": "cross-env NEXT_PUBLIC_ENV=local jest --config=jest.config.js",
+        "test:watch": "cross-env NEXT_PUBLIC_ENV=local jest --config=jest.config.js --watch",
         "style": "tailwindcss -i src/styles/index.css -o public/assets/styles/index.css"
     },
     "dependencies": {
