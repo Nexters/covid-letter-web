@@ -6,6 +6,17 @@ export default class CustomDocument extends Document {
         return (
             <Html lang="ko">
                 <Head>
+                    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L9C81HMX88"></script>
+                    <script
+                        dangerouslySetInnerHTML={{
+                            __html: `
+                                window.dataLayer = window.dataLayer || [];
+                                function gtag(){dataLayer.push(arguments);}
+                                gtag('js', new Date());
+
+                                gtag('config', 'G-L9C81HMX88');
+                            `,
+                        }}></script>
                     <meta charSet="utf-8" />
                     <link
                         rel="preload"

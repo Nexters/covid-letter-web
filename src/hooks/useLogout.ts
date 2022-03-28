@@ -1,6 +1,7 @@
 import {useGoogleLogout} from 'react-google-login'
 import {GOOGLE} from '$config'
 import {withAxios} from '$utils/fetcher/withAxios'
+import {noop} from '$utils/index'
 
 const useLogout = (isGoogleLogin: boolean) => {
     const requestLogout = async () => {
@@ -11,7 +12,7 @@ const useLogout = (isGoogleLogin: boolean) => {
 
     const {signOut} = useGoogleLogout({
         clientId: GOOGLE.CLIENT_ID,
-        onLogoutSuccess: requestLogout,
+        onLogoutSuccess: noop,
         onFailure: () => {
             console.error('구글 계정 로그아웃에 실패했습니다.')
         },
@@ -20,8 +21,8 @@ const useLogout = (isGoogleLogin: boolean) => {
     return () => {
         if (isGoogleLogin) {
             signOut()
-            return
         }
+
         requestLogout()
     }
 }
